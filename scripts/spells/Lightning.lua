@@ -29,8 +29,8 @@ return spell.init{
         return {
             image         = 10,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = "Цепная молния["..tostring(lvl).." уровень]",
-            info          = " Заклинание высвобождающе цепную молнию по направлению руки, задевая основную цель и других вокруг кроме вас.\n\n Урон молнии зависит от \"магической силы\" и уровня навыка.",
+            name          = "LightningN["..tostring(lvl).." уровень]",
+            info          = "LightningD",
             magicAffinity = "Combat",
             targetingType = "cell",
             level         = 1,
@@ -43,7 +43,7 @@ return spell.init{
     local level = RPD.Dungeon.level
     
     if RPD.Dungeon.hero:lvl() <= 4 then
-     RPD.glog("-- Для использования навыка вам нужен 5+ уровень")
+     RPD.glog("-- LvlLimit")
      return false
     end
     

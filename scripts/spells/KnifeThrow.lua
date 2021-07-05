@@ -29,8 +29,8 @@ return spell.init{
         return {
             image         = 29,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = "Бросок отравленого ножа["..tostring(lvl).." уровень]",
-            info          = " Точный бросок, обеспечивающий идеальное убийство.\n\n При попадании накладывает дебаффы: \"Яд\", \"Паралич\". Длительность паралича равна 4 ходам. Длительность яда растёт со \"скоростью\" и уровнем навыка. Урон ножа растёт с \"физической силой\".",
+            name          = "KnifeThrowN["..tostring(lvl).." уровень]",
+            info          = "KnifeThrowD",
             magicAffinity = "Combat",
             targetingType = "cell",
             level         = 1,
@@ -41,7 +41,7 @@ return spell.init{
     end,
     castOnCell = function(self, spell, chr, cell)
      if RPD.Dungeon.hero:lvl() <= 4 then
-     RPD.glog("-- Для использования навыка вам нужен 5+ уровень")
+     RPD.glog("-- LvlLimit")
      return false
     end
     Count = storage.gameGet(a) or {}

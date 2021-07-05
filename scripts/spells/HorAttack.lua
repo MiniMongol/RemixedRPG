@@ -34,8 +34,8 @@ return spell.init{
         return {
             image         = 23,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = "Атакующая стойка №2: Вертикальный удар["..tostring(lvl).." уровень]",
-            info          = " Мягкий, но тяжёлый удар, сопоставимый с потоком водопада.\n\n Навык отправляет в выбраном направлении ударную волну. Дальность удара растёт с уровнем навыка, вплоть до 5. Урон растёт с ростом \"скорости\", \"физической силы\", урона оружия и уровня навыка",
+            name          = "HorAttackN["..tostring(lvl).." уровень]",
+            info          = "HorAttackD",
             magicAffinity = "Combat",
             targetingType = "cell",
             level         = 1,
@@ -49,7 +49,7 @@ return spell.init{
     local level = RPD.Dungeon.level
     local hero = RPD.Dungeon.hero
      if RPD.Dungeon.hero:lvl() <= 4 then
-     RPD.glog("-- Для использования навыка вам нужен 5+ уровень")
+     RPD.glog("-- LvlLimit")
      return false
     end
       

@@ -29,8 +29,8 @@ return spell.init{
         return {
             image         = 18,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = "Крик жизни["..tostring(lvl).." уровень]",
-            info          = " Крик, вырывающийся от нежеланья слишком рано покидать этот мир.\n\n Накладывает на героя щит, размер которого растёт от недостающего здоровья.",
+            name          = "BloodShieldN["..tostring(lvl).." уровень]",
+            info          = "BloodShieldD",
             magicAffinity = "Combat",
             targetingType = "self",
             level         = 1,
@@ -41,7 +41,7 @@ return spell.init{
     end,
     cast = function(self, spell, chr, cell)
     if RPD.Dungeon.hero:lvl() <= 5 then
-     RPD.glog("-- Для использования навыка вам нужен 5+ уровень")
+     RPD.glog("-- LvlLimit")
      return false
     end
     Count = storage.gameGet(a) or {}

@@ -29,8 +29,8 @@ return spell.init{
         return {
             image         = 1,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = "Магический выстрел["..tostring(lvl).." уровень]",
-            info          = " Заклинание высвобождающее вашу ману в виде сферы по направлению руки.\n\n Урон сферы зависит от \"магической силы\" и уровня навыка,снижается с расстоянием.",
+            name          = "MagicBoltN["..tostring(lvl).." уровень]",
+            info          = "MagicBoltD",
             magicAffinity = "Combat",
             targetingType = "cell",
             level         = 1,

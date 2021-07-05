@@ -30,8 +30,8 @@ return spell.init{
         return {
             image         = 2,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = "Техника теневого клонирования["..tostring(lvl).." уровень]",
-            info          = " Древняя техника ниндзюцу, позволяющая пользователю создавать теневых клонов, а самому уходить в невидимость на время. Является базовой техникой.\n\n Клон исчезает через время. Длительность невидимости и клона растёт с уровнем навыка.",
+            name          = "ShadowCloneN["..tostring(lvl).." уровень]",
+            info          = "ShadowCloneD",
             magicAffinity = "Combat",
             targetingType = "cell",
             level         = 1,
@@ -48,7 +48,7 @@ return spell.init{
      exp = Count.exp
      expMax = Count.expMax
      if level:getTileType(cell) == 4 or level:getTileType(cell) == 12 or RPG.distance(cell) >= math.min(lvl+1,5) then
-      RPD.glog("** Вы не можете разместить там своего клона. Слишком далеко")
+      RPD.glog("** ShadowCloneLimit")
       return false
      else
       exp = exp+1

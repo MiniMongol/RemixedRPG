@@ -118,8 +118,8 @@ return spell.init{
         return {
             image         = 31,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = "Установка ловушки["..tostring(lvl).." уровень]",
-            info          = "Подлый, но зарекомендовавший себя метод засад.\n\n Позволяет установить одну из пяти ловушек: \"огненную\", \"взрывную\", \"калечащую\", \"ледяную\" и \"ядовитую\". Урон первой растёт от уровня. Урон второй растёт от \"физической силы\" и уровнем. Урон третьей растёт с \"физической силой\" и уровнем. Урон четвёртой растёт с \"магической силой\" и уровнем. Урон последней растёт со \"скоростью\" и уровнем навыка.",
+            name          = "PlaceTrapN["..tostring(lvl).." уровень]",
+            info          = "PlaceTrapD",
             magicAffinity = "Combat",
             targetingType = "cell",
             level         = 1,
@@ -131,15 +131,15 @@ return spell.init{
     castOnCell = function(self, spell, chr,cell)
     
     if RPD.Dungeon.hero:lvl() <= 4 then
-     RPD.glog("-- Для использования навыка вам нужен 5+ уровень")
+     RPD.glog("-- LvlLimit")
      return false
     end
     if RPG.subclass ~= nil and RPG.subclass ~= "Bandit" then
-      RPD.glog("-- Вы не имеете соответсвующего подкласса")
+      RPD.glog("-- SubclassLimit")
       return false
     end
     if RPG.distance(cell) > lvl then
-      RPD.glog("** Выберете место поближе")
+      RPD.glog("** DistanceLimit)
       return false
     end
     

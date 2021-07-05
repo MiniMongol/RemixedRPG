@@ -33,7 +33,7 @@ return buff.init{
           Spell.expMax = Spell.expMax+6
           Spell.lvl = Spell.lvl+1
          end
-        enemy:damage(math.random(damage,damage+math.ceil(RPG.physStr()*0.1 + RPG.AllFast()*0.1)),hero)
+        enemy:damage(math.random(damage,damage+math.ceil(RPG.physStr()*0.1 + RPG.AllFast()*(0.2+0.05*Spell.lvl))),hero)
       RPD.zapEffect(RPD.Dungeon.hero:getPos(),enemy:getPos(),"CommonArrow")
         buff:detach()
       else

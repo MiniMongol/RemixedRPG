@@ -34,8 +34,8 @@ return spell.init{
         return {
             image         = 8,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = "Кровавые шипы["..tostring(lvl).." уровень]",
-            info          = " Из вашей крови вырастают шипы, что пронизают врагов. Данную технику практикуют демонологи.\n\n Каждая вторая атака этим навыком сопровождается круговой атакой шипами вырастающих из цели. Урон растёт с вашей \"магической силой\", \"здоровьем\" и уровнем навыка. Затраты \"здоровья\" растут с уровнем навыка.",
+            name          = "BloodSpikesN["..tostring(lvl).." уровень]",
+            info          = "BloodSpikesD",
             magicAffinity = "Combat",
             targetingType = "cell",
             level         = 1,
@@ -50,11 +50,11 @@ return spell.init{
     Count = storage.gameGet(a) or {}
     
     if RPD.Dungeon.hero:lvl() <= 4 then
-     RPD.glog("-- Для использования навыка вам нужен 5+ уровень")
+     RPD.glog("-- LvlLimit")
      return false
     end
     if RPG.subclass ~= nil and RPG.subclass ~= "Demonologist" then
-      RPD.glog("-- Вы не имеете соответсвующего подкласса")
+      RPD.glog("-- SubclassLimit")
       return false
     end
     
@@ -65,14 +65,14 @@ return spell.init{
      staks = Count.staks
      bloodPoison = Count.bp
      if RPG.distance(cell) >= lvl+1 then
-      RPD.glog("** Вы не можете атаковать с такого расстояния.")
+      RPD.glog("** DistanceLimit")
       return false
      else
      cost = math.ceil(lvl*1.5 + RPG.distance(cell) + hero:ht()*0.1)
      if hero:hp() > cost then
         hero:damage(cost,hero)
      else
-        RPD.glog("-- Критическое состояние здоровья")
+        RPD.glog("-- HpLimit")
         return false
       end
       RPD.playSound("snd_blood_spikes.wav")

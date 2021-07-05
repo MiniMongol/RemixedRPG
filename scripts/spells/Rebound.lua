@@ -33,8 +33,8 @@ return spell.init{
         return {
             image         = 12,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = "Отскок["..tostring(lvl).." уровень]",
-            info          = " Отскок от врага на некоторое расстояние и отталкивание врага на клетку от вас.\n\n Дальность отскока растёт с уровнем навыка вплоть до 3. Навык имеет максимум 3 уровень.",
+            name          = "ReboundN["..tostring(lvl).." уровень]",
+            info          = "ReboundD",
             magicAffinity = "Combat",
             targetingType = "cell",
             level         = 1,
@@ -49,12 +49,12 @@ return spell.init{
     local hero = RPD.Dungeon.hero
     
     if RPD.Dungeon.hero:lvl() <= 4 then
-     RPD.glog("-- Для использования навыка вам нужен 5+ уровень")
+     RPD.glog("-- LvlLimit")
      return false
     end
     
     if RPG.subclass ~= nil and RPG.subclass ~= "Archer" then
-      RPD.glog("-- Вы не имеете соответсвующего подкласса")
+      RPD.glog("-- SubclassLimit")
       return false
     end
     
@@ -64,7 +64,7 @@ return spell.init{
      exp = Count.exp
      expMax = Count.expMax
      if RPG.distance(cell) ~= 0 or cell == hero:getPos() or RPD.Actor:findChar(cell) == Nil then
-      RPD.glog("** Вы можете сделать отскок лишь вплотную с врагом")
+      RPD.glog("** ReboundLimit")
       return false
      else
       exp = exp+1

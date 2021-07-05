@@ -29,8 +29,8 @@ return spell.init{
         return {
             image         = 22,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = "Атакующая стойка №1: Круговой удар["..tostring(lvl).." уровень]",
-            info          = " Круговой удар, словно ветер прорезающий облака.\n\n Урон растёт с вашей \"скоростью\", \"физической силой\", уроном экипированного оружия и уровнем навыка.",
+            name          = "CircleAttackN["..tostring(lvl).." уровень]",
+            info          = "CircleAttackD",
             magicAffinity = "Combat",
             targetingType = "self",
             level         = 1,
@@ -44,7 +44,7 @@ return spell.init{
     local hero = RPD.Dungeon.hero
     
     if RPD.Dungeon.hero:lvl() <= 0 then
-     RPD.glog("-- Для использования навыка вам нужен 5+ уровень")
+     RPD.glog("-- LvlLimit")
      return false
     end
     

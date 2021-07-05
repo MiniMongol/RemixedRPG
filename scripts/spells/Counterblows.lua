@@ -31,8 +31,8 @@ return spell.init{
         return {
             image         = 7,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = "Защитная стойка №1: Контрудары["..tostring(lvl).." уровень]",
-            info          = " Вы встаёте в особую стойку, в течении времени с некоторым шансом вы отражаете удар противника обратно.\n\n Шанс отражения растёт с вашей \"скоростью\", \"удачей\" и уровнем навыка. Количество отражаемого урона растёт с уровнем навыка.",
+            name          = "CounterblowsN["..tostring(lvl).." уровень]",
+            info          = "CounterblowsD",
             magicAffinity = "Combat",
             targetingType = "self",
             level         = 1,
@@ -45,11 +45,11 @@ return spell.init{
     hero = RPD.Dungeon.hero
     
     if RPD.Dungeon.hero:lvl() <= 4 then
-     RPD.glog("-- Для использования навыка вам нужен 5+ уровень")
+     RPD.glog("-- LvlLimit")
      return false
     end
     if RPG.subclass ~= nil and RPG.subclass ~= "Samurai" then
-      RPD.glog("-- Вы не имеете соответсвующего подкласса")
+      RPD.glog("-- SubclassLimit")
       return false
     end
     

@@ -30,8 +30,8 @@ return spell.init{
         return {
             image         = 6,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = "Терзатель душ["..tostring(lvl).." уровень]",
-            info          = " Удары оружием и голыми руками становятся способны нанести урон не только плоти, но и душе.\n\n Дополнительный урон наносится каждые два удара. Дополнительный урон увеличивается с ростом \"магической силы\" и уровня навыка, длительность растёт с уровнем навыка ",
+            name          = "SoulsTormentorN["..tostring(lvl).." уровень]",
+            info          = "SoulsTormentorD",
             magicAffinity = "Combat",
             targetingType = "self",
             level         = 1,
@@ -44,11 +44,11 @@ return spell.init{
     local hero = RPD.Dungeon.hero
     
     if RPD.Dungeon.hero:lvl() <= 4 then
-     RPD.glog("-- Для использования навыка вам нужен 5+ уровень")
+     RPD.glog("-- LvlLimit")
      return false
     end
     if RPG.subclass ~= nil and RPG.subclass ~= "BladeOfMind" then
-      RPD.glog("-- Вы не имеете соответсвующего подкласса")
+      RPD.glog("-- SubclassLimit")
       return false
     end
     

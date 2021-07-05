@@ -29,8 +29,8 @@ return spell.init{
         return {
             image         = 11,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = "Ускорение["..tostring(lvl).." уровень]",
-            info          = " Вы увеличиваете свою скорость передвижения на короткий промежуток времени.\n\n Получаемое ускорение увеличивается с ростом \"магической силы\" и уровня навыка, длительность баффа растёт с уровнем навыка.",
+            name          = "FastRunN["..tostring(lvl).." уровень]",
+            info          = "FastRunD",
             magicAffinity = "Combat",
             targetingType = "self",
             level         = 1,
@@ -44,11 +44,11 @@ return spell.init{
     local hero = RPD.Dungeon.hero
     
     if RPD.Dungeon.hero:lvl() <= 4 then
-     RPD.glog("-- Для использования навыка вам нужен 5+ уровень")
+     RPD.glog("-- LvlLimit")
      return false
     end
     if RPG.subclass ~= nil and RPG.subclass ~= "Enchanter" then
-      RPD.glog("-- Вы не имеете соответсвующего подкласса")
+      RPD.glog("-- SubclassLimit")
       return false
     end
     
@@ -70,8 +70,6 @@ return spell.init{
      expMax = 4
      storage.gamePut(a,{exp = exp, expMax = expMax, lvl = lvl})
     end
-    RPD.playSound("body_armor")
-    RPD.removeBuff(RPD.Dungeon.hero,"SteelBodyBuff")
     RPD.affectBuff(RPD.Dungeon.hero, "FastRunBuff", 1+1.5*lvl)
  return true
    end

@@ -29,8 +29,8 @@ return spell.init{
         return {
             image         = 4,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = "Золотое тело["..tostring(lvl).." уровень]",
-            info          = " Вы увеличиваете прочность мышц, тем самым увеличивая свою защиту.\n\n Получаемая защита увеличивается с ростом \"здоровья\" и уровня навыка.",
+            name          = "SteelBodyN["..tostring(lvl).." уровень]",
+            info          = "SteelBodyD",
             magicAffinity = "Combat",
             targetingType = "self",
             level         = 1,
@@ -42,11 +42,11 @@ return spell.init{
     cast = function(self, spell, chr, cell)
     
     if RPD.Dungeon.hero:lvl() <= 4 then
-     RPD.glog("-- Для использования навыка вам нужен 5+ уровень")
+     RPD.glog("-- LvlLimit")
      return false
     end
     if RPG.subclass ~= nil and RPG.subclass ~= "Paladin" and RPG.subclass ~= "Demonologist" then
-      RPD.glog("-- Вы не имеете соответсвующего подкласса")
+      RPD.glog("-- SubclassLimit")
       return false
     end
     

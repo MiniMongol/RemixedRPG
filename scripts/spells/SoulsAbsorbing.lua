@@ -31,8 +31,8 @@ return spell.init{
         return {
             image         = 16,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = "Духовное насыщение["..tostring(lvl).." уровень]",
-            info          = " Забирая по кусочку души всех близлежащих врагов, вы чувствуете прилив сил.\n\n Накладывает на ближайших врагов дебафф \"слабость\", а также увеличивает вашу скорость атаки. Усиление растёт с количеством задетых врагов и уровнем навыка, а длительность с уровнем навыка и половиной количества задетых врагов. Площадь применения зависит лишь от уровня навыка.",
+            name          = "SoulsAbsorbingN["..tostring(lvl).." уровень]",
+            info          = "SoulsAbsorbingD",
             magicAffinity = "Combat",
             targetingType = "self",
             level         = 1,
@@ -44,7 +44,7 @@ return spell.init{
     cast = function(caster, spell, chr, cell)
     local hero = RPD.Dungeon.hero
     if hero:lvl() <= 4 then
-     RPD.glog("-- Для использования навыка вам нужен 5+ уровень")
+     RPD.glog("-- LvlLimit")
      return false
     end
     Count = storage.gameGet(a) or {}

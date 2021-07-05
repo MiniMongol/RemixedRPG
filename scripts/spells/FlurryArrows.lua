@@ -30,8 +30,8 @@ return spell.init{
         return {
             image         = 24,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = "Шквал стрел["..tostring(lvl).." уровень]",
-            info          = " Атака несколькими стрелами в одну цель.\n\n Количество выпускаемых стрел растёт с уровнем.",
+            name          = "FluryArrowsN["..tostring(lvl).." уровень]",
+            info          = "FluryArrowsD",
             magicAffinity = "Combat",
             targetingType = "self",
             level         = 1,
@@ -42,7 +42,7 @@ return spell.init{
     end,
     cast = function(self, spell, chr, cell)
     if RPD.Dungeon.hero:lvl() <= 4 then
-     RPD.glog("-- Для использования навыка вам нужен 5+ уровень")
+     RPD.glog("-- LvlLimit")
      return false
     end
     

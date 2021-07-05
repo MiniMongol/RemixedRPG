@@ -267,8 +267,8 @@ return spell.init{
         return {
             image         = 0,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = "Окно статуса",
-            info          = "Открывает окно статуса персонажа",
+            name          = "StatsN",
+            info          = "StatsD",
             magicAffinity = "Combat",
             targetingType = "self",
             level         = 1,
