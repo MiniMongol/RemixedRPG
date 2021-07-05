@@ -29,8 +29,8 @@ return spell.init{
         return {
             image         = 22,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = "Рассечение["..tostring(lvl).." уровень]",
-            info          = " Круговой удар, разрубающий своих врагов.\n\n Урон растёт с вашей \"физической силой\" и уроном экипированного оружия",
+            name          = "DissectionN["..tostring(lvl).." уровень]",
+            info          = "DissectionD",
             magicAffinity = "Combat",
             targetingType = "self",
             level         = 1,
@@ -44,11 +44,11 @@ return spell.init{
     local hero = RPD.Dungeon.hero
     
     if RPD.Dungeon.hero:lvl() <= 4 then
-     RPD.glog("-- Для использования навыка вам нужен 5+ уровень")
+     RPD.glog("-- LvlLimit")
      return false
     end
     if RPG.subclass ~= nil and RPG.subclass ~= "Berserk" and RPG.subclass ~= "BattleMage" then
-      RPD.glog("-- Вы не имеете соответсвующего подкласса")
+      RPD.glog("-- SubclassLimit")
       return false
     end
     

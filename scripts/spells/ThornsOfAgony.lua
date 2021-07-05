@@ -44,6 +44,12 @@ return spell.init{
     local hero = RPD.Dungeon.hero
     local level = RPD.Dungeon.level
     Count = storage.gameGet(a) or {}
+	
+	if RPD.Dungeon.hero:lvl() <= 4 then
+     RPD.glog("-- LvlLimit")
+     return false
+    end
+	
     if Count.lvl ~= nil then
      lvl = Count.lvl
      exp = Count.exp

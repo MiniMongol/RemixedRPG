@@ -32,8 +32,8 @@ return spell.init{
         return {
             image         = 32,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = "Яростные души["..tostring(lvl).." уровень]",
-            info          = " Второе заклинание из ряда \"запретных\". Выпускает по прямой сгусток душ мёртвых.\n\n Сгусток проходит сквозь костяных големов и лечит их, но сталкивается и наносит урон остальным. Урон растёт с \"магической силой\" и уровнем навыка.",
+            name          = "RageSoulsN["..tostring(lvl).." уровень]",
+            info          = "RageSoulsD",
             magicAffinity = "Combat",
             targetingType = "cell",
             level         = 1,
@@ -47,7 +47,7 @@ return spell.init{
     local level = RPD.Dungeon.level
     local hero = RPD.Dungeon.hero
      if RPD.Dungeon.hero:lvl() <= 4 then
-     RPD.glog("-- Для использования навыка вам нужен 5+ уровень")
+     RPD.glog("-- LvlLimit")
      return false
     end
       

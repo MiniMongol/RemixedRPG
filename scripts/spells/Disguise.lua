@@ -29,8 +29,8 @@ return spell.init{
         return {
             image         = 13,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = "Маскировка["..tostring(lvl).." уровень]",
-            info          = " Умение сливаться с окружающей местностью, для становления незаметным.\n\n Навык нельзя использовать в присутствии врагов. Длительность скрытности растёт с уровнем, сила скрытности увеличивается с ростом \"скорости\" и уровня",
+            name          = "DisguiseN["..tostring(lvl).." уровень]",
+            info          = "DisguiseD",
             magicAffinity = "Combat",
             targetingType = "self",
             level         = 1,
@@ -43,11 +43,11 @@ return spell.init{
     Count = storage.gameGet(a) or {}
     local hero = RPD.Dungeon.hero
     if RPD.Dungeon.hero:lvl() <= 4 then
-     RPD.glog("-- Для использования навыка вам нужен 5+ уровень")
+     RPD.glog("-- LvlLimit")
      return false
     end
     if RPG.subclass ~= nil and RPG.subclass ~= "Bandit" then
-      RPD.glog("-- Вы не имеете соответсвующего подкласса")
+      RPD.glog("-- SubclassLimit")
       return false
     end
     if Count.lvl ~= nil then
@@ -70,7 +70,7 @@ return spell.init{
      local duration = 3+2*lvl 
 
         if hero:visibleEnemies() > 0 then
-            RPD.glogn("Вы не можете замаскироваться когда рядом враги!")
+            RPD.glogn("-- DisguiseLimit")
             return false
         end
 

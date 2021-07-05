@@ -30,8 +30,8 @@ return spell.init{
         return {
             image         = 30,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = "Кровавая жадность["..tostring(lvl).." уровень]",
-            info          = " Неимоверная алчность, бурлящая в вашем сердце, питает вас.\n\n При активации автоатаки лечат от части нанесённого урона. Длительность и количество лечения растёт с уровнем навыка",
+            name          = "BloodyGreedN["..tostring(lvl).." уровень]",
+            info          = "BloodyGreedD",
             magicAffinity = "Combat",
             targetingType = "self",
             level         = 1,
@@ -44,7 +44,7 @@ return spell.init{
     Count = storage.gameGet(a) or {}
     
     if RPD.Dungeon.hero:lvl() <= 4 then
-     RPD.glog("-- Для использования навыка вам нужен 5+ уровень")
+     RPD.glog("-- LvlLimit")
      return false
     end
     

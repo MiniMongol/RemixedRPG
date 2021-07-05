@@ -29,8 +29,8 @@ return spell.init{
         return {
             image         = 14,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = "Высвобождение ки: Печать["..tostring(lvl).." уровень]",
-            info          = " Ки принимает форму печати. Печати, что используют ниндзя способны нанести урон врагу или наделить пользователя магическии щитом.\n\n При использовании на героя, он получает магический щит, что поглощает входящий урон. При использовании в сторону, пользователь кинет печать, если печать столкнется с врагом, то печать нанесёт ему урон, и наложит на него \"метку ки\ на 3 хода.Если на выбранном враге уже действует \"метка ки\", то вы получаете \"невидимость\" на 3 хода. Прочность щита с печати и урон с печати увеличивается с ростом \"магической силы\" и уровня скилла.",
+            name          = "SealOfKiN["..tostring(lvl).." уровень]",
+            info          = "SealOfKiD",
             magicAffinity = "Combat",
             targetingType = "cell",
             level         = 1,
@@ -41,11 +41,11 @@ return spell.init{
     end,
     castOnCell = function(self, spell, chr, cell)
     if RPD.Dungeon.hero:lvl() <= 4 then
-     RPD.glog("-- Для использования навыка вам нужен 5+ уровень")
+     RPD.glog("-- LvlLimit")
      return false
     end
     if RPG.subclass ~= nil and RPG.subclass ~= "Ninja" and RPG.subclass ~= "Necromancer" then
-      RPD.glog("-- Вы не имеете соответсвующего подкласса")
+      RPD.glog("-- SubclassLimit")
       return false
     end
     

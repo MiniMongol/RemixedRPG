@@ -30,8 +30,8 @@ return spell.init{
         return {
             image         = 3,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = "Рубящий удар["..tostring(lvl).." уровень]",
-            info          = " Немного усиленный удар оставляющий кровоточащие раны.\n\n Урон от кровотечения зависит от \"физической силы\" и уровня навыка, длительность растёт с уровнем навыка.",
+            name          = "ChopN["..tostring(lvl).." уровень]",
+            info          = "ChopD",
             magicAffinity = "Combat",
             targetingType = "self",
             level         = 1,

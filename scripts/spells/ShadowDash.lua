@@ -34,8 +34,8 @@ return spell.init{
         return {
             image         = 15,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = "Теневой рывок["..tostring(lvl).." уровень]",
-            info          = " Рывок вперёд, наносящий урон всем на пути.\n\n Если в конце рывка кто нибудь есть, то вы отпрыгните от него на случайную свободную клетку рядом с ним. Дальность рывка растёт с уровнем навыка, вплоть до 4. Урон растёт с ростом \"физической силы\" и уровня навыка",
+            name          = "ShadowDashN["..tostring(lvl).." уровень]",
+            info          = "ShadowDashD",
             magicAffinity = "Combat",
             targetingType = "cell",
             level         = 1,
@@ -49,11 +49,11 @@ return spell.init{
     local level = RPD.Dungeon.level
     local hero = RPD.Dungeon.hero
     if RPD.Dungeon.hero:lvl() <= 4 then
-     RPD.glog("-- Для использования навыка вам нужен 5+ уровень")
+     RPD.glog("-- LvlLimit")
      return false
     end
     if RPG.subclass ~= nil and RPG.subclass ~= "Assassin" then
-      RPD.glog("-- Вы не имеете соответсвующего подкласса")
+      RPD.glog("-- SubclassLimit")
       return false
     end
     
@@ -63,7 +63,7 @@ return spell.init{
      exp = Count.exp
      expMax = Count.expMax
      if level:getTileType(cell) == 4 or level:getTileType(cell) == 12 or RPG.distance(cell) >= math.min(lvl+1,4) then
-      RPD.glog("** Вы не можете сделать рывок так далеко, или в стену!")
+      RPD.glog("** DashLimit")
       return false
      else
       exp = exp+1

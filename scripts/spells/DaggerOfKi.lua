@@ -30,8 +30,8 @@ return spell.init{
         return {
             image         = 27,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = "Высвобождение ки: Кинжал["..tostring(lvl).." уровень]",
-            info          = " Ки принимает форму кинжала, которым наносится следующая автоатака, наносящая дополнительный магический урон.\n\n Если враг находится в состоянии \"сна\", \"испуга\", \"парализованости\", \"буйства\", \"пассивности\" или вы находитесь в состоянии \"невидимости\", то наносимый урон увеличится. Если на вас деуствует \"магический щит\", то следующая автоатака также подлечит вас. Урон и лечение растёт с вашей \"магической силой\" и уровнем навыка.",
+            name          = "DaggerOfKiN["..tostring(lvl).." уровень]",
+            info          = "DaggerOfKiD",
             magicAffinity = "Combat",
             targetingType = "self",
             level         = 1,
@@ -44,7 +44,7 @@ return spell.init{
     Count = storage.gameGet(a) or {}
     
     if RPD.Dungeon.hero:lvl() <= 4 then
-     RPD.glog("-- Для использования навыка вам нужен 5+ уровень")
+     RPD.glog("-- LvlLimit")
      return false
     end
     

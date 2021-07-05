@@ -29,8 +29,8 @@ return spell.init{
         return {
             image         = 25,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = "Дождь стрел["..tostring(lvl).." уровень]",
-            info          = " Дождь, что обрушивает на врагов страдания, в лице тысячи стрел.\n\n Урон растёт с вашей \"физической силой\", \"скоростью\" и уровнем навыка. Дальность действия растёт с уровнем навыка",
+            name          = "RainOfArrowsN["..tostring(lvl).." уровень]",
+            info          = "RainOfArrowsD",
             magicAffinity = "Combat",
             targetingType = "cell",
             level         = 1,
@@ -44,21 +44,21 @@ return spell.init{
     local hero = RPD.Dungeon.hero
     local weapon = hero:getBelongings().weapon
     if RPD.Dungeon.hero:lvl() <= 4 then
-     RPD.glog("-- Для использования навыка вам нужен 5+ уровень")
+     RPD.glog("-- LvlLimit")
      return false
     end
     
       if weapon:goodForMelee() == true or weapon:getClassName() == "DummyItem" then
-        RPD.glog("-- Навык \"Дождь стрел\" используется только с луком")
+        RPD.glog("-- RainOfArrowsLimit")
         return false
       end
       
     if level:getTileType(cell) == 4 or level:getTileType(cell) == 12 then
-      RPD.glog("-- Вы не можете использовать навык на стену!")
+      RPD.glog("-- WallLimit")
       return false
     end
     if RPG.distance(cell) >= math.min(1+lvl,4) then
-      RPD.glog("-- Вы не можете использовать навык так далеко!")
+      RPD.glog("-- DistanceLimit")
       return false
     end
     

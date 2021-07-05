@@ -30,8 +30,8 @@ return spell.init{
         return {
             image         = 33,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = "Костяное облачение["..tostring(lvl).." уровень]",
-            info          = " Третье заклинание из разряда \"Запретных\", позволяющее облачиться в костяные доспехи.\n\n С каждым ходом бонусная защита растёт. Накапливает часть получаемого урона для преобразования его в лечение или восстановление маны в зависимости от носителя облачения. Для героя идёт преобразование в ману, а для големов в здоровье. Избыточная накопленная энергия выплёскивается наружу и наносит урон окружающим.",
+            name          = "BoneArmorN["..tostring(lvl).." уровень]",
+            info          = "BoneArmorD",
             magicAffinity = "Combat",
             targetingType = "cell",
             level         = 1,
@@ -43,6 +43,12 @@ return spell.init{
     castOnCell = function(self, spell, chr, cell)
     local hero = RPD.Dungeon.hero
     Count = storage.gameGet(a) or {}
+	
+	 if RPD.Dungeon.hero:lvl() <= 4 then
+     RPD.glog("-- LvlLimit")
+     return false
+    end
+	
     if Count.lvl ~= nil then
      lvl = Count.lvl
      exp = Count.exp

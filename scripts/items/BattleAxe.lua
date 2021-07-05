@@ -36,7 +36,7 @@ return item.init{
             sInfo = statsInfo,
             dstats = stats
             },
-            name          = "Боевой топор: "..tostring(math.max(stra-item:level(),1)),
+            name          = "BattleAxe_Name: "..tostring(math.max(stra-item:level(),1)),
             price         = 20*2^(tier-1)+30*item:level(),
             stackable     = false,
             upgradable    = true,
@@ -46,11 +46,11 @@ return item.init{
     info = function(self,item)
       hero = RPD.Dungeon.hero
       str = stra-item:level()
-      local info = "В каждом взмахе этого грозного оружия чувствуется вес огромного стального лезвия. \n\nБоевой топор - оружие ближнего боя "..tostring(tier).." порядка. Средний урон составляет "..tostring(math.ceil((maxDmg+minDmg+tier*item:level()*2)/2)).." единиц за удар и, как правило, требует "..stra.." очков силы. Это довольно меткое оружие.\n\n"..self.data.sInfo
+      local info = "BattleAxeDesc"..self.data.sInfo
       if hero:STR() >= str then
         return info
       else
-        return info.."\n Это оружие слишком тяжёлое для вас. При ношении ваша скорость и меткость будут снижены."
+        return info.."WeaponLimit"
       end
     end,
     

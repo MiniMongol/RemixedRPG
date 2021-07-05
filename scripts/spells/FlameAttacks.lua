@@ -30,8 +30,8 @@ return spell.init{
         return {
             image         = 21,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = "Тлеющие удары["..tostring(lvl).." уровень]",
-            info          = " Удары оружием и голыми руками доводят врагов до состояния хрустящей корочки.\n\n Дополнительный урон наносится каждую автоатаку. Цель, находящаяся под дебаффом \"Метка пламени\", получает увеличенный урон от навыка. Дополнительный урон увеличивается с ростом \"магической силы\" и уровня навыка, длительность растёт с уровнем навыка.",
+            name          = "FlameAttacksN["..tostring(lvl).." уровень]",
+            info          = "FlameAttacksD",
             magicAffinity = "Combat",
             targetingType = "self",
             level         = 1,
@@ -44,7 +44,7 @@ return spell.init{
     local hero = RPD.Dungeon.hero
     
     if RPD.Dungeon.hero:lvl() <= 4 then
-     RPD.glog("-- Для использования навыка вам нужен 5+ уровень")
+     RPD.glog("-- LvlLimit")
      return false
     end
     

@@ -30,8 +30,8 @@ return spell.init{
         return {
             image         = 28,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = "Скрытный удар["..tostring(lvl).." уровень]",
-            info          = " Сокрытие присутствия и крепко сжатое оружие в руках - лучшее для скрытного удара.\n\n Если враг находится в состоянии \"сна\", \"испуга\", \"парализованости\", \"буйства\", \"пассивности\" или вы находитесь в состоянии \"невидимости\", то наносимый урон увеличится. Урон растёт с вашей \"физической силой\" и уровнем навыка.",
+            name          = "ShadowDaggerN"..tostring(lvl).." уровень]",
+            info          = "ShadowDaggerD",
             magicAffinity = "Combat",
             targetingType = "self",
             level         = 1,
@@ -44,7 +44,7 @@ return spell.init{
     Count = storage.gameGet(a) or {}
     
     if RPD.Dungeon.hero:lvl() <= 4 then
-     RPD.glog("-- Для использования навыка вам нужен 5+ уровень")
+     RPD.glog("-- LvlLimit)
      return false
     end
     

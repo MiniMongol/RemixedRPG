@@ -29,8 +29,8 @@ return spell.init{
         return {
             image         = 26,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = "Высвобождение ки: Коса["..tostring(lvl).." уровень]",
-            info          = " Ки принимает форму косы, несущую разрушения.\n\n Наносит урон выбранному врагу рядом с вами, накладывает на него \"метку ки\" на 3 хода, а также наносит урон вокруг вас. Если на выбранном враге уже действует \"метка ки\", то вы получаете \"невидимость\" на 3 хода. Урон растёт с вашей \"магической силой\" и уровнем навыка.",
+            name          = "BraidOfKiN["..tostring(lvl).." уровень]",
+            info          = "BraidOfKiD",
             magicAffinity = "Combat",
             targetingType = "cell",
             level         = 1,
@@ -44,11 +44,11 @@ return spell.init{
     local hero = RPD.Dungeon.hero
     
     if RPD.Dungeon.hero:lvl() <= 0 then
-     RPD.glog("-- Для использования навыка вам нужен 5+ уровень")
+     RPD.glog("-- LvlLimit")
      return false
     end
     if RPG.distance(cell) ~= 0 then
-      RPD.glog("-- Слишком далеко")
+      RPD.glog("** DistanceLimit")
       return false
     end
     

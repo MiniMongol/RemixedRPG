@@ -30,8 +30,8 @@ return spell.init{
         return {
             image         = 17,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = "Хаос мыслей["..tostring(lvl).." уровень]",
-            info          = " Пользователь испускает магический импульс, что приводит мысли окружающих в хаос. \n\n Враги, попавшие в радиус действия импульса, получают дебаффы: \"Головокружение\" и \"Буйство\". Радиус увеличивается с ростом уровня навыка вплоть до 5. Продолжительность действия дебаффа \"Буйство\" растёт с уровнем навыка",
+            name          = "ChaosOfMindN["..tostring(lvl).." уровень]",
+            info          = "ChaosOfMindD",
             magicAffinity = "Combat",
             targetingType = "self",
             level         = 1,
@@ -43,7 +43,7 @@ return spell.init{
     cast = function(self, spell, chr, cell)
     local hero = RPD.Dungeon.hero
     if hero:lvl() <= 4 then
-     RPD.glog("Для использования навыка вам нужен 5+ уровень")
+     RPD.glog("-- LvlLimit")
      return false
     end
     Count = storage.gameGet(a) or {}
