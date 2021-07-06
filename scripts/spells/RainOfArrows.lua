@@ -29,7 +29,7 @@ return spell.init{
         return {
             image         = 25,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = "RainOfArrowsN["..tostring(lvl).." уровень]",
+            name          = "RainOfArrowsN ["..tostring(lvl).." уровень]",
             info          = "RainOfArrowsD",
             magicAffinity = "Combat",
             targetingType = "cell",

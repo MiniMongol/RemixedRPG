@@ -30,7 +30,7 @@ return spell.init{
         return {
             image         = 2,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = "ShadowCloneN["..tostring(lvl).." уровень]",
+            name          = "ShadowCloneN ["..tostring(lvl).." уровень]",
             info          = "ShadowCloneD",
             magicAffinity = "Combat",
             targetingType = "cell",

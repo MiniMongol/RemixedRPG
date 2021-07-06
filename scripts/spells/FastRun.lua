@@ -29,7 +29,7 @@ return spell.init{
         return {
             image         = 11,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = "FastRunN["..tostring(lvl).." уровень]",
+            name          = "FastRunN ["..tostring(lvl).." уровень]",
             info          = "FastRunD",
             magicAffinity = "Combat",
             targetingType = "self",

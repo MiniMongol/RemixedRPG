@@ -33,7 +33,7 @@ return spell.init{
         return {
             image         = 35,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = "PandemicLanceN["..tostring(lvl).." уровень]",
+            name          = "PandemicLanceN ["..tostring(lvl).." уровень]",
             info          = "PandemicLanceD",
             magicAffinity = "Combat",
             targetingType = "cell",

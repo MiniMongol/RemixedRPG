@@ -31,7 +31,7 @@ return spell.init{
         return {
             image         = 16,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = "SoulsAbsorbingN["..tostring(lvl).." уровень]",
+            name          = "SoulsAbsorbingN ["..tostring(lvl).." уровень]",
             info          = "SoulsAbsorbingD",
             magicAffinity = "Combat",
             targetingType = "self",

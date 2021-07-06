@@ -34,7 +34,7 @@ return spell.init{
         return {
             image         = 19,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = "RageDashN["..tostring(lvl).." уровень]",
+            name          = "RageDashN ["..tostring(lvl).." уровень]",
             info          = "RageDashD",
             magicAffinity = "Combat",
             targetingType = "cell",

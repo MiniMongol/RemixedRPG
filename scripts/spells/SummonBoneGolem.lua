@@ -34,7 +34,7 @@ return spell.init{
         return {
             image         = 9,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = "SummoningBoneGolemN["..tostring(lvl).." уровень]",
+            name          = "SummoningBoneGolemN ["..tostring(lvl).." уровень]",
             info          = "SummoningBoneGolemD",
             magicAffinity = "Combat",
             targetingType = "cell",

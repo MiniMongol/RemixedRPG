@@ -30,7 +30,7 @@ return spell.init{
         return {
             image         = 24,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = "FluryArrowsN["..tostring(lvl).." уровень]",
+            name          = "FluryArrowsN ["..tostring(lvl).." уровень]",
             info          = "FluryArrowsD",
             magicAffinity = "Combat",
             targetingType = "self",

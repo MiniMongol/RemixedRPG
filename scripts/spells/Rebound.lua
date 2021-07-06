@@ -33,7 +33,7 @@ return spell.init{
         return {
             image         = 12,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = "ReboundN["..tostring(lvl).." уровень]",
+            name          = "ReboundN ["..tostring(lvl).." уровень]",
             info          = "ReboundD",
             magicAffinity = "Combat",
             targetingType = "cell",

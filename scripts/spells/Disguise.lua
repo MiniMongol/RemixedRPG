@@ -29,7 +29,7 @@ return spell.init{
         return {
             image         = 13,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = "DisguiseN["..tostring(lvl).." уровень]",
+            name          = "DisguiseN ["..tostring(lvl).." уровень]",
             info          = "DisguiseD",
             magicAffinity = "Combat",
             targetingType = "self",

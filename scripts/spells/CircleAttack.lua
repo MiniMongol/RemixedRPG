@@ -29,7 +29,7 @@ return spell.init{
         return {
             image         = 22,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = "CircleAttackN["..tostring(lvl).." уровень]",
+            name          = "CircleAttackN ["..tostring(lvl).." уровень]",
             info          = "CircleAttackD",
             magicAffinity = "Combat",
             targetingType = "self",

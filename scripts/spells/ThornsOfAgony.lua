@@ -30,7 +30,7 @@ return spell.init{
         return {
             image         = 34,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = "ThornsOfAgonyN["..tostring(lvl).." уровень]",
+            name          = "ThornsOfAgonyN ["..tostring(lvl).." уровень]",
             info          = "ThornsOfAgonyD",
             magicAffinity = "Combat",
             targetingType = "self",

@@ -56,7 +56,7 @@ local RPG1 = {
  trapChoise = function(dialog)
    local Spell = storage.gameGet("placetrap") or {}
    RPD.chooseOption(dialog,
-   "TrapChoiseT",
+   "TrapChoiseT ",
    "",
    "TrapChoise0",
    "TrapChoise1 ["..Spell.UP.." очков]")
@@ -87,51 +87,51 @@ local RPG1 = {
 
  statusWindow = function(dialog,states,index1)
  RPD.chooseOption( dialog,
-                "status",
-                "str:"..tostring(RPG.strength).." [1 очко для повышения]\n int:"..tostring(RPG.intelligence).." [1 очко для повышения]\n dex:"..tostring(RPG.dexterity).." [1 очко для повышения]\n sur:"..tostring(RPG.vitality).." [1 очко для повышения]\n wis:"..tostring(RPG.wisdom).." [1 очко для повышения]\n luck:"..tostring(RPG.AllLuck()).." [1 очко для повышения]\n\n PhysStr:"..tostring(RPG.physStr()).."\n MagStr:"..tostring(RPG.magStr()).."\n Fast:"..tostring(RPG.AllFast()).."\n "..tostring(RPG.AllSpRegen()).." SpRegenMove",
+                "status ",
+                "str :"..tostring(RPG.strength).." [1 очко для повышения]\n int :"..tostring(RPG.intelligence).." [1 очко для повышения]\n dex :"..tostring(RPG.dexterity).." [1 очко для повышения]\n sur :"..tostring(RPG.vitality).." [1 очко для повышения]\n wis :"..tostring(RPG.wisdom).." [1 очко для повышения]\n luck :"..tostring(RPG.AllLuck()).." [1 очко для повышения]\n\n PhysStr :"..tostring(RPG.physStr()).."\n MagStr :"..tostring(RPG.magStr()).."\n Fast :"..tostring(RPG.AllFast()).."\n "..tostring(RPG.AllSpRegen()).." SpRegenMove ",
                 "["..tostring(states[index1]).."]",
-                "SpecUp["..tostring(RPG.sPoints).." SpecUpCost]"
+                "SpecUp ["..tostring(RPG.sPoints).." SpecUpCost"
         )
  end,
  
  statusWindowClass = function(dialog,states,index1)
  RPD.chooseOption( dialog,
-               "status",
-                "str:"..tostring(RPG.strength).." [1 очко для повышения]\n int:"..tostring(RPG.intelligence).." [1 очко для повышения]\n dex:"..tostring(RPG.dexterity).." [1 очко для повышения]\n sur:"..tostring(RPG.vitality).." [1 очко для повышения]\n wis:"..tostring(RPG.wisdom).." [1 очко для повышения]\n luck:"..tostring(RPG.AllLuck()).." [1 очко для повышения]\n\n PhysStr:"..tostring(RPG.physStr()).."\n MagStr:"..tostring(RPG.magStr()).."\n Fast:"..tostring(RPG.AllFast()).."\n "..tostring(RPG.AllSpRegen()).." SpRegenMove",
+              "status ",
+                "str :"..tostring(RPG.strength).." [1 очко для повышения]\n int :"..tostring(RPG.intelligence).." [1 очко для повышения]\n dex :"..tostring(RPG.dexterity).." [1 очко для повышения]\n sur :"..tostring(RPG.vitality).." [1 очко для повышения]\n wis :"..tostring(RPG.wisdom).." [1 очко для повышения]\n luck :"..tostring(RPG.AllLuck()).." [1 очко для повышения]\n\n PhysStr :"..tostring(RPG.physStr()).."\n MagStr :"..tostring(RPG.magStr()).."\n Fast :"..tostring(RPG.AllFast()).."\n "..tostring(RPG.AllSpRegen()).." SpRegenMove ",
                 "["..tostring(states[index1]).."]",
-                "SpecUp ["..tostring(RPG.sPoints).." SpecUpCost]",
-                "ClassPick"
+                "SpecUp ["..tostring(RPG.sPoints).." SpecUpCost",
+                "ClassPick "
         )
  end,
  classWindow = function(dialog)
  RPD.chooseOption( dialog,
-                "ClassPick",
-                "ClassPickD",
-                "warrior",
-                "rogue",
-                "mage"
+                "ClassPick ",
+                "ClassPickD ",
+                "warrior ",
+                "rogue ",
+                "mage "
         )
  end,
  
  statusWindowSubclass = function(dialog,states,index1)
  RPD.chooseOption( dialog,
-               "status",
-                "str:"..tostring(RPG.strength).." [1 очко для повышения]\n int:"..tostring(RPG.intelligence).." [1 очко для повышения]\n dex:"..tostring(RPG.dexterity).." [1 очко для повышения]\n sur:"..tostring(RPG.vitality).." [1 очко для повышения]\n wis:"..tostring(RPG.wisdom).." [1 очко для повышения]\n luck:"..tostring(RPG.AllLuck()).." [1 очко для повышения]\n\n PhysStr:"..tostring(RPG.physStr()).."\n MagStr:"..tostring(RPG.magStr()).."\n Fast:"..tostring(RPG.AllFast()).."\n "..tostring(RPG.AllSpRegen()).." SpRegenMove",
+               "status ",
+                "str :"..tostring(RPG.strength).." [1 очко для повышения]\n int :"..tostring(RPG.intelligence).." [1 очко для повышения]\n dex :"..tostring(RPG.dexterity).." [1 очко для повышения]\n sur :"..tostring(RPG.vitality).." [1 очко для повышения]\n wis :"..tostring(RPG.wisdom).." [1 очко для повышения]\n luck :"..tostring(RPG.AllLuck()).." [1 очко для повышения]\n\n PhysStr :"..tostring(RPG.physStr()).."\n MagStr :"..tostring(RPG.magStr()).."\n Fast :"..tostring(RPG.AllFast()).."\n "..tostring(RPG.AllSpRegen()).." SpRegenMove ",
                 "["..tostring(states[index1]).."]",
-                "SpecUp ["..tostring(RPG.sPoints).." SpecUpCost]",
-                "SubclassPick"
+                "SpecUp ["..tostring(RPG.sPoints).." SpecUpCost",
+                "SubclassPick "
         )
  end,
  subclassWindow = function(dialog)
  local subclasses = {
-   Warrior = {"Berserk","Paladin","BladeOfMind","Samurai"},
-   Rogue = {"Archer","Killer","Ninja","Bandit"},
-   Mage = {"BattleMage","Demonologist","Necromancer","Enchanter"}
+   Warrior = {"Berserk ","Paladin ","BladeOfMind ","Samurai "},
+   Rogue = {"Archer ","Killer ","Ninja ","Bandit "},
+   Mage = {"BattleMage ","Demonologist ","Necromancer ","Enchanter "}
    }
    local subclass = subclasses[RPG.class]
  RPD.chooseOption( dialog,
-                "SubclassPick",
-                "SubclassPickD",
+                "SubclassPick ",
+                "SubclassPickD ",
                 subclass[1],
                 subclass[2],
                 subclass[3],

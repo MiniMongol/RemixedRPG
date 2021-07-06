@@ -29,7 +29,7 @@ return spell.init{
         return {
             image         = 29,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = "KnifeThrowN["..tostring(lvl).." уровень]",
+            name          = "KnifeThrowN ["..tostring(lvl).." уровень]",
             info          = "KnifeThrowD",
             magicAffinity = "Combat",
             targetingType = "cell",

@@ -118,7 +118,7 @@ return spell.init{
         return {
             image         = 31,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = "PlaceTrapN["..tostring(lvl).." уровень]",
+            name          = "PlaceTrapN ["..tostring(lvl).." уровень]",
             info          = "PlaceTrapD",
             magicAffinity = "Combat",
             targetingType = "cell",

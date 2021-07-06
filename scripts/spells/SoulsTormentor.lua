@@ -30,7 +30,7 @@ return spell.init{
         return {
             image         = 6,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = "SoulsTormentorN["..tostring(lvl).." уровень]",
+            name          = "SoulsTormentorN ["..tostring(lvl).." уровень]",
             info          = "SoulsTormentorD",
             magicAffinity = "Combat",
             targetingType = "self",

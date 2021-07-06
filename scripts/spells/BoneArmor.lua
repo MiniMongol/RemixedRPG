@@ -30,7 +30,7 @@ return spell.init{
         return {
             image         = 33,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = "BoneArmorN["..tostring(lvl).." уровень]",
+            name          = "BoneArmorN ["..tostring(lvl).." уровень]",
             info          = "BoneArmorD",
             magicAffinity = "Combat",
             targetingType = "cell",

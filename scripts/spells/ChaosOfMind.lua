@@ -30,7 +30,7 @@ return spell.init{
         return {
             image         = 17,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = "ChaosOfMindN["..tostring(lvl).." уровень]",
+            name          = "ChaosOfMindN ["..tostring(lvl).." уровень]",
             info          = "ChaosOfMindD",
             magicAffinity = "Combat",
             targetingType = "self",

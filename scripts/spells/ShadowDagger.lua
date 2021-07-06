@@ -30,7 +30,7 @@ return spell.init{
         return {
             image         = 28,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = "ShadowDaggerN"..tostring(lvl).." уровень]",
+            name          = "ShadowDaggerN "..tostring(lvl).." уровень]",
             info          = "ShadowDaggerD",
             magicAffinity = "Combat",
             targetingType = "self",
