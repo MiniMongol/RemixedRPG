@@ -37,7 +37,7 @@ return item.init{
             sInfo = statsInfo,
             dstats = stats
             },
-            name          = "Сай: "..tostring(math.max(stra-item:level(),1)),
+            name          = RPD.textById("Sai_Name")..": "..tostring(math.max(stra-item:level(),1)),
             price         = 20*2^(tier-1)+10*item:level(),
             stackable     = false,
             upgradable    = true,
@@ -47,11 +47,11 @@ return item.init{
     info = function(self,item)
       hero = RPD.Dungeon.hero
       str = stra-item:level()
-      local info = "Внешне похожий на трезубец с удлинённым средним зубом. Боковые зубья образуют подобие гарды. \n\nСай - оружие ближнего боя "..tier.." порядка. Средний урон составляет "..math.ceil((maxDmg+minDmg+tier*item:level()*2)/2).." единиц за удар и, как правило, требует "..stra.." очков силы. Это довольно меткое и быстрое оружие, также дающее немного защиты.\n\n"..self.data.sInfo
+      local info = RPD.textById("Sai_Info").."\n\n"..RPD.textById("Sai_Name")..RPD.textById("WeaponInfo0")..tier..RPD.textById("WeaponInfo1")..math.ceil((maxDmg+minDmg+tier*item:level()*2)/2)..RPD.textById("WeaponInfo2")..stra..RPD.textById("WeaponInfo3")..RPD.textById("WeaponFAD").."\n\n"..self.data.sInfo
       if hero:STR() >= str then
         return info
       else
-        return info.."\n Это оружие слишком тяжёлое для вас. При ношении ваша скорость и меткость будут снижены."
+        return info.."\n"..RPD.textById("WeaponLimit")
       end
     end,
     

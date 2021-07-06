@@ -84,7 +84,7 @@ local RPG
        stats[i] = stats[i] + math.random(1,statMax)
      end
      if statsList[i] ~= 0 then
-       itStInfo = itStInfo.." "..statsNames[i].." : +"..tostring(stats[i]).."\n"
+       itStInfo = itStInfo.." "..statsNames[i]..": +"..tostring(stats[i]).."\n"
      end
    end
    return {itStInfo,stats}
@@ -102,7 +102,7 @@ local RPG
   RPD.textById("Sp")}
    for i = 1,7 do
      if stats[i] ~= 0 then
-       itStInfo = itStInfo.." "..statsNames[i].." : +"..tostring(stats[i]).."\n"
+       itStInfo = itStInfo.." "..statsNames[i]..": +"..tostring(stats[i]).."\n"
      end
    end
    return itStInfo

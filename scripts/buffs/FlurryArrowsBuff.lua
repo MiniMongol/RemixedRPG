@@ -37,7 +37,7 @@ return buff.init{
       RPD.zapEffect(RPD.Dungeon.hero:getPos(),enemy:getPos(),"CommonArrow")
         buff:detach()
       else
-        RPD.glog("-- \"Шквал стрел\" используется только с оружием дальнего боя!")
+        RPD.glog(RPD.textById("FlurryArrowsLimit"))
         buff:detach()
       end
       return damage

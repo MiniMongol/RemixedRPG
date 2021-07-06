@@ -88,10 +88,10 @@ return buff.init{
         end
         hero:setMaxSkillPoints(hero:getSkillPointsMax()-1)
         RPG.sPoints = RPG.sPoints+5
-        RPD.glog("++ Уровень повышен! Вы получили 5 очков статуса.")
+        RPD.glog(RPD.textById("LvlUp"))
         if hero:lvl()%5 == 0 then
           RPG.sPoints = RPG.sPoints+3
-          RPD.glog("++ Уровневый юбилей! Вы получили ещё 3 очка статуса.")
+          RPD.glog(RPD.textById("LvlUpHappy"))
         end
        
         storage.gamePut(stats, {str = RPG.strength, int = RPG.intelligence, dex = RPG.dexterity, vit = RPG.vitality, wis = RPG.wisdom, luc = RPG.luck, lvlT = RPG.lvlToUp, magS = RPG.magicStr, phyS = RPG.physicStr, fast = RPG.fast, sP = RPG.sPoints, spR = RPG.spRegen, class = RPG.class, subclass = RPG.subclass})
@@ -138,7 +138,7 @@ return buff.init{
             RPG.createItem("Gold", enemy:getPos(), RPG.AllLuck() + RPD.Dungeon.depth)
           end
       
-          enemy:getSprite():showStatus(0xffff00,"крит")
+          enemy:getSprite():showStatus(0xffff00,RPD.textById("crit"))
           return (damage + math.ceil(RPG.physStr()*0.2))*2
         else
         
@@ -157,8 +157,8 @@ return buff.init{
     hero = RPD.Dungeon.hero
      if RPG.dexterity ~= nil then
      if math.random(1,150+enemy:attackSkill()) <= (RPG.AllLuck()*0.5)*luckBonus + RPG.AllFast()*0.25 then
-     hero:getSprite():showStatus(0xffff00,"блок")
-      RPD.glog("++ Вы защитились, поглощено "..math.ceil(RPG.AllFast()*0.1 + hero:ht()*0.1 + RPG.physStr()*0.15).." единиц урона")
+     hero:getSprite():showStatus(0xffff00,RPD.textById("block"))
+      RPD.glog(RPD.textById("Block0")..math.ceil(RPG.AllFast()*0.1 + hero:ht()*0.1 + RPG.physStr()*0.15)..RPD.textById("Block1"))
       return damage - math.ceil(RPG.AllFast()*0.1 + RPG.physStr()*0.15 + hero:ht()*0.1)
       else
       return damage

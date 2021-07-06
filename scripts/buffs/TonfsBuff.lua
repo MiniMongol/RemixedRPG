@@ -28,8 +28,8 @@ defenceProc = function(self, buff, enemy, damage)
   dmg = enemy:dr()+2
  end
   RPD.playSound("body_armor")
-  hero:getSprite():showStatus(0xffff00,"отразил")
-  RPD.glog("Вы отразили удар!")
+  hero:getSprite():showStatus(0xffff00,RPD.textById("counterblow"))
+  RPD.glog(RPD.textById("Counterblow"))
   enemy:damage(dmg - enemy:dr(), RPD.Dungeon.hero)
   return 0
   else

@@ -60,8 +60,8 @@ defenceProc = function(self, buff, enemy, damage)
   return shield
  end
   RPD.playSound("body_armor")
-  hero:getSprite():showStatus(0xffff00,"поглотил")
-  RPD.glog("Щит поглотил урон"..tostring(shield).."/"..tostring(shield2))
+  hero:getSprite():showStatus(0xffff00,RPD.textById("ShieldA"))
+  RPD.glog(RPD.textById("ShieldAbsorb")..tostring(shield).."/"..tostring(shield2))
   return false
 end
 

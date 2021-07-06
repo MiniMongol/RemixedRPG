@@ -27,7 +27,7 @@ return buff.init{
     num = num+1
     if num == 2 then
      enemy:damage(math.ceil(RPG.magStr()*0.25 + enemy:ht()*(0.05+Count.lvl/100)),RPD.Dungeon.hero)
-     enemy:getSprite():showStatus(0xffff00,"терзание")
+     enemy:getSprite():showStatus(0xffff00,RPD.textById("torment"))
      num = 0
     end
     return damage

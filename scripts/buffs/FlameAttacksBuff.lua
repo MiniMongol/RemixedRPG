@@ -26,7 +26,7 @@ return buff.init{
       hero = RPD.Dungeon.hero
       if enemy:buffLevel("FlameMark") > 0 then
         enemy:damage(math.ceil(1.5*Spell.lvl + RPG.magStr()*0.1 + hero:ht()*0.2),hero)
-        enemy:getSprite():showStatus(0xffff00,"взрыв")
+        enemy:getSprite():showStatus(0xffff00,RPD.textById("boom"))
       else
         enemy:damage(math.ceil(1.5*Spell.lvl + RPG.magStr()*0.1 + hero:ht()*0.1),hero)
       end

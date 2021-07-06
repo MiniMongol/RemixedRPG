@@ -36,7 +36,7 @@ return item.init{
             sInfo = statsInfo,
             dstats = stats
             },
-            name          = "Кастет: "..tostring(math.max(1,stra-item:level())),
+            name          = RPD.textById("Knuckles_Name")..": "..tostring(math.max(1,stra-item:level())),
             price         = 20*2^(tier-1)+5*item:level(),
             stackable     = false,
             upgradable    = true,
@@ -46,11 +46,11 @@ return item.init{
     info = function(self,item)
       hero = RPD.Dungeon.hero
       str = stra-item:level()
-      local info = "Железная скоба, плотно охватывающая пальцы. \n\nКастет - оружие ближнего боя "..tier.." порядка. Средний урон составляет "..math.ceil((maxDmg+minDmg+tier*item:level()*2)/2).." единиц за удар и, как правило, требует "..stra.." очков силы. Это довольно быстрое оружие.\n\n"..self.data.sInfo
-      if hero:STR() >= 10-item:level() then
+      local info = RPD.textById("Knuckles_Info").."\n\n"..RPD.textById("Knuckles_Name")..RPD.textById("WeaponInfo0")..tier..RPD.textById("WeaponInfo1")..math.ceil((maxDmg+minDmg+tier*item:level()*2)/2)..RPD.textById("WeaponInfo2")..stra..RPD.textById("WeaponInfo3")..RPD.textById("WeaponFast").."\n\n"..self.data.sInfo
+      if hero:STR() >= str then
         return info
       else
-        return info.."\n Это оружие слишком тяжёлое для вас. При ношении ваша скорость и меткость будут снижены."
+        return info.."\n"..RPD.textById("WeaponLimit")
       end
     end,
     
