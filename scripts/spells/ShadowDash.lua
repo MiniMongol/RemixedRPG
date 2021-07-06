@@ -34,7 +34,7 @@ return spell.init{
         return {
             image         = 15,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = "ShadowDashN ["..tostring(lvl).." уровень]",
+            name          = RPD.textById("ShadowDashN").." ["..tostring(lvl).." уровень]",
             info          = "ShadowDashD",
             magicAffinity = "Combat",
             targetingType = "cell",
@@ -49,11 +49,11 @@ return spell.init{
     local level = RPD.Dungeon.level
     local hero = RPD.Dungeon.hero
     if RPD.Dungeon.hero:lvl() <= 4 then
-     RPD.glog("-- LvlLimit")
+     RPD.glog(RPD.textById("LvlLimit"))
      return false
     end
     if RPG.subclass ~= nil and RPG.subclass ~= "Assassin" then
-      RPD.glog("-- SubclassLimit")
+      RPD.glog(RPD.textById("SubclassLimit"))
       return false
     end
     
@@ -63,7 +63,7 @@ return spell.init{
      exp = Count.exp
      expMax = Count.expMax
      if level:getTileType(cell) == 4 or level:getTileType(cell) == 12 or RPG.distance(cell) >= math.min(lvl+1,4) then
-      RPD.glog("** DashLimit")
+      RPD.glog(RPD.textById("DashLimit"))
       return false
      else
       exp = exp+1

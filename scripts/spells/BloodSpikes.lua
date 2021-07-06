@@ -34,7 +34,7 @@ return spell.init{
         return {
             image         = 8,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = "BloodSpikesN ["..tostring(lvl).." уровень]",
+            name          = RPD.textById("BloodSpikesN").." ["..tostring(lvl).." уровень]",
             info          = "BloodSpikesD",
             magicAffinity = "Combat",
             targetingType = "cell",
@@ -50,11 +50,11 @@ return spell.init{
     Count = storage.gameGet(a) or {}
     
     if RPD.Dungeon.hero:lvl() <= 4 then
-     RPD.glog("-- LvlLimit")
+     RPD.glog(.RPD.textById("LvlLimit"))
      return false
     end
     if RPG.subclass ~= nil and RPG.subclass ~= "Demonologist" then
-      RPD.glog("-- SubclassLimit")
+      RPD.glog(RPD.textById("SubclassLimit"))
       return false
     end
     
@@ -65,14 +65,14 @@ return spell.init{
      staks = Count.staks
      bloodPoison = Count.bp
      if RPG.distance(cell) >= lvl+1 then
-      RPD.glog("** DistanceLimit")
+      RPD.glog(RPD.textById("DistanceLimit"))
       return false
      else
      cost = math.ceil(lvl*1.5 + RPG.distance(cell) + hero:ht()*0.1)
      if hero:hp() > cost then
         hero:damage(cost,hero)
      else
-        RPD.glog("-- HpLimit")
+        RPD.glog(RPD.textById("HpLimit")
         return false
       end
       RPD.playSound("snd_blood_spikes.wav")

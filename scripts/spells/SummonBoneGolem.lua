@@ -34,7 +34,7 @@ return spell.init{
         return {
             image         = 9,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = "SummoningBoneGolemN ["..tostring(lvl).." уровень]",
+            name          = RPD.textById("SummoningBoneGolemN").." ["..tostring(lvl).." уровень]",
             info          = "SummoningBoneGolemD",
             magicAffinity = "Combat",
             targetingType = "cell",
@@ -50,11 +50,11 @@ return spell.init{
     local level = RPD.Dungeon.level
     Count = storage.gameGet(a) or {}
     if hero:lvl() <= 4 then
-     RPD.glog("-- LvlLimit")
+     RPD.glog(RPD.textById("LvlLimit"))
      return false
     end
     if RPG.subclass ~= nil and RPG.subclass ~= "Necromancer" then
-      RPD.glog("-- SubclassLimit")
+      RPD.glog(RPD.textById("SubclassLimit"))
       return false
     end
     if Count.lvl ~= nil then
@@ -64,7 +64,7 @@ return spell.init{
      summon = Count.summon
      summonMax = Count.summonMax
      if level:getTileType(cell) == 4 or level:getTileType(cell) == 12 or RPG.distance(cell) > 2 then
-      RPD.glog("** SummoningBoneGolemLimit")
+      RPD.glog(RPD.textById("SummoningBoneGolemLimit"))
       return false
      else
      RPD.playSound("snd_cursed.ogg")

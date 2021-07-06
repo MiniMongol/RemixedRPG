@@ -31,7 +31,7 @@ return spell.init{
         return {
             image         = 7,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = "CounterblowsN ["..tostring(lvl).." уровень]",
+            name          = RPD.textById("CounterblowsN").." ["..tostring(lvl).." уровень]",
             info          = "CounterblowsD",
             magicAffinity = "Combat",
             targetingType = "self",
@@ -45,11 +45,11 @@ return spell.init{
     hero = RPD.Dungeon.hero
     
     if RPD.Dungeon.hero:lvl() <= 4 then
-     RPD.glog("-- LvlLimit")
+     RPD.glog(RPD.textById("LvlLimit"))
      return false
     end
     if RPG.subclass ~= nil and RPG.subclass ~= "Samurai" then
-      RPD.glog("-- SubclassLimit")
+      RPD.glog(RPD.textById("SubclassLimit"))
       return false
     end
     

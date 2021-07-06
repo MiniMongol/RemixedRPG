@@ -29,7 +29,7 @@ return spell.init{
         return {
             image         = 25,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = "RainOfArrowsN ["..tostring(lvl).." уровень]",
+            name          = RPD.textById("RainOfArrowsN").." ["..tostring(lvl).." уровень]",
             info          = "RainOfArrowsD",
             magicAffinity = "Combat",
             targetingType = "cell",
@@ -44,21 +44,21 @@ return spell.init{
     local hero = RPD.Dungeon.hero
     local weapon = hero:getBelongings().weapon
     if RPD.Dungeon.hero:lvl() <= 4 then
-     RPD.glog("-- LvlLimit")
+     RPD.glog(RPD.textById("LvlLimit"))
      return false
     end
     
       if weapon:goodForMelee() == true or weapon:getClassName() == "DummyItem" then
-        RPD.glog("-- RainOfArrowsLimit")
+        RPD.glog(RPD.textById("RainOfArrowsLimit"))
         return false
       end
       
     if level:getTileType(cell) == 4 or level:getTileType(cell) == 12 then
-      RPD.glog("-- WallLimit")
+      RPD.glog(RPD.textById("WallLimit"))
       return false
     end
     if RPG.distance(cell) >= math.min(1+lvl,4) then
-      RPD.glog("-- DistanceLimit")
+      RPD.glog(RPD.textById("DistanceLimit"))
       return false
     end
     

@@ -30,7 +30,7 @@ return spell.init{
         return {
             image         = 33,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = "BoneArmorN ["..tostring(lvl).." уровень]",
+            name          = RPD.textById("BoneArmorN").." ["..tostring(lvl).." уровень]",
             info          = "BoneArmorD",
             magicAffinity = "Combat",
             targetingType = "cell",
@@ -45,7 +45,7 @@ return spell.init{
     Count = storage.gameGet(a) or {}
 	
 	 if RPD.Dungeon.hero:lvl() <= 4 then
-     RPD.glog("-- LvlLimit")
+     RPD.glog(RPD.textById("LvlLimit"))
      return false
     end
 	

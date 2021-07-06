@@ -34,7 +34,7 @@ return spell.init{
         return {
             image         = 19,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = "RageDashN ["..tostring(lvl).." уровень]",
+            name          = RPD.textById("RageDashN").." ["..tostring(lvl).." уровень]",
             info          = "RageDashD",
             magicAffinity = "Combat",
             targetingType = "cell",
@@ -50,12 +50,12 @@ return spell.init{
     local hero = RPD.Dungeon.hero
     
     if RPD.Dungeon.hero:lvl() <= 4 then
-     RPD.glog("-- LvlLimit")
+     RPD.glog(RPD.textById("LvlLimit"))
      return false
     end
     
     if level:getTileType(cell) == 4 or level:getTileType(cell) == 12 or RPG.distance(cell) > math.min(lvl+1,4) then
-      RPD.glog("** DashLimit")
+      RPD.glog(RPD.textById("DashLimit"))
         return false
       end
       

@@ -29,7 +29,7 @@ return spell.init{
         return {
             image         = 4,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = "SteelBodyN ["..tostring(lvl).." уровень]",
+            name          = RPD.textById("SteelBodyN").." ["..tostring(lvl).." уровень]",
             info          = "SteelBodyD",
             magicAffinity = "Combat",
             targetingType = "self",
@@ -42,11 +42,11 @@ return spell.init{
     cast = function(self, spell, chr, cell)
     
     if RPD.Dungeon.hero:lvl() <= 4 then
-     RPD.glog("-- LvlLimit")
+     RPD.glog(RPD.textById("LvlLimit"))
      return false
     end
     if RPG.subclass ~= nil and RPG.subclass ~= "Paladin" and RPG.subclass ~= "Demonologist" then
-      RPD.glog("-- SubclassLimit")
+      RPD.glog(RPD.textById("SubclassLimit"))
       return false
     end
     

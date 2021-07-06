@@ -33,7 +33,7 @@ return spell.init{
         return {
             image         = 12,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = "ReboundN ["..tostring(lvl).." уровень]",
+            name          = RPD.textById("ReboundN").." ["..tostring(lvl).." уровень]",
             info          = "ReboundD",
             magicAffinity = "Combat",
             targetingType = "cell",
@@ -49,12 +49,12 @@ return spell.init{
     local hero = RPD.Dungeon.hero
     
     if RPD.Dungeon.hero:lvl() <= 4 then
-     RPD.glog("-- LvlLimit")
+     RPD.glog(RPD.textById("LvlLimit"))
      return false
     end
     
     if RPG.subclass ~= nil and RPG.subclass ~= "Archer" then
-      RPD.glog("-- SubclassLimit")
+      RPD.glog(RPD.textById("SubclassLimit"))
       return false
     end
     
@@ -64,7 +64,7 @@ return spell.init{
      exp = Count.exp
      expMax = Count.expMax
      if RPG.distance(cell) ~= 0 or cell == hero:getPos() or RPD.Actor:findChar(cell) == Nil then
-      RPD.glog("** ReboundLimit")
+      RPD.glog(RPD.textById("ReboundLimit"))
       return false
      else
       exp = exp+1

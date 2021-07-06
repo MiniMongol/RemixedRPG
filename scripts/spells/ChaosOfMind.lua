@@ -30,7 +30,7 @@ return spell.init{
         return {
             image         = 17,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = "ChaosOfMindN ["..tostring(lvl).." уровень]",
+            name          = RPD.textById("ChaosOfMindN").." ["..tostring(lvl).." уровень]",
             info          = "ChaosOfMindD",
             magicAffinity = "Combat",
             targetingType = "self",
@@ -43,7 +43,7 @@ return spell.init{
     cast = function(self, spell, chr, cell)
     local hero = RPD.Dungeon.hero
     if hero:lvl() <= 4 then
-     RPD.glog("-- LvlLimit")
+     RPD.glog(RPD.textById("LvlLimit"))
      return false
     end
     Count = storage.gameGet(a) or {}

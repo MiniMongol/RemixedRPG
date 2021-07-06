@@ -30,7 +30,7 @@ return spell.init{
         return {
             image         = 2,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = "ShadowCloneN ["..tostring(lvl).." уровень]",
+            name          = RPD.textById("ShadowCloneN").." ["..tostring(lvl).." уровень]",
             info          = "ShadowCloneD",
             magicAffinity = "Combat",
             targetingType = "cell",
@@ -48,7 +48,7 @@ return spell.init{
      exp = Count.exp
      expMax = Count.expMax
      if level:getTileType(cell) == 4 or level:getTileType(cell) == 12 or RPG.distance(cell) >= math.min(lvl+1,5) then
-      RPD.glog("** ShadowCloneLimit")
+      RPD.glog(RPD.textById("ShadowCloneLimit"))
       return false
      else
       exp = exp+1

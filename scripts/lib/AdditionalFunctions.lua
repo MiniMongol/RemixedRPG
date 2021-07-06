@@ -59,7 +59,7 @@ local RPG1 = {
    "TrapChoiseT ",
    "",
    "TrapChoise0",
-   "TrapChoise1 ["..Spell.UP.." очков]")
+   RPD.textById("TrapChoise1").." ["..Spell.UP.." очков]")
  end,
  
  trapChoiseOn = function(dialog,index)
@@ -68,70 +68,70 @@ local RPG1 = {
      RPD.chooseOption(dialog,
      "TrapChoiseOnT",
      "",
-   "TrapChoiseOn0 ["..Spell.FT.." уровень]",
-   "TrapChoiseOn1 ["..Spell.BT.." уровень]",
-   "TrapChoiseOn2 ["..Spell.CT.." уровень]",
-   "TrapChoiseOn3 ["..Spell.IT.." уровень]",
-   "TrapChoiseOn4 ["..Spell.PT.." уровень]")
+   RPD.textById("TrapChoiseOn0").." ["..Spell.FT.." уровень]",
+   RPD.textById("TrapChoiseOn1").." ["..Spell.BT.." уровень]",
+   RPD.textById("TrapChoiseOn2").." ["..Spell.CT.." уровень]",
+   RPD.textById("TrapChoiseOn3").." ["..Spell.IT.." уровень]",
+   RPD.textById("TrapChoiseOn4").." ["..Spell.PT.." уровень]")
    else
      RPD.chooseOption(dialog,
      "TrapChoiseOnT",
      ""..Spell.UP.." очков улучшения",
-   "TrapChoiseOn0 ["..Spell.FT.." уровень]",
-   "TrapChoiseOn1 ["..Spell.BT.." уровень]",
-   "TrapChoiseOn2 ["..Spell.CT.." уровень]",
-   "TrapChoiseOn3 ["..Spell.IT.." уровень]",
-   "TrapChoiseOn4 ["..Spell.PT.." уровень]")
+   RPD.textById("TrapChoiseOn0").." ["..Spell.FT.." уровень]",
+   RPD.textById("TrapChoiseOn1").." ["..Spell.BT.." уровень]",
+   RPD.textById("TrapChoiseOn2").." ["..Spell.CT.." уровень]",
+   RPD.textById("TrapChoiseOn3").." ["..Spell.IT.." уровень]",
+   RPD.textById("TrapChoiseOn4").." ["..Spell.PT.." уровень]")
    end
  end,
 
  statusWindow = function(dialog,states,index1)
  RPD.chooseOption( dialog,
-                "status ",
-                "str :"..tostring(RPG.strength).." [1 очко для повышения]\n int :"..tostring(RPG.intelligence).." [1 очко для повышения]\n dex :"..tostring(RPG.dexterity).." [1 очко для повышения]\n sur :"..tostring(RPG.vitality).." [1 очко для повышения]\n wis :"..tostring(RPG.wisdom).." [1 очко для повышения]\n luck :"..tostring(RPG.AllLuck()).." [1 очко для повышения]\n\n PhysStr :"..tostring(RPG.physStr()).."\n MagStr :"..tostring(RPG.magStr()).."\n Fast :"..tostring(RPG.AllFast()).."\n "..tostring(RPG.AllSpRegen()).." SpRegenMove ",
+                RPD.textById("status"),
+                RPD.textById("str")..":"..tostring(RPG.strength).." [1 очко для повышения]\n"..RPD.textById("int")..":"..tostring(RPG.intelligence).." [1 очко для повышения]\n"..RPD.textById("dex")..":"..tostring(RPG.dexterity).." [1 очко для повышения]\n"..RPD.textById("sur")..":"..tostring(RPG.vitality).." [1 очко для повышения]\n"..RPD.textById("wis").." :"..tostring(RPG.wisdom).." [1 очко для повышения]\n"..RPD.textById("luck")..":"..tostring(RPG.AllLuck()).." [1 очко для повышения]\n\n"..RPD.textById("PhysStr")..":"..tostring(RPG.physStr()).."\n"..RPD.textById("MagStr")..":"..tostring(RPG.magStr()).."\n"..RPD.textById("Fast")..":"..tostring(RPG.AllFast()).."\n "..tostring(RPG.AllSpRegen()).." "..RPD.textById("SpRegenMove"),
                 "["..tostring(states[index1]).."]",
-                "SpecUp ["..tostring(RPG.sPoints).." SpecUpCost"
+                RPD.textById("SpecUp").."["..tostring(RPG.sPoints).." "..RPD.textById("SpecUpCost")
         )
  end,
  
  statusWindowClass = function(dialog,states,index1)
  RPD.chooseOption( dialog,
-              "status ",
-                "str :"..tostring(RPG.strength).." [1 очко для повышения]\n int :"..tostring(RPG.intelligence).." [1 очко для повышения]\n dex :"..tostring(RPG.dexterity).." [1 очко для повышения]\n sur :"..tostring(RPG.vitality).." [1 очко для повышения]\n wis :"..tostring(RPG.wisdom).." [1 очко для повышения]\n luck :"..tostring(RPG.AllLuck()).." [1 очко для повышения]\n\n PhysStr :"..tostring(RPG.physStr()).."\n MagStr :"..tostring(RPG.magStr()).."\n Fast :"..tostring(RPG.AllFast()).."\n "..tostring(RPG.AllSpRegen()).." SpRegenMove ",
+              RPD.textById("status"),
+                RPD.textById("str")..":"..tostring(RPG.strength).." [1 очко для повышения]\n"..RPD.textById("int")..":"..tostring(RPG.intelligence).." [1 очко для повышения]\n"..RPD.textById("dex")..":"..tostring(RPG.dexterity).." [1 очко для повышения]\n"..RPD.textById("sur")..":"..tostring(RPG.vitality).." [1 очко для повышения]\n"..RPD.textById("wis").." :"..tostring(RPG.wisdom).." [1 очко для повышения]\n"..RPD.textById("luck")..":"..tostring(RPG.AllLuck()).." [1 очко для повышения]\n\n"..RPD.textById("PhysStr")..":"..tostring(RPG.physStr()).."\n"..RPD.textById("MagStr")..":"..tostring(RPG.magStr()).."\n"..RPD.textById("Fast")..":"..tostring(RPG.AllFast()).."\n "..tostring(RPG.AllSpRegen()).." "..RPD.textById("SpRegenMove"),
                 "["..tostring(states[index1]).."]",
-                "SpecUp ["..tostring(RPG.sPoints).." SpecUpCost",
-                "ClassPick "
+                RPD.textById("SpecUp").."["..tostring(RPG.sPoints).." "..RPD.textById("SpecUpCost"),
+                "ClassPick"
         )
  end,
  classWindow = function(dialog)
  RPD.chooseOption( dialog,
-                "ClassPick ",
-                "ClassPickD ",
-                "warrior ",
-                "rogue ",
-                "mage "
+                "ClassPick",
+                "ClassPickD",
+                "warrior",
+                "rogue",
+                "mage"
         )
  end,
  
  statusWindowSubclass = function(dialog,states,index1)
  RPD.chooseOption( dialog,
-               "status ",
-                "str :"..tostring(RPG.strength).." [1 очко для повышения]\n int :"..tostring(RPG.intelligence).." [1 очко для повышения]\n dex :"..tostring(RPG.dexterity).." [1 очко для повышения]\n sur :"..tostring(RPG.vitality).." [1 очко для повышения]\n wis :"..tostring(RPG.wisdom).." [1 очко для повышения]\n luck :"..tostring(RPG.AllLuck()).." [1 очко для повышения]\n\n PhysStr :"..tostring(RPG.physStr()).."\n MagStr :"..tostring(RPG.magStr()).."\n Fast :"..tostring(RPG.AllFast()).."\n "..tostring(RPG.AllSpRegen()).." SpRegenMove ",
+               RPD.textById("status"),
+                RPD.textById("str")..":"..tostring(RPG.strength).." [1 очко для повышения]\n"..RPD.textById("int")..":"..tostring(RPG.intelligence).." [1 очко для повышения]\n"..RPD.textById("dex")..":"..tostring(RPG.dexterity).." [1 очко для повышения]\n"..RPD.textById("sur")..":"..tostring(RPG.vitality).." [1 очко для повышения]\n"..RPD.textById("wis").." :"..tostring(RPG.wisdom).." [1 очко для повышения]\n"..RPD.textById("luck")..":"..tostring(RPG.AllLuck()).." [1 очко для повышения]\n\n"..RPD.textById("PhysStr")..":"..tostring(RPG.physStr()).."\n"..RPD.textById("MagStr")..":"..tostring(RPG.magStr()).."\n"..RPD.textById("Fast")..":"..tostring(RPG.AllFast()).."\n "..tostring(RPG.AllSpRegen()).." "..RPD.textById("SpRegenMove"),
                 "["..tostring(states[index1]).."]",
-                "SpecUp ["..tostring(RPG.sPoints).." SpecUpCost",
-                "SubclassPick "
+                RPD.textById("SpecUp").."["..tostring(RPG.sPoints).." "..RPD.textById("SpecUpCost"),
+                "SubclassPick"
         )
  end,
  subclassWindow = function(dialog)
  local subclasses = {
-   Warrior = {"Berserk ","Paladin ","BladeOfMind ","Samurai "},
-   Rogue = {"Archer ","Killer ","Ninja ","Bandit "},
-   Mage = {"BattleMage ","Demonologist ","Necromancer ","Enchanter "}
+   Warrior = {"Berserk","Paladin","BladeOfMind","Samurai"},
+   Rogue = {"Archer","Killer","Ninja","Bandit"},
+   Mage = {"BattleMage","Demonologist","Necromancer","Enchanter"}
    }
    local subclass = subclasses[RPG.class]
  RPD.chooseOption( dialog,
-                "SubclassPick ",
-                "SubclassPickD ",
+                "SubclassPick",
+                "SubclassPickD",
                 subclass[1],
                 subclass[2],
                 subclass[3],

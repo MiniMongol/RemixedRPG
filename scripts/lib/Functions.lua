@@ -67,13 +67,13 @@ local RPG
   local ran
   local itStInfo = ""
   local statsNames = {
-  "PhysStr ",
-  "MagStr ",
-  "Fast ",
-  "SpRegen ",
-  "luck ",
-  "Hp ",
-  "Sp "}
+  RPD.textById("PhysStr"),
+  RPD.textById("MagStr"),
+  RPD.textById("Fast"),
+  RPD.textById("SpRegen"),
+  RPD.textById("luck"),
+  RPD.textById("Hp"),
+  RPD.textById("Sp")}
   for i = 1, cycles do
     ran = math.random(1,7)
     statsList[ran] = statsList[ran] +1 
@@ -93,13 +93,13 @@ local RPG
  setItemStats = function(stats)
    local itStInfo = ""
    local statsNames = {
-  "PhysStr ",
-  "MagStr ",
-  "Fast ",
-  "SpRegen ",
-  "luck ",
-  "Hp ",
-  "Sp "}
+  RPD.textById("PhysStr"),
+  RPD.textById("MagStr"),
+  RPD.textById("Fast"),
+  RPD.textById("SpRegen"),
+  RPD.textById("luck"),
+  RPD.textById("Hp"),
+  RPD.textById("Sp")}
    for i = 1,7 do
      if stats[i] ~= 0 then
        itStInfo = itStInfo.." "..statsNames[i].." : +"..tostring(stats[i]).."\n"

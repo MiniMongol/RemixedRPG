@@ -29,7 +29,7 @@ return spell.init{
         return {
             image         = 22,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = "DissectionN ["..tostring(lvl).." уровень]",
+            name          = RPD.textById("DissectionN").." ["..tostring(lvl).." уровень]",
             info          = "DissectionD",
             magicAffinity = "Combat",
             targetingType = "self",
@@ -44,11 +44,11 @@ return spell.init{
     local hero = RPD.Dungeon.hero
     
     if RPD.Dungeon.hero:lvl() <= 4 then
-     RPD.glog("-- LvlLimit")
+     RPD.glog(RPD.textById("LvlLimit"))
      return false
     end
     if RPG.subclass ~= nil and RPG.subclass ~= "Berserk" and RPG.subclass ~= "BattleMage" then
-      RPD.glog("-- SubclassLimit")
+      RPD.glog(RPD.textById("SubclassLimit"))
       return false
     end
     

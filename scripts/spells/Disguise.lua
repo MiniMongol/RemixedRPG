@@ -29,7 +29,7 @@ return spell.init{
         return {
             image         = 13,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = "DisguiseN ["..tostring(lvl).." уровень]",
+            name          = RPD.textById("DisguiseN").." ["..tostring(lvl).." уровень]",
             info          = "DisguiseD",
             magicAffinity = "Combat",
             targetingType = "self",
@@ -43,11 +43,11 @@ return spell.init{
     Count = storage.gameGet(a) or {}
     local hero = RPD.Dungeon.hero
     if RPD.Dungeon.hero:lvl() <= 4 then
-     RPD.glog("-- LvlLimit")
+     RPD.glog(RPD.textById("LvlLimit"))
      return false
     end
     if RPG.subclass ~= nil and RPG.subclass ~= "Bandit" then
-      RPD.glog("-- SubclassLimit")
+      RPD.glog(RPD.textById("SubclassLimit"))
       return false
     end
     if Count.lvl ~= nil then
@@ -70,7 +70,7 @@ return spell.init{
      local duration = 3+2*lvl 
 
         if hero:visibleEnemies() > 0 then
-            RPD.glogn("-- DisguiseLimit")
+            RPD.glogn("-- "..RPD.textById("DisguiseLimit"))
             return false
         end
 

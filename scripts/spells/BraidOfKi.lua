@@ -29,7 +29,7 @@ return spell.init{
         return {
             image         = 26,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = "BraidOfKiN ["..tostring(lvl).." уровень]",
+            name          = RPD.textById("BraidOfKiN").." ["..tostring(lvl).." уровень]",
             info          = "BraidOfKiD",
             magicAffinity = "Combat",
             targetingType = "cell",
@@ -44,11 +44,11 @@ return spell.init{
     local hero = RPD.Dungeon.hero
     
     if RPD.Dungeon.hero:lvl() <= 0 then
-     RPD.glog("-- LvlLimit")
+     RPD.glog(RPD.textById("LvlLimit"))
      return false
     end
     if RPG.distance(cell) ~= 0 then
-      RPD.glog("** DistanceLimit")
+      RPD.glog(RPD.textById("DistanceLimit"))
       return false
     end
     

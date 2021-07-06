@@ -30,7 +30,7 @@ return spell.init{
         return {
             image         = 34,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = "ThornsOfAgonyN ["..tostring(lvl).." уровень]",
+            name          = RPD.textById("ThornsOfAgonyN").." ["..tostring(lvl).." уровень]",
             info          = "ThornsOfAgonyD",
             magicAffinity = "Combat",
             targetingType = "self",
@@ -46,7 +46,7 @@ return spell.init{
     Count = storage.gameGet(a) or {}
 	
 	if RPD.Dungeon.hero:lvl() <= 4 then
-     RPD.glog("-- LvlLimit")
+     RPD.glog(RPD.textById("LvlLimit"))
      return false
     end
 	

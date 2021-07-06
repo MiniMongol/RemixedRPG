@@ -29,7 +29,7 @@ return spell.init{
         return {
             image         = 14,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = "SealOfKiN ["..tostring(lvl).." уровень]",
+            name          = RPD.textById("SealOfKiN").." ["..tostring(lvl).." уровень]",
             info          = "SealOfKiD",
             magicAffinity = "Combat",
             targetingType = "cell",
@@ -41,11 +41,11 @@ return spell.init{
     end,
     castOnCell = function(self, spell, chr, cell)
     if RPD.Dungeon.hero:lvl() <= 4 then
-     RPD.glog("-- LvlLimit")
+     RPD.glog(RPD.textById("LvlLimit"))
      return false
     end
     if RPG.subclass ~= nil and RPG.subclass ~= "Ninja" and RPG.subclass ~= "Necromancer" then
-      RPD.glog("-- SubclassLimit")
+      RPD.glog(RPD.textById("SubclassLimit"))
       return false
     end
     

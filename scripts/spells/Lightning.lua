@@ -29,7 +29,7 @@ return spell.init{
         return {
             image         = 10,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = "LightningN ["..tostring(lvl).." уровень]",
+            name          = RPD.textById("LightningN").." ["..tostring(lvl).." уровень]",
             info          = "LightningD",
             magicAffinity = "Combat",
             targetingType = "cell",
@@ -43,7 +43,7 @@ return spell.init{
     local level = RPD.Dungeon.level
     
     if RPD.Dungeon.hero:lvl() <= 4 then
-     RPD.glog("-- LvlLimit")
+     RPD.glog(RPD.textById("LvlLimit"))
      return false
     end
     
