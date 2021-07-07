@@ -36,7 +36,7 @@ return item.init{
             sInfo = statsInfo,
             dstats = stats
             },
-            name          = "BattleAxe_Name: "..tostring(math.max(stra-item:level(),1)),
+            name          = RPD.textById("BattleAxe_Name")..": "..tostring(math.max(stra-item:level(),1)),
             price         = 20*2^(tier-1)+30*item:level(),
             stackable     = false,
             upgradable    = true,
@@ -46,7 +46,7 @@ return item.init{
     info = function(self,item)
       hero = RPD.Dungeon.hero
       str = stra-item:level()
-      local info = "BattleAxeDesc"..self.data.sInfo
+      local info = RPD.textById("BattleAxe_Info").."\n\n"..RPD.textById("BattleAxe_Name")..RPD.textById("WeaponInfo0")..tier..RPD.textById("WeaponInfo1")..math.ceil((maxDmg+minDmg+tier*item:level()*2)/2)..RPD.textById("WeaponInfo2")..stra..RPD.textById("WeaponInfo3")..RPD.textById("").."\n"..self.data.sInfo
       if hero:STR() >= str then
         return info
       else
