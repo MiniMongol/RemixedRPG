@@ -7,7 +7,7 @@
     },
     "items": [
         {
-            "kind":"PotionOfExperience",
+            "kind":"Gold",
             "quantity":100
         }
     ],
@@ -20,8 +20,8 @@
   "non_expert": {
     "items": [
       {
-        "kind": "BattleAxe",
-        "quantity":1
+        "kind": "Gold",
+        "quantity":100
       }
     ]
   },
