@@ -41,6 +41,8 @@ return actor.init({
                 end
             end
         end
+		local ModWnd = RPD.new(RPD.Objects.Ui.WndStory,RPD.textById("ModWnd"))
+		RPD.GameScene:show(ModWnd)
 
         return true
     end,
