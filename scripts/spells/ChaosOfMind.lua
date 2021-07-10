@@ -30,13 +30,13 @@ return spell.init{
         return {
             image         = 17,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = RPD.textById("ChaosOfMindN").." ["..tostring(lvl).." уровень]",
+            name          = RPD.textById("ChaosOfMindN").." ["..tostring(lvl).." "..RPD.textById("Lvl").."]",
             info          = "ChaosOfMindD",
             magicAffinity = "Combat",
             targetingType = "self",
             level         = 1,
-            spellCost     = 15,
-            cooldown      = math.max(21-lvl-RPG.spellFast,15-math.ceil(RPG.spellFast/2)),
+            spellCost     = 10+lvl,
+            cooldown      = math.max(17-lvl-RPG.spellFast,13-math.ceil(RPG.spellFast/2)),
             castTime      = 0.5
         }
     end,

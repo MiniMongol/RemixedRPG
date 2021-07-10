@@ -29,14 +29,14 @@ return spell.init{
         return {
             image         = 13,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = RPD.textById("DisguiseN").." ["..tostring(lvl).." уровень]",
+            name          = RPD.textById("DisguiseN").." ["..tostring(lvl).." "..RPD.textById("Lvl").."]",
             info          = "DisguiseD",
             magicAffinity = "Combat",
             targetingType = "self",
             level         = 1,
             spellCost     = 5,
             cooldown      = math.max(11-lvl-RPG.spellFast,5-math.ceil(RPG.spellFast/2)),
-            castTime      = 1
+            castTime      = 0
         }
     end,
     cast = function(self, spell, chr)
@@ -57,7 +57,7 @@ return spell.init{
      exp = exp+1
     if exp == expMax then
      exp = 0
-     expMax = expMax+7
+     expMax = expMax+5
      lvl = lvl+1
      end
      storage.gamePut(a,{exp = exp, expMax = expMax, lvl = lvl})

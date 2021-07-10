@@ -34,12 +34,12 @@ return spell.init{
         return {
             image         = 9,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = RPD.textById("SummoningBoneGolemN").." ["..tostring(lvl).." уровень]",
+            name          = RPD.textById("SummoningBoneGolemN").." ["..tostring(lvl).." "..RPD.textById("Lvl").."]",
             info          = "SummoningBoneGolemD",
             magicAffinity = "Combat",
             targetingType = "cell",
             level         = 1,
-            spellCost     = 15,
+            spellCost     = 15+5*lvl,
             cooldown      = math.max(19-lvl-RPG.spellFast,16-math.ceil(RPG.spellFast/2)),
             castTime      = 0.5
         }

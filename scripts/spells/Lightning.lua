@@ -29,13 +29,13 @@ return spell.init{
         return {
             image         = 10,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = RPD.textById("LightningN").." ["..tostring(lvl).." уровень]",
+            name          = RPD.textById("LightningN").." ["..tostring(lvl).." "..RPD.textById("Lvl").."]",
             info          = "LightningD",
             magicAffinity = "Combat",
             targetingType = "cell",
             level         = 1,
-            spellCost     = 20,
-            cooldown      = math.max(25-lvl-RPG.spellFast,22-math.ceil(RPG.spellFast/2)),
+            spellCost     = 20+lvl,
+            cooldown      = math.max(31-lvl-RPG.spellFast,27-math.ceil(RPG.spellFast/2)),
             castTime      = 1
         }
     end,
@@ -70,7 +70,7 @@ return spell.init{
  RPD.zapEffect(RPD.Dungeon.hero:getPos(),pos,"Lightning")
  if enemy and enemy ~= RPD.Dungeon.hero then
  RPD.playSound("snd_lightning.ogg")
-  enemy:damage((RPG.magStr()*0.45)+2*lvl,RPD.Dungeon.hero)
+  enemy:damage(math.ceil(RPG.magStr()*(1+lvl*0.05)),RPD.Dungeon.hero)
   local x = level:cellX(enemy:getPos())
      local y = level:cellY(enemy:getPos())
      
@@ -80,7 +80,7 @@ return spell.init{
        local enemy2 = RPD.Actor:findChar(pos2)
        if enemy2 and enemy2 ~= RPD.Dungeon.hero and enemy2 ~= enemy then
        RPD.zapEffect(enemy:getPos(),enemy2:getPos(),"Lightning")
-        enemy2:damage(math.ceil(RPG.magStr()*0.35) + 2*lvl, RPD.Dungeon.hero)
+        enemy2:damage(math.ceil(RPG.magStr()*(0.6+lvl*0.03)), RPD.Dungeon.hero)
        end
       end
      end

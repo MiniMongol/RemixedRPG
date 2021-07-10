@@ -34,12 +34,12 @@ return spell.init{
         return {
             image         = 15,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = RPD.textById("ShadowDashN").." ["..tostring(lvl).." уровень]",
+            name          = RPD.textById("ShadowDashN").." ["..tostring(lvl).." "..RPD.textById("Lvl").."]",
             info          = "ShadowDashD",
             magicAffinity = "Combat",
             targetingType = "cell",
             level         = 1,
-            spellCost     = 8,
+            spellCost     = 5,
             cooldown      = math.max(21-lvl-RPG.spellFast,15-math.ceil(RPG.spellFast/2)),
             castTime      = 1
         }

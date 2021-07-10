@@ -313,7 +313,7 @@ return spell.init{
      
      RPD.permanentBuff(hero,"RPGbuff")
      
-     RPG.sPoints = 20
+     RPG.sPoints = 25
      RPG.spRegen = 1
      RPG.physicStr = 1
      RPG.magicStr = 1

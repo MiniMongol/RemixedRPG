@@ -29,7 +29,7 @@ return spell.init{
         return {
             image         = 22,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = RPD.textById("DissectionN").." ["..tostring(lvl).." уровень]",
+            name          = RPD.textById("DissectionN").." ["..tostring(lvl).." "..RPD.textById("Lvl").."]",
             info          = "DissectionD",
             magicAffinity = "Combat",
             targetingType = "self",

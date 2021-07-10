@@ -31,13 +31,13 @@ return spell.init{
         return {
             image         = 7,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = RPD.textById("CounterblowsN").." ["..tostring(lvl).." уровень]",
+            name          = RPD.textById("CounterblowsN").." ["..tostring(lvl).." "..RPD.textById("Lvl").."]",
             info          = "CounterblowsD",
             magicAffinity = "Combat",
             targetingType = "self",
             level         = 1,
-            spellCost     = 5,
-            cooldown      = math.max(21-lvl-RPG.spellFast,16-math.ceil(RPG.spellFast/2)),
+            spellCost     = 3,
+            cooldown      = math.max(19-lvl-RPG.spellFast,15-math.ceil(RPG.spellFast/2)),
             castTime      = 0
         }
     end,
@@ -72,7 +72,7 @@ return spell.init{
      storage.gamePut(a,{exp = exp, expMax = expMax, lvl = lvl})
     end
     RPD.removeBuff(RPD.Dungeon.hero,"CounterblowsBuff")
-    RPD.affectBuff(RPD.Dungeon.hero, "CounterblowsBuff",2+lvl)
+    RPD.affectBuff(RPD.Dungeon.hero, "CounterblowsBuff",2+lvl*1.5)
  return true
    end
 }

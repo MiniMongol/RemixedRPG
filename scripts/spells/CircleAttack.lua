@@ -29,14 +29,14 @@ return spell.init{
         return {
             image         = 22,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = RPD.textById("CircleAttackN").." ["..tostring(lvl).." уровень]",
+            name          = RPD.textById("CircleAttackN").." ["..tostring(lvl).." "..RPD.textById("Lvl").."]",
             info          = "CircleAttackD",
             magicAffinity = "Combat",
             targetingType = "self",
             level         = 1,
             spellCost     = 2,
             cooldown      = math.max(16-lvl-RPG.spellFast,10-math.ceil(RPG.spellFast/2)),
-            castTime      = 1
+            castTime      = 0.5
         }
     end,
     cast = function(self, spell, chr, cell)
@@ -56,7 +56,7 @@ return spell.init{
      exp = exp+1
     if exp == expMax then
      exp = 0
-     expMax = expMax+5
+     expMax = expMax+4
      lvl = lvl+1
      end
      storage.gamePut(a,{exp = exp, expMax = expMax, lvl = lvl})

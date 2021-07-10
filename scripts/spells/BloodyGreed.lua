@@ -30,13 +30,13 @@ return spell.init{
         return {
             image         = 30,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = RPD.textById("BloodyGreedN").." ["..tostring(lvl).." уровень]",
+            name          = RPD.textById("BloodyGreedN").." ["..tostring(lvl).." "..RPD.textById("Lvl").."]",
             info          = "BloodyGreedD",
             magicAffinity = "Combat",
             targetingType = "self",
             level         = 1,
-            spellCost     = 5,
-            cooldown      = math.max(21-lvl-RPG.spellFast,16-math.ceil(RPG.spellFast/2)),
+            spellCost     = 4,
+            cooldown      = math.max(17-lvl-RPG.spellFast,13-math.ceil(RPG.spellFast/2)),
             castTime      = 0
         }
     end,

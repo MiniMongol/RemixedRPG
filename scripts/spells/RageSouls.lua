@@ -32,12 +32,12 @@ return spell.init{
         return {
             image         = 32,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = RPD.textById("RageSoulsN").." ["..tostring(lvl).." уровень]",
+            name          = RPD.textById("RageSoulsN").." ["..tostring(lvl).." "..RPD.textById("Lvl").."]",
             info          = "RageSoulsD",
             magicAffinity = "Combat",
             targetingType = "cell",
             level         = 1,
-            spellCost     = 5,
+            spellCost     = 9+lvl,
             cooldown      = math.max(14-lvl-RPG.spellFast,8-math.ceil(RPG.spellFast/2)),
             castTime      = 1
         }

@@ -30,12 +30,12 @@ return spell.init{
         return {
             image         = 28,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = RPD.textById("ShadowDaggerN").." ["..tostring(lvl).." уровень]",
+            name          = RPD.textById("ShadowDaggerN").." ["..tostring(lvl).." "..RPD.textById("Lvl").."]",
             info          = "ShadowDaggerD",
             magicAffinity = "Combat",
             targetingType = "self",
             level         = 1,
-            spellCost     = 5,
+            spellCost     = 3,
             cooldown      = math.max(16-lvl-RPG.spellFast,10-math.ceil(RPG.spellFast/2)),
             castTime      = 0
         }

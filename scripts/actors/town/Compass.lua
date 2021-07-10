@@ -6,6 +6,8 @@
 
 local RPD = require "scripts/lib/commonClasses"
 
+local storage = require "scripts/lib/storage"
+
 local actor = require "scripts/lib/actor"
 
 local dungeonEntrance = {13, 4}
@@ -16,11 +18,7 @@ local time = 0
 
 return actor.init({
     act = function()
-        local hero = RPD.Dungeon.hero
-        
-        if hero:getBelongings():getItem("TomeOfMastery") ~= nil then
-         hero:getBelongings():getItem("TomeOfMastery"):detach(hero:getBelongings().backpack)
-    end
+    local hero = RPD.Dungeon.hero
 
         time = time + 1
 
@@ -41,15 +39,22 @@ return actor.init({
                 end
             end
         end
-		local ModWnd = RPD.new(RPD.Objects.Ui.WndStory,RPD.textById("ModWnd"))
-		RPD.GameScene:show(ModWnd)
-
         return true
     end,
     actionTime = function()
         return 1
     end,
     activate = function()
-
+    local Stats = storage.gameGet("") or {}
+      if Stats.str == nil then
+        local ModWnd = RPD.new(RPD.Objects.Ui.WndStory,RPD.textById("ModWnd"))
+		RPD.GameScene:show(ModWnd)
+		
+		local hero = RPD.Dungeon.hero
+        
+        if hero:getBelongings():getItem("TomeOfMastery") ~= nil then
+         hero:getBelongings():getItem("TomeOfMastery"):detach(hero:getBelongings().backpack)
+    end
+	  end
     end
 })

@@ -30,12 +30,12 @@ return spell.init{
         return {
             image         = 34,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = RPD.textById("ThornsOfAgonyN").." ["..tostring(lvl).." уровень]",
+            name          = RPD.textById("ThornsOfAgonyN").." ["..tostring(lvl).." "..RPD.textById("Lvl").."]",
             info          = "ThornsOfAgonyD",
             magicAffinity = "Combat",
             targetingType = "self",
             level         = 1,
-            spellCost     = 2,
+            spellCost     = 9+lvl,
             cooldown      = math.max(21-lvl,18),
             castTime      = 0
         }

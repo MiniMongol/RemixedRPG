@@ -34,12 +34,12 @@ return spell.init{
         return {
             image         = 19,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = RPD.textById("RageDashN").." ["..tostring(lvl).." уровень]",
+            name          = RPD.textById("RageDashN").." ["..tostring(lvl).." "..RPD.textById("Lvl").."]",
             info          = "RageDashD",
             magicAffinity = "Combat",
             targetingType = "cell",
             level         = 1,
-            spellCost     = 3,
+            spellCost     = 4,
             cooldown      = math.max(21-lvl-RPG.spellFast,16-math.ceil(RPG.spellFast/2)),
             castTime      = 1
         }
@@ -54,7 +54,7 @@ return spell.init{
      return false
     end
     
-    if level:getTileType(cell) == 4 or level:getTileType(cell) == 12 or RPG.distance(cell) > math.min(lvl+1,4) then
+    if level:getTileType(cell) == 4 or level:getTileType(cell) == 12 or RPG.distance(cell) > math.min(2+lvl+,5) then
       RPD.glog(RPD.textById("DashLimit"))
         return false
       end
@@ -82,8 +82,8 @@ return spell.init{
 
     local heroPos = hero:getPos()
     moveTo = RPD.Ballistica:cast(heroPos,cell,true,true,false)
-      enemy = RPD.Actor:findChar(moveTo)
-      if enemy and enemy ~= hero and RPG.distance(moveTo) <= math.min(lvl+1,4) then
+      9 = RPD.Actor:findChar(moveTo)
+      if enemy and enemy ~= hero and RPG.distance(moveTo) <= math.min(2+lvl,4) then
          RPD.affectBuff(enemy,RPD.Buffs.Paralysis,2+0.5*lvl)
          moveTo = RPD.Ballistica.trace[RPD.Ballistica.distance-1]
       else

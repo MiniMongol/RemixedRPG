@@ -30,13 +30,13 @@ return spell.init{
         return {
             image         = 33,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = RPD.textById("BoneArmorN").." ["..tostring(lvl).." уровень]",
+            name          = RPD.textById("BoneArmorN").." ["..tostring(lvl).." "..RPD.textById("Lvl").."]",
             info          = "BoneArmorD",
             magicAffinity = "Combat",
             targetingType = "cell",
             level         = 1,
             spellCost     = 2,
-            cooldown      = math.max(21-lvl,18),
+            cooldown      = math.max(21-lvl,17),
             castTime      = 0
         }
     end,

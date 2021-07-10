@@ -29,14 +29,14 @@ return spell.init{
         return {
             image         = 11,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = RPD.textById("FastRunN").." ["..tostring(lvl).." уровень]",
+            name          = RPD.textById("FastRunN").." ["..tostring(lvl).." "..RPD.textById("Lvl").."]",
             info          = "FastRunD",
             magicAffinity = "Combat",
             targetingType = "self",
             level         = 1,
-            spellCost     = 10,
-            cooldown      = math.max(21-lvl-RPG.spellFast,18-math.ceil(RPG.spellFast/2)),
-            castTime      = 0.5
+            spellCost     = 8+lvl,
+            cooldown      = math.max(18-lvl-RPG.spellFast,14-math.ceil(RPG.spellFast/2)),
+            castTime      = 0
         }
     end,
     cast = function(self, spell, chr, cell)
@@ -70,7 +70,7 @@ return spell.init{
      expMax = 4
      storage.gamePut(a,{exp = exp, expMax = expMax, lvl = lvl})
     end
-    RPD.affectBuff(RPD.Dungeon.hero, "FastRunBuff", 1+1.5*lvl)
+    RPD.affectBuff(RPD.Dungeon.hero, "FastRunBuff", 5+2*lvl)
  return true
    end
 }

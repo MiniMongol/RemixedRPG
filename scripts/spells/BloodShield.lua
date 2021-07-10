@@ -29,13 +29,13 @@ return spell.init{
         return {
             image         = 18,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = RPD.textById("BloodShieldN").." ["..tostring(lvl).." уровень]",
+            name          = RPD.textById("BloodShieldN").." ["..tostring(lvl).." "..RPD.textById("Lvl").."]",
             info          = "BloodShieldD",
             magicAffinity = "Combat",
             targetingType = "self",
             level         = 1,
             spellCost     = 5,
-            cooldown      = math.max(16-lvl-RPG.spellFast,13-math.ceil(RPG.spellFast/2)),
+            cooldown      = math.max(25-lvl-RPG.spellFast,20-math.ceil(RPG.spellFast/2)),
             castTime      = 1
         }
     end,

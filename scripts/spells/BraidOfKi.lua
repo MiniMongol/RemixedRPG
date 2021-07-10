@@ -29,12 +29,12 @@ return spell.init{
         return {
             image         = 26,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = RPD.textById("BraidOfKiN").." ["..tostring(lvl).." уровень]",
+            name          = RPD.textById("BraidOfKiN").." ["..tostring(lvl).." "..RPD.textById("Lvl").."]",
             info          = "BraidOfKiD",
             magicAffinity = "Combat",
             targetingType = "cell",
             level         = 1,
-            spellCost     = 12,
+            spellCost     = 8+lvl,
             cooldown      = math.max(16-lvl-RPG.spellFast,10-math.ceil(RPG.spellFast/2)),
             castTime      = 1
         }

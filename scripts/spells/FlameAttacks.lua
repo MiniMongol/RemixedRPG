@@ -30,7 +30,7 @@ return spell.init{
         return {
             image         = 21,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = RPD.textById("FlameAttacksN").." ["..tostring(lvl).." уровень]",
+            name          = RPD.textById("FlameAttacksN").." ["..tostring(lvl).." "..RPD.textById("Lvl").."]",
             info          = "FlameAttacksD",
             magicAffinity = "Combat",
             targetingType = "self",
@@ -68,7 +68,7 @@ return spell.init{
     end
     
     RPD.removeBuff(RPD.Dungeon.hero,"FlameAttacksBuff")
-    RPD.affectBuff(RPD.Dungeon.hero, "FlameAttacksBuff", 2+lvl)
+    RPD.affectBuff(RPD.Dungeon.hero, "FlameAttacksBuff", 3+1.5*lvl)
  return true
    end
 }

@@ -118,7 +118,7 @@ return spell.init{
         return {
             image         = 31,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = RPD.textById("PlaceTrapN").." ["..tostring(lvl).." уровень]",
+            name          = RPD.textById("PlaceTrapN").." ["..tostring(lvl).." "..RPD.textById("Lvl").."]",
             info          = "PlaceTrapD",
             magicAffinity = "Combat",
             targetingType = "cell",
@@ -138,7 +138,7 @@ return spell.init{
       RPD.glog(RPD.textById("SubclassLimit"))
       return false
     end
-    if RPG.distance(cell) > lvl then
+    if RPG.distance(cell) > 1 then
       RPD.glog(RPD.textById("DistanceLimit"))
       return false
     end

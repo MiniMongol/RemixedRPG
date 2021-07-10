@@ -68,27 +68,27 @@ local RPG1 = {
      RPD.chooseOption(dialog,
      "TrapChoiseOnT",
      "",
-   RPD.textById("TrapChoiseOn0").." ["..Spell.FT.." уровень]",
-   RPD.textById("TrapChoiseOn1").." ["..Spell.BT.." уровень]",
-   RPD.textById("TrapChoiseOn2").." ["..Spell.CT.." уровень]",
-   RPD.textById("TrapChoiseOn3").." ["..Spell.IT.." уровень]",
-   RPD.textById("TrapChoiseOn4").." ["..Spell.PT.." уровень]")
+   RPD.textById("TrapChoiseOn0").." ["..Spell.FT.." "..RPD.textById("Lvl").."]",
+   RPD.textById("TrapChoiseOn1").." ["..Spell.BT.." "..RPD.textById("Lvl").."]",
+   RPD.textById("TrapChoiseOn2").." ["..Spell.CT.." "..RPD.textById("Lvl").."]",
+   RPD.textById("TrapChoiseOn3").." ["..Spell.IT.." "..RPD.textById("Lvl").."]",
+   RPD.textById("TrapChoiseOn4").." ["..Spell.PT.." "..RPD.textById("Lvl").."]")
    else
      RPD.chooseOption(dialog,
      "TrapChoiseOnT",
      ""..Spell.UP.." очков улучшения",
-   RPD.textById("TrapChoiseOn0").." ["..Spell.FT.." уровень]",
-   RPD.textById("TrapChoiseOn1").." ["..Spell.BT.." уровень]",
-   RPD.textById("TrapChoiseOn2").." ["..Spell.CT.." уровень]",
-   RPD.textById("TrapChoiseOn3").." ["..Spell.IT.." уровень]",
-   RPD.textById("TrapChoiseOn4").." ["..Spell.PT.." уровень]")
+   RPD.textById("TrapChoiseOn0").." ["..Spell.FT.." "..RPD.textById("Lvl").."]",
+   RPD.textById("TrapChoiseOn1").." ["..Spell.BT.." "..RPD.textById("Lvl").."]",
+   RPD.textById("TrapChoiseOn2").." ["..Spell.CT.." "..RPD.textById("Lvl").."]",
+   RPD.textById("TrapChoiseOn3").." ["..Spell.IT.." "..RPD.textById("Lvl").."]",
+   RPD.textById("TrapChoiseOn4").." ["..Spell.PT.." "..RPD.textById("Lvl").."]")
    end
  end,
 
  statusWindow = function(dialog,states,index1)
  RPD.chooseOption( dialog,
                 RPD.textById("status"),
-                RPD.textById("str")..": "..tostring(RPG.strength).." [1 очко для повышения]\n"..RPD.textById("int")..": "..tostring(RPG.intelligence).." [1 очко для повышения]\n"..RPD.textById("dex")..": "..tostring(RPG.dexterity).." [1 очко для повышения]\n"..RPD.textById("sur")..": "..tostring(RPG.vitality).." [1 очко для повышения]\n"..RPD.textById("wis").." : "..tostring(RPG.wisdom).." [1 очко для повышения]\n"..RPD.textById("luck")..": "..tostring(RPG.AllLuck()).." [1 очко для повышения]\n\n"..RPD.textById("PhysStr")..": "..tostring(RPG.physStr()).."\n"..RPD.textById("MagStr")..": "..tostring(RPG.magStr()).."\n"..RPD.textById("Fast")..": "..tostring(RPG.AllFast()).."\n "..tostring(RPG.AllSpRegen()).." "..RPD.textById("SpRegenMove"),
+                RPD.textById("str")..": "..tostring(RPG.strength).." [1 "..RPD.textById("SPcost").."]\n"..RPD.textById("int")..": "..tostring(RPG.intelligence).." [1 "..RPD.textById("SPcost").."]\n"..RPD.textById("dex")..": "..tostring(RPG.dexterity).." [1 "..RPD.textById("SPcost").."]\n"..RPD.textById("sur")..": "..tostring(RPG.vitality).." [1 "..RPD.textById("SPcost").."]\n"..RPD.textById("wis").." : "..tostring(RPG.wisdom).." [1 "..RPD.textById("SPcost").."]\n"..RPD.textById("luck")..": "..tostring(RPG.AllLuck()).." [1 "..RPD.textById("SPcost").."]\n\n"..RPD.textById("PhysStr")..": "..tostring(RPG.physStr()).."\n"..RPD.textById("MagStr")..": "..tostring(RPG.magStr()).."\n"..RPD.textById("Fast")..": "..tostring(RPG.AllFast()).."\n "..tostring(RPG.AllSpRegen()).." "..RPD.textById("SpRegenMove"),
                 "["..tostring(states[index1]).."]",
                 RPD.textById("SpecUp").."["..tostring(RPG.sPoints).." "..RPD.textById("SpecUpCost")
         )
@@ -97,7 +97,7 @@ local RPG1 = {
  statusWindowClass = function(dialog,states,index1)
  RPD.chooseOption( dialog,
               RPD.textById("status"),
-                RPD.textById("str")..": "..tostring(RPG.strength).." [1 очко для повышения]\n"..RPD.textById("int")..": "..tostring(RPG.intelligence).." [1 очко для повышения]\n"..RPD.textById("dex")..": "..tostring(RPG.dexterity).." [1 очко для повышения]\n"..RPD.textById("sur")..": "..tostring(RPG.vitality).." [1 очко для повышения]\n"..RPD.textById("wis").." : "..tostring(RPG.wisdom).." [1 очко для повышения]\n"..RPD.textById("luck")..": "..tostring(RPG.AllLuck()).." [1 очко для повышения]\n\n"..RPD.textById("PhysStr")..": "..tostring(RPG.physStr()).."\n"..RPD.textById("MagStr")..": "..tostring(RPG.magStr()).."\n"..RPD.textById("Fast")..": "..tostring(RPG.AllFast()).."\n "..tostring(RPG.AllSpRegen()).." "..RPD.textById("SpRegenMove"),
+                RPD.textById("str")..": "..tostring(RPG.strength).." [1 "..RPD.textById("SPcost").."]\n"..RPD.textById("int")..": "..tostring(RPG.intelligence).." [1 "..RPD.textById("SPcost").."]\n"..RPD.textById("dex")..": "..tostring(RPG.dexterity).." [1 "..RPD.textById("SPcost").."]\n"..RPD.textById("sur")..": "..tostring(RPG.vitality).." [1 "..RPD.textById("SPcost").."]\n"..RPD.textById("wis").." : "..tostring(RPG.wisdom).." [1 "..RPD.textById("SPcost").."]\n"..RPD.textById("luck")..": "..tostring(RPG.AllLuck()).." [1 "..RPD.textById("SPcost").."]\n\n"..RPD.textById("PhysStr")..": "..tostring(RPG.physStr()).."\n"..RPD.textById("MagStr")..": "..tostring(RPG.magStr()).."\n"..RPD.textById("Fast")..": "..tostring(RPG.AllFast()).."\n "..tostring(RPG.AllSpRegen()).." "..RPD.textById("SpRegenMove"),
                 "["..tostring(states[index1]).."]",
                 RPD.textById("SpecUp").."["..tostring(RPG.sPoints).." "..RPD.textById("SpecUpCost"),
                 "ClassPick"
@@ -116,7 +116,7 @@ local RPG1 = {
  statusWindowSubclass = function(dialog,states,index1)
  RPD.chooseOption( dialog,
                RPD.textById("status"),
-                RPD.textById("str")..": "..tostring(RPG.strength).." [1 очко для повышения]\n"..RPD.textById("int")..": "..tostring(RPG.intelligence).." [1 очко для повышения]\n"..RPD.textById("dex")..": "..tostring(RPG.dexterity).." [1 очко для повышения]\n"..RPD.textById("sur")..": "..tostring(RPG.vitality).." [1 очко для повышения]\n"..RPD.textById("wis").." : "..tostring(RPG.wisdom).." [1 очко для повышения]\n"..RPD.textById("luck")..": "..tostring(RPG.AllLuck()).." [1 очко для повышения]\n\n"..RPD.textById("PhysStr")..": "..tostring(RPG.physStr()).."\n"..RPD.textById("MagStr")..": "..tostring(RPG.magStr()).."\n"..RPD.textById("Fast")..": "..tostring(RPG.AllFast()).."\n "..tostring(RPG.AllSpRegen()).." "..RPD.textById("SpRegenMove"),
+                RPD.textById("str")..": "..tostring(RPG.strength).." [1 "..RPD.textById("SPcost").."]\n"..RPD.textById("int")..": "..tostring(RPG.intelligence).." [1 "..RPD.textById("SPcost").."]\n"..RPD.textById("dex")..": "..tostring(RPG.dexterity).." [1 "..RPD.textById("SPcost").."]\n"..RPD.textById("sur")..": "..tostring(RPG.vitality).." [1 "..RPD.textById("SPcost").."]\n"..RPD.textById("wis").." : "..tostring(RPG.wisdom).." [1 "..RPD.textById("SPcost").."]\n"..RPD.textById("luck")..": "..tostring(RPG.AllLuck()).." [1 "..RPD.textById("SPcost").."]\n\n"..RPD.textById("PhysStr")..": "..tostring(RPG.physStr()).."\n"..RPD.textById("MagStr")..": "..tostring(RPG.magStr()).."\n"..RPD.textById("Fast")..": "..tostring(RPG.AllFast()).."\n "..tostring(RPG.AllSpRegen()).." "..RPD.textById("SpRegenMove"),
                 "["..tostring(states[index1]).."]",
                 RPD.textById("SpecUp").."["..tostring(RPG.sPoints).." "..RPD.textById("SpecUpCost"),
                 "SubclassPick"

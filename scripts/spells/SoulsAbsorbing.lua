@@ -31,12 +31,12 @@ return spell.init{
         return {
             image         = 16,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = RPD.textById("SoulsAbsorbingN").." ["..tostring(lvl).." уровень]",
+            name          = RPD.textById("SoulsAbsorbingN").." ["..tostring(lvl).." "..RPD.textById("Lvl").."]",
             info          = "SoulsAbsorbingD",
             magicAffinity = "Combat",
             targetingType = "self",
             level         = 1,
-            spellCost     = 15,
+            spellCost     = 11+lvl,
             cooldown      = math.max(16-lvl-RPG.spellFast,13-math.ceil(RPG.spellFast/2)),
             castTime      = 0.5
         }

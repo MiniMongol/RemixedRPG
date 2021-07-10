@@ -32,7 +32,7 @@ return buff.init{
      Spell.exp = Spell.exp+1
      if Spell.exp == Spell.expMax then
       Spell.exp = 0
-      Spell.expMax = Spell.expMax+6
+      Spell.expMax = Spell.expMax+8
       Spell.lvl = Spell.lvl+1
      end
      

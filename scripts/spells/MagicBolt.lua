@@ -29,12 +29,12 @@ return spell.init{
         return {
             image         = 1,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = RPD.textById("MagicBoltN").." ["..tostring(lvl).." уровень]",
+            name          = RPD.textById("MagicBoltN").." ["..tostring(lvl).." "..RPD.textById("Lvl").."]",
             info          = "MagicBoltD",
             magicAffinity = "Combat",
             targetingType = "cell",
             level         = 1,
-            spellCost     = 8,
+            spellCost     = 6+lvl,
             cooldown      = math.max(15-lvl-RPG.spellFast,12-math.ceil(RPG.spellFast/2)),
             castTime      = 1
         }

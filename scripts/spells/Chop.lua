@@ -30,7 +30,7 @@ return spell.init{
         return {
             image         = 3,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = RPD.textById("ChopN").." ["..tostring(lvl).." уровень]",
+            name          = RPD.textById("ChopN").." ["..tostring(lvl).." "..RPD.textById("Lvl").."]",
             info          = "ChopD",
             magicAffinity = "Combat",
             targetingType = "self",
@@ -49,14 +49,14 @@ return spell.init{
      exp = exp+1
     if exp == expMax then
      exp = 0
-     expMax = expMax+6
+     expMax = expMax+8
      lvl = lvl+1
      end
      storage.gamePut(a,{exp = exp, expMax = expMax, lvl = lvl})
     else
      lvl = 1
      exp = 0
-     expMax = 4
+     expMax = 6
      storage.gamePut(a,{exp = exp, expMax = expMax, lvl = lvl})
     end
     RPD.removeBuff(RPD.Dungeon.hero,"ChopBuff")

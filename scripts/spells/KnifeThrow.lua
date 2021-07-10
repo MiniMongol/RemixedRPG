@@ -29,7 +29,7 @@ return spell.init{
         return {
             image         = 29,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = RPD.textById("KnifeThrowN").." ["..tostring(lvl).." уровень]",
+            name          = RPD.textById("KnifeThrowN").." ["..tostring(lvl).." "..RPD.textById("Lvl").."]",
             info          = "KnifeThrowD",
             magicAffinity = "Combat",
             targetingType = "cell",
@@ -67,7 +67,8 @@ return spell.init{
       RPD.zapEffect(RPD.Dungeon.hero:getPos(),pos,"ThrowingKnife")
       if enemy and enemy ~= RPD.Dungeon.hero then
         enemy:damage(math.ceil(RPG.physStr()*0.1 + 0.05*lvl),RPD.Dungeon.hero)
-        RPD.affectBuff(enemy,RPD.Buffs.Poison,math.ceil(RPG.AllFast()*0.3 + 0.5*lvl))
+        local poison = RPD.affectBuff(enemy, "PoisonBuff",math.ceil(RPG.AllFast()*0.3 + 0.5*lvl))
+        poison:level(RPG.physStr())
         RPD.affectBuff(enemy, RPD.Buffs.Paralysis, 4)
      end
  return true

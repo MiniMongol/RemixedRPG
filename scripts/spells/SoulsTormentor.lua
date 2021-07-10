@@ -30,12 +30,12 @@ return spell.init{
         return {
             image         = 6,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = RPD.textById("SoulsTormentorN").." ["..tostring(lvl).." уровень]",
+            name          = RPD.textById("SoulsTormentorN").." ["..tostring(lvl).." "..RPD.textById("Lvl").."]",
             info          = "SoulsTormentorD",
             magicAffinity = "Combat",
             targetingType = "self",
             level         = 1,
-            spellCost     = 8,
+            spellCost     = 7+lvl,
             cooldown      = math.max(11-lvl-RPG.spellFast,5-math.ceil(RPG.spellFast/2)),
             castTime      = 0
         }

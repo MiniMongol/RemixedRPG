@@ -29,12 +29,12 @@ return spell.init{
         return {
             image         = 14,
             imageFile     = "spellsIcons/spellicons.png",
-            name          = RPD.textById("SealOfKiN").." ["..tostring(lvl).." уровень]",
+            name          = RPD.textById("SealOfKiN").." ["..tostring(lvl).." "..RPD.textById("Lvl").."]",
             info          = "SealOfKiD",
             magicAffinity = "Combat",
             targetingType = "cell",
             level         = 1,
-            spellCost     = 15,
+            spellCost     = 11+lvl,
             cooldown      = math.max(21-lvl-RPG.spellFast,12-math.ceil(RPG.spellFast/2)),
             castTime      = 1
         }
