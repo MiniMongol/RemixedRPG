@@ -26,12 +26,12 @@ local Spells
 local sMas
 
 local states = {
-"Сила",
-"Интеллект",
-"Ловкость",
-"Живучесть",
-"Мудрость",
-"Удача"
+RPD.textById("str"),
+RPD.textById("int"),
+RPD.textById("dex"),
+RPD.textById("sur"),
+RPD.textById("wis"),
+RPD.textById("luck")
 }
 
 local index1 = 1
