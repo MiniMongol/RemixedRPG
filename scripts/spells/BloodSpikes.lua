@@ -50,7 +50,7 @@ return spell.init{
     Count = storage.gameGet(a) or {}
     
     if RPD.Dungeon.hero:lvl() <= 4 then
-     RPD.glog(.RPD.textById("LvlLimit"))
+     RPD.glog(RPD.textById("LvlLimit"))
      return false
     end
     if RPG.subclass ~= nil and RPG.subclass ~= "Demonologist" then
@@ -72,7 +72,7 @@ return spell.init{
      if hero:hp() > cost then
         hero:damage(cost,hero)
      else
-        RPD.glog(RPD.textById("HpLimit")
+        RPD.glog(RPD.textById("HpLimit"))
         return false
       end
       RPD.playSound("snd_blood_spikes.wav")
