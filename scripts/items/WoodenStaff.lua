@@ -14,6 +14,9 @@ local storage = require "scripts/lib/storage"
 local item = require "scripts/lib/item"
 local statsMax = 3
 local quanStats = 2
+local tier = 1
+local maxDmg = 3
+local minDmg = 1
 local stra = 9
 local addMag = 10
 local magAsLevel = 2
@@ -38,8 +41,8 @@ return item.init{
             dstats = stats,
             level = stra
             },
-            name          = "Деревянная клюка: "..tostring(math.max(stra-item:level(),1)),
-            price         = 20+10*item:level(),
+            name          = RPD.textById("WoodenStaff_Name")..": "..tostring(math.max(stra-item:level(),1)),
+            price         = 20*2^(tier-1)+10*2^(tier-1)*item:level(),
             stackable     = false,
             upgradable    = true,
             equipable     ="weapon"
@@ -48,11 +51,11 @@ return item.init{
     info = function(self,item)
       hero = RPD.Dungeon.hero
       str = stra-item:level()
-      local info = "Довольно прочная клюка, увеличивающая магическую силу.\n\nДеревянная клюка - оружие дальнего боя 1 порядка. Дальность атаки - 3 клетки. Средний урон составляет 2 + 5% от магической силы единиц за удар и, как правило, требует "..stra.." очков силы.\n\n"..self.data.sInfo
+      local info = RPD.textById("WoodenStaff_Info").."\n\n"..RPD.textById("WoodenStaff_Name")..RPD.textById("RangedWeaponInfo0")..tier..RPD.textById("WeaponInfo1")..math.ceil((maxDmg+minDmg).." + "..attackBonus*100.."%"..RPD.textById("WeaponInfo2")..stra..RPD.textById("WeaponInfo3")..RPD.textById("").."\n\n"..self.data.sInfo
       if hero:STR() >= str then
         return info
       else
-        return info.."\n Это оружие слишком тяжёлое для вас. При ношении ваша скорость и меткость будут снижены."
+        return info..RPD.textById("WeaponLimit")
       end
     end,
     
@@ -65,7 +68,7 @@ return item.init{
     end,
     
     damageRoll = function(self, item, user)
-        return 3+item:level()+math.ceil(RPG.magStr()*attackBonus),1+item:level()+math.ceil(RPG.magStr()*attackBonus)
+        return maxDmg+item:level()+math.ceil(RPG.magStr()*attackBonus),minDmg+item:level()+math.ceil(RPG.magStr()*attackBonus)
     end,
     
     activate = function(self,item)

@@ -37,7 +37,7 @@ return item.init{
             dstats = stats
             },
             name          = RPD.textById("Knuckles_Name")..": "..tostring(math.max(1,stra-item:level())),
-            price         = 20*2^(tier-1)+5*item:level(),
+            price         = 20*2^(tier-1)+10*2^(tier-1)*item:level(),
             stackable     = false,
             upgradable    = true,
             equipable     ="weapon"

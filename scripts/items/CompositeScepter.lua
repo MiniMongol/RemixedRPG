@@ -14,6 +14,9 @@ local storage = require "scripts/lib/storage"
 local item = require "scripts/lib/item"
 local statsMax = 6
 local quanStats = 3
+local tier = 3
+local maxDmg = 12
+local minDmg = 6
 local stra = 13
 local addMag = 25
 local magAsLevel = 6
@@ -38,8 +41,8 @@ return item.init{
             dstats = stats,
             level = stra
             },
-            name          = "Составной скипетр: "..tostring(math.max(stra-item:level(),1)),
-            price         = 80+30*item:level(),
+            name          = RPD.textById("CompositeScepter_Name")..": "..tostring(math.max(stra-item:level(),1)),
+            price         = 20*2^(tier-1)+10*2^(tier-1)*item:level(),
             stackable     = false,
             upgradable    = true,
             equipable     ="weapon"
@@ -48,11 +51,11 @@ return item.init{
     info = function(self,item)
       hero = RPD.Dungeon.hero
       str = stra-item:level()
-      local info = "Собранный из стальных и золотых частей скипетр, дающий большую прибавку к магической силе.\n\nСоставной скипетр - оружие дальнего боя 3 порядка. Дальность атаки - 3 клетки. Средний урон составляет 8 + 10% от магической силы единиц за удар и, как правило, требует "..stra.." очков силы.\n\n"..self.data.sInfo
+      local info = RPD.textById("CompositeScepter_Info").."\n\n"..RPD.textById("CompositeScepter_Name")..RPD.textById("RangedWeaponInfo0")..tier..RPD.textById("WeaponInfo1")..math.ceil((maxDmg+minDmg).." + "..attackBonus*100.."%"..RPD.textById("WeaponInfo2")..stra..RPD.textById("WeaponInfo3")..RPD.textById("").."\n\n"..self.data.sInfo
       if hero:STR() >= str then
         return info
       else
-        return info.."\n Это оружие слишком тяжёлое для вас. При ношении ваша скорость и меткость будут снижены."
+        return info..RPD.textById("WeaponLimit")
       end
     end,
     
@@ -65,7 +68,7 @@ return item.init{
     end,
     
     damageRoll = function(self, item, user)
-        return 10+item:level()+math.ceil(RPG.magStr()*attackBonus),6+item:level()+math.ceil(RPG.magStr()*attackBonus)
+        return maxDmg+item:level()+math.ceil(RPG.magStr()*attackBonus),minDmg+item:level()+math.ceil(RPG.magStr()*attackBonus)
     end,
     
     activate = function(self,item)
