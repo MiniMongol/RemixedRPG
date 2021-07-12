@@ -51,7 +51,7 @@ return item.init{
     info = function(self,item)
       hero = RPD.Dungeon.hero
       str = stra-item:level()
-      local info = RPD.textById("WoodenStaff_Info").."\n\n"..RPD.textById("WoodenStaff_Name")..RPD.textById("RangedWeaponInfo0")..tier..RPD.textById("WeaponInfo1")..math.ceil(maxDmg+minDmg).." + "..attackBonus*100.."%"..RPD.textById("WeaponInfo2")..stra..RPD.textById("WeaponInfo3")..RPD.textById("").."\n\n"..self.data.sInfo
+      local info = RPD.textById("WoodenStaff_Info").."\n\n"..RPD.textById("WoodenStaff_Name")..RPD.textById("RangedWeaponInfo0")..tier..RPD.textById("WeaponInfo1")..math.ceil((maxDmg+minDmg)/2).." + "..math.ceil(attackBonus*100).."%"..RPD.textById("WeaponInfo2")..stra..RPD.textById("WeaponInfo3")..RPD.textById("").."\n\n"..self.data.sInfo
       if hero:STR() >= str then
         return info
       else
