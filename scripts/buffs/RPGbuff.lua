@@ -12,6 +12,7 @@ local level = RPD.Dungeon.hero
 local luckBonus = 1
 local num = 0
 local stats = ""
+local changes = "changes"
 
 local buff = require "scripts/lib/buff"
 
@@ -26,6 +27,7 @@ return buff.init{
     
     charAct = function(self,buff)
       local Stats = storage.gameGet(stats) or {}
+	  local ch = storage.gameGet(changes) or {}
       hero = RPD.Dungeon.hero
       local Spells = require "scripts/spells/CustomSpellsList"
       local weapon = hero:getBelongings().weapon
@@ -79,6 +81,21 @@ return buff.init{
         RPG.class = Stats.class
         RPG.subclass = Stats.subclass
       end
+	  
+	  if RPG.lvlToUp - hero:lvl() >= 1 then
+	    RPG.lvlToUp = hero:lvl()
+	    RPG.strength = RPG.strength -ch.str
+        RPG.intelligence = RPG.intelligence -ch.int
+        RPG.dexterity = RPG.dexterity -ch.dex
+        RPG.vitality = RPG.vitality -ch.vit
+        RPG.wisdom = RPG.wisdom -ch.wis
+        RPG.luck = RPG.luck -ch.luc
+		RPG.spRegen = RPG.spRegen -ch.spR
+        RPG.physicStr = RPG.physicStr -ch.phys
+        RPG.magicStr = RPG.magicStr -ch.mag
+        RPG.fast = RPG.fast -ch.fast
+		storage.gamePut(stats, {str = RPG.strength, int = RPG.intelligence, dex = RPG.dexterity, vit = RPG.vitality, wis = RPG.wisdom, luc = RPG.luck, lvlT = RPG.lvlToUp, magS = RPG.magicStr, phyS = RPG.physicStr, fast = RPG.fast, sP = RPG.sPoints, spR = RPG.spRegen, class = RPG.class, subclass = RPG.subclass})	
+	  end
      
       if hero:lvl() > RPG.lvlToUp then
         RPG.lvlToUp = hero:lvl()
@@ -89,9 +106,12 @@ return buff.init{
         hero:setMaxSkillPoints(hero:getSkillPointsMax()-1)
         RPG.sPoints = RPG.sPoints+5
         RPD.glog(RPD.textById("LvlUp"))
+		local ch = storage.gameGet(changes) or {}
+	 storage.gamePut(changes, {str = ch.str, int = ch.int, dex = ch.dex, vit = ch.vit, wis = ch.wis, luc = ch.luc, mag = ch.mag, phys = ch.phys, fast = ch.fast, spR = ch.spR, sP = ch.sP+5})
         if hero:lvl()%5 == 0 then
           RPG.sPoints = RPG.sPoints+3
           RPD.glog(RPD.textById("LvlUpHappy"))
+		  storage.gamePut(changes, {str = ch.str, int = ch.int, dex = ch.dex, vit = ch.vit, wis = ch.wis, luc = ch.luc, mag = ch.mag, phys = ch.phys, fast = ch.fast, spR = ch.spR, sP = ch.sP+3})
         end
        
         storage.gamePut(stats, {str = RPG.strength, int = RPG.intelligence, dex = RPG.dexterity, vit = RPG.vitality, wis = RPG.wisdom, luc = RPG.luck, lvlT = RPG.lvlToUp, magS = RPG.magicStr, phyS = RPG.physicStr, fast = RPG.fast, sP = RPG.sPoints, spR = RPG.spRegen, class = RPG.class, subclass = RPG.subclass})
