@@ -54,7 +54,7 @@ return spell.init{
      return false
     end
     
-    if level:getTileType(cell) == 4 or level:getTileType(cell) == 12 or RPG.distance(cell) > math.min(2+lvl+,5) then
+    if level:getTileType(cell) == 4 or level:getTileType(cell) == 12 or RPG.distance(cell) > math.min(2+lvl,5) then
       RPD.glog(RPD.textById("DashLimit"))
         return false
       end
