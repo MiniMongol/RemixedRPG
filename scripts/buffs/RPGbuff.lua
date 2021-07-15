@@ -4,15 +4,22 @@
 ---
 
 local RPD  = require "scripts/lib/commonClasses"
+
 local RPG  = require "scripts/lib/Functions"
+
 local Que  = require "scripts/lib/Queue"
+
 local storage = require "scripts/lib/storage"
+
 local hero = RPD.Dungeon.hero
+
 local level = RPD.Dungeon.hero
+
 local luckBonus = 1
+
 local num = 0
+
 local stats = ""
-local changes = "changes"
 
 local buff = require "scripts/lib/buff"
 

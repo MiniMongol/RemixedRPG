@@ -18,20 +18,6 @@ local hero = RPD.Dungeon.hero
 local spell = require "scripts/lib/spell"
 
 local stats = ""
-local changes = "changes"
-
-local str = 1
-local int = 1
-local dex = 1
-local vit = 1
-local wis = 1
-local luc = 1
-local phys = 1
-local mag = 1
-local fast = 1
-local spR = 1
-local sP = 0
-
 
 local sList = "spelllist"
 
@@ -285,8 +271,6 @@ dialog = function(index)
    end
   
      storage.gamePut(stats, {str = RPG.strength, int = RPG.intelligence, dex = RPG.dexterity, vit = RPG.vitality, wis = RPG.wisdom, luc = RPG.luck, lvlT = RPG.lvlToUp, magS = RPG.magicStr, phyS = RPG.physicStr, fast = RPG.fast, sP = RPG.sPoints, spR = RPG.spRegen, class = RPG.class, subclass = RPG.subclass})
-	 local ch = storage.gameGet(changes) or {}
-	 storage.gamePut(changes, {str = ch.str+str, int = ch.int+int, dex = ch.dex+dex, vit = ch.vit+vit, wis = ch.wis+wis, luc = ch.luc+luc, mag = ch.mag+mag, phys = ch.phys+phys, fast = ch.fast+fast, spR = ch.spR+spR, sP = ch.sP-sP})
  end
  
  if index == 2 then
