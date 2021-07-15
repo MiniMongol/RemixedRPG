@@ -365,7 +365,7 @@ return spell.init{
      RPG.luck = 1
 
      storage.gamePut(stats, {str = RPG.strength, int = RPG.intelligence, dex = RPG.dexterity, vit = RPG.vitality, wis = RPG.wisdom, luc = RPG.luck, lvlT = RPG.lvlToUp, magS = RPG.magicStr, phyS = RPG.physicStr, fast = RPG.fast, sP = RPG.sPoints, spR = RPG.spRegen, class = RPG.class, subclass = RPG.subclass})
-	 storage.gamePut(changes, {str = str, int = int, dex = dex, vit = vit, wis = wis, luc = luc, mag = mag, phys = phys, fast = fast, spR = spR, sP = 25})
+	 storage.gamePut(tostring(hero:lvl()), {str = RPG.strength, int = RPG.intelligence, dex = RPG.dexterity, vit = RPG.vitality, wis = RPG.wisdom, luc = RPG.luck, lvlT = RPG.lvlToUp, magS = RPG.magicStr, phyS = RPG.physicStr, fast = RPG.fast, sP = RPG.sPoints, spR = RPG.spRegen, class = RPG.class, subclass = RPG.subclass, spells = Que.getMas("spelllist")})
     end
     
     hero = RPD.Dungeon.hero
