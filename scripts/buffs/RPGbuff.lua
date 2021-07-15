@@ -89,6 +89,12 @@ return buff.init{
 	  
 	  if RPG.lvlToUp - hero:lvl() >= 1 then
 	    local save = storage.gameGet(tostring(hero:lvl())) or {}
+	    if hero:lvl() == 1 then
+	      hero:ht(10)
+	      hero:hp(10)
+	      hero:setMaxSkillPoints(1)
+          hero:setSkillPoints(1)
+	    end
 	    RPG.strength = save.str
         RPG.intelligence = save.int
         RPG.dexterity = save.dex

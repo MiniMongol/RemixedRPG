@@ -158,14 +158,10 @@ dialog = function(index)
   if index1-1 == 0 then
     if RPG.sPoints ~= 0 then
       RPG.sPoints = RPG.sPoints-1
-	  sP = sP+1
       RPG.strength = RPG.strength+1
       RPG.physicStr = RPG.physicStr+1
-	  str = str+1
-	  phys = phys+1
       if RPG.strength%2 == 0 and (RPG.subclass == "Berserk" or RPG.subclass == "BattleMage" or RPG.subclass == "Assassin") then
         RPG.physicStr = RPG.physicStr+1
-		phys = phys+1
       end
       if RPG.strength%10 == 0 then
         hero:STR(hero:STR()+1)
@@ -176,22 +172,17 @@ dialog = function(index)
   if index1-1 == 1 then
     if RPG.sPoints ~= 0 then
       RPG.sPoints = RPG.sPoints-1
-	  sP = sP+1
       RPG.intelligence = RPG.intelligence+1
       hero:setMaxSkillPoints(hero:getSkillPointsMax()+1)
       hero:setSkillPoints(hero:getSkillPoints()+1)
       RPG.magicStr = RPG.magicStr+1
-	  int = int+1
-	  mag = mag+1
       if (RPG.intelligence%2) == 0 and (RPG.class == "Mage" or RPG.subclass == "BladeOfMind" or RPG.subclass == "Ninja") then
         RPG.magicStr = RPG.magicStr+1
         hero:setMaxSkillPoints(hero:getSkillPointsMax()+1)
         hero:setSkillPoints(hero:getSkillPoints()+1)
-		mag = mag+1
       end
       if RPG.intelligence%20 == 0 then
         RPG.spRegen = RPG.spRegen+1
-		spR = spR+1
       end
     end
   end
@@ -199,14 +190,10 @@ dialog = function(index)
   if index1-1 == 2 then
     if RPG.sPoints ~= 0 then
       RPG.sPoints = RPG.sPoints-1
-	  sP = sP+1
       RPG.dexterity = RPG.dexterity+1
       RPG.fast = RPG.fast+1
-	  dex = dex+1
-	  fast = fast+1
       if RPG.dexterity%2 == 0 and (RPG.class == "Rogue" or RPG.subclass == "Samurai") then
         RPG.fast = RPG.fast+1
-		fast = fast+1
       end
     end
   end
@@ -214,11 +201,9 @@ dialog = function(index)
   if index1-1 == 3 then
     if RPG.sPoints ~= 0 then
       RPG.sPoints = RPG.sPoints-1
-	  sP = sP+1
       RPG.vitality = RPG.vitality+1
       hero:ht(hero:ht()+1)
       hero:heal(1,hero)
-	  vit = vit+1
       if RPG.vitality%2 == 0 then
         hero:ht(hero:ht()+1)
         hero:heal(1,hero)
@@ -237,26 +222,20 @@ dialog = function(index)
   if index1-1 == 4 then
     if RPG.sPoints ~= 0 then
       RPG.sPoints = RPG.sPoints-1
-	  sP = sP+1
       if RPG.wisdom%2 == 0 then
         RPG.spRegen = RPG.spRegen+1
-		spR = spR+1
       end
       if RPG.wisdom%5 == 0 and RPG.subclass == "Enchanter" then
         RPG.spRegen = RPG.spRegen +1
-		spR = spR+1
       end
       RPG.wisdom = RPG.wisdom+1
-	  wis = wis+1
       end
     end
   
   if index1-1 == 5 then
     if RPG.sPoints ~= 0 then
       RPG.sPoints = RPG.sPoints-1
-	  sP = sP+1
       RPG.luck = RPG.luck+1
-	  luc = luc+1
     end
   end
   
