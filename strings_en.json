@@ -149,7 +149,7 @@
 ["boom", "explosion"]
 ["LvlUp", "++ Level increased! You have received 5 status points."]
 ["LvlUpHappy", "++ Level anniversary! You have received 3 more status points."]
-["crit", "crete"]
+["crit", "crit"]
 ["block", "block"]
 ["Block0", "++ You are protected, absorbed "]
 ["Block1", " damage units."]

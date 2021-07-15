@@ -172,7 +172,7 @@ dialog = function(index)
   if index1-1 == 0 then
     if RPG.sPoints ~= 0 then
       RPG.sPoints = RPG.sPoints-1
-	  sp = sp+1
+	  sP = sP+1
       RPG.strength = RPG.strength+1
       RPG.physicStr = RPG.physicStr+1
 	  str = str+1
@@ -190,7 +190,7 @@ dialog = function(index)
   if index1-1 == 1 then
     if RPG.sPoints ~= 0 then
       RPG.sPoints = RPG.sPoints-1
-	  sp = sp+1
+	  sP = sP+1
       RPG.intelligence = RPG.intelligence+1
       hero:setMaxSkillPoints(hero:getSkillPointsMax()+1)
       hero:setSkillPoints(hero:getSkillPoints()+1)
@@ -213,7 +213,7 @@ dialog = function(index)
   if index1-1 == 2 then
     if RPG.sPoints ~= 0 then
       RPG.sPoints = RPG.sPoints-1
-	  sp = sp+1
+	  sP = sP+1
       RPG.dexterity = RPG.dexterity+1
       RPG.fast = RPG.fast+1
 	  dex = dex+1
@@ -228,7 +228,7 @@ dialog = function(index)
   if index1-1 == 3 then
     if RPG.sPoints ~= 0 then
       RPG.sPoints = RPG.sPoints-1
-	  sp = sp+1
+	  sP = sP+1
       RPG.vitality = RPG.vitality+1
       hero:ht(hero:ht()+1)
       hero:heal(1,hero)
@@ -251,7 +251,7 @@ dialog = function(index)
   if index1-1 == 4 then
     if RPG.sPoints ~= 0 then
       RPG.sPoints = RPG.sPoints-1
-	  sp = sp+1
+	  sP = sP+1
       if RPG.wisdom%2 == 0 then
         RPG.spRegen = RPG.spRegen+1
 		spR = spR+1
@@ -268,7 +268,7 @@ dialog = function(index)
   if index1-1 == 5 then
     if RPG.sPoints ~= 0 then
       RPG.sPoints = RPG.sPoints-1
-	  sp = sp+1
+	  sP = sP+1
       RPG.luck = RPG.luck+1
 	  luc = luc+1
     end
