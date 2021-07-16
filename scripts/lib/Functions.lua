@@ -1,7 +1,5 @@
 local RPD = require "scripts/lib/commonClasses"
-local Music = luajava.bindClass("com.watabou.noosa.audio.Music")
-local Stylus = luajava.bindClass("com.watabou.pixeldungeon.items.Stylus")
-local GameScene = luajava.bindClass("com.watabou.pixeldungeon.scenes.GameScene")
+
 local RPG
 
  RPG = {

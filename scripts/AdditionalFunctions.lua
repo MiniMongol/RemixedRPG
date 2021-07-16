@@ -1,6 +1,6 @@
 local RPD = require "scripts/lib/commonClasses"
 local RPG = require "scripts/lib/Functions"
-local Music = luajava.bindClass("com.watabou.noosa.audio.Music")
+
 
 local RPG1 = {
 
