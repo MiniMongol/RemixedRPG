@@ -17,7 +17,7 @@ local quanStats = 3
 local tier = 3
 local maxDmg = 12
 local minDmg = 6
-local stra = 13
+local stra = 15
 local addMag = 25
 local magAsLevel = 6
 local attackBonus = 0.1
@@ -41,7 +41,7 @@ return item.init{
             dstats = stats,
             level = stra
             },
-            name          = RPD.textById("CompositeScepter_Name")..": "..tostring(math.max(stra-item:level(),1)),
+            name          = RPD.textById("CompositeScepter_Name")..": "..tostring(math.max(stra-2*item:level(),1)),
             price         = 20*2^(tier-1)+10*2^(tier-1)*item:level(),
             stackable     = false,
             upgradable    = true,
@@ -50,9 +50,9 @@ return item.init{
     end,
     info = function(self,item)
       hero = RPD.Dungeon.hero
-      str = stra-item:level()
-      local info = RPD.textById("CompositeScepter_Info").."\n\n"..RPD.textById("CompositeScepter_Name")..RPD.textById("RangedWeaponInfo0")..tier..RPD.textById("WeaponInfo1")..math.ceil((maxDmg+minDmg)/2).." + "..math.ceil(attackBonus*100).."%"..RPD.textById("WeaponInfo2")..stra..RPD.textById("WeaponInfo3")..RPD.textById("").."\n\n"..self.data.sInfo
-      if hero:STR() >= str then
+      str = math.max(stra-2*item:level(),1)
+      local info = RPD.textById("CompositeScepter_Info").."\n\n"..RPD.textById("CompositeScepter_Name")..RPD.textById("RangedWeaponInfo0")..tier..RPD.textById("WeaponInfo1")..math.ceil((maxDmg+minDmg)/2).." + "..math.ceil(attackBonus*100).."%"..RPD.textById("WeaponInfo2")..str..RPD.textById("WeaponInfo3")..RPD.textById("").."\n\n"..self.data.sInfo
+      if RPG.physStr() >= str then
         return info
       else
         return info..RPD.textById("WeaponLimit")
@@ -73,7 +73,7 @@ return item.init{
     
     activate = function(self,item)
       hero = RPD.Dungeon.hero
-      str = stra-item:level()
+      str = math.max(stra-2*item:level(),1)
       for i = 1, self.data.level - str do
         self.data.dstats[2] = self.data.dstats[2] + magAsLevel
       end
@@ -120,22 +120,22 @@ return item.init{
     end,
     
     accuracyFactor = function(self,item,user)
-     str = stra-item:level()
-     return 1 + RPG.itemStrBonus(str)
+      str = math.max(stra-2*item:level(),1)
+      return 1 + RPG.itemStrBonus(str)
     end,
     
     attackDelayFactor = function(self,item,user)
-     str = stra-item:level()
-     return 1 + RPG.itemStrBonus(str)
+      str = math.max(stra-2*item:level(),1)
+      return 1 + RPG.itemStrBonus(str)
     end,
     
     typicalSTR = function(self,item,user)
-     return stra
+      str = math.max(stra-2*item:level(),1)
+	  return str
     end,
     
     requiredSTR = function(self,item,user)
-     str = stra-item:level()
-     return str
+      return str
     end,
     
     attackProc = function(self,item,hero,enemy,dmg)

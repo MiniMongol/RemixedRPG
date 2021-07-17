@@ -14,7 +14,7 @@ local storage = require "scripts/lib/storage"
 local item = require "scripts/lib/item"
 local statsMax = 6
 local quanStats = 2
-local stra = 12
+local stra = 15
 local tier = 2
 local maxDmg = 10
 local minDmg = 6
@@ -37,7 +37,7 @@ return item.init{
             sInfo = statsInfo,
             dstats = stats
             },
-            name          = RPD.textById("Sai_Name")..": "..tostring(math.max(stra-item:level(),1)),
+            name          = RPD.textById("Sai_Name")..": "..tostring(math.max(stra-2*item:level(),1)),
             price         = 20*2^(tier-1)+10*2^(tier-1)*item:level(),
             stackable     = false,
             upgradable    = true,
@@ -46,9 +46,9 @@ return item.init{
     end,
     info = function(self,item)
       hero = RPD.Dungeon.hero
-      str = stra-item:level()
-      local info = RPD.textById("Sai_Info").."\n\n"..RPD.textById("Sai_Name")..RPD.textById("WeaponInfo0")..tier..RPD.textById("WeaponInfo1")..math.ceil((maxDmg+minDmg+tier*item:level()*2)/2)..RPD.textById("WeaponInfo2")..stra..RPD.textById("WeaponInfo3")..RPD.textById("WeaponFAD").."\n\n"..self.data.sInfo
-      if hero:STR() >= str then
+      str = math.max(stra-2*item:level(),1)
+      local info = RPD.textById("Sai_Info").."\n\n"..RPD.textById("Sai_Name")..RPD.textById("WeaponInfo0")..tier..RPD.textById("WeaponInfo1")..math.ceil((maxDmg+minDmg+tier*item:level()*2)/2)..RPD.textById("WeaponInfo2")..str..RPD.textById("WeaponInfo3")..RPD.textById("WeaponFAD").."\n\n"..self.data.sInfo
+      if RPG.physStr() >= str then
         return info
       else
         return info..RPD.textById("WeaponLimit")
@@ -97,21 +97,21 @@ return item.init{
     end,
     
     damageRoll = function(self, item, user)
-        return maxDmg+tier*item:level(),minDmg+tier*item:level()
+      return maxDmg+tier*item:level(),minDmg+tier*item:level()
     end,
     
     accuracyFactor = function(self,item,user)
-     str = stra-item:level()
-     return 1.2 + RPG.itemStrBonus(str)
+      str = math.max(stra-2*item:level(),1)
+      return 1.2 + RPG.itemStrBonus(str)
     end,
     
     attackDelayFactor = function(self,item,user)
-     str = stra-item:level()
-     return 1.5 + RPG.itemStrBonus(str)
+      str = math.max(stra-2*item:level(),1)
+      return 1.5 + RPG.itemStrBonus(str)
     end,
     
     typicalSTR = function(self,item,user)
-     return stra
+   	  return str
     end,
     
     requiredSTR = function(self,item,user)

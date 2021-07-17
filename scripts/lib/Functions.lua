@@ -56,7 +56,7 @@ local RPG
  
  itemStrBonus = function(str)
    local hero = RPD.Dungeon.hero
-   return (hero:STR()-str)*0.2
+   return (hero:STR()-str)*0.02
  end,
  
  getItemStats = function(cycles, statMax)
