@@ -121,7 +121,7 @@ return item.init{
     
     accuracyFactor = function(self,item,user)
       str = math.max(stra-2*item:level(),1)
-      return 1 + RPG.itemStrBonus(str)
+      return 1 - RPG.itemStrBonus(str)
     end,
     
     attackDelayFactor = function(self,item,user)

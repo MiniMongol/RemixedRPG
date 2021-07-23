@@ -108,7 +108,7 @@ return item.init{
     
     attackDelayFactor = function(self,item,user)
       str = math.max(stra-2*item:level(),1)
-      return 1.5 + RPG.itemStrBonus(str)
+      return 0.6 - RPG.itemStrBonus(str)
     end,
     
     typicalSTR = function(self,item,user)

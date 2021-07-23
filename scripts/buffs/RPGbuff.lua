@@ -166,7 +166,7 @@ return buff.init{
       end
       
       if RPG.physicStr ~= nil then
-        if math.random(0,150+enemy:defenseSkill()*1.5) <= RPG.AllLuck()*luckBonus + hero:attackSkill() then
+        if math.random(10,210+enemy:defenseSkill()*1.3) <= RPG.AllLuck()*luckBonus + hero:attackSkill() then
         
           if enemy:hp() - ((damage + math.ceil(RPG.physStr()*0.2))*2 - enemy:dr()) <= 0 and RPG.subclass == "Bandit" then
             RPG.createItem("Gold", enemy:getPos(), RPG.AllLuck() + RPD.Dungeon.depth)
