@@ -16,7 +16,7 @@ local num = 0
 return buff.init{
     desc  = function ()
         return {
-            icon          = 58,
+            icon          = 60,
             name          = "Пламенные удары",
             info          = "",
         }

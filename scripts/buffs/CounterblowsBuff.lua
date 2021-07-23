@@ -15,7 +15,7 @@ local num = 0
 return buff.init{
     desc  = function ()
         return {
-            icon          = 52,
+            icon          = 55,
             name          = "Стойка контрударов",
             info          = "",
         }

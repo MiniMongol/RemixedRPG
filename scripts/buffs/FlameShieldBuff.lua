@@ -20,7 +20,7 @@ local level
 return buff.init{
     desc  = function ()
         return {
-            icon          = 54,
+            icon          = 56,
             info          = "",
         }
     end,

@@ -21,7 +21,7 @@ local buff = require "scripts/lib/buff"
 return buff.init{
     desc  = function ()
         return {
-            icon          = 49,
+            icon          = 51,
             name          = "Кинжал готов",
             info          = "",
         }

@@ -17,7 +17,7 @@ return buff.init{
     desc  = function ()
     Spell = storage.gameGet(a) or {}
         return {
-            icon          = 56,
+            icon          = 58,
             name          = "Заражение крови("..tostring(Spell.staks)..")",
             info          = "",
         }

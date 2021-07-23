@@ -16,7 +16,7 @@ local buff = require "scripts/lib/buff"
 return buff.init{
     desc  = function ()
         return {
-            icon          = 51,
+            icon          = 53,
             name          = "Терзающие души удары",
             info          = "",
         }
