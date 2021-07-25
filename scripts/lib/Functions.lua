@@ -17,15 +17,20 @@ local RPG
  wisdom = wisdom,
  luck = luck,
  luckA = 0,
+ luckB = 0,
  physicStr = 1,
  physicStrA = 0,
  physicStrB = 0,
+ physicStrBerserk = 0,
  magicStr = 1,
  magicStrA = 0,
+ magicStrB = 0,
  fast = 1,
  fastA = 0,
+ fastB = 0,
  spRegen = 1,
  spRegenA = 0,
+ spRegenB = 0,
  spellFast = 0,
  sPoints = 20,
  lvlToUp = 0,
@@ -35,32 +40,32 @@ local RPG
  boneId = boneId,
  
  physStr = function()
-   return RPG.physicStr+RPG.physicStrB+RPG.physicStrA
+   return RPG.physicStr +RPG.physicStrB +RPG.physicStrA +RPG.physicStrBerserk
  end,
  
  magStr = function()
-   return RPG.magicStr+RPG.magicStrA
+   return RPG.magicStr +RPG.magicStrA +RPG.magicStrB
  end,
  
  AllFast = function()
-   return RPG.fast+RPG.fastA
+   return RPG.fast +RPG.fastA +RPG.fastB
  end,
  
  AllSpRegen = function()
-   return RPG.spRegen+RPG.spRegenA
+   return RPG.spRegen +RPG.spRegenA +RPG.spRegenB
  end,
  
  AllLuck = function()
-   return RPG.luck + RPG.luckA
+   return RPG.luck +RPG.luckA +RPG.luckB
  end,
  
  itemStrBonus = function(str)
    local hero = RPD.Dungeon.hero
-   return (RPG.physStr()-str)*0.2
+   return (RPG.physStr() -str)*0.2
  end,
  
  baseSpeed = function()
-   return math.max(0.1,(0.8+RPG.AllFast()*0.04) - 0.03*RPD.Dungeon.depth)
+   return math.max(0.1,(0.8 +RPG.AllFast()*0.04) -0.03*RPD.Dungeon.depth)
  end,
  
  getItemStats = function(cycles, statMax)

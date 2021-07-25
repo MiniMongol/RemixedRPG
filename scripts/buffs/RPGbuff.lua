@@ -37,6 +37,7 @@ return buff.init{
       hero = RPD.Dungeon.hero
       local Spells = require "scripts/spells/CustomSpellsList"
       local weapon = hero:getBelongings().weapon
+	  local armor = hero:getBelongings().armor
       Spells.Combat = Que.getMas("spelllist")
       
       if weapon:getClassName() == "DummyItem" then
@@ -46,9 +47,20 @@ return buff.init{
         RPG.luckA = 0
         RPG.spRegenA = 0
       end
+	  if armor:getClassName() == "DummyItem" then
+        RPG.physicStrB = 0
+        RPG.magicStrB = 0
+        RPG.fastB = 0
+        RPG.luckB = 0
+        RPG.spRegenB = 0
+      end
       
       if hero:getBelongings():getItem("TomeOfMastery") ~= nil then
          hero:getBelongings():getItem("TomeOfMastery"):detach(hero:getBelongings()
+.backpack)
+    end
+	if hero:getBelongings():getItem("ArmorKit") ~= nil then
+         hero:getBelongings():getItem("ArmorKit"):detach(hero:getBelongings()
 .backpack)
     end
       
@@ -69,7 +81,6 @@ return buff.init{
       end
     
       if RPG.strength == nil then
-     
         RPG.strength = Stats.str
         RPG.intelligence = Stats.int
         RPG.dexterity = Stats.dex
@@ -132,7 +143,7 @@ return buff.init{
       end
     
       if RPG.subclass == "Berserk" then
-        RPG.physicStrB = (hero:ht()-hero:hp())*0.4
+        RPG.physicStrBerserk = (hero:ht()-hero:hp())*0.4
       end
       
       num = num+1

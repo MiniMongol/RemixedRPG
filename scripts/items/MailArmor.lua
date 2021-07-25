@@ -12,10 +12,10 @@ local RPG1 = require "scripts/lib/AdditionalFunctions"
 local storage = require "scripts/lib/storage"
 
 local item = require "scripts/lib/item"
-local statsMax = 3
-local quanStats = 2
-local stra = 1
-local tier = 1
+local statsMax = 6
+local quanStats = 3
+local stra = 20
+local tier = 3
 local str 
 local stats
 local hero 
@@ -29,13 +29,13 @@ return item.init{
       
         return {
             imageFile     = "items/armor.png",
-            image         = 0,
+            image         = 2,
             data          = {
             activationCount = 0,
             sInfo = statsInfo,
             dstats = stats
             },
-            name          = RPD.textById("ClothArmor_Name")..": "..tostring(math.max(stra-2*item:level(),1)),
+            name          = RPD.textById("MailArmor_Name")..": "..tostring(math.max(stra-2*item:level(),1)),
             price         = 20*2^(tier-1)+10*2^(tier-1)*item:level(),
             stackable     = false,
             upgradable    = true,
@@ -45,7 +45,7 @@ return item.init{
     info = function(self,item)
       hero = RPD.Dungeon.hero
       str = math.max(stra-2*item:level(),1)
-      local info = RPD.textById("ClothArmor_Info").."\n\n"..RPD.textById("ClothArmor_Name")..RPD.textById("ArmorInfo0")..tier..RPD.textById("ArmorInfo1")..tier*2+item:level()*tier..RPD.textById("ArmorInfo2")..str..RPD.textById("ArmorInfo3").."\n\n"..self.data.sInfo
+      local info = RPD.textById("MailArmor_Info").."\n\n"..RPD.textById("MailArmor_Name")..RPD.textById("ArmorInfo0")..tier..RPD.textById("ArmorInfo1")..tier*2+item:level()*tier..RPD.textById("ArmorInfo2")..str..RPD.textById("ArmorInfo3").."\n\n"..self.data.sInfo
       if RPG.physStr() >= str then
         return info
       else
@@ -54,7 +54,7 @@ return item.init{
     end,
     
     getVisualName = function()
-      return "ClothArmor"
+      return "MailArmor"
     end,
 	
 	effectiveDr = function(self,item)

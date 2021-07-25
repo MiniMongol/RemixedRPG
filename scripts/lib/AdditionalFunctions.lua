@@ -45,6 +45,42 @@ local RPG1 = {
    end
  end,
  
+ addStats_B = function(num, stat)
+    if stat == 1 then
+     RPG.physicStrB = RPG.physicStrB + num
+    end
+    if stat == 2 then
+      RPG.magicStrB = RPG.magicStrB + num
+    end
+    if stat == 3 then
+      RPG.fastB = RPG.fastB + num
+    end
+    if stat == 4 then
+      RPG.spRegenB = RPG.spRegenB + num
+    end
+    if stat == 5 then
+      RPG.luckB = RPG.luckB + num
+    end
+ end,
+ 
+ delStats_B = function(num, stat)
+    if stat == 1 then
+      RPG.physicStrB = 0
+    end
+    if stat == 2 then
+      RPG.magicStrB = 0
+    end
+    if stat == 3 then
+      RPG.fastB = 0
+    end
+    if stat == 4 then
+      RPG.spRegenB = 0
+    end
+    if stat == 5 then
+      RPG.luckB = 0
+   end
+ end,
+ 
  pillChoise = function(dialog)
    RPD.chooseOption(dialog,
    "Выбор пилюли",
