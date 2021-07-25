@@ -65,7 +65,7 @@ return item.init{
 	  return tier*2
 	end,
    
-    activate = function(self)
+    activate = function(self,item)
       hero = RPD.Dungeon.hero
 	  str = math.max(stra-2*item:level(),1)
 	  if RPG.physStr() < str then
@@ -84,7 +84,7 @@ return item.init{
       self.data.activationCount = 1
     end,
     
-    deactivate = function(self)
+    deactivate = function(self,item)
       hero = RPD.Dungeon.hero
 	  RPG.removeBuff(hero, "SlowBuff")
         self.data.activationCount = 0
