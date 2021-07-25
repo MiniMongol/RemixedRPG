@@ -17,7 +17,6 @@ return buff.init{
         }
     end,   
     speedMultiplier = function(self, buff)
-	  local hero = RPD.Dungeon.hero
-        return hero:speed() -buff:level()*0.05
+        return RPG.baseSpeed() -buff:level()*0.05
     end
 }

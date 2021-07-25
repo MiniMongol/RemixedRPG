@@ -14,7 +14,7 @@ local storage = require "scripts/lib/storage"
 local item = require "scripts/lib/item"
 local statsMax = 3
 local quanStats = 2
-local stra = 10
+local stra = 1
 local tier = 1
 local str 
 local stats
@@ -69,8 +69,8 @@ return item.init{
       hero = RPD.Dungeon.hero
 	  str = math.max(stra-2*item:level(),1)
 	  if RPG.physStr() < str then
-	    RPG.removeBuff(hero, "SlowBuff")
-	    RPG.permanentBuff(hero, "SlowBuff"):level(str-math.max(1,RPG.physStr()))
+	    RPD.removeBuff(hero, "SlowBuff")
+	    RPD.permanentBuff(hero, "SlowBuff"):level(str-math.max(1,RPG.physStr()))
 	  end
       if self.data.activationCount == 0 or RPG.luck == nil then
         for i = 1,5 do
@@ -86,7 +86,7 @@ return item.init{
     
     deactivate = function(self,item)
       hero = RPD.Dungeon.hero
-	  RPG.removeBuff(hero, "SlowBuff")
+	  RPD.removeBuff(hero, "SlowBuff")
         self.data.activationCount = 0
         for i = 1,5 do
           RPG1.delStats(self.data.dstats[i], i)

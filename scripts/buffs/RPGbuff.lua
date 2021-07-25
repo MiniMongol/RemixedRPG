@@ -143,8 +143,7 @@ return buff.init{
      end,
     
     speedMultiplier = function(self, buff)
-        depth = RPD.Dungeon.depth
-        return math.max(0.1,(1.7 + RPG.AllFast()*0.04) - (0.9 + 0.03*depth))
+        return RPG.baseSpeed()
     end,
     
     regenerationBonus = function(self,buff)

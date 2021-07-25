@@ -1,14 +1,12 @@
 {
   "common": {
-    "armor": {
-      "kind": "ClothArmor",
-      "identified": true,
-      "level":1
-    },
     "items": [
         {
             "kind":"Gold",
             "quantity":100
+        },
+        {
+            "kind":"ClothArmor"
         }
     ],
     "str":9,

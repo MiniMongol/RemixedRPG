@@ -59,6 +59,10 @@ local RPG
    return (RPG.physStr()-str)*0.2
  end,
  
+ baseSpeed = function()
+   return math.max(0.1,(0.8+RPG.AllFast()*0.04) - 0.03*RPD.Dungeon.depth)
+ end,
+ 
  getItemStats = function(cycles, statMax)
    local statsList = {0, 0, 0, 0, 0, 0, 0, 0}
    local stats = {0, 0, 0, 0, 0, 0, 0, 0}
