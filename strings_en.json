@@ -204,6 +204,7 @@
 ["WeaponFAD", " This is both a fast and accurate weapon, it also increases protection"]
 ["WeaponDef", " This weapon increases defense."]
 ["WeaponCounter"," With this weapon, you can counterattack."]
+["ArmorLimit", "\n\n This armor is too heavy for you. When worn, your movement speed will decrease."]
 ["ArmorInfo0"," - is armor "]
 ["ArmorInfo1"," order. Absorbs damage up to "]
 ["ArmorInfo2"," points per hit and usually requires "]

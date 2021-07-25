@@ -35,7 +35,7 @@ return item.init{
             sInfo = statsInfo,
             dstats = stats
             },
-            name          = RPD.textById("Dagger_Name")..": "..tostring(math.max(stra-2*item:level(),1)),
+            name          = RPD.textById("ClothArmor_Name")..": "..tostring(math.max(stra-2*item:level(),1)),
             price         = 20*2^(tier-1)+10*2^(tier-1)*item:level(),
             stackable     = false,
             upgradable    = true,
@@ -45,20 +45,33 @@ return item.init{
     info = function(self,item)
       hero = RPD.Dungeon.hero
       str = math.max(stra-2*item:level(),1)
-      local info = RPD.textById("Dagger_Info").."\n\n"..RPD.textById("Dagger_Name")..RPD.textById("WeaponInfo0")..tier..RPD.textById("WeaponInfo1")..math.ceil((maxDmg+minDmg+tier*item:level()*2)/2)..RPD.textById("WeaponInfo2")..str..RPD.textById("WeaponInfo3")..RPD.textById("WeaponAccu").."\n\n"..self.data.sInfo
+      local info = RPD.textById("ClothArmor_Info").."\n\n"..RPD.textById("ClothArmor_Name")..RPD.textById("ArmorInfo0")..tier..RPD.textById("ArmorInfo1")..tier*2+item:level()*tier..RPD.textById("ArmorInfo2")..str..RPD.textById("ArmorInfo3").."\n\n"..self.data.sInfo
       if RPG.physStr() >= str then
         return info
       else
-        return info..RPD.textById("WeaponLimit")
+        return info..RPD.textById("ArmorLimit")
       end
     end,
     
     getVisualName = function()
       return "ClothArmor"
     end,
+	
+	effectiveDr = function(self,item)
+	  return tier*2 + item:level()*tier
+	end,
+	
+	typicalDR = function(self,item)
+	  return tier*2
+	end,
    
     activate = function(self)
       hero = RPD.Dungeon.hero
+	  str = math.max(stra-2*item:level(),1)
+	  if RPG.physStr() < str then
+	    RPG.removeBuff(hero, "SlowBuff")
+	    RPG.permanentBuff(hero, "SlowBuff"):level(str-math.max(1,RPG.physStr()))
+	  end
       if self.data.activationCount == 0 or RPG.luck == nil then
         for i = 1,5 do
           RPG1.addStats(self.data.dstats[i], i)
@@ -73,6 +86,7 @@ return item.init{
     
     deactivate = function(self)
       hero = RPD.Dungeon.hero
+	  RPG.removeBuff(hero, "SlowBuff")
         self.data.activationCount = 0
         for i = 1,5 do
           RPG1.delStats(self.data.dstats[i], i)
