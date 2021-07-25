@@ -45,7 +45,7 @@ return item.init{
     info = function(self,item)
       hero = RPD.Dungeon.hero
       str = math.max(stra-2*item:level(),1)
-      local info = RPD.textById("SpiderArmor_Desc").."\n\n"..RPD.textById("SpiderArmor_Name")..RPD.textById("ArmorInfo0")..tier..RPD.textById("ArmorInfo1")..tier*2+item:level()*tier..RPD.textById("ArmorInfo2")..str..RPD.textById("ArmorInfo3").."\n\n"..self.data.sInfo
+      local info = RPD.textById("SpiderArmor_Info").."\n\n"..RPD.textById("SpiderArmor_Name")..RPD.textById("ArmorInfo0")..tier..RPD.textById("ArmorInfo1")..tier*2+item:level()*tier..RPD.textById("ArmorInfo2")..str..RPD.textById("ArmorInfo3").."\n\n"..self.data.sInfo
       if RPG.physStr() >= str then
         return info
       else
@@ -66,8 +66,9 @@ return item.init{
 	end,
 	
 	defenceProc = function(self, item, enemy, damage)
+	  hero = RPD.Dungeon.hero
 	  if math.random(0,100) >= 50 then
-	    RPD.placeBlob(RPD.Blobs.Web, self:getPos(), 4)
+	    RPD.placeBlob(RPD.Blobs.Web, hero:getPos(), 4)
 	  end
 	  return damage
 	end,
