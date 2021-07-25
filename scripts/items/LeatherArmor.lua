@@ -45,7 +45,7 @@ return item.init{
     info = function(self,item)
       hero = RPD.Dungeon.hero
       str = math.max(stra-2*item:level(),1)
-      local info = RPD.textById("LeatherArmor_Info").."\n\n"..RPD.textById("LeatherArmor_Name")..RPD.textById("ArmorInfo0")..tier..RPD.textById("ArmorInfo1")..tier*2+item:level()*tier..RPD.textById("ArmorInfo2")..str..RPD.textById("ArmorInfo3").."\n\n"..self.data.sInfo
+      local info = RPD.textById("LeatherArmor_Desc").."\n\n"..RPD.textById("LeatherArmor_Name")..RPD.textById("ArmorInfo0")..tier..RPD.textById("ArmorInfo1")..tier*2+item:level()*tier..RPD.textById("ArmorInfo2")..str..RPD.textById("ArmorInfo3").."\n\n"..self.data.sInfo
       if RPG.physStr() >= str then
         return info
       else
