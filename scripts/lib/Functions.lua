@@ -65,7 +65,13 @@ local RPG
  end,
  
  baseSpeed = function()
-   return math.max(0.1,(0.8 +RPG.AllFast()*0.04) -0.03*RPD.Dungeon.depth)
+   local hero = RPD.Dungeon.hero
+   local armor = hero:getBelongings().armor
+   local a =0.001
+   if armor:requiredSTR() > hero:STR() then
+     a = armor:requiredSTR() - hero:STR()
+   end
+   return math.max(0.1,((0.8 +RPG.AllFast()*0.04) -0.03*RPD.Dungeon.depth -math.max(0,(armor:requiredSTR() -RPG.physStr())*0.05))*math.pow(1.3,a))
  end,
  
  getItemStats = function(cycles, statMax)

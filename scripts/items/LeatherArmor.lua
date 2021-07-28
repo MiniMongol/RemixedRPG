@@ -54,7 +54,7 @@ return item.init{
     end,
     
     getVisualName = function()
-      return "LeatherArmorArmor"
+      return "LeatherArmor"
     end,
 	
 	effectiveDr = function(self,item)
@@ -68,10 +68,6 @@ return item.init{
     activate = function(self,item)
       hero = RPD.Dungeon.hero
 	  str = math.max(stra-2*item:level(),1)
-	  if RPG.physStr() < str then
-	    RPD.removeBuff(hero, "SlowBuff")
-	    RPD.permanentBuff(hero, "SlowBuff"):level(str-math.max(1,RPG.physStr()))
-	  end
       if self.data.activationCount == 0 or RPG.luck == nil then
         for i = 1,5 do
           RPG1.addStats_B(self.data.dstats[i], i)
@@ -86,7 +82,6 @@ return item.init{
     
     deactivate = function(self,item)
       hero = RPD.Dungeon.hero
-	  RPD.removeBuff(hero, "SlowBuff")
         self.data.activationCount = 0
         for i = 1,5 do
           RPG1.delStats_B(self.data.dstats[i], i)
