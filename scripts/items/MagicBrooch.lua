@@ -13,7 +13,7 @@ local storage = require "scripts/lib/storage"
 
 local item = require "scripts/lib/item"
 local absorb = 0.5
-local tier = 3
+local tier = 2
 
 return item.init{
     desc  = function (self, item)
@@ -22,7 +22,7 @@ return item.init{
             imageFile     = "rpgitems.png",
             image         = 64,
             name          = "MagicBrooch_Name",
-            info          = "MagicBrooch_Info"
+            info          = "MagicBrooch_Info",
             price         = 20*2^(tier-1)+10*2^(tier-1)*item:level(),
             data          ={
             activationCount = 0

@@ -192,7 +192,7 @@
 ["SpiderArmor_Name","Spider armor"]
 ["",""]
 ["MagicBrooch_Name","Magic brooch"]
-["MagicBrooch_Info","An unremarkable brooch at first glance, but holding it in your hand you feel that it binds to your mana.../n/n When worn reduces the received damage , but instead consumes mana."]
+["MagicBrooch_Info","An unremarkable brooch at first glance, but holding it in your hand you feel that it binds to your mana...\n\n When worn reduces the received damage , but instead consumes mana."]
 ["",""]
 ["WeaponLimit", "\n\n This weapon is too heavy for you. When worn, your speed and accuracy will be reduced."]
 ["WeaponInfo0", " - melee weapon "]
