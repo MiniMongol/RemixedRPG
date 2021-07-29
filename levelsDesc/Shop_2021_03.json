@@ -26,6 +26,10 @@
               "kind": "WoodenStaff",
               "identified": true
           },
+		  {
+              "kind": "MagicBrooch",
+              "identified": true
+          },
           {
            "kind": "Knuckles",
            "identified": true
