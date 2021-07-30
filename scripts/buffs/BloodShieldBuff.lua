@@ -18,7 +18,7 @@ local shield2 = math.ceil(5+3*Spell.lvl+(hero:ht()-hero:hp())*0.15)
 return buff.init{
     desc  = function ()
         return {
-            icon          = 54,
+            icon          = 56,
             info          = "",
         }
     end,

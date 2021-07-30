@@ -18,7 +18,7 @@ local shield2 = math.ceil(RPG.magStr()*0.35) + 3*Spell.lvl
 return buff.init{
     desc  = function ()
         return {
-            icon          = 54,
+            icon          = 56,
             info          = "",
         }
     end,
