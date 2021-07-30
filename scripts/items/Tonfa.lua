@@ -30,7 +30,7 @@ return item.init{
       stats = a[2]
         return {
             imageFile     = "rpgitems.png",
-            image         = 36,
+            image         = 34,
             data          = {
             activationCount = 0,
             sInfo = statsInfo,
