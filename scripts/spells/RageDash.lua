@@ -82,7 +82,7 @@ return spell.init{
 
     local heroPos = hero:getPos()
     moveTo = RPD.Ballistica:cast(heroPos,cell,true,true,false)
-      9 = RPD.Actor:findChar(moveTo)
+      enemy = RPD.Actor:findChar(moveTo)
       if enemy and enemy ~= hero and RPG.distance(moveTo) <= math.min(2+lvl,4) then
          RPD.affectBuff(enemy,RPD.Buffs.Paralysis,2+0.5*lvl)
          moveTo = RPD.Ballistica.trace[RPD.Ballistica.distance-1]

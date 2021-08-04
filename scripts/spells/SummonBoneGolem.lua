@@ -87,6 +87,17 @@ return spell.init{
      storage.gamePut(a,{exp = exp, expMax = expMax, lvl = lvl, summon = summon, summonMax = summonMax})
     end
     summon = summon +1
+    
+    local petsCount = hero:countPets()
+    
+    if petsCount == 0 and summon ~= 0 then
+      summon = 0
+    end
+    
+    if petsCount > 4 then
+      summon = summon + petsCount-4
+    end
+    
     storage.gamePut(a,{exp = exp, expMax = expMax, lvl = lvl, summon = summon, summonMax = summonMax})
     local mob = RPD.MobFactory:mobByName(golems[lvl])
     mob:setPos(cell)

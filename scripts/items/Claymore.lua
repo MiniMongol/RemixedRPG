@@ -14,7 +14,7 @@ local storage = require "scripts/lib/storage"
 local item = require "scripts/lib/item"
 local statsMax = 12
 local quanStats = 4
-local stra = 35
+local stra = 45
 local tier = 6
 local maxDmg = 28
 local minDmg = 18
@@ -122,7 +122,7 @@ return item.init{
     end,
     
     typicalSTR = function(self,item,user)
-	 math.max(stra-2*item:level(),1)
+	 str = math.max(stra-2*item:level(),1)
      return str
     end,
     

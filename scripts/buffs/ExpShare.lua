@@ -25,12 +25,15 @@ return buff.init{
     
     charAct = function(self,buff)
       local Spell = storage.gameGet(a) or {}
-      if old > 1 then
+      if old > 2 then
         if Spell.summon > 3 then
           buff.target:die(buff.target)
         end
       end
       old = old +1
+      if RPG.subclass ~= "Necromancer" and RPG.subclass ~= nil then
+        buff.target:die(buff.target)
+      end
     end,
     
     speedMultiplier = function(self, buff)
