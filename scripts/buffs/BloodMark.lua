@@ -11,7 +11,7 @@ return buff.init{
     desc  = function ()
         return {
             icon          = 61,
-            name          = "Метка крови",
+            name          = "BloodMarkN",
             info          = "",
         }
     end
