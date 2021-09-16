@@ -68,9 +68,11 @@ return item.init{
     
     activate = function(self,item)
       hero = RPD.Dungeon.hero
+      if hero then
       RPD.removeBuff(hero,"TonfsBuff")
       local buff = RPD.permanentBuff(hero, "TonfsBuff")
       buff:level(item:level()+1)
+      end
       if self.data.activationCount == 0 or RPG.luck == nil then
         for i = 1,5 do
           RPG1.addStats(self.data.dstats[i], i)
