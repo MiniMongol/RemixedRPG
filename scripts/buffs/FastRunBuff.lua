@@ -16,7 +16,7 @@ local buff = require "scripts/lib/buff"
 return buff.init{
     desc  = function ()
         return {
-            icon          = 55,
+            icon          = 56,
             name          = "Ускорение",
             info          = "",
         }

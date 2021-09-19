@@ -35,9 +35,11 @@ return item.init{
     
     activate = function(self, item)
       local hero = RPD.Dungeon.hero
+      if hero then
       RPD.removeBuff(hero, "MagicAbsorb")
       RPD.permanentBuff(hero, "MagicAbsorb"):level(item:level())
       self.data.activationCount = 1
+      end
     end,
     
     deactivate = function(self, item)

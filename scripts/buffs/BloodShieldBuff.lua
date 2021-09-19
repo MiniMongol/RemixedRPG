@@ -20,7 +20,7 @@ return buff.init{
       shield = math.ceil(10+3*Spell.lvl+(hero:ht()-hero:hp())*0.15)
       shield2 = shield
         return {
-            icon          = 56,
+            icon          = 57,
             info          = "",
         }
     end,

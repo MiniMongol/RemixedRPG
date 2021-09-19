@@ -60,7 +60,9 @@ return spell.init{
  local enemy = RPD.Actor:findChar(pos)
  
  RPD.zapEffect(RPD.Dungeon.hero:getPos(),pos,"magic_missile")
+ if RPG.subclass == "BattleMage" then
  local Buff = RPD.affectBuff(hero, "ResidualEffect_Buff", 4):level(0)
+ end
  
  
  if enemy and enemy ~= RPD.Dungeon.hero then

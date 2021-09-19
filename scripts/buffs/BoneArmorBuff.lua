@@ -18,7 +18,7 @@ local buff = require "scripts/lib/buff"
 return buff.init{
     desc  = function ()
         return {
-            icon          = 65,
+            icon          = 66,
             name          = "Костяное облачение",
             info          = "",
         }

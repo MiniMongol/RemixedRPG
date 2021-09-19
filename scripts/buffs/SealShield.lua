@@ -20,7 +20,7 @@ return buff.init{
       shield = math.ceil(RPG.magStr()*0.35) + 3*Spell.lvl
       shield2 = shield
         return {
-            icon          = 56,
+            icon          = 57,
             info          = "",
         }
     end,

@@ -14,7 +14,7 @@ local absorb = 0.5
 return buff.init{
     desc  = function ()
         return {
-            icon          = 56,
+            icon          = 57,
             name          = "MagicAbsorb",
             info          = "",
         }

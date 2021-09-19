@@ -17,7 +17,7 @@ return buff.init{
     desc  = function ()
     Spell = storage.gameGet(a) or {}
         return {
-            icon          = 60,
+            icon          = 59,
             info          = "",
         }
     end,
@@ -40,9 +40,9 @@ return buff.init{
     icon = function()
     Spell = storage.gameGet(a) or {}
       if tonumber(Spell.staks) == 5 then
-        return 61
-      else
         return 60
+      else
+        return 59
       end
     end
 }

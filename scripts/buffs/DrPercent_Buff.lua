@@ -14,7 +14,7 @@ local buff = require "scripts/lib/buff"
 return buff.init{
     desc  = function ()
         return {
-            icon          = 52,
+            icon          = 47,
             name          = "DrPercent_Name",
             info          = "DrPercent_Info"
         }

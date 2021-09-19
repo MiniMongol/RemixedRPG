@@ -11,14 +11,14 @@ local buff = require "scripts/lib/buff"
 return buff.init{
     desc  = function ()
         return {
-            icon          = 67,
+            icon          = 68,
             name          = "Ускорение атак",
             info          = "",
         }
     end,
     
     attackProc = function(self,buff,enemy,damage)
-    buff.target:spend(-math.min(1,buff:level()*0.05))
+    buff.target:spend(-math.min(0.8,buff:level()*0.05))
     return damage
     end
 }

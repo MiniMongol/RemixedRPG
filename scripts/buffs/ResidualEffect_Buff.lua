@@ -15,7 +15,7 @@ local buff = require "scripts/lib/buff"
 return buff.init{
     desc  = function ()
         return {
-            icon          = 68,
+            icon          = 69,
             name          = "ResidualEffect_Name",
             info          = "ResidualEffect_Info",
             data          =
