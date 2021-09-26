@@ -19,8 +19,8 @@ return buff.init{
     desc  = function ()
         return {
             icon          = 66,
-            name          = "Костяное облачение",
-            info          = "",
+            name          = "BoneArmorN",
+            info          = "BoneArmorD",
         }
     end,
     charAct = function(self,buff)

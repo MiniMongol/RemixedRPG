@@ -17,8 +17,8 @@ return buff.init{
     desc  = function ()
         return {
             icon          = 53,
-            name          = "Стальные мышцы",
-            info          = "",
+            name          = "SteelbodyN",
+            info          = "SteelbodyD",
         }
     end,
     drBonus = function(self,buff)

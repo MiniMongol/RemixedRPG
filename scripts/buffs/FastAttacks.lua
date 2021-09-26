@@ -12,8 +12,8 @@ return buff.init{
     desc  = function ()
         return {
             icon          = 68,
-            name          = "Ускорение атак",
-            info          = "",
+            name          = "FastAttacksN",
+            info          = "FastAttacksD",
         }
     end,
     

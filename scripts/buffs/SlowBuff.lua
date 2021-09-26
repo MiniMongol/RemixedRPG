@@ -12,8 +12,8 @@ return buff.init{
     desc  = function ()
         return {
             icon          = 14,
-            name          = "Замедление",
-            info          = "",
+            name          = "SlownessN",
+            info          = "SlownessD",
         }
     end,   
     speedMultiplier = function(self, buff)

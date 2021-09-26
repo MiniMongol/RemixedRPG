@@ -15,8 +15,8 @@ return buff.init{
     desc  = function ()
         return {
             icon          = 57,
-            name          = "MagicAbsorb",
-            info          = "",
+            name          = "MagicAbsorbN",
+            info          = "MagicAbsorbD",
         }
     end,
 

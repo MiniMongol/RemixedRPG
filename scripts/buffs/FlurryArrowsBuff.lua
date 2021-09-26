@@ -17,8 +17,8 @@ return buff.init{
     desc  = function ()
         return {
             icon          = 70,
-            name          = "Шквал стрел",
-            info          = "",
+            name          = "FlurryArrowsN",
+            info          = "FlurryArrowsD",
         }
     end,
     

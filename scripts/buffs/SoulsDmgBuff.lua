@@ -17,8 +17,8 @@ return buff.init{
     desc  = function ()
         return {
             icon          = 54,
-            name          = "Терзающие души удары",
-            info          = "",
+            name          = "SoulsTormentorN",
+            info          = "SoulsTormentorD",
         }
     end,
     

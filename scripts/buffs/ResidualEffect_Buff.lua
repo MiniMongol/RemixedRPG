@@ -16,8 +16,8 @@ return buff.init{
     desc  = function ()
         return {
             icon          = 69,
-            name          = "ResidualEffect_Name",
-            info          = "ResidualEffect_Info",
+            name          = "ResidualEffectN",
+            info          = "ResidualEffectI",
             data          =
             {
             type = 1

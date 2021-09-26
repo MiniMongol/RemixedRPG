@@ -11,8 +11,8 @@ return buff.init{
     desc  = function ()
         return {
             icon          = 62,
-            name          = "Метка пламени",
-            info          = "",
+            name          = "FlameMarkN",
+            info          = "FlameMarkD",
         }
     end
 }

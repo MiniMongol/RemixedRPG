@@ -18,7 +18,7 @@ return buff.init{
     Spell = storage.gameGet(a) or {}
         return {
             icon          = 59,
-            info          = "",
+            info          = "PoisonedBloodD",
         }
     end,
     

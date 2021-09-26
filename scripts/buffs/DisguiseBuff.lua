@@ -18,8 +18,8 @@ return buff.init{
     desc  = function ()
         return {
             icon          = 58,
-            name          = "Маскировка",
-            info          = "",
+            name          = "DisguiseN",
+            info          = "DisguiseD",
         }
     end,
 

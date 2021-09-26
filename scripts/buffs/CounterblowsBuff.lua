@@ -16,8 +16,8 @@ return buff.init{
     desc  = function ()
         return {
             icon          = 55,
-            name          = "Стойка контрударов",
-            info          = "",
+            name          = "CounterblowsN",
+            info          = "CounterblowsD",
         }
     end,
 

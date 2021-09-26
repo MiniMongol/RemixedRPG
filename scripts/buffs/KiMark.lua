@@ -11,8 +11,8 @@ return buff.init{
     desc  = function ()
         return {
             icon          = 64,
-            name          = "Метка ки",
-            info          = "",
+            name          = "KiMarkN",
+            info          = "KiMarkD",
         }
     end,
     

@@ -12,8 +12,8 @@ return buff.init{
     desc  = function ()
         return {
             icon          = 14,
-            name          = "Слабость",
-            info          = "",
+            name          = "WeaknessN",
+            info          = "WeaknessD",
         }
     end,
     
