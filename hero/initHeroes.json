@@ -24,7 +24,7 @@
     ]
   },
   "WARRIOR": {
-    "str": 9,
+    "str": 1,
     "sp":1,
     "maxSp":1,
     "knownItems": [
