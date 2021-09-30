@@ -67,7 +67,7 @@ return spell.init{
      local dmg = math.ceil((weaponA:damageRoll(hero) + weaponB:damageRoll(hero))*0.3) or 0
  
  if enemy and enemy ~= RPD.Dungeon.hero then
-  RPG.damage(enemy,RPG.magStr()*0.8+2*lvl, "fire")
+  enemy:damage(math.ceil(RPG.magStr()*0.8+2*lvl), hero)
   RPD.affectBuff(enemy, "BurningBuff", 2)
   storage.gamePut("burningbuff",{dmg = dmg})
   return true

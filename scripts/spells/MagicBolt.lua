@@ -66,7 +66,7 @@ return spell.init{
  
  
  if enemy and enemy ~= RPD.Dungeon.hero then
-  enemy:damage(math.ceil(RPG.magStr()*0.25)+3*lvl-RPG.distance(pos) + 6-lvl,RPD.Dungeon.hero)
+  enemy:damage(math.ceil(RPG.magStr()*0.25+3*lvl-RPG.distance(pos) + 6-lvl),hero)
   return true
  else
  return true

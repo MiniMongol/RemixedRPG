@@ -40,19 +40,19 @@ local RPG
  boneId = boneId,
  
  physStr = function()
-   return math.max(RPG.physicStr,0) +RPG.physicStrB +RPG.physicStrA +RPG.physicStrBerserk
+   return RPG.physicStr or 0 +RPG.physicStrB +RPG.physicStrA +RPG.physicStrBerserk
  end,
  
  magStr = function()
-   return math.max(RPG.magicStr,0) +RPG.magicStrA +RPG.magicStrB
+   return RPG.magicStr or 0 +RPG.magicStrA +RPG.magicStrB
  end,
  
  AllFast = function()
-   return math.max(RPG.fast,0) +RPG.fastA +RPG.fastB
+   return RPG.fast or 0 +RPG.fastA +RPG.fastB
  end,
  
  AllSpRegen = function()
-   return math.max(RPG.spRegen,0) +RPG.spRegenA +RPG.spRegenB
+   return RPG.spRegen or 0 +RPG.spRegenA +RPG.spRegenB
  end,
  
  AllLuck = function()
@@ -66,12 +66,12 @@ local RPG
  damage = function(enemy, dmg, element)
    local hero = RPD.Dungeon.hero
    local defense = {
-   Rat = {mag = 2, fire = 0.5},
-   Gnoll = {mag = 20, fire = 0.2}
+   Rat = {magDef = 2, fire = 0, water, earth, wind, lighting, poison, light, dark},
+   Gnoll = {magDef = 6, fire = 0.2}
    }
    local defstats = defense[enemy:getMobClassName()]
-   local mag = defstats["mag"]
-   local coef = math.max(defstats[element],0)
+   local mag = defstats["magDef"]
+   local coef = defstats[element] or 1
    
    if element ~= "phys" then
      enemy:damage(math.ceil(dmg-math.random(0.5*(mag*coef),mag*coef)),hero)
