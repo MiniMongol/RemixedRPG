@@ -56,12 +56,34 @@ local RPG
  end,
  
  AllLuck = function()
-   return math.max(RPG.luck,0) +RPG.luckA +RPG.luckB
+   local luck = 0
+   if RPG.luck then
+     luck = RPG.luck
+   end
+   return luck +RPG.luckA +RPG.luckB
+ end,
+ 
+ damage = function(enemy, dmg, element)
+   local hero = RPD.Dungeon.hero
+   local defense = {
+   Rat = {mag = 2, fire = 0.5},
+   Gnoll = {mag = 20, fire = 0.2}
+   }
+   local defstats = defense[enemy:getMobClassName()]
+   local mag = defstats["mag"]
+   local coef = math.max(defstats[element],0)
+   
+   if element ~= "phys" then
+     enemy:damage(math.ceil(dmg-math.random(0.5*(mag*coef),mag*coef)),hero)
+   else
+     enemy:damage(dmg-math.ceil(math.random(enemy:dr()*0.5,enemy:dr())),hero)
+   end
+   
  end,
  
  itemStrBonus = function(str)
    local hero = RPD.Dungeon.hero
-   return (RPG.physStr() -str)*0.2
+   return (RPG.physStr() -str)*0.1
  end,
  
  baseSpeed = function()
