@@ -9,113 +9,19 @@ local RPG1 = {
         RPD.GameScene:show(wnd)
     end,
     
-   addStats = function(num, stat)
-    if stat == 1 then
-     RPG.physicStrA = RPG.physicStrA + num
-    end
-    if stat == 2 then
-      RPG.magicStrA = RPG.magicStrA + num
-    end
-    if stat == 3 then
-      RPG.fastA = RPG.fastA + num
-    end
-    if stat == 4 then
-      RPG.spRegenA = RPG.spRegenA + num
-    end
-    if stat == 5 then
-      RPG.luckA = RPG.luckA + num
-    end
- end,
+   addStats = function(stats, mas)
+     local ItemStats = RPG[mas]
+	 for i = 1, 7 do
+	   ItemStats[i] = stats[i]
+	 end
+   end,
  
- delStats = function(num, stat, mas)
-   if mas == "A" then
-    if stat == 1 then
-      RPG.physicStrA = 0
-    end
-    if stat == 2 then
-      RPG.magicStrA = 0
-    end
-    if stat == 3 then
-      RPG.fastA = 0
-    end
-    if stat == 4 then
-      RPG.spRegenA = 0
-    end
-    if stat == 5 then
-      RPG.luckA = 0
-   end
-  else if mas == "A1" then
-    if stat == 1 then
-      RPG.physicStrA1 = 0
-    end
-    if stat == 2 then
-      RPG.magicStrA1 = 0
-    end
-    if stat == 3 then
-      RPG.fastA1 = 0
-    end
-    if stat == 4 then
-      RPG.spRegenA1 = 0
-    end
-    if stat == 5 then
-      RPG.luckA1 = 0
-   end
-  
-  else if mas == "B" then
-    if stat == 1 then
-      RPG.physicStrB = 0
-    end
-    if stat == 2 then
-      RPG.magicStrB = 0
-    end
-    if stat == 3 then
-      RPG.fastB = 0
-    end
-    if stat == 4 then
-      RPG.spRegenB = 0
-    end
-    if stat == 5 then
-      RPG.luckB = 0
-   end
-  end
-   
- end,
- 
- addStats_B = function(num, stat)
-    if stat == 1 then
-     RPG.physicStrB = RPG.physicStrB + num
-    end
-    if stat == 2 then
-      RPG.magicStrB = RPG.magicStrB + num
-    end
-    if stat == 3 then
-      RPG.fastB = RPG.fastB + num
-    end
-    if stat == 4 then
-      RPG.spRegenB = RPG.spRegenB + num
-    end
-    if stat == 5 then
-      RPG.luckB = RPG.luckB + num
-    end
- end,
- 
- delStats_B = function(num, stat)
-    if stat == 1 then
-      RPG.physicStrB = 0
-    end
-    if stat == 2 then
-      RPG.magicStrB = 0
-    end
-    if stat == 3 then
-      RPG.fastB = 0
-    end
-    if stat == 4 then
-      RPG.spRegenB = 0
-    end
-    if stat == 5 then
-      RPG.luckB = 0
-   end
- end,
+  delStats = function(mas)
+    local ItemStats = RPG[mas]
+	for i = 1, 7 do
+	  ItemStats[i] = 0
+	end
+  end,
  
  pillChoise = function(dialog)
    RPD.chooseOption(dialog,

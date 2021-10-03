@@ -9,6 +9,27 @@ local RPG
   Shadows         = luajava.bindClass("com.watabou.pixeldungeon.actors.buffs.Shadows"),
   Amok            = luajava.bindClass("com.watabou.pixeldungeon.actors.buffs.Amok")
  },
+ StatsA = {
+ 	luck = 0,
+	physicStr = 0,
+	magicStr = 0,
+	fast = 0,
+	spRegen = 0,
+ },
+ StatsA2 = {
+ 	luck = 0,
+	physicStr = 0,
+	magicStr = 0,
+	fast = 0,
+	spRegen = 0,
+ },
+ StatsB = {
+ 	luck = 0,
+	physicStr = 0,
+	magicStr = 0,
+	fast = 0,
+	spRegen = 0,
+ },
 
  strength = strength,
  intelligence = intelligence,
@@ -16,26 +37,11 @@ local RPG
  vitality = vitality,
  wisdom = wisdom,
  luck = luck,
- luckA = 0,
- luckA2 = 0,
- luckB = 0,
  physicStr = 1,
- physicStrA = 0,
- physicStrA2 = 0,
- physicStrB = 0,
  physicStrBerserk = 0,
  magicStr = 1,
- magicStrA = 0,
- magicStrA2 = 0,
- magicStrB = 0,
  fast = 1,
- fastA = 0,
- fastA2 = 0,
- fastB = 0,
  spRegen = 1,
- spRegenA = 0,
- spRegenA2 = 0,
- spRegenB = 0,
  spellFast = 0,
  sPoints = 20,
  lvlToUp = 0,
@@ -45,19 +51,19 @@ local RPG
  boneId = boneId,
  
  physStr = function()
-   return RPG.physicStr or 0 +RPG.physicStrB +RPG.physicStrA +RPG.physicStrA2 +RPG.physicStrBerserk
+   return RPG.physicStr or 0 +RPG.StatsB.physicStr +RPG.StatsA.physicStr +RPG.StatsA2.physicStr +RPG.physicStrBerserk
  end,
  
  magStr = function()
-   return RPG.magicStr or 0 +RPG.magicStrA + RPG.magicStrA2 +RPG.magicStrB
+   return RPG.magicStr or 0 +RPG.StatsA.magicStr + RPG.StatsA2.magicStr +RPG.StatsB.magicStr
  end,
  
  AllFast = function()
-   return RPG.fast or 0 +RPG.fastA +RPG.fastA2 +RPG.fastB
+   return RPG.fast or 0 +RPG.StatsA.fast +RPG.StatsA2.fast +RPG.StatsB.fast
  end,
  
  AllSpRegen = function()
-   return RPG.spRegen or 0 +RPG.spRegenA +RPG.spRegenA2 +RPG.spRegenB
+   return RPG.spRegen or 0 +RPG.StatsA.spRegen +RPG.StatsA2.spRegen +RPG.StatsB.spRegen
  end,
  
  AllLuck = function()
@@ -65,23 +71,111 @@ local RPG
    if RPG.luck then
      luck = RPG.luck
    end
-   return luck +RPG.luckA +RPG.luckA2 +RPG.luckB
+   return luck +RPG.StatsA.luck +RPG.StatsA2.luck +RPG.StatsB.luck
  end,
  
  damage = function(enemy, dmg, element)
    local hero = RPD.Dungeon.hero
    local defense = {
-   Rat = {magDef = 2, fire = 0, water, earth, wind, lighting, poison, light, dark},
-   Gnoll = {magDef = 6, fire = 0.2}
+   FireElemental = {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
+   Statue = {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
+   Wraith = {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
+   Piranha = {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
+   Mimic = {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
+   MimicPie = {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
+   IceElemental = {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
+   WaterElemental = {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
+   EarthElemental = {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
+   AirElemental = {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
+   Crystal = {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
+   ArmoredStatue = {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
+   GoldenStatue = {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
+   = {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
+   = {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
+   
+   Rat = {magDef = 2, fire = 0, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
+   Gnoll = {magDef = 5, fire = 0.2, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
+   Crab = {magDef = 5, fire = 0.5, water = 1.5, earth = 1.2, wind = 0.8, lighting = 0, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
+   Albino = {magDef = 4, fire = 0.2, water, earth, wind, lighting = 0.5, poison, light = 0.5, dark, cut, cutstab, chop, stab, chopstab, crush},
+   Woodlouise = {magDef = 5, fire = 0.5, water = 1.5, earth = 1.2, wind, lighting = 0, poison = 1.1, light = 0.5, dark, cut, cutstab, chop, stab, chopstab, crush},
+   Goo = {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
+   
+   Thief = {magDef = 5, fire = 0.2, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
+   Skeleton = {magDef = 5, fire = 0.2, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
+   Swarm = {magDef = 5, fire = 0.2, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush}, 
+   Shadow = {magDef = 5, fire = 0.2, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush}, 
+   Bandit = {magDef = 5, fire = 0.2, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
+   Tengu = {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
+   
+   Bat = {magDef = 5, fire = 0.2, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
+   Brute = {magDef = 5, fire = 0.2, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
+   Shaman = {magDef = 5, fire = 0.2, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
+   Spinner = {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
+   Shielded = {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush}, 
+   DM300 = {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
+   
+   Monk = {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
+   Warlock = {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
+   Golem = {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
+   Senior = {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
+   King = {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
+   
+   Succubus = {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
+   Eye = {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
+   Scorpio = {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
+   Acidic = {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
+   ShadowLord = {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
+   
+   SuspiciousRat = {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
+   PseudoRat = {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
+   ZombieGnoll = {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
+   Worm = {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
+   Nightmare = {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
+   MimicAmulet = {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
+   SpiritOfPain= {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
+   YogsBrain= {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
+   YogsEye= {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
+   YogsHeart= {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
+   YogsTeeth= {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
+   Yog = {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
+   
+   SpiderServant = {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
+   SpiderGuard = {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
+   SpiderExploding = {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
+   SpiderMind= {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
+   SpiderMindAmber= {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
+   SpiderNest= {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
+   SpiderEgg= {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
+   = {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
+   SpiderQueen = {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
+   
+   Kobold = {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
+   KoboldIcemancer= {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
+   ColdSpirit = {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
+	IceGuardianCore= {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
+   IceGuardian = {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
+   
+   DeathKnight = {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
+   DreadKnight = {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
+   EnslavedSoul = {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
+   ExplodingSkull = {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
+   JarOfSouls = {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
+   Zombie = {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
+   RunicSkull = {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
+   Lich = {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
+   
+   a = {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush}
+   
    }
    local defstats = defense[enemy:getMobClassName()]
-   local mag = defstats["magDef"]
+   local depth = RPD.Dungeon.depth
+   local mag = defstats["magDef"] + depth*1.2 or 0
    local coef = defstats[element] or 1
    
    if element ~= "phys" then
      enemy:damage(math.ceil(dmg-math.random(0.5*(mag*coef),mag*coef)),hero)
    else
-     enemy:damage(dmg-math.ceil(math.random(enemy:dr()*0.5,enemy:dr())),hero)
+     enemy:damage(dmg-math.ceil(math.random((enemy:dr()*coef)*0.5,enemy:dr()*coef)),hero)
    end
    
  end,
@@ -102,10 +196,10 @@ local RPG
  end,
  
  getItemStats = function(cycles, statMax)
-   local statsList = {0, 0, 0, 0, 0, 0, 0, 0}
-   local stats = {0, 0, 0, 0, 0, 0, 0, 0}
+  local statsList = {0, 0, 0, 0, 0, 0, 0, 0}
+  local stats = {0, 0, 0, 0, 0, 0, 0, 0}
   local ran
-  local itStInfo = ""
+  local ItemStatsInfo = ""
   local statsNames = {
   RPD.textById("PhysStr"),
   RPD.textById("MagStr"),
@@ -131,28 +225,10 @@ local RPG
        stats[i] = stats[i] + math.random(1,statMax_Fix)
      end
      if statsList[i] ~= 0 then
-       itStInfo = itStInfo.." "..statsNames[i]..": +"..tostring(stats[i]).."\n"
+       ItemStatsInfo = ItemStatsInfo.." "..statsNames[i]..": +"..tostring(stats[i]).."\n"
      end
    end
-   return {itStInfo,stats}
- end,
- 
- setItemStats = function(stats)
-   local itStInfo = ""
-   local statsNames = {
-  RPD.textById("PhysStr"),
-  RPD.textById("MagStr"),
-  RPD.textById("Fast"),
-  RPD.textById("SpRegen"),
-  RPD.textById("luck"),
-  RPD.textById("Hp"),
-  RPD.textById("Sp")}
-   for i = 1,7 do
-     if stats[i] ~= 0 then
-       itStInfo = itStInfo.." "..statsNames[i]..": +"..tostring(stats[i]).."\n"
-     end
-   end
-   return itStInfo
+   return {ItemStatsInfo,stats}
  end,
  
  createItem = function(name, cell, count)
