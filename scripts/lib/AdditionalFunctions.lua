@@ -27,7 +27,8 @@ local RPG1 = {
     end
  end,
  
- delStats = function(num, stat)
+ delStats = function(num, stat, mas)
+   if mas == "A" then
     if stat == 1 then
       RPG.physicStrA = 0
     end
@@ -43,6 +44,41 @@ local RPG1 = {
     if stat == 5 then
       RPG.luckA = 0
    end
+  else if mas == "A1" then
+    if stat == 1 then
+      RPG.physicStrA1 = 0
+    end
+    if stat == 2 then
+      RPG.magicStrA1 = 0
+    end
+    if stat == 3 then
+      RPG.fastA1 = 0
+    end
+    if stat == 4 then
+      RPG.spRegenA1 = 0
+    end
+    if stat == 5 then
+      RPG.luckA1 = 0
+   end
+  
+  else if mas == "B" then
+    if stat == 1 then
+      RPG.physicStrB = 0
+    end
+    if stat == 2 then
+      RPG.magicStrB = 0
+    end
+    if stat == 3 then
+      RPG.fastB = 0
+    end
+    if stat == 4 then
+      RPG.spRegenB = 0
+    end
+    if stat == 5 then
+      RPG.luckB = 0
+   end
+  end
+   
  end,
  
  addStats_B = function(num, stat)

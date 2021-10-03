@@ -17,19 +17,24 @@ local RPG
  wisdom = wisdom,
  luck = luck,
  luckA = 0,
+ luckA2 = 0,
  luckB = 0,
  physicStr = 1,
  physicStrA = 0,
+ physicStrA2 = 0,
  physicStrB = 0,
  physicStrBerserk = 0,
  magicStr = 1,
  magicStrA = 0,
+ magicStrA2 = 0,
  magicStrB = 0,
  fast = 1,
  fastA = 0,
+ fastA2 = 0,
  fastB = 0,
  spRegen = 1,
  spRegenA = 0,
+ spRegenA2 = 0,
  spRegenB = 0,
  spellFast = 0,
  sPoints = 20,
@@ -40,19 +45,19 @@ local RPG
  boneId = boneId,
  
  physStr = function()
-   return RPG.physicStr or 0 +RPG.physicStrB +RPG.physicStrA +RPG.physicStrBerserk
+   return RPG.physicStr or 0 +RPG.physicStrB +RPG.physicStrA +RPG.physicStrA2 +RPG.physicStrBerserk
  end,
  
  magStr = function()
-   return RPG.magicStr or 0 +RPG.magicStrA +RPG.magicStrB
+   return RPG.magicStr or 0 +RPG.magicStrA + RPG.magicStrA2 +RPG.magicStrB
  end,
  
  AllFast = function()
-   return RPG.fast or 0 +RPG.fastA +RPG.fastB
+   return RPG.fast or 0 +RPG.fastA +RPG.fastA2 +RPG.fastB
  end,
  
  AllSpRegen = function()
-   return RPG.spRegen or 0 +RPG.spRegenA +RPG.spRegenB
+   return RPG.spRegen or 0 +RPG.spRegenA +RPG.spRegenA2 +RPG.spRegenB
  end,
  
  AllLuck = function()
@@ -60,7 +65,7 @@ local RPG
    if RPG.luck then
      luck = RPG.luck
    end
-   return luck +RPG.luckA +RPG.luckB
+   return luck +RPG.luckA +RPG.luckA2 +RPG.luckB
  end,
  
  damage = function(enemy, dmg, element)
