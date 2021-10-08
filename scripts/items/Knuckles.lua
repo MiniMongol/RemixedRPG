@@ -65,12 +65,11 @@ return item.init{
         return RPD.Slots.weapon
     end,
     
-    activate = function(self)
+    activate = function(self,item)
       hero = RPD.Dungeon.hero
+      RPD.glog(hero:getBelongings():itemSlotName(item))
       if self.data.activationCount == 0 or RPG.luck == nil then
-        for i = 1,5 do
-          RPG1.addStats(self.data.dstats[i], i)
-        end
+          RPG1.addStats(self.data.dstats, "StatsA")
       end
       if self.data.activationCount == 0 then
         hero:ht(hero:ht() + self.data.dstats[6])
@@ -82,9 +81,7 @@ return item.init{
     deactivate = function(self)
       hero = RPD.Dungeon.hero
         self.data.activationCount = 0
-        for i = 1,5 do
-          RPG1.delStats(self.data.dstats[i], i)
-        end
+          RPG1.delStats(self.data.dstats,"StatsA")
         hero:ht(hero:ht() - self.data.dstats[6])
         if hero:hp() > hero:ht() then
           hero:hp(hero:ht())
@@ -125,13 +122,13 @@ return item.init{
       return str
     end,
     
-    damageRoll = function(self, item, user)
-        return maxDmg+item:level(),minDmg+item:level()
-    end,
+    
     
     attackProc = function(self,item,hero,enemy,dmg)
       local hero = RPD.Dungeon.hero
-      return dmg
+      local dm = math.random(minDmg+item:level(),maxDmg+item:level())
+      RPG.damage(enemy,dm,"crush")
+      return 0
     end,
     
     actions = function(self, item, hero)
