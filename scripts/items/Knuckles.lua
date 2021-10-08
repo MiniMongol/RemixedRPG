@@ -68,9 +68,7 @@ return item.init{
     activate = function(self)
       hero = RPD.Dungeon.hero
       if self.data.activationCount == 0 or RPG.luck == nil then
-        for i = 1,5 do
-          RPG1.addStats(self.data.dstats[i], i)
-        end
+          RPG1.addStats(self.data.dstats, "StatsA")
       end
       if self.data.activationCount == 0 then
         hero:ht(hero:ht() + self.data.dstats[6])
@@ -125,13 +123,13 @@ return item.init{
       return str
     end,
     
-    damageRoll = function(self, item, user)
-        return maxDmg+item:level(),minDmg+item:level()
-    end,
+    
     
     attackProc = function(self,item,hero,enemy,dmg)
       local hero = RPD.Dungeon.hero
-      return dmg
+      local dm = math.random(minDmg+item:level(),maxDmg+item:level())
+      RPG.damage(enemy,dm,"crush")
+      return 0
     end,
     
     actions = function(self, item, hero)

@@ -69,9 +69,7 @@ return item.init{
       hero = RPD.Dungeon.hero
 	  str = math.max(stra-2*item:level(),1)
       if self.data.activationCount == 0 or RPG.luck == nil then
-        for i = 1,5 do
-          RPG1.addStats_B(self.data.dstats[i], i)
-        end
+          RPG1.addStats(self.data.dstats,"StatsB")
       end
       if self.data.activationCount == 0 then
         hero:ht(hero:ht() + self.data.dstats[6])
@@ -83,9 +81,7 @@ return item.init{
     deactivate = function(self,item)
       hero = RPD.Dungeon.hero
         self.data.activationCount = 0
-        for i = 1,5 do
-          RPG1.delStats_B(self.data.dstats[i], i)
-        end
+          RPG1.delStats("StatsB")
         hero:ht(hero:ht() - self.data.dstats[6])
         if hero:hp() > hero:ht() then
           hero:hp(hero:ht())

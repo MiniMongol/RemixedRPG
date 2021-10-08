@@ -11,15 +11,17 @@ local RPG1 = {
     
    addStats = function(stats, mas)
      local ItemStats = RPG[mas]
-	 for i = 1, 7 do
-	   ItemStats[i] = stats[i]
+     local statsNames = {"physicStr","magicStr","fast","spRegen","luck"}
+	 for i = 1, 5 do
+	   ItemStats[statsNames[i]] = stats[i]
 	 end
    end,
  
   delStats = function(mas)
     local ItemStats = RPG[mas]
-	for i = 1, 7 do
-	  ItemStats[i] = 0
+    local statsNames = {"physicStr","magicStr","fast","spRegen","luck"}
+	for i = 1, 5 do
+	  ItemStats[statsNames[i]] = 0
 	end
   end,
  
