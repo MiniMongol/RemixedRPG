@@ -18,13 +18,15 @@ local stra = 20
 local tier = 2
 local maxDmg = 10
 local minDmg = 6
+local accuracy = 1
+local delayFactor = 0.8
+local range = 1
 local str 
 local stats
 local hero 
 local statsInfo
-
-return item.init{
-    desc  = function (self, item)
+local config = onehandWeapon.makeWeapon("","WeaponAccu",stra,minDmg,maxDmg,tier,accuracy,delayFactor,range,"cutstab") 
+config.desc  = function (self, item)
       local a = RPG.getItemStats(quanStats,statsMax)
       statsInfo = a[1]
       stats = a[2]

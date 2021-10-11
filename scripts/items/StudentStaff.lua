@@ -31,7 +31,7 @@ return item.init{
       local a = RPG.getItemStats(quanStats,statsMax)
       stats = a[2]
       stats[2] = stats[2] + addMag
-      statsInfo = RPG.setItemStats(stats)
+      statsInfo = a[1]
         return {
             imageFile     = "rpgitems.png",
             image         = 17,
