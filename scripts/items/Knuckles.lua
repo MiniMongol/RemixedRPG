@@ -18,13 +18,15 @@ local stra = 10
 local tier = 1
 local maxDmg = 4
 local minDmg = 2
-local str
+local accuracy = 1
+local delayFactor = 0.8
+local range = 1
+local str 
 local stats
 local hero 
 local statsInfo
-
-return item.init{
-    desc  = function (self, item)
+local config = onehandWeapon.makeWeapon("Knuckles","WeaponFast",stra,minDmg,maxDmg,tier,accuracy,delayFactor,range,"crush") 
+config.desc  = function (self, item)
       local a = RPG.getItemStats(quanStats,statsMax)
       statsInfo = a[1]
       stats = a[2]
@@ -42,100 +44,5 @@ return item.init{
             upgradable    = true,
             equipable     ="weapon"
         }
-    end,
-    info = function(self,item)
-      hero = RPD.Dungeon.hero
-      str = math.max(stra-2*item:level(),1)
-      local info = RPD.textById("Knuckles_Info").."\n\n"..RPD.textById("Knuckles_Name")..RPD.textById("WeaponInfo0")..tier..RPD.textById("WeaponInfo1")..math.ceil((maxDmg+minDmg+tier*item:level()*2)/2)..RPD.textById("WeaponInfo2")..str..RPD.textById("WeaponInfo3")..RPD.textById("WeaponFast").."\n\n"..self.data.sInfo
-      if RPG.physStr() >= str then
-        return info
-      else
-        return info..RPD.textById("WeaponLimit")
-      end
-    end,
-    
-    getVisualName = function()
-      return "Knuckles"
-    end,
-    
-    slot = function(self, item, belongings)
-        if belongings:slotBlocked(RPD.Slots.weapon) then
-            return RPD.Slots.leftHand
-        end
-        return RPD.Slots.weapon
-    end,
-    
-    activate = function(self,item)
-      hero = RPD.Dungeon.hero
-      RPD.glog(hero:getBelongings():itemSlotName(item))
-      if self.data.activationCount == 0 or RPG.luck == nil then
-          RPG1.addStats(self.data.dstats, "StatsA")
-      end
-      if self.data.activationCount == 0 then
-        hero:ht(hero:ht() + self.data.dstats[6])
-        hero:setMaxSkillPoints(hero:getSkillPointsMax() + self.data.dstats[7])
-      end
-      self.data.activationCount = 1
-    end,
-    
-    deactivate = function(self)
-      hero = RPD.Dungeon.hero
-        self.data.activationCount = 0
-          RPG1.delStats(self.data.dstats,"StatsA")
-        hero:ht(hero:ht() - self.data.dstats[6])
-        if hero:hp() > hero:ht() then
-          hero:hp(hero:ht())
-        end
-        hero:setMaxSkillPoints(hero:getSkillPointsMax() - self.data.dstats[7])
-        if hero:getSkillPoints() > hero:getSkillPointsMax() then
-          hero:setSkillPoints(hero:getSkillPointsMax())
-        end
-    end,
-    
-    goodForMelee = function()
-      return true
-    end,
-    
-    range = function()
-      return 1
-    end,
-    
-    onSelect = function(cell,selector)
-    end,
-    
-    accuracyFactor = function(self,item,user)
-     str = math.max(stra-2*item:level(),1)
-     return 1 + RPG.itemStrBonus(str)
-    end,
-    
-    attackDelayFactor = function(self,item,user)
-     str = math.max(stra-2*item:level(),1)
-     return 0.8 - RPG.itemStrBonus(str)
-    end,
-    
-    typicalSTR = function(self,item,user)
-	  str = math.max(stra-2*item:level(),1)
-      return str
-    end,
-    
-    requiredSTR = function(self,item,user)
-      return str
-    end,
-    
-    
-    
-    attackProc = function(self,item,hero,enemy,dmg)
-      local hero = RPD.Dungeon.hero
-      local dm = math.random(minDmg+item:level(),maxDmg+item:level())
-      RPG.damage(enemy,dm,"crush")
-      return 0
-    end,
-    
-    actions = function(self, item, hero)
-     return {}
-    end,
-
-    execute = function(self, item, hero, action)
     end
-
-}
+	return item.init(config)

@@ -30,53 +30,7 @@ local RPG
 	fast = 0,
 	spRegen = 0
  },
-
- strength = strength,
- intelligence = intelligence,
- dexterity = dexterity,
- vitality = vitality,
- wisdom = wisdom,
- luck = luck,
- physicStr = 1,
- physicStrBerserk = 0,
- magicStr = 1,
- fast = 1,
- spRegen = 1,
- spellFast = 0,
- sPoints = 20,
- lvlToUp = 0,
- triger = 0,
- class = class,
- subClass = subClass,
- boneId = boneId,
- 
- physStr = function()
-   return RPG.physicStr+RPG.StatsB["physicStr"] +RPG.StatsA["physicStr"] +RPG.StatsA2["physicStr"]+RPG.physicStrBerserk
- end,
- 
- magStr = function()
-   return RPG.magicStr +RPG.StatsA["magicStr"] +RPG.StatsA2["magicStr"] +RPG.StatsB["magicStr"]
- end,
- 
- AllFast = function()
-   return RPG.fast +RPG.StatsA["fast"] +RPG.StatsA2["fast"] +RPG.StatsB["fast"]
- end,
- 
- AllSpRegen = function()
-   return RPG.spRegen +RPG.StatsA["spRegen"] +RPG.StatsA2["spRegen"] +RPG.StatsB["spRegen"]
- end,
- 
- AllLuck = function()
-   local luck = 0
-   if RPG.luck then
-     luck = RPG.luck
-   end
-   return luck +RPG.StatsA["luck"] +RPG.StatsA2["luck"] +RPG.StatsB["luck"]
- end,
- 
- damage = function(enemy, dmg, element)
-   local hero = RPD.Dungeon.hero
-   local defense = {
+ defense = {
    FireElemental = {magDef = 15, fire=2, water=0.8, ice=0.5, earth, wind=0.9, lighting=1.1, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush=0.8},
    Statue = {magDef=10, fire, water, earth, wind=0.8, lighting=1.5, poison, light, dark, cut=1.5, cutstab=1.2, chop, stab=0.85, chopstab=0.95, crush=0.7},
    Wraith = {magDef=5, fire, water, earth, wind=0.9, lighting=0.7,  crush=1.5},
@@ -167,6 +121,62 @@ local RPG
    a = {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush}
    
    }
+
+ strength = strength,
+ intelligence = intelligence,
+ dexterity = dexterity,
+ vitality = vitality,
+ wisdom = wisdom,
+ luck = luck,
+ physicStr = 1,
+ physicStrBerserk = 0,
+ magicStr = 1,
+ fast = 1,
+ spRegen = 1,
+ spellFast = 0,
+ sPoints = 20,
+ lvlToUp = 0,
+ triger = 0,
+ class = class,
+ subClass = subClass,
+ boneId = boneId,
+ 
+ physStr = function()
+   return RPG.physicStr+RPG.StatsB["physicStr"] +RPG.StatsA["physicStr"] +RPG.StatsA2["physicStr"]+RPG.physicStrBerserk
+ end,
+ 
+ magStr = function()
+   return RPG.magicStr +RPG.StatsA["magicStr"] +RPG.StatsA2["magicStr"] +RPG.StatsB["magicStr"]
+ end,
+ 
+ AllFast = function()
+   return RPG.fast +RPG.StatsA["fast"] +RPG.StatsA2["fast"] +RPG.StatsB["fast"]
+ end,
+ 
+ AllSpRegen = function()
+   return RPG.spRegen +RPG.StatsA["spRegen"] +RPG.StatsA2["spRegen"] +RPG.StatsB["spRegen"]
+ end,
+ 
+ AllLuck = function()
+   local luck = 0
+   if RPG.luck then
+     luck = RPG.luck
+   end
+   return luck +RPG.StatsA["luck"] +RPG.StatsA2["luck"] +RPG.StatsB["luck"]
+ end,
+ 
+ handCheck = function(item)
+   local hero = RPD.Dungeon.hero
+   if hero:getBelongings():itemSlot(item) == "LEFT_HAND" then
+     return true
+	 else
+	 return nilsa
+   end
+ end,
+ 
+ damage = function(enemy, dmg, element)
+   local hero = RPD.Dungeon.hero
+   local defence = RPG.defence
    local defstats = defense[enemy:getMobClassName()]
    local depth = RPD.Dungeon.depth
    local mag = defstats["magDef"] + depth*1.2 or 0
@@ -176,6 +186,22 @@ local RPG
      enemy:damage(math.floor(dmg-math.random(0.5*(mag*coef),mag*coef)),hero)
    else
      enemy:damage(dmg-math.floor(math.random((enemy:dr()*coef)*0.5,enemy:dr()*coef)),hero)
+   end
+   
+ end,
+ 
+ getDamage = function(enemy, dmg, element)
+   local hero = RPD.Dungeon.hero
+   local defence = RPG.defence
+   local defstats = defense[enemy:getMobClassName()]
+   local depth = RPD.Dungeon.depth
+   local mag = defstats["magDef"] + depth*1.2 or 0
+   local coef = defstats[element] or 1
+   
+   if element ~= "phys" then
+     return dmg-math.floor(math.random(0.5*(mag*coef),mag*coef))
+   else
+     return dmg-math.floor(math.random((enemy:dr()*coef)*0.5,enemy:dr()*coef))
    end
    
  end,

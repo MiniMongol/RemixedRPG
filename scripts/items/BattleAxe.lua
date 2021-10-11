@@ -18,6 +18,7 @@ local stra = 45
 local tier = 4
 local maxDmg = 15
 local minDmg = 6
+local dmgType = "chop"
 local hero
 local str
 local stats
@@ -65,17 +66,11 @@ return item.init{
     getVisualName = function()
       return "BattleAxe"
     end,
-    
-    damageRoll = function(self, item, user)
-        return maxDmg+tier*item:level(),minDmg+tier*item:level()
-    end,
-    
+      
     activate = function(self)
       hero = RPD.Dungeon.hero
       if self.data.activationCount == 0 or RPG.luck == nil then
-        for i = 1,5 do
-          RPG1.addStats(self.data.dstats[i], i)
-        end
+          RPG1.addStats(self.data.dstats,"StatsA")
       end
       if self.data.activationCount == 0 then
         hero:ht(hero:ht() + self.data.dstats[6])
@@ -87,9 +82,7 @@ return item.init{
     deactivate = function(self)
       hero = RPD.Dungeon.hero
         self.data.activationCount = 0
-        for i = 1,5 do
-          RPG1.delStats(self.data.dstats[i], i)
-        end
+          RPG1.delStats("StatsA")
         hero:ht(hero:ht() - self.data.dstats[6])
         if hero:hp() > hero:ht() then
           hero:hp(hero:ht())
@@ -132,7 +125,8 @@ return item.init{
     
     attackProc = function(self,item,hero,enemy,dmg)
       local hero = RPD.Dungeon.hero
-      return dmg
+	  local damageRoll = math.random(minDmg+tier*item:level(),maxDmg+tier*item:level())	  
+      return RPG.getDamage(enemy,damageRoll,dmgType)
     end,
     
     actions = function(self, item, hero)
