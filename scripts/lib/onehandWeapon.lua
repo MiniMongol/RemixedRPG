@@ -34,10 +34,10 @@ onehandWeapon.makeWeapon = function(name,mod,stra,minDmg,maxDmg,tier,accuracy,de
         return RPD.Slots.weapon
     end,
     
-    activate = function(self)
+    activate = function(self,item)
       hero = RPD.Dungeon.hero
       if self.data.activationCount == 0 or RPG.luck == nil then
-      if true then
+      if RPG.handCheck(item) then
           RPG1.addStats(self.data.dstats,"StatsA2")
           else
           RPG1.addStats(self.data.dstats,"StatsA")
@@ -50,11 +50,11 @@ onehandWeapon.makeWeapon = function(name,mod,stra,minDmg,maxDmg,tier,accuracy,de
       self.data.activationCount = 1
     end,
     
-    deactivate = function(self)
+    deactivate = function(self,item)
       hero = RPD.Dungeon.hero
         self.data.activationCount = 0
-          if RPG.handCheck then
-            RPG1.delStats("StatsA1")
+          if RPG.handCheck(item) then
+            RPG1.delStats("StatsA2")
             else
             RPG1.delStats("StatsA")
           end
