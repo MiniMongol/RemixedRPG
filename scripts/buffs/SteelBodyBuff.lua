@@ -23,7 +23,7 @@ return buff.init{
     end,
     drBonus = function(self,buff)
      local Count = storage.gameGet(a) or {}
-     return math.ceil(buff.target:hp()*0.35 + 1.5*Count.lvl)
+     return math.ceil(buff.target:hp()*0.15 +4 +3*Count.lvl)
     end,
     
     speedMultiplier = function(self, buff)

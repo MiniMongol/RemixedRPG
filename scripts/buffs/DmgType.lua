@@ -4,14 +4,10 @@
 ---
 
 local RPD  = require "scripts/lib/commonClasses"
-local RPG  = require "scripts/lib/Functions"
-local storage = require "scripts/lib/storage"
 
-local buff = require "scripts/lib/buff"
 local hero = RPD.Dungeon.hero
-local depth = RPD.Dungeon.depth
+local buff = require "scripts/lib/buff"
 
-local level
 local dmgModifs = defence = {
    FireElemental = {magDef = 15, fire=2, water=0.8, ice=0.5, earth, wind=0.9, lighting=1.1, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush=0.8},
    Statue = {magDef=10, fire, water, earth, wind=0.8, lighting=1.5, poison, light, dark, cut=1.5, cutstab=1.2, chop, stab=0.85, chopstab=0.95, crush=0.7},
@@ -103,46 +99,17 @@ local dmgModifs = defence = {
    a = { }
    
    },
-   
+
 return buff.init{
     desc  = function ()
         return {
             icon          = -1,
+            name          = "",
             info          = "",
         }
     end,
     
-attackProc = function(self,buff,enemy,damage)
-  depth = RPD.Dungeon.depth
-  local mobModifs = dmgModifs[self:getMobClassName()]
-  local totalDmg = damage + math.ceil(0.2*depth)
-  if mobModifs ~= nil then
-  
-  if mobModifs[mod] == 0 then
-    totalDmg = totalDmg mobModifs[dmg]
-    RPG.damage(enemy,mobModifs[dmg],mobModifs[type],mobModifs[element])
-    
-  else if mobModifs[mod] == 1 then
-    RPG.damage(enemy,mobModifs[dmg],mobModifs[type],mobModifs[element])
-    
-  else if mobModifs[mod] == 2 then
-    if mobModifs[dmg] >= 1 then
-    totalDmg = totalDmg*(1-mobModifs[dmg])
-    RPG.damage(enemy,totalDmg*mobModifs[dmg],mobModifs[type],mobModifs[elemnt])
-    else
-    totalDmg = RPG.getDamage(enemy,totalDmg*mobModifs[dmg],mobModifs[type],mobModifs[element])
+    attackProc = function(self,buff,enemy,damage)
+     return damage
     end
-  end
-  return totalDmg
-end,
-
-drBonus = function(self,buff)
-  depth = RPD.Dungeon.depth
-  return buff.target:dr() + math.ceil(0.5*depth)
-end,
-
-speedMultiplier = function(self,buff)
-  depth = RPD.Dungeon.depth
-  return 1
-end
 }

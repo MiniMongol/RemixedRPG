@@ -56,14 +56,14 @@ return spell.init{
      exp = exp+1
     if exp == expMax then
      exp = 0
-     expMax = expMax+7
+     expMax = expMax+8
      lvl = lvl+1
      end
      storage.gamePut(a,{exp = exp, expMax = expMax, lvl = lvl})
     else
      lvl = 1
      exp = 0
-     expMax = 4
+     expMax = 15
      storage.gamePut(a,{exp = exp, expMax = expMax, lvl = lvl})
     end
     

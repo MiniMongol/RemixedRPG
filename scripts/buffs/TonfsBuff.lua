@@ -22,7 +22,7 @@ return buff.init{
 
 defenceProc = function(self, buff, enemy, damage)
  hero = RPD.Dungeon.hero
- if math.random(10,math.ceil(enemy:attackSkill()*4)) <= math.ceil(RPG.AllFast()*0.4 + RPG.AllLuck()*0.4 + hero:attackSkill()*0.2) then
+ if math.random(10,math.ceil(enemy:attackSkill()*4)+11) <= math.ceil(RPG.AllFast()*0.4 + RPG.AllLuck()*0.4 + hero:attackSkill()*0.2) then
  local dmg = damage/10 * buff:level()
  if dmg - enemy:dr() <= 0 then
   dmg = enemy:dr()+2

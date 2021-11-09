@@ -36,7 +36,7 @@ return buff.init{
 
     stealthBonus = function(self,buff)
         local Spell = storage.gameGet(a) or {}
-        return (math.ceil(RPG.AllFast()*0.9) + 2*Spell.lvl)
+        return (math.ceil(RPG.AllFast()*0.9) + 5*Spell.lvl)
     end,
 
     charSpriteStatus = function(self, buff)

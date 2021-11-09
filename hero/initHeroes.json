@@ -3,7 +3,7 @@
     "items": [
         {
             "kind":"Gold",
-            "quantity":1000
+            "quantity":100
         },
         {
             "kind": "ModClothArmor"

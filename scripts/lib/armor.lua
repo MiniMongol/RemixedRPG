@@ -1,51 +1,19 @@
---
--- Created by Mongol
--- VK: mongolinsult
--- 
 
-local RPD = require "scripts/lib/commonClasses"
+local RPD                  = require "scripts/lib/commonClasses"
+local RPG                  = require "scripts/lib/Functions"
+local RPG1                  = require "scripts/lib/AdditionalFunctions"
 
-local RPG = require "scripts/lib/Functions"
+local armor = {}
 
-local RPG1 = require "scripts/lib/AdditionalFunctions"
-
-local storage = require "scripts/lib/storage"
-
-local item = require "scripts/lib/item"
-local statsMax = 6
-local quanStats = 2
-local stra = 10
-local tier = 2
-local str 
-local stats
-local hero 
-local statsInfo
-
-return item.init{
-    desc  = function (self, item)
-      local a = RPG.getItemStats(quanStats,statsMax)
-      statsInfo = a[1]
-      stats = a[2]
-      
-        return {
-            imageFile     = "items/armor.png",
-            image         = 1,
-            data          = {
-            activationCount = 0,
-            sInfo = statsInfo,
-            dstats = stats
-            },
-            name          = RPD.textById("LeatherArmor_Name")..": "..tostring(math.max(stra-2*item:level(),1)),
-            price         = 20*2^(tier-1)+10*2^(tier-1)*item:level(),
-            stackable     = false,
-            upgradable    = true,
-            equipable     ="armor"
-        }
-    end,
-    info = function(self,item)
+armor.makeArmor = function(name,stra,tier,visualName)
+    if visualName == "" or visualName == nil then
+      visualName = name
+    end
+    return{
+info = function(self,item)
       hero = RPD.Dungeon.hero
       str = math.max(stra-2*item:level(),1)
-      local info = RPD.textById("LeatherArmor_Desc").."\n\n"..RPD.textById("LeatherArmor_Name")..RPD.textById("ArmorInfo0")..tier..RPD.textById("ArmorInfo1")..tier*2+item:level()*tier..RPD.textById("ArmorInfo2")..str..RPD.textById("ArmorInfo3").."\n\n"..self.data.sInfo
+      local info = RPD.textById("ClothArmor_Desc").."\n\n"..RPD.textById("ClothArmor_Name")..RPD.textById("ArmorInfo0")..tier..RPD.textById("ArmorInfo1")..tier*2+item:level()*tier..RPD.textById("ArmorInfo2")..str..RPD.textById("ArmorInfo3").."\n\n"..self.data.sInfo
       if RPG.physStr() >= str then
         return info
       else
@@ -54,7 +22,7 @@ return item.init{
     end,
     
     getVisualName = function()
-      return "LeatherArmor"
+      return "ClothArmor"
     end,
 	
 	effectiveDr = function(self,item)
@@ -116,3 +84,5 @@ return item.init{
     end
 
 }
+end
+return armor

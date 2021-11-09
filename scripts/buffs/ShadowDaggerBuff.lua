@@ -29,7 +29,7 @@ return buff.init{
     
     stealthBonus = function(self,buff)
         local Spell = storage.gameGet(a) or {}
-        return (math.ceil(RPG.AllFast()*0.8) + 2*Spell.lvl)
+        return (math.ceil(RPG.AllFast()*0.8) +5 +2*Spell.lvl)
     end,
     
     attackProc = function(self,buff,enemy,damage)
@@ -42,9 +42,9 @@ return buff.init{
      end
      
      if buff.target:buffLevel("Invisibility") == 1 or state[enemy:getState():getTag()] or enemy:isParalysed() then
-      enemy:damage(math.ceil(RPG.physStr()*0.35 + 0.5*Spell.lvl), buff.target)
+      enemy:damage(math.ceil(RPG.physStr()*0.35 +5 +6*Spell.lvl), buff.target)
      else
-      enemy:damage( math.ceil(RPG.physStr()*0.15 + 0.2*Spell.lvl), buff.target)
+      enemy:damage( math.ceil(RPG.physStr()*0.15 +3 +4*Spell.lvl), buff.target)
      end
      RPD.topEffect(enemy:getPos(),"bleeding_effect")
      buff:detach()

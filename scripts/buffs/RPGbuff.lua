@@ -38,6 +38,15 @@ return buff.init{
       local Spells = require "scripts/spells/CustomSpellsList"
       local weapon = hero:getBelongings().weapon
 	  local armor = hero:getBelongings().armor
+	  local artifact = hero:getBelongings()[RPD.Slots.artifact]
+	  local leftArtifact = hero:getBelongings()[RPD.Slots.leftArtifact]
+	  local StatsA = RPG.StatsA
+	  local StatsA2 = RPG.StatsA2
+	  local StatsB = RPG.StatsB
+	  local StatsArt = RPG.StatsArt
+	  local StatsArt2 = RPG.StatsArt2
+
+	  
       Spells.Combat = Que.getMas("spelllist")
       
       if weapon:getClassName() == "DummyItem" then
@@ -54,7 +63,21 @@ return buff.init{
         RPG.luckB = 0
         RPG.spRegenB = 0
       end
-      
+    -- if artifact:getClassName() == "DummyItem" then
+       -- RPG.physicStrB = 0
+      --  RPG.magicStrB = 0
+       -- RPG.fastB = 0
+       -- RPG.luckB = 0
+      --  RPG.spRegenB = 0
+     -- end
+    --  if leftArtifact:getClassName() == "DummyItem" then
+       -- RPG.physicStrB = 0
+       -- RPG.magicStrB = 0
+       -- RPG.fastB = 0
+        --RPG.luckB = 0
+        --RPG.spRegenB = 0
+      --end
+      --
       if hero:getBelongings():getItem("TomeOfMastery") ~= nil then
          hero:getBelongings():getItem("TomeOfMastery"):detach(hero:getBelongings()
 .backpack)
@@ -99,6 +122,7 @@ return buff.init{
         RPG.physicStr = Stats.phyS
         RPG.magicStr = Stats.magS
         RPG.fast = Stats.fast
+        RPG.magDef = Stats.magDef
         RPG.lvlToUp = Stats.lvlT
         RPG.class = Stats.class
         RPG.subclass = Stats.subclass
@@ -124,11 +148,12 @@ return buff.init{
         RPG.physicStr = save.phyS
         RPG.magicStr = save.magS
         RPG.fast = save.fast
+        RPG.mageDef = save.magDef
         RPG.lvlToUp = save.lvlT
         RPG.class = save.class
         RPG.subclass = save.subclass
 		Que.pushMas("spelllist", save.spells)
-		storage.gamePut(stats, {str = RPG.strength, int = RPG.intelligence, dex = RPG.dexterity, vit = RPG.vitality, wis = RPG.wisdom, luc = RPG.luck, lvlT = RPG.lvlToUp, magS = RPG.magicStr, phyS = RPG.physicStr, fast = RPG.fast, sP = RPG.sPoints, spR = RPG.spRegen, class = RPG.class, subclass = RPG.subclass})
+		storage.gamePut(stats, {str = RPG.strength, int = RPG.intelligence, dex = RPG.dexterity, vit = RPG.vitality, wis = RPG.wisdom, luc = RPG.luck, lvlT = RPG.lvlToUp, magS = RPG.magicStr, phyS = RPG.physicStr, fast = RPG.fast, sP = RPG.sPoints, spR = RPG.spRegen, magDef = RPG.magDef, class = RPG.class, subclass = RPG.subclass})
 	  end
      
       if hero:lvl() > RPG.lvlToUp then
@@ -144,8 +169,8 @@ return buff.init{
           RPG.sPoints = RPG.sPoints+3
           RPD.glog(RPD.textById("LvlUpHappy"))
         end   
-        storage.gamePut(stats, {str = RPG.strength, int = RPG.intelligence, dex = RPG.dexterity, vit = RPG.vitality, wis = RPG.wisdom, luc = RPG.luck, lvlT = RPG.lvlToUp, magS = RPG.magicStr, phyS = RPG.physicStr, fast = RPG.fast, sP = RPG.sPoints, spR = RPG.spRegen, class = RPG.class, subclass = RPG.subclass})
-		storage.gamePut(tostring(hero:lvl()), {str = RPG.strength, int = RPG.intelligence, dex = RPG.dexterity, vit = RPG.vitality, wis = RPG.wisdom, luc = RPG.luck, lvlT = RPG.lvlToUp, magS = RPG.magicStr, phyS = RPG.physicStr, fast = RPG.fast, sP = RPG.sPoints, spR = RPG.spRegen, class = RPG.class, subclass = RPG.subclass, spells = Que.getMas("spelllist")})	
+        storage.gamePut(stats, {str = RPG.strength, int = RPG.intelligence, dex = RPG.dexterity, vit = RPG.vitality, wis = RPG.wisdom, luc = RPG.luck, lvlT = RPG.lvlToUp, magS = RPG.magicStr, phyS = RPG.physicStr, fast = RPG.fast, sP = RPG.sPoints, spR = RPG.spRegen,magDef = RPG.magDef, class = RPG.class, subclass = RPG.subclass})
+		storage.gamePut(tostring(hero:lvl()), {str = RPG.strength, int = RPG.intelligence, dex = RPG.dexterity, vit = RPG.vitality, wis = RPG.wisdom, luc = RPG.luck, lvlT = RPG.lvlToUp, magS = RPG.magicStr, phyS = RPG.physicStr, fast = RPG.fast, sP = RPG.sPoints, spR = RPG.spRegen,magDef = RPG.magDef, class = RPG.class, subclass = RPG.subclass, spells = Que.getMas("spelllist")})	
       end
     
       if RPG.subclass == "Berserk" then
@@ -196,7 +221,7 @@ return buff.init{
             RPG.createItem("Gold", enemy:getPos(), RPG.AllLuck() + RPD.Dungeon.depth)
           end
           
-          return damage+math.ceil(RPG.physStr()*0.2)
+          return damage+math.ceil(RPG.physStr()*0.25)
         end
       else
         return damage

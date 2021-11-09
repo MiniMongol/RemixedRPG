@@ -1,6 +1,6 @@
 local RPD = require "scripts/lib/commonClasses"
-
 local RPG
+
 
  RPG = {
  Buffs = {
@@ -9,6 +9,27 @@ local RPG
   Shadows         = luajava.bindClass("com.watabou.pixeldungeon.actors.buffs.Shadows"),
   Amok            = luajava.bindClass("com.watabou.pixeldungeon.actors.buffs.Amok")
  },
+ 
+ strength = strength,
+ intelligence = intelligence,
+ dexterity = dexterity,
+ vitality = vitality,
+ wisdom = wisdom,
+ luck = luck,
+ physicStr = 1,
+ physicStrBerserk = 0,
+ magicStr = 1,
+ fast = 1,
+ spRegen = 1,
+ magDef = 1,
+ spellFast = 0,
+ sPoints = 20,
+ lvlToUp = 0,
+ triger = 0,
+ class = class,
+ subClass = subClass,
+ boneId = boneId,
+ 
  StatsA = {
  	luck = 0,
 	physicStr = 0,
@@ -21,16 +42,82 @@ local RPG
 	physicStr = 0,
 	magicStr = 0,
 	fast = 0,
-	spRegen = 0
+	spRegen = 0,
  },
  StatsB = {
  	luck = 0,
 	physicStr = 0,
 	magicStr = 0,
 	fast = 0,
-	spRegen = 0
+	magDef = 0,
+	spRegen = 0,
+	fire=1,
+	water=1,
+	ice=1,
+	earth=1,
+	wind=1,
+	lighting=1,
+	poison=1, 
+	light=1, 
+	dark=1,
+	cut=1,
+	cutstab=1, 
+	chop=1, 
+	stab=1,
+	chopstab=1,
+	crush=1
  },
- defense = {
+ 
+ StatsArt = {
+    luck = 0,
+	physicStr = 0,
+	magicStr = 0,
+	fast = 0,
+	magDef = 0,
+	spRegen = 0,
+	fire=1,
+	water=1,
+	ice=1,
+	earth=1,
+	wind=1,
+	lighting=1,
+	poison=1, 
+	light=1, 
+	dark=1,
+	cut=1,
+	cutstab=1, 
+	chop=1, 
+	stab=1,
+	chopstab=1,
+	crush=1
+ },
+ 
+ StatsArt2 = {
+    luck = 0,
+	physicstr = 0,
+	magicstr = 0,
+	fast = 0,
+	magDef = 0,
+	spregen = 0,
+	fire=1,
+	water=1,
+	ice=1,
+	earth=1,
+	wind=1,
+	lighting=1,
+	poison=1, 
+	light=1, 
+	dark=1,
+	cut=1,
+	cutstab=1, 
+	chop=1, 
+	stab=0,
+	chopstab=1,
+	crush=1
+ },
+ 
+ 
+ defence = {
    FireElemental = {magDef = 15, fire=2, water=0.8, ice=0.5, earth, wind=0.9, lighting=1.1, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush=0.8},
    Statue = {magDef=10, fire, water, earth, wind=0.8, lighting=1.5, poison, light, dark, cut=1.5, cutstab=1.2, chop, stab=0.85, chopstab=0.95, crush=0.7},
    Wraith = {magDef=5, fire, water, earth, wind=0.9, lighting=0.7,  crush=1.5},
@@ -48,7 +135,7 @@ local RPG
    c= {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
    
    Rat = {magDef = 2, fire = 0, water, earth, wind, lighting=0.8, poison=0.8, light, dark, cut=0.6, cutstab=0.65, chop=0.6, stab=0.7, chopstab=0.65, crush=0.6},
-   Gnoll = {magDef = 5, fire = 0.2, water, earth, wind, lighting=0.8, poison=0.8, light, dark, cut=0.9, cutstab=0.85, chop=0.8, stab=0.8, chopstab=0.8, crush=0.8},
+   Gnoll = {magDef = 5, fire = 0.2, water, earth, wind, lighting=0.8, poison=0.8, light, dark, cut=0.8, cutstab=0.85, chop=0.8, stab=0.8, chopstab=0.8, crush=0.8},
    Crab = {magDef = 5, fire = 0.5, water = 1.5, earth = 1.2, wind = 0.8, lighting = 0.8, poison=0.8, light, dark, cut=1.3, cutstab, chop=0.9, stab=0.7, chopstab=0.8, crush=0.8},
    Albino = {magDef = 4, fire = 0.2, water, earth, wind, lighting = 0.8, poison, light = 0.5, dark, cut=0.6, cutstab=0.65, chop=0.6, stab=0.7, chopstab=0.65, crush=0.6},
    Woodlouise = {magDef = 5, fire = 0.5, water = 1.5, earth = 1.2, wind, lighting = 0, poison = 1.1, light = 0.5, dark, cut=1.5, cutstab=1.2, chop, stab=0.8, chopstab=0.9, crush=0.9},
@@ -120,26 +207,7 @@ local RPG
    
    a = {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush}
    
-   }
-
- strength = strength,
- intelligence = intelligence,
- dexterity = dexterity,
- vitality = vitality,
- wisdom = wisdom,
- luck = luck,
- physicStr = 1,
- physicStrBerserk = 0,
- magicStr = 1,
- fast = 1,
- spRegen = 1,
- spellFast = 0,
- sPoints = 20,
- lvlToUp = 0,
- triger = 0,
- class = class,
- subClass = subClass,
- boneId = boneId,
+   },
  
  physStr = function()
    return RPG.physicStr+RPG.StatsB["physicStr"] +RPG.StatsA["physicStr"] +RPG.StatsA2["physicStr"]+RPG.physicStrBerserk
@@ -151,6 +219,10 @@ local RPG
  
  AllFast = function()
    return RPG.fast +RPG.StatsA["fast"] +RPG.StatsA2["fast"] +RPG.StatsB["fast"]
+ end,
+ 
+ allMagDef = function()
+   return RPG.magDef +RPG.StatsB["magDef"] +RPG.StatsArt2["magDef"] +RPG.StatsArt["magDef"]
  end,
  
  AllSpRegen = function()
@@ -165,41 +237,108 @@ local RPG
    return luck +RPG.StatsA["luck"] +RPG.StatsA2["luck"] +RPG.StatsB["luck"]
  end,
  
+ getElementCoef = function(element)
+   local percent = 1
+   local fixed = 0
+   local elmntCoefs = {
+   RPG.StatsArt[element],
+   RPG.StatsArt2[element],
+   RPG.StatsB[element]
+   }
+   for i = 1,3 do
+     if elmntCoefs[i] > 1 and elmntCoefs[i] < 2 then
+     percent = percent + (elmntCoefs[i]-1)
+     else
+     fixed = fixed + elmntCoefs[i]
+     end
+   end
+   return {percent,fixed}
+ end,
+ 
  handCheck = function(item)
    local hero = RPD.Dungeon.hero
+   if hero then
    if hero:getBelongings():itemSlot(item) == "LEFT_HAND" then
      return true
 	 else
-	 return nilsa
+	 return false
+   end
    end
  end,
  
- damage = function(enemy, dmg, element)
+ damage = function(enemy, dmg, type, element)
+   local RPG = require "scripts/lib/Functions"
    local hero = RPD.Dungeon.hero
-   local defence = RPG.defence
-   local defstats = defense[enemy:getMobClassName()]
+   local def = RPG["defence"]
    local depth = RPD.Dungeon.depth
-   local mag = defstats["magDef"] + depth*1.2 or 0
-   local coef = defstats[element] or 1
+   local defstats
+   local name 
+   local drRoll = 0
+   local mag
+   local coef = 1
+   local fCoef = 0
+   local pCoef = 1
+
    
-   if element ~= "phys" then
-     enemy:damage(math.floor(dmg-math.random(0.5*(mag*coef),mag*coef)),hero)
+   if enemy:name() == "you" then
+     local coefs = RPG.getElementCoef(element)
+     pCoef = coefs[1]
+     fCoef = coefs[2]
+     mag = RPG.allMagDef()*pCoef +fCoef
+   else
+     name = enemy:getMobClassName()
+     defstats = def[name]
+     mag = defstats["magDef"] + depth*1.2 
+     coef = defstats[element] or 1
+   end
+   
+   if mag > 0 then
+     drRoll = math.floor(math.random(0.5*(mag*coef),(mag*coef)))
+     else
+      drRoll = math.floor(math.random(1.5*(mag*coef),(mag*coef)))
+   end
+   
+   if type ~= "phys" then
+     enemy:damage(dmg-drRoll,hero)
    else
      enemy:damage(dmg-math.floor(math.random((enemy:dr()*coef)*0.5,enemy:dr()*coef)),hero)
    end
    
  end,
  
- getDamage = function(enemy, dmg, element)
+ getDamage = function(enemy, dmg, type,element)
+   local RPG = require "scripts/lib/Functions"
    local hero = RPD.Dungeon.hero
-   local defence = RPG.defence
-   local defstats = defense[enemy:getMobClassName()]
+   local def = RPG["defence"]
    local depth = RPD.Dungeon.depth
-   local mag = defstats["magDef"] + depth*1.2 or 0
-   local coef = defstats[element] or 1
+   local defstats
+   local name 
+   local drRoll = 0
+   local coef = 1
+   local fCoef = 0
+   local pCoef = 1
+
    
-   if element ~= "phys" then
-     return dmg-math.floor(math.random(0.5*(mag*coef),mag*coef))
+   if enemy:name() == "you" then
+     local coefs = RPG.getElementCoef(element)
+     pCoef = coefs[1]
+     fCoef = coefs[2]
+     mag = RPG.allMagDef()*pCoef +fCoef
+   else
+     name = enemy:getMobClassName()
+     defstats = def[name]
+     mag = defstats["magDef"] + depth*1.2 
+     coef = defstats[element] or 1
+   end
+   
+   if mag > 0 then
+     drRoll = math.floor(math.random(0.5*(mag*coef),(mag*coef)))
+     else
+      drRoll = math.floor(math.random(1.5*(mag*coef),(mag*coef)))
+   end
+   
+   if type ~= "phys" then
+     return dmg-drRoll
    else
      return dmg-math.floor(math.random((enemy:dr()*coef)*0.5,enemy:dr()*coef))
    end
@@ -221,9 +360,28 @@ local RPG
    return math.max(0.1,((0.8 +RPG.AllFast()*0.04) -0.03*RPD.Dungeon.depth -math.max(0,(armor:requiredSTR() -RPG.physStr())*0.05))*math.pow(1.3,a))
  end,
  
+ getItemInfo = function(stats)
+   local itStInfo = ""
+   local statsNames = {
+  RPD.textById("PhysStr"),
+  RPD.textById("MagStr"),
+  RPD.textById("Fast"),
+  RPD.textById("SpRegen"),
+  RPD.textById("luck"),
+  RPD.textById("magDef"),
+  RPD.textById("Hp"),
+  RPD.textById("Sp")}
+   for i = 1,8 do
+     if stats[i] ~= 0 then
+       itStInfo = itStInfo.." "..statsNames[i]..": +"..tostring(stats[i]).."\n"
+     end
+   end
+   return itStInfo
+ end,
+ 
  getItemStats = function(cycles, statMax)
-  local statsList = {0, 0, 0, 0, 0, 0, 0, 0}
-  local stats = {0, 0, 0, 0, 0, 0, 0, 0}
+  local statsList = {0, 0, 0, 0, 0, 0, 0, 0,0}
+  local stats = {0, 0, 0, 0, 0, 0, 0, 0,0}
   local ran
   local ItemStatsInfo = ""
   local statsNames = {
@@ -232,15 +390,17 @@ local RPG
   RPD.textById("Fast"),
   RPD.textById("SpRegen"),
   RPD.textById("luck"),
+  RPD.textById("magDef"),
   RPD.textById("Hp"),
-  RPD.textById("Sp")}
+  RPD.textById("Sp")
+  }
   for i = 1, cycles do
-    ran = math.random(1,7)
+    ran = math.random(1,8)
     statsList[ran] = statsList[ran] +1 
   end
   
    local statMax_Fix
-   for i = 1,7 do
+   for i = 1,8 do
      for j = 1,statsList[i] do
        
        if i == 4 then

@@ -11,6 +11,8 @@ local RPG1 = require "scripts/lib/AdditionalFunctions"
 
 local storage = require "scripts/lib/storage"
 
+local onehandWeapon = require "scripts/lib/onehandWeapon"
+
 local item = require "scripts/lib/item"
 local statsMax = 3
 local quanStats = 2
@@ -25,7 +27,7 @@ local str
 local stats
 local hero 
 local statsInfo
-local config = onehandWeapon.makeWeapon("Knuckles","WeaponFast",stra,minDmg,maxDmg,tier,accuracy,delayFactor,range,"crush") 
+local config = onehandWeapon.makeWeapon("Knuckles","WeaponFast",stra,minDmg,maxDmg,tier,accuracy,delayFactor,range,"phys","crush") 
 config.desc  = function (self, item)
       local a = RPG.getItemStats(quanStats,statsMax)
       statsInfo = a[1]

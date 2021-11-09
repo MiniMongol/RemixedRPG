@@ -19,7 +19,7 @@ local level
 
 return buff.init{
     desc  = function ()
-      shield = math.ceil(1+1.5*Spell.lvl+hero:ht()*(0.3 + Spell.lvl*0.1))
+      shield = math.ceil(10+10*Spell.lvl+hero:ht()*0.2)
       shield2 = shield
         return {
             icon          = 57,

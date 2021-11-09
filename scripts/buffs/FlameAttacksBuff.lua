@@ -25,10 +25,10 @@ return buff.init{
     attackProc = function(self,buff,enemy,damage)
       hero = RPD.Dungeon.hero
       if enemy:buffLevel("FlameMark") > 0 then
-        enemy:damage(math.ceil(1.5*Spell.lvl + RPG.magStr()*0.1 + hero:ht()*0.2),hero)
+        enemy:damage(math.ceil(3+4*Spell.lvl + RPG.magStr()*0.1 + hero:ht()*0.15),hero)
         enemy:getSprite():showStatus(0xffff00,RPD.textById("boom"))
       else
-        enemy:damage(math.ceil(1.5*Spell.lvl + RPG.magStr()*0.1 + hero:ht()*0.1),hero)
+        enemy:damage(math.ceil(5+5*Spell.lvl + RPG.magStr()*0.1 + hero:ht()*0.05),hero)
       end
     return damage
     end

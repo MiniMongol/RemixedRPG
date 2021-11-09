@@ -5,7 +5,7 @@
 "maxlevel":30,
 "dr":16,
 "dmgMin":3,
-"dmgMax":5,
+"dmgMax":6,
 "baseSpeed":1,
 "attackDelay":1,
 "ht":20,
@@ -15,5 +15,6 @@
 "gender":"masculine",
 "spriteDesc":"spritesDesc/Woodlouise_sp.json",
 "walkingType":"NORMAL",
+"scriptFile":"scripts/mobs/FireAttacks",
 "canBePet":true
 }

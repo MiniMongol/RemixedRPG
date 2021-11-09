@@ -77,7 +77,7 @@ return spell.init{
     else
      lvl = 1
      exp = 0
-     expMax = 4
+     expMax = 8
      storage.gamePut(a,{exp = exp, expMax = expMax, lvl = lvl})
     end
 
@@ -90,7 +90,7 @@ return spell.init{
     end
     enemy = RPD.Actor:findChar(moveTo) 
     if enemy and enemy ~= hero then
-     enemy:damage(2*lvl + math.ceil(RPG.physStr()*0.15),hero)
+     enemy:damage(3*lvl + math.ceil(RPG.physStr()*0.15),hero)
      RPD.topEffect(moveTo,"bleeding_effect")
      if level:cellValid(level:getEmptyCellNextTo(enemy:getPos())) then
       moveTo = level:getEmptyCellNextTo(enemy:getPos())
@@ -107,7 +107,7 @@ return spell.init{
     if stop ~= true then
     enemy = RPD.Actor:findChar(RPD.Ballistica.trace[i])
     if enemy and enemy ~= hero then
-     enemy:damage(2*lvl + math.ceil(RPG.physStr()*0.15),hero)
+     enemy:damage(3*lvl + math.ceil(RPG.physStr()*0.15),hero)
      RPD.topEffect(enemy:getPos(),"bleeding_effect")
     end
     end
