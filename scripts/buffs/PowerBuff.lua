@@ -13,94 +13,95 @@ local depth = RPD.Dungeon.depth
 
 local level
 local dmgModifs = defence = {
-   FireElemental = {magDef = 15, fire=2, water=0.8, ice=0.5, earth, wind=0.9, lighting=1.1, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush=0.8},
-   Statue = {magDef=10, fire, water, earth, wind=0.8, lighting=1.5, poison, light, dark, cut=1.5, cutstab=1.2, chop, stab=0.85, chopstab=0.95, crush=0.7},
-   Wraith = {magDef=5, fire, water, earth, wind=0.9, lighting=0.7,  crush=1.5},
-   Piranha = {magDef=10, fire=0.5, water=1.5, earth=0.9, wind=0.9, lighting=0.5, poison=0.8, light, dark, cut, cutstab=0.9, chop=0.9, stab=0.8, chopstab=0.85, crush=0.9},
-   Mimic = {magDef = 15, fire=0.9, water, earth, wind, lighting=0.8, poison=0.8, light=0.5, dark, cut=1.3, cutstab, chop, stab=0.8, chopstab=0.9, crush},
-   MimicPie = {magDef=10, fire=0.8, water=0.9, earth=0.7, wind, lighting=0.9, poison=0.8, light=0.5, dark, cut=0.5, cutstab=0.6, chop=0.5, stab=0.7, chopstab=0.6, crush=0.8},
-   IceElemental = {magDef=15, fire=0.5, water=1.3, earth=1.2, wind=0.9, lighting=0.9, poison=1.5, light=1.5, dark=0.8, cut=1.2, cutstab=0.8, chop=0.8, stab=0.6, chopstab=0.7, crush=0.9},
-   WaterElemental = {magDef=15, fire=0.8, water=1.5, earth=1.2, wind=1.2, lighting=0.5, poison=0.8, light=1.2, dark=0.8, cut=1.5, cutstab, chop=1.1, stab=1.5, chopstab=1.3, crush=1.1},
-   EarthElemental = {magDef=15, fire=1.2, water=0.5, earth=1.5, wind=0.8, lighting=1.5, poison=0.8, light=1.2, dark, cut=1.1, cutstab, chop=0.9, stab=0.8, chopstab=0.85, crush=1.1},
-   AirElemental = {magDef=15, fire=0.8, water=1.5, earth=1.2, wind=1.5, lighting=0.6, poison=0.9, light=1.5, dark, cut=1.5, cutstab=1.5, chop=1.2, stab=1.5, chopstab=1.3, crush=0.9},
-   Crystal = {magDef=15, fire=1.2, water=0.8, earth=1.5, wind=0.8, lighting, poison=1.5, light=1.5, dark, cut=1.2, cutstab=0.8, chop=0.7, stab=0.5, chopstab=0.6, crush=0.5},
-   ArmoredStatue = {magDef=15, fire=1.5, water=0.8, earth=1.5, wind=0.8, lighting=1.5, poison=2.5, light, dark, cut=1.5, cutstab, chop=1.2, stab=0.5, chopstab=0.8, crush=0.7},
-   GoldenStatue = {magDef=20, fire=0.5, water=0.7, earth=1.2, wind=0.8, lighting=1.5, poison=1.5, light=1.2, dark=0.8, cut, cutstab=0.9, chop=0.9, stab=0.8, chopstab=0.85, crush=0.9},
-   b= { },
-   c= { },
+   FireElemental = {mod = 0, dmg = 0, type = {"mag",""}, element = {"fire",""}},
+   Statue = {mod = 0, dmg = 0, type , element = {"",""}},
+   Wraith = {mod = 3, dmg = 0.8, type = {"phys","mag"}, element = {"crush","dark"}},
+   Piranha = {mod = 0, dmg = 0, type = {"phys",""}, element = {{"cut","chop"},""}},
+   Mimic = {mod = 0, dmg = 0, type = {"phys",""}, element = {{"cut","chop"},""}},
+   MimicPie = {mod = 0, dmg = 0, type = {"phys",""}, element = {{"cut","chop"},""}},
+   IceElemental = {mod = 3, dmg = 0.2, type = {"mag","phys"}, element = {"ice","stab"}},
+   WaterElemental = {mod = 0, dmg = 0, type = {"mag",""}, element = {"water",""}},
+   EarthElemental = {mod = 2, dmg = 5, type = {"phys","mag"}, element = {"crush","earth"}},
+   AirElemental = {mod = 0, dmg = 0, type = {"mag",""}, element = {"wind",""}},
+   Crystal = {mod = 1, dmg = 5, type = {"","mag"}, element = {"","light"}},
+   ArmoredStatue = {mod = 0, dmg = 0, type = {"phys",""}, element = {"crush",""}},
+   GoldenStatue = {mod = 0, dmg = 0, type = {}, element = {"",""}},
+   b= {mod = 0, dmg = 0, type = {"",""}, element = {"",""}},
+   c= {mod = 0, dmg = 0, type = {"",""}, element = {"",""}},
    
-   Rat = {magDef = 2, fire = 0, water, earth, wind, lighting=0.8, poison=0.8, light, dark, cut=0.6, cutstab=0.65, chop=0.6, stab=0.7, chopstab=0.65, crush=0.6},
-   Gnoll = {magDef = 5, fire = 0.2, water, earth, wind, lighting=0.8, poison=0.8, light, dark, cut=0.8, cutstab=0.85, chop=0.8, stab=0.8, chopstab=0.8, crush=0.8},
-   Crab = {magDef = 5, fire = 0.5, water = 1.5, earth = 1.2, wind = 0.8, lighting = 0.8, poison=0.8, light, dark, cut=1.3, cutstab, chop=0.9, stab=0.7, chopstab=0.8, crush=0.8},
-   Albino = {magDef = 4, fire = 0.2, water, earth, wind, lighting = 0.8, poison, light = 0.5, dark, cut=0.6, cutstab=0.65, chop=0.6, stab=0.7, chopstab=0.65, crush=0.6},
-   Woodlouise = {magDef = 5, fire = 0.5, water = 1.5, earth = 1.2, wind, lighting = 0, poison = 1.1, light = 0.5, dark, cut=1.5, cutstab=1.2, chop, stab=0.8, chopstab=0.9, crush=0.9},
-   Goo = {magDef=20, fire=0.8, water=1.5, earth=1.5, wind=1.5, lighting=0.5, poison=1.5, light=0.5, dark=1.5, cut=1.2, cutstab=1.2, chop=0.9, stab=1.2, chopstab, crush=0.9},
+   Rat = {mod = 1, dmg = 1, type = {"phys","mag"}, element = {"cut","poison"}},
+   Gnoll = {mod = 0, dmg = 0, type = {"phys",""}, element = {"crush",""}},
+   Crab = {mod = 0, dmg = 0, type = {"phys",""}, element = {"chop",""}},
+   Albino = {mod = 2, dmg = 2, type = {"phys","mag"}, element = {"cut","poison"}},
+   Woodlouise = {mod = 0, dmg = 0, type = {"phys",""}, element = {"crush",""}},
+   Goo = {mod = 3, dmg = 0.5, type = {"phys","mag"}, element = {"crush","poison"}},
    
-   Thief = {magDef = 5, fire = 0.5, water, earth=0.8, wind, lighting=0.8, poison=0.8, light=0.9, dark, cut=0.8, cutstab=0.75, chop=0.8, stab=0.7, chopstab=0.75, crush=0.8},
-   Skeleton = {magDef = 10, fire =1.2, water=0.9, earth=0.9, wind=0.9, lighting=1.5, poison=5, light=0.5, dark=1.5, cut=1.5, cutstab, chop=0.7, stab=0.8, chopstab=0.75, crush=0.6},
-   Swarm = {magDef = 5, fire = 0.2, water=0.5, earth=0.9, wind=0.7, lighting=0.5, poison=0.5, light=0.5, dark, cut=0.9, cutstab=0.9, chop=0.9, stab=1.1, chopstab, crush=0.8}, 
-   Shadow = {magDef = 10, fire = 1.5, water=1.5, earth=1.5, wind=1.5, lighting=1.5, poison=5, light=0.5, dark=1.5, cut=1.5, cutstab=1.5, chop=1.5, stab=1.5, chopstab=1.5, crush=1.5}, 
-   Bandit = {magDef = 10, fire = 0.5, water, earth=0.9, wind, lighting=0.5, poison=0.5, light=0.5, dark=1.5, cut=0.8, cutstab=0.75, chop=0.8, stab=0.7, chopstab=0.75, crush=0.9},
-   Tengu = {magDef=15, fire=0.8, water=1.3, earth=0.9, wind=1.2, lighting=0.7, poison=1.2, light=0.8, dark=1.5, cut=1.2, cutstab, chop=0.9, stab=0.8, chopstab=0.85, crush=0.9},
+   Thief = {mod = 0, dmg = 0, type = {"phys",""}, element = {"stab",""}},
+   Skeleton = {mod = 0, dmg = 0, type = {"phys",""}, element = {"crush",""}},
+   Swarm = {mod = 2, dmg = 3, type = {"phys","mag"}, element = {"cut","poison"}}, 
+   Shadow = {mod = 1, dmg = 5, type = {"phys","mag"}, element = {"crush","dark"}}, 
+   Bandit = {mod = 0, dmg = 0, type = {"phys",""}, element = {"stab",""}},
+   Tengu = {mod = 0, dmg = 0, type = {"phys",""}, element = {"stab",""}},
    
-   Bat = {magDef = 5, fire = 0.2, water, earth=0.9, wind=1.5, lighting=0.8, poison=1.2, light=0.5, dark=1.5, cut=0.8, cutstab=0.9, chop=0.8, stab, chopstab=0.9, crush=0.8},
-   Brute = {magDef = 10, fire = 0.5, water, earth, wind, lighting=0.9, poison=0.9, light, dark, cut=0.9, cutstab=0.9, chop=0.8, stab=0.9, chopstab=0.85, crush=1.2},
-   Shaman = {magDef = 15, fire = 0.5, water, earth, wind=0.8, lighting=0.7, poison=0.5, light, dark, cut=0.8, cutstab=0.75, chop=0.8, stab=0.7, chopstab=0.75, crush=0.8},
-   Spinner = {magDef=10, fire=0.5, water, earth=0.8, wind, lighting=0.8, poison=1.5, light=0.9, dark, cut=0.7, cutstab=0.75, chop=0.7, stab=0.8, chopstab=0.75, crush=0.6},
-   Shielded = {magDef=20, fire=0.5, water, earth=1.2, wind=0.9, lighting=0.7, poison=1.2, light, dark, cut=1.3, cutstab=1.25, chop=1.2, stab, chopstab=1.1, crush=0.9}, 
-   DM300 = {magDef=20, fire=1.5, water=0.7, earth=1.5, wind=0.9, lighting=0.7, poison=5, light, dark, cut=1.5, cutstab, chop=1.3, stab=0.9, chopstab=1.1, crush},
+   Bat = {mod = 0, dmg = 0, type = {"phys",""}, element = {"cut",""}},
+   Brute = {mod = 0, dmg = 0, type = {"phys",""}, element = {"crush",""}},
+   Shaman = {mod = 0, dmg = 0, type = {"mag",""}, element = {"lightning",""}},
+   Spinner = {mod = 1, dmg = 6, type = {"phys","mag"}, element = {"cut","poison"}},
+   Shielded = {mod = 0, dmg = 0, type = {"phys",""}, element = {"crush",""}}, 
+   DM300 = {mod = 2, dmg = 8, type = {"phys","phys"}, element = {"stab","crush"}},
    
-   Monk = {magDef=10, fire=0.5, water, earth=1.1, wind=1.1, lighting=0.8, poison=1.2, light, dark, cut=0.9, cutstab=0.9, chop=0.9, stab=0.9, chopstab=0.9, crush=0.95},
-   Warlock = {magDef=15, fire=0.5, water, earth=0.8, wind=0.8, lighting=0.7, poison=0.5, light=0.5, dark=1.5, cut=0.8, cutstab=0.75, chop=0.75, stab=0.7, chopstab=0.7, crush=0.8},
-   Golem = {magDef=20, fire=1.5, water=0.6, earth=1.5, wind=0.8, lighting=1.5, poison=2.5, light, dark, cut=1.1, cutstab=0.95, chop=0.9, stab=0.85, chopstab=0.85, crush=0.7},
-   Senior = {magDef=23, fire=0.5, water, earth=1.1, wind=1.1, lighting=0.8, poison=1.2, light, dark, cut=0.95, cutstab=0.95, chop, stab=0.9, chopstab=0.95, crush=1.1},
-   King = {magDef=30, fire=0.7, water, earth=1.1, wind=0.9, lighting=0.8, poison, light=0.5, dark, cut=0.8, cutstab=0.75, chop=0.8, stab=0.75, chopstab=0.75, crush=0.9},
+   Monk = {mod = 0, dmg = 0, type = {"phys",""}, element = {"crush",""}},
+   Warlock = {mod = 0, dmg = 0, type = {"mag",""}, element = {"dark",""}},
+   Golem = {mod = 1, dmg = 5, type = {"phys","mag"}, element = {"crush","earth"}},
+   Senior = {mod = 2, dmg = 5, type = {"phys","phys"}, element = {"crush","stab"}},
+   Undead = {mod = 2, dmg = 5, type = {"phys","mag"}, element = {"crush","dark"}},
+   King = {mod = 0, dmg = 0, type = {"phys",""}, element = {"chop",""}},
    
-   Succubus = {magDef=15, fire=0.8, water=0.8, earth, wind, lighting=0.9, poison=1.2, light=0.5, dark=1.5, cut=0.8, cutstab=0.75, chop=0.8, stab=0.7, chopstab=0.75, crush=0.8},
-   Eye = {magDef=25, fire=0.6, water=1.1, earth=0.8, wind=0.9, lighting=0.7, poison=0.7, light=0.5, dark=1.5, cut=0.5, cutstab=0.45, chop=0.6, stab=0.4, chopstab=0.5, crush=0.8},
-   Scorpio = {magDef=5, fire=0.2, water, earth=0.7, wind=0.8, lighting=0.7, poison=1.5, light=0.5, dark=1.5, cut=0.7, cutstab=0.6, chop=0.65, stab=0.5, chopstab=0.55, crush=0.4},
-   Acidic = { },
-   ShadowLord = { },
+   Succubus = {mod = 3, dmg = 0.5, type = {"phys","mag"}, element = {{"crush","stab"},"dark"}},
+   Eye = {mod = 0, dmg = 0, type = {"mag",""}, element = {{"dark","light"},""}},
+   Scorpio = {mod = 3, dmg = 0.2, type = {"phys","mag"}, element = {"stab","poison"}},
+   Acidic = {mod = 4, dmg = 0.2, type = {"phys","mag"}, element = {"stab","poison"}},
+   ShadowLord = {mod = 0, dmg = 0, type = {"mag",""}, element = {{"dark","stab"},""}},
    
-   SuspiciousRat = { },
-   PseudoRat = { },
-   ZombieGnoll = { },
-   Worm = { },
-   Nightmare = { },
-   MimicAmulet = { },
-   SpiritOfPain= { },
-   YogsBrain= { },
-   YogsEye= { },
-   YogsHeart= { },
-   YogsTeeth= { },
-   Yog = { },
+   SuspiciousRat = {mod = 0, dmg = 0, type = {"",""}, element = {"",""}},
+   PseudoRat = {mod = 0, dmg = 0.5, type = {"phys",""}, element = {{"cut","chop"},""}},
+   ZombieGnoll = {mod = 2, dmg = 8, type = {"phys","mag"}, element = {"crush","poison"}},
+   Worm = {mod = 2, dmg = 12, type = {"phys","mag"}, element = {{"cut","chop"},"poison"}},
+   Nightmare = {mod = 0, dmg = 0, type = {"mag",""}, element = {"dark",""}},
+   MimicAmulet = {mod = 0, dmg = 0, type = {"phys",""}, element = {{"cut","chop"},""}},
+   SpiritOfPain = {mod = 4, dmg = 0.2, type = {"phys","mag"}, element = {{"stab","chop"},"dark"}},
+   YogsBrain = {mod = 0, dmg = 0, type = {"mag",""}, element = {"lightning",""}},
+   YogsEye = {mod = 0, dmg = 0, type = {"mag",""}, element = {"",""}},
+   YogsHeart = {mod = 0, dmg = 0, type = {"",""}, element = {"",""}},
+   YogsTeeth = {mod = 0, dmg = 0, type = {"phys",""}, element = {{"stab","chop"},""}},
+   Larva = {mod = 2, dmg = 5, type = {"phys","mag"}, element = {{"cut","chop"},"poison"}},
+  
+   SpiderServant = {mod = 1, dmg = 2, type = {"phys","mag"}, element = {{"cut","chop"},"poison"}},
+   SpiderGuard = {mod = 1, dmg = 4, type = {"phys","mag"}, element = {{"cut","chop"},"poison"}},
+   SpiderExploding = {mod = 0, dmg = 0, type , element = {"",""}},
+   SpiderMind = {mod = 0, dmg = 0, type = {"mag",""}, element = {"psy",""}},
+   SpiderMindAmber= {mod = 0, dmg = 0, type = {"mag",""}, element = {"psy",""}},
+   SpiderNest = {mod = 0, dmg = 0, type , element = {"",""}},
+   SpiderEgg = {mod = 0, dmg = 0, type  , element = {"",""}},
+   f = {mod = 0, dmg = 0, type = {"",""}, element = {"",""}},
+   SpiderQueen = {mod = 2, dmg = 6, type = {"phys","mag"}, element = {{"stab","chop"},"poison"}},
    
-   SpiderServant = { },
-   SpiderGuard = { },
-   SpiderExploding = { },
-   SpiderMind= { },
-   SpiderMindAmber= { },
-   SpiderNest= { },
-   SpiderEgg= { },
-  f = { },
-   SpiderQueen = { },
+   Kobold = {mod = 2, dmg = 5, type = {"phys","mag"}, element = {"crush","ice"}},
+   KoboldIcemancer= {mod = 0, dmg = 0, type = {"mag",""}, element = {"ice",""}},
+   ColdSpirit = {mod = 4, dmg = 0.15, type = {"mag","phys"}, element = {"ice","stab"}},
+   IceGuardianCore= {mod = 4, dmg = 0.4, type = {"phys","mag"}, element = {"stab","ice"}},
+   IceGuardian = {mod = 4, dmg = 0.4, type = {"phys","mag"}, element = {"stab","ice"}},
    
-   Kobold = { },
-   KoboldIcemancer= { },
-   ColdSpirit = { },
-	IceGuardianCore= { },
-   IceGuardian = { },
+   DeathKnight = {mod = 1, dmg = 5, type = {"phys","mag"}, element = {{"cut","chop"},"dark"}},
+   DreadKnight = {mod = 2, dmg = 6, type = {"phys","mag"}, element = {{"cut","chop"},"dark"}},
+   EnslavedSoul = {mod = 0, dmg = 0, type = {"mag",""}, element = {{"dark","chop"},""}},
+   ExplodingSkull = {mod = 3, dmg = 0.4, type = {"mag","phys"}, element = {"fire","crush"}},
+   JarOfSouls = {mod = 0, dmg = 0, type = {"",""}, element = {"",""}},
+   Zombie = {mod = 4, dmg = 0.2, type = {"phys","mag"}, element = {{"cut","chop"},"poison"}},
+   RunicSkull = {mod = 0, dmg = 0, type = {"",""}, element = {"",""}},
+   Lich = {mod = 2, dmg = 5, type = {"mag",""}, element = {{"dark","earth"},"poison"}},
    
-   DeathKnight = { },
-   DreadKnight = { },
-   EnslavedSoul = { },
-   ExplodingSkull = { },
-   JarOfSouls = { },
-   Zombie = { },
-   RunicSkull = { },
-   Lich = { },
-   
-   a = { }
+   a = {mod = 0, dmg = 0, type = {"",""}, element = {"",""}}
    
    },
    
@@ -115,24 +116,35 @@ return buff.init{
 attackProc = function(self,buff,enemy,damage)
   depth = RPD.Dungeon.depth
   local mobModifs = dmgModifs[self:getMobClassName()]
+  local type = mobModifs[type]
+  local element = mobModifs[element]
   local totalDmg = damage + math.ceil(0.2*depth)
-  if mobModifs ~= nil then
+  local mainElement = element[1] or element
+  local addElement = element[2]
   
-  if mobModifs[mod] == 0 then
-    totalDmg = totalDmg mobModifs[dmg]
-    RPG.damage(enemy,mobModifs[dmg],mobModifs[type],mobModifs[element])
-    
-  else if mobModifs[mod] == 1 then
-    RPG.damage(enemy,mobModifs[dmg],mobModifs[type],mobModifs[element])
-    
+  if type ~= nil then
+  totalDmg = RPG.getDamage(enemy,damage + math.ceil(0.2*depth),type[1],element[1])
+  if mobModifs[mod] == 1 then
+    totalDmg = totalDmg-mobModifs[dmg]
+	enemy:getSprite():showStatus(0xffff00,(addElement[1] or addElement).."/"..(addElement[2] or "")..":")
+    RPG.damage(enemy,mobModifs[dmg],type[2],element[2])
+	
   else if mobModifs[mod] == 2 then
-    if mobModifs[dmg] >= 1 then
+    enemy:getSprite():showStatus(0xffff00,(addElement[1] or addElement).."/"..(addElement[2] or "")..":")
+    RPG.damage(enemy,mobModifs[dmg],type[2],element[2])
+    
+  else if mobModifs[mod] == 3 then
     totalDmg = totalDmg*(1-mobModifs[dmg])
-    RPG.damage(enemy,totalDmg*mobModifs[dmg],mobModifs[type],mobModifs[elemnt])
-    else
-    totalDmg = RPG.getDamage(enemy,totalDmg*mobModifs[dmg],mobModifs[type],mobModifs[element])
-    end
+	enemy:getSprite():showStatus(0xffff00,(addElement[1] or addElement).."/"..(addElement[2] or "")..":")
+    RPG.damage(enemy,damage*mobModifs[dmg],type[2],element[2])
+	
+	else if mobModifs[mod] == 4 then
+	enemy:getSprite():showStatus(0xffff00,(addElement[1] or addElement).."/"..(addElement[2] or "")..":")
+	RPG.damage(enemy,damage*mobModifs[dmg],type[2],element[2])
+	end
   end
+  end
+  enemy:getSprite():showStatus(0xffff00,(mainElement).."/"..(mainElement[2] or "")..":")
   return totalDmg
 end,
 

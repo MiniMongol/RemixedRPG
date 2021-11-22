@@ -51,21 +51,20 @@ local RPG
 	fast = 0,
 	magDef = 0,
 	spRegen = 0,
-	fire=1,
-	water=1,
-	ice=1,
-	earth=1,
-	wind=1,
-	lighting=1,
-	poison=1, 
-	light=1, 
-	dark=1,
-	cut=1,
-	cutstab=1, 
-	chop=1, 
-	stab=1,
-	chopstab=1,
-	crush=1
+	fire=0,
+	water=0,
+	ice=0,
+	earth=0,
+	wind=0,
+	lightning=0,
+	poison=0, 
+	light=0, 
+	dark=0,
+	psy=0,
+	cut=0,
+	chop=0, 
+	stab=0,
+	crush=0
  },
  
  StatsArt = {
@@ -75,21 +74,20 @@ local RPG
 	fast = 0,
 	magDef = 0,
 	spRegen = 0,
-	fire=1,
-	water=1,
-	ice=1,
-	earth=1,
-	wind=1,
-	lighting=1,
-	poison=1, 
-	light=1, 
-	dark=1,
-	cut=1,
-	cutstab=1, 
-	chop=1, 
-	stab=1,
-	chopstab=1,
-	crush=1
+	fire=0,
+	water=0,
+	ice=0,
+	earth=0,
+	wind=0,
+	lightning=0,
+	poison=0, 
+	light=0, 
+	dark=0,
+	psy=0,
+	cut=0,
+	chop=0, 
+	stab=0,
+	crush=0
  },
  
  StatsArt2 = {
@@ -99,113 +97,112 @@ local RPG
 	fast = 0,
 	magDef = 0,
 	spregen = 0,
-	fire=1,
-	water=1,
-	ice=1,
-	earth=1,
-	wind=1,
-	lighting=1,
-	poison=1, 
-	light=1, 
-	dark=1,
-	cut=1,
-	cutstab=1, 
-	chop=1, 
+	fire=0,
+	water=0,
+	ice=0,
+	earth=0,
+	wind=0,
+	lightning=0,
+	poison=0, 
+	light=0, 
+	dark=0,
+	psy=0,
+	cut=0,
+	chop=0, 
 	stab=0,
-	chopstab=1,
-	crush=1
+	crush=0
  },
  
  
  defence = {
-   FireElemental = {magDef = 15, fire=2, water=0.8, ice=0.5, earth, wind=0.9, lighting=1.1, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush=0.8},
-   Statue = {magDef=10, fire, water, earth, wind=0.8, lighting=1.5, poison, light, dark, cut=1.5, cutstab=1.2, chop, stab=0.85, chopstab=0.95, crush=0.7},
-   Wraith = {magDef=5, fire, water, earth, wind=0.9, lighting=0.7,  crush=1.5},
-   Piranha = {magDef=10, fire=0.5, water=1.5, earth=0.9, wind=0.9, lighting=0.5, poison=0.8, light, dark, cut, cutstab=0.9, chop=0.9, stab=0.8, chopstab=0.85, crush=0.9},
-   Mimic = {magDef = 15, fire=0.9, water, earth, wind, lighting=0.8, poison=0.8, light=0.5, dark, cut=1.3, cutstab, chop, stab=0.8, chopstab=0.9, crush},
-   MimicPie = {magDef=10, fire=0.8, water=0.9, earth=0.7, wind, lighting=0.9, poison=0.8, light=0.5, dark, cut=0.5, cutstab=0.6, chop=0.5, stab=0.7, chopstab=0.6, crush=0.8},
-   IceElemental = {magDef=15, fire=0.5, water=1.3, earth=1.2, wind=0.9, lighting=0.9, poison=1.5, light=1.5, dark=0.8, cut=1.2, cutstab=0.8, chop=0.8, stab=0.6, chopstab=0.7, crush=0.9},
-   WaterElemental = {magDef=15, fire=0.8, water=1.5, earth=1.2, wind=1.2, lighting=0.5, poison=0.8, light=1.2, dark=0.8, cut=1.5, cutstab, chop=1.1, stab=1.5, chopstab=1.3, crush=1.1},
-   EarthElemental = {magDef=15, fire=1.2, water=0.5, earth=1.5, wind=0.8, lighting=1.5, poison=0.8, light=1.2, dark, cut=1.1, cutstab, chop=0.9, stab=0.8, chopstab=0.85, crush=1.1},
-   AirElemental = {magDef=15, fire=0.8, water=1.5, earth=1.2, wind=1.5, lighting=0.6, poison=0.9, light=1.5, dark, cut=1.5, cutstab=1.5, chop=1.2, stab=1.5, chopstab=1.3, crush=0.9},
-   Crystal = {magDef=15, fire=1.2, water=0.8, earth=1.5, wind=0.8, lighting, poison=1.5, light=1.5, dark, cut=1.2, cutstab=0.8, chop=0.7, stab=0.5, chopstab=0.6, crush=0.5},
-   ArmoredStatue = {magDef=15, fire=1.5, water=0.8, earth=1.5, wind=0.8, lighting=1.5, poison=2.5, light, dark, cut=1.5, cutstab, chop=1.2, stab=0.5, chopstab=0.8, crush=0.7},
-   GoldenStatue = {magDef=20, fire=0.5, water=0.7, earth=1.2, wind=0.8, lighting=1.5, poison=1.5, light=1.2, dark=0.8, cut, cutstab=0.9, chop=0.9, stab=0.8, chopstab=0.85, crush=0.9},
-   b= {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
-   c= {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
+   FireElemental = {magDef = 15, fire=2, water=0.8, ice=0.5, ice, earth, wind=0.9, lightning=1.1, poison, light, dark, cut,  chop, stab,  crush=0.8},
+   Statue = {magDef=10, fire, water, ice, earth, wind=0.8, lightning=1.5, poison, light, dark, cut=1.5,  chop, stab=0.85,  crush=0.7},
+   Wraith = {magDef=5, fire, water, ice, earth, wind=0.9, lightning=0.7,  crush=1.5},
+   Piranha = {magDef=10, fire=0.5, water=1.5, ice, earth=0.9, wind=0.9, lightning=0.5, poison=0.8, light, dark, cut,  chop=0.9, stab=0.8,  crush=0.9},
+   Mimic = {magDef = 15, fire=0.9, water, ice, earth, wind, lightning=0.8, poison=0.8, light=0.5, dark, cut=1.3,  chop, stab=0.8,  crush},
+   MimicPie = {magDef=10, fire=0.8, water=0.9, ice, earth=0.7, wind, lightning=0.9, poison=0.8, light=0.5, dark, cut=0.5,  chop=0.5, stab=0.7,  crush=0.8},
+   IceElemental = {magDef=15, fire=0.5, water=1.3, ice, earth=1.2, wind=0.9, lightning=0.9, poison=1.5, light=1.5, dark=0.8, cut=1.2,  chop=0.8, stab=0.6,  crush=0.9},
+   WaterElemental = {magDef=15, fire=0.8, water=1.5, ice, earth=1.2, wind=1.2, lightning=0.5, poison=0.8, light=1.2, dark=0.8, cut=1.5,  chop=1.1, stab=1.5,  crush=1.1},
+   EarthElemental = {magDef=15, fire=1.2, water=0.5, ice, earth=1.5, wind=0.8, lightning=1.5, poison=0.8, light=1.2, dark, cut=1.1,  chop=0.9, stab=0.8,  crush=1.1},
+   AirElemental = {magDef=15, fire=0.8, water=1.5 ice,, ice, earth=1.2, wind=1.5, lightning=0.6, poison=0.9, light=1.5, dark, cut=1.5,  chop=1.2, stab=1.5,  crush=0.9},
+   Crystal = {magDef=15, fire=1.2, water=0.8, ice, earth=1.5, wind=0.8, lightning, poison=1.5, light=1.5, dark, cut=1.2,  chop=0.7, stab=0.5,  crush=0.5},
+   ArmoredStatue = {magDef=15, fire=1.5, water=0.8, ice, earth=1.5, wind=0.8, lightning=1.5, poison=2.5, light, dark, cut=1.5,  chop=1.2, stab=0.5,  crush=0.7},
+   GoldenStatue = {magDef=20, fire=0.5, water=0.7, ice, earth=1.2, wind=0.8, lightning=1.5, poison=1.5, light=1.2, dark=0.8, cut,  chop=0.9, stab=0.8,  crush=0.9},
+   b= {magDef, fire, water, ice, earth, wind, lightning, poison, light, dark, cut,  chop, stab,  crush},
+   c= {magDef, fire, water, ice, earth, wind, lightning, poison, light, dark, cut,  chop, stab,  crush},
    
-   Rat = {magDef = 2, fire = 0, water, earth, wind, lighting=0.8, poison=0.8, light, dark, cut=0.6, cutstab=0.65, chop=0.6, stab=0.7, chopstab=0.65, crush=0.6},
-   Gnoll = {magDef = 5, fire = 0.2, water, earth, wind, lighting=0.8, poison=0.8, light, dark, cut=0.8, cutstab=0.85, chop=0.8, stab=0.8, chopstab=0.8, crush=0.8},
-   Crab = {magDef = 5, fire = 0.5, water = 1.5, earth = 1.2, wind = 0.8, lighting = 0.8, poison=0.8, light, dark, cut=1.3, cutstab, chop=0.9, stab=0.7, chopstab=0.8, crush=0.8},
-   Albino = {magDef = 4, fire = 0.2, water, earth, wind, lighting = 0.8, poison, light = 0.5, dark, cut=0.6, cutstab=0.65, chop=0.6, stab=0.7, chopstab=0.65, crush=0.6},
-   Woodlouise = {magDef = 5, fire = 0.5, water = 1.5, earth = 1.2, wind, lighting = 0, poison = 1.1, light = 0.5, dark, cut=1.5, cutstab=1.2, chop, stab=0.8, chopstab=0.9, crush=0.9},
-   Goo = {magDef=20, fire=0.8, water=1.5, earth=1.5, wind=1.5, lighting=0.5, poison=1.5, light=0.5, dark=1.5, cut=1.2, cutstab=1.2, chop=0.9, stab=1.2, chopstab, crush=0.9},
+   Rat = {magDef = 2, fire = 0, water, ice, earth, wind, lightning=0.8, poison=0.8, light, dark, cut=0.6,  .65, chop=0.6, stab=0.7,  crush=0.6},
+   Gnoll = {magDef = 5, fire = 0.2, water, ice, earth, wind, lightning=0.8, poison=0.8, light, dark, cut=0.8,  .85, chop=0.8, stab=0.8,  crush=0.8},
+   Crab = {magDef = 5, fire = 0.5, water = 1.5, ice, earth = 1.2, wind = 0.8, lightning = 0.8, poison=0.8, light, dark, cut=1.3,  chop=0.9, stab=0.7,  crush=0.8},
+   Albino = {magDef = 4, fire = 0.2, water, ice, earth, wind, lightning = 0.8, poison, light = 0.5, dark, cut=0.6,  .65, chop=0.6, stab=0.7,  crush=0.6},
+   Woodlouise = {magDef = 5, fire = 0.5, water = 1.5, ice, earth = 1.2, wind, lightning = 0, poison = 1.1, light = 0.5, dark, cut=1.5,  chop, stab=0.8,  crush=0.9},
+   Goo = {magDef=20, fire=0.8, water=1.5, ice, earth=1.5, wind=1.5, lightning=0.5, poison=1.5, light=0.5, dark=1.5, cut=1.2,  chop=0.9, stab=1.2,  crush=0.9},
    
-   Thief = {magDef = 5, fire = 0.5, water, earth=0.8, wind, lighting=0.8, poison=0.8, light=0.9, dark, cut=0.8, cutstab=0.75, chop=0.8, stab=0.7, chopstab=0.75, crush=0.8},
-   Skeleton = {magDef = 10, fire =1.2, water=0.9, earth=0.9, wind=0.9, lighting=1.5, poison=5, light=0.5, dark=1.5, cut=1.5, cutstab, chop=0.7, stab=0.8, chopstab=0.75, crush=0.6},
-   Swarm = {magDef = 5, fire = 0.2, water=0.5, earth=0.9, wind=0.7, lighting=0.5, poison=0.5, light=0.5, dark, cut=0.9, cutstab=0.9, chop=0.9, stab=1.1, chopstab, crush=0.8}, 
-   Shadow = {magDef = 10, fire = 1.5, water=1.5, earth=1.5, wind=1.5, lighting=1.5, poison=5, light=0.5, dark=1.5, cut=1.5, cutstab=1.5, chop=1.5, stab=1.5, chopstab=1.5, crush=1.5}, 
-   Bandit = {magDef = 10, fire = 0.5, water, earth=0.9, wind, lighting=0.5, poison=0.5, light=0.5, dark=1.5, cut=0.8, cutstab=0.75, chop=0.8, stab=0.7, chopstab=0.75, crush=0.9},
-   Tengu = {magDef=15, fire=0.8, water=1.3, earth=0.9, wind=1.2, lighting=0.7, poison=1.2, light=0.8, dark=1.5, cut=1.2, cutstab, chop=0.9, stab=0.8, chopstab=0.85, crush=0.9},
+   Thief = {magDef = 5, fire = 0.5, water, ice, earth=0.8, wind, lightning=0.8, poison=0.8, light=0.9, dark, cut=0.8,  .75, chop=0.8, stab=0.7,  crush=0.8},
+   Skeleton = {magDef = 10, fire =1.2, water=0.9, ice, earth=0.9, wind=0.9, lightning=1.5, poison=5, light=0.5, dark=1.5, cut=1.5,  chop=0.7, stab=0.8,  crush=0.6},
+   Swarm = {magDef = 5, fire = 0.2, water=0.5, ice, earth=0.9, wind=0.7, lightning=0.5, poison=0.5, light=0.5, dark, cut=0.9,  chop=0.9, stab=1.1,  crush=0.8}, 
+   Shadow = {magDef = 10, fire = 1.5, water=1.5, ice, earth=1.5, wind=1.5, lightning=1.5, poison=5, light=0.5, dark=1.5, cut=1.5,  chop=1.5, stab=1.5,  crush=1.5}, 
+   Bandit = {magDef = 10, fire = 0.5, water, ice, earth=0.9, wind, lightning=0.5, poison=0.5, light=0.5, dark=1.5, cut=0.8,  .75, chop=0.8, stab=0.7,  crush=0.9},
+   Tengu = {magDef=15, fire=0.8, water=1.3, ice, earth=0.9, wind=1.2, lightning=0.7, poison=1.2, light=0.8, dark=1.5, cut=1.2,  chop=0.9, stab=0.8,  crush=0.9},
    
-   Bat = {magDef = 5, fire = 0.2, water, earth=0.9, wind=1.5, lighting=0.8, poison=1.2, light=0.5, dark=1.5, cut=0.8, cutstab=0.9, chop=0.8, stab, chopstab=0.9, crush=0.8},
-   Brute = {magDef = 10, fire = 0.5, water, earth, wind, lighting=0.9, poison=0.9, light, dark, cut=0.9, cutstab=0.9, chop=0.8, stab=0.9, chopstab=0.85, crush=1.2},
-   Shaman = {magDef = 15, fire = 0.5, water, earth, wind=0.8, lighting=0.7, poison=0.5, light, dark, cut=0.8, cutstab=0.75, chop=0.8, stab=0.7, chopstab=0.75, crush=0.8},
-   Spinner = {magDef=10, fire=0.5, water, earth=0.8, wind, lighting=0.8, poison=1.5, light=0.9, dark, cut=0.7, cutstab=0.75, chop=0.7, stab=0.8, chopstab=0.75, crush=0.6},
-   Shielded = {magDef=20, fire=0.5, water, earth=1.2, wind=0.9, lighting=0.7, poison=1.2, light, dark, cut=1.3, cutstab=1.25, chop=1.2, stab, chopstab=1.1, crush=0.9}, 
-   DM300 = {magDef=20, fire=1.5, water=0.7, earth=1.5, wind=0.9, lighting=0.7, poison=5, light, dark, cut=1.5, cutstab, chop=1.3, stab=0.9, chopstab=1.1, crush},
+   Bat = {magDef = 5, fire = 0.2, water, ice, earth=0.9, wind=1.5, lightning=0.8, poison=1.2, light=0.5, dark=1.5, cut=0.8,  chop=0.8, stab,  crush=0.8},
+   Brute = {magDef = 10, fire = 0.5, water, ice, earth, wind, lightning=0.9, poison=0.9, light, dark, cut=0.9,  chop=0.8, stab=0.9,  crush=1.2},
+   Shaman = {magDef = 15, fire = 0.5, water, ice, earth, wind=0.8, lightning=0.7, poison=0.5, light, dark, cut=0.8,  .75, chop=0.8, stab=0.7,  crush=0.8},
+   Spinner = {magDef=10, fire=0.5, water, ice, earth=0.8, wind, lightning=0.8, poison=1.5, light=0.9, dark, cut=0.7,  .75, chop=0.7, stab=0.8,  crush=0.6},
+   Shielded = {magDef=20, fire=0.5, water, ice, earth=1.2, wind=0.9, lightning=0.7, poison=1.2, light, dark, cut=1.3,  .25, chop=1.2, stab,  crush=0.9}, 
+   DM300 = {magDef=20, fire=1.5, water=0.7, ice, earth=1.5, wind=0.9, lightning=0.7, poison=5, light, dark, cut=1.5,  chop=1.3, stab=0.9,  crush},
    
-   Monk = {magDef=10, fire=0.5, water, earth=1.1, wind=1.1, lighting=0.8, poison=1.2, light, dark, cut=0.9, cutstab=0.9, chop=0.9, stab=0.9, chopstab=0.9, crush=0.95},
-   Warlock = {magDef=15, fire=0.5, water, earth=0.8, wind=0.8, lighting=0.7, poison=0.5, light=0.5, dark=1.5, cut=0.8, cutstab=0.75, chop=0.75, stab=0.7, chopstab=0.7, crush=0.8},
-   Golem = {magDef=20, fire=1.5, water=0.6, earth=1.5, wind=0.8, lighting=1.5, poison=2.5, light, dark, cut=1.1, cutstab=0.95, chop=0.9, stab=0.85, chopstab=0.85, crush=0.7},
-   Senior = {magDef=23, fire=0.5, water, earth=1.1, wind=1.1, lighting=0.8, poison=1.2, light, dark, cut=0.95, cutstab=0.95, chop, stab=0.9, chopstab=0.95, crush=1.1},
-   King = {magDef=30, fire=0.7, water, earth=1.1, wind=0.9, lighting=0.8, poison, light=0.5, dark, cut=0.8, cutstab=0.75, chop=0.8, stab=0.75, chopstab=0.75, crush=0.9},
+   Monk = {magDef=10, fire=0.5, water, ice, earth=1.1, wind=1.1, lightning=0.8, poison=1.2, light, dark, cut=0.9,  chop=0.9, stab=0.9,  crush=0.95},
+   Warlock = {magDef=15, fire=0.5, water, ice, earth=0.8, wind=0.8, lightning=0.7, poison=0.5, light=0.5, dark=1.5, cut=0.8,  .75, chop=0.75, stab=0.7,  crush=0.8},
+   Golem = {magDef=20, fire=1.5, water=0.6, ice, earth=1.5, wind=0.8, lightning=1.5, poison=2.5, light, dark, cut=1.1,  .95, chop=0.9, stab=0.85,  crush=0.7},
+   Senior = {magDef=23, fire=0.5, water, ice, earth=1.1, wind=1.1, lightning=0.8, poison=1.2, light, dark, cut=0.95,  .95, chop, stab=0.9,  crush=1.1},
+   King = {magDef=30, fire=0.7, water, ice, earth=1.1, wind=0.9, lightning=0.8, poison, light=0.5, dark, cut=0.8,  .75, chop=0.8, stab=0.75,  crush=0.9},
    
-   Succubus = {magDef=15, fire=0.8, water=0.8, earth, wind, lighting=0.9, poison=1.2, light=0.5, dark=1.5, cut=0.8, cutstab=0.75, chop=0.8, stab=0.7, chopstab=0.75, crush=0.8},
-   Eye = {magDef=25, fire=0.6, water=1.1, earth=0.8, wind=0.9, lighting=0.7, poison=0.7, light=0.5, dark=1.5, cut=0.5, cutstab=0.45, chop=0.6, stab=0.4, chopstab=0.5, crush=0.8},
-   Scorpio = {magDef=5, fire=0.2, water, earth=0.7, wind=0.8, lighting=0.7, poison=1.5, light=0.5, dark=1.5, cut=0.7, cutstab=0.6, chop=0.65, stab=0.5, chopstab=0.55, crush=0.4},
-   Acidic = {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
-   ShadowLord = {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
+   Succubus = {magDef=15, fire=0.8, water=0.8, ice, earth, wind, lightning=0.9, poison=1.2, light=0.5, dark=1.5, cut=0.8,  .75, chop=0.8, stab=0.7,  crush=0.8},
+   Eye = {magDef=25, fire=0.6, water=1.1, ice, earth=0.8, wind=0.9, lightning=0.7, poison=0.7, light=0.5, dark=1.5, cut=0.5,  .45, chop=0.6, stab=0.4,  crush=0.8},
+   Scorpio = {magDef=5, fire=0.2, water, ice, earth=0.7, wind=0.8, lightning=0.7, poison=1.5, light=0.5, dark=1.5, cut=0.7,  chop=0.65, stab=0.5,  crush=0.4},
+   Acidic = {magDef, fire, water, ice, earth, wind, lightning, poison, light, dark, cut,  chop, stab,  crush},
+   ShadowLord = {magDef, fire, water, ice, earth, wind, lightning, poison, light, dark, cut,  chop, stab,  crush},
    
-   SuspiciousRat = {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
-   PseudoRat = {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
-   ZombieGnoll = {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
-   Worm = {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
-   Nightmare = {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
-   MimicAmulet = {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
-   SpiritOfPain= {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
-   YogsBrain= {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
-   YogsEye= {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
-   YogsHeart= {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
-   YogsTeeth= {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
-   Yog = {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
+   SuspiciousRat = {magDef, fire, water, ice, earth, wind, lightning, poison, light, dark, cut,  chop, stab,  crush},
+   PseudoRat = {magDef, fire, water, ice, earth, wind, lightning, poison, light, dark, cut,  chop, stab,  crush},
+   ZombieGnoll = {magDef, fire, water, ice, earth, wind, lightning, poison, light, dark, cut,  chop, stab,  crush},
+   Worm = {magDef, fire, water, ice, earth, wind, lightning, poison, light, dark, cut,  chop, stab,  crush},
+   Nightmare = {magDef, fire, water, ice, earth, wind, lightning, poison, light, dark, cut,  chop, stab,  crush},
+   MimicAmulet = {magDef, fire, water, ice, earth, wind, lightning, poison, light, dark, cut,  chop, stab,  crush},
+   SpiritOfPain= {magDef, fire, water, ice, earth, wind, lightning, poison, light, dark, cut,  chop, stab,  crush},
+   YogsBrain= {magDef, fire, water, ice, earth, wind, lightning, poison, light, dark, cut,  chop, stab,  crush},
+   YogsEye= {magDef, fire, water, ice, earth, wind, lightning, poison, light, dark, cut,  chop, stab,  crush},
+   YogsHeart= {magDef, fire, water, ice, earth, wind, lightning, poison, light, dark, cut,  chop, stab,  crush},
+   YogsTeeth= {magDef, fire, water, ice, earth, wind, lightning, poison, light, dark, cut,  chop, stab,  crush},
+   Yog = {magDef, fire, water, ice, earth, wind, lightning, poison, light, dark, cut,  chop, stab,  crush},
    
-   SpiderServant = {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
-   SpiderGuard = {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
-   SpiderExploding = {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
-   SpiderMind= {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
-   SpiderMindAmber= {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
-   SpiderNest= {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
-   SpiderEgg= {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
-  f = {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
-   SpiderQueen = {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
+   SpiderServant = {magDef, fire, water, ice, earth, wind, lightning, poison, light, dark, cut,  chop, stab,  crush},
+   SpiderGuard = {magDef, fire, water, ice, earth, wind, lightning, poison, light, dark, cut,  chop, stab,  crush},
+   SpiderExploding = {magDef, fire, water, ice, earth, wind, lightning, poison, light, dark, cut,  chop, stab,  crush},
+   SpiderMind= {magDef, fire, water, ice, earth, wind, lightning, poison, light, dark, cut,  chop, stab,  crush},
+   SpiderMindAmber= {magDef, fire, water, ice, earth, wind, lightning, poison, light, dark, cut,  chop, stab,  crush},
+   SpiderNest= {magDef, fire, water, ice, earth, wind, lightning, poison, light, dark, cut,  chop, stab,  crush},
+   SpiderEgg= {magDef, fire, water, ice, earth, wind, lightning, poison, light, dark, cut,  chop, stab,  crush},
+  f = {magDef, fire, water, ice, earth, wind, lightning, poison, light, dark, cut,  chop, stab,  crush},
+   SpiderQueen = {magDef, fire, water, ice, earth, wind, lightning, poison, light, dark, cut,  chop, stab,  crush},
    
-   Kobold = {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
-   KoboldIcemancer= {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
-   ColdSpirit = {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
-	IceGuardianCore= {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
-   IceGuardian = {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
+   Kobold = {magDef, fire, water, ice, earth, wind, lightning, poison, light, dark, cut,  chop, stab,  crush},
+   KoboldIcemancer= {magDef, fire, water, ice, earth, wind, lightning, poison, light, dark, cut,  chop, stab,  crush},
+   ColdSpirit = {magDef, fire, water, ice, earth, wind, lightning, poison, light, dark, cut,  chop, stab,  crush},
+	IceGuardianCore= {magDef, fire, water, ice, earth, wind, lightning, poison, light, dark, cut,  chop, stab,  crush},
+   IceGuardian = {magDef, fire, water, ice, earth, wind, lightning, poison, light, dark, cut,  chop, stab,  crush},
    
-   DeathKnight = {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
-   DreadKnight = {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
-   EnslavedSoul = {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
-   ExplodingSkull = {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
-   JarOfSouls = {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
-   Zombie = {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
-   RunicSkull = {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
-   Lich = {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush},
+   DeathKnight = {magDef, fire, water, ice, earth, wind, lightning, poison, light, dark, cut,  chop, stab,  crush},
+   DreadKnight = {magDef, fire, water, ice, earth, wind, lightning, poison, light, dark, cut,  chop, stab,  crush},
+   EnslavedSoul = {magDef, fire, water, ice, earth, wind, lightning, poison, light, dark, cut,  chop, stab,  crush},
+   ExplodingSkull = {magDef, fire, water, ice, earth, wind, lightning, poison, light, dark, cut,  chop, stab,  crush},
+   JarOfSouls = {magDef, fire, water, ice, earth, wind, lightning, poison, light, dark, cut,  chop, stab,  crush},
+   Zombie = {magDef, fire, water, ice, earth, wind, lightning, poison, light, dark, cut,  chop, stab,  crush},
+   RunicSkull = {magDef, fire, water, ice, earth, wind, lightning, poison, light, dark, cut,  chop, stab,  crush},
+   Lich = {magDef, fire, water, ice, earth, wind, lightning, poison, light, dark, cut,  chop, stab,  crush},
    
-   a = {magDef, fire, water, earth, wind, lighting, poison, light, dark, cut, cutstab, chop, stab, chopstab, crush}
+   a = {magDef, fire, water, ice, earth, wind, lightning, poison, light, dark, cut,  chop, stab,  crush}
    
    },
  
@@ -241,16 +238,32 @@ local RPG
    local percent = 1
    local fixed = 0
    local elmntCoefs = {
-   RPG.StatsArt[element],
-   RPG.StatsArt2[element],
-   RPG.StatsB[element]
+   RPG.StatsArt[element[1] or element],
+   RPG.StatsArt2[element[1] or element],
+   RPG.StatsB[element[1] or element]
+   }
+   local elmntCoefs2 = {
+   RPG.StatsArt[element[2]],
+   RPG.StatsArt2[element[2]],
+   RPG.StatsB[element[2]]
    }
    for i = 1,3 do
-     if elmntCoefs[i] > 1 and elmntCoefs[i] < 2 then
-     percent = percent + (elmntCoefs[i]-1)
+     if elmntCoefs[i] > 0 and elmntCoefs[i] < 1 then
+     percent = percent + elmntCoefs[i]*10
      else
      fixed = fixed + elmntCoefs[i]
      end
+   end
+   if element[2] ~= nil then
+     for i = 1,3 do
+     if elmntCoefs2[i] > 0 and elmntCoefs2[i] < 1 then
+     percent = percent + elmntCoefs2[i]*10
+     else
+     fixed = fixed + elmntCoefs2[i]
+     end
+   end
+     percent = percent\2
+	 fixed = math.ceil(fixed\2)
    end
    return {percent,fixed}
  end,
@@ -289,7 +302,10 @@ local RPG
      name = enemy:getMobClassName()
      defstats = def[name]
      mag = defstats["magDef"] + depth*1.2 
-     coef = defstats[element] or 1
+     coef = (defstats[element[1] or element] + (defstats[element[2]] or 0)) or 1
+	 if element[2] ~= nil then
+	   coef = coef\2
+	 end
    end
    
    if mag > 0 then
@@ -328,7 +344,10 @@ local RPG
      name = enemy:getMobClassName()
      defstats = def[name]
      mag = defstats["magDef"] + depth*1.2 
-     coef = defstats[element] or 1
+     coef = (defstats[element[1] or element] + (defstats[element[2]] or 0)) or 1
+	 if element[2] ~= nil then
+	   coef = coef\2
+	 end
    end
    
    if mag > 0 then
