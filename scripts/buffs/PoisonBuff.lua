@@ -10,6 +10,8 @@ local storage = require "scripts/lib/storage"
 local hero = RPD.Dungeon.hero
 local a = "placetrap"
 local scale = 0
+local type ="phys"
+local elmnt ="poison"
 
 local buff = require "scripts/lib/buff"
 
@@ -24,7 +26,7 @@ return buff.init{
     
     charAct = function(self,buff)
       local Spell = storage.gameGet(a) or {}
-      buff.target:damage(math.ceil(buff:level()*(0.2 + scale*0.04)), RPD.Dungeon.hero)
+      RPG.damage(enemy,math.ceil(buff:level()*(0.2 + scale*0.04)), type,elmnt)
       scale = scale +1
     end
 }

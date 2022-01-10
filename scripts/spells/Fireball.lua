@@ -12,6 +12,8 @@ local lvl
 local expMax
 local exp
 local a = "fireball"
+local type ="magic"
+local elmnt ="fire"
 
 return spell.init{
     desc  = function ()
@@ -59,15 +61,8 @@ return spell.init{
  local pos = RPD.Ballistica:cast(RPD.Dungeon.hero:getPos(),cell,true,true,true)
  local enemy = RPD.Actor:findChar(pos)
  
- RPD.zapEffect(RPD.Dungeon.hero:getPos(),pos,"fireball_effect")
- local Buff = RPD.affectBuff(hero, "ResidualEffect_Buff", 4):level(1)
- 
- local weaponA = hero:getBelongings().weapon
-     local weaponB = hero:getBelongings().leftHand
-     local dmg = math.ceil((weaponA:damageRoll(hero) + weaponB:damageRoll(hero))*0.3) or 0
- 
  if enemy and enemy ~= RPD.Dungeon.hero then
-  enemy:damage(math.ceil(RPG.magStr()*0.8+2*lvl), hero)
+  RPG.damage(enemy,math.ceil(RPG.magStr()*0.8+2*lvl), type,elmnt)
   RPD.affectBuff(enemy, "BurningBuff", 2)
   storage.gamePut("burningbuff",{dmg = dmg})
   return true

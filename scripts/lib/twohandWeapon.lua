@@ -39,24 +39,16 @@ twohandWeapon.makeWeapon = function(name,mod,stra,minDmg,maxDmg,tier,accuracy,de
           RPG1.addStats(self.data.dstats,"StatsA")
       end
       if self.data.activationCount == 0 then
-        hero:ht(hero:ht() + self.data.dstats[6])
-        hero:setMaxSkillPoints(hero:getSkillPointsMax() + self.data.dstats[7])
+        RPG.increaseHtSp(self.data.dstats)
       end
       self.data.activationCount = 1
     end,
     
     deactivate = function(self,item)
       hero = RPD.Dungeon.hero
-        self.data.activationCount = 0
-            RPG1.delStats("StatsA")
-        hero:ht(hero:ht() - self.data.dstats[6])
-        if hero:hp() > hero:ht() then
-          hero:hp(hero:ht())
-        end
-        hero:setMaxSkillPoints(hero:getSkillPointsMax() - self.data.dstats[7])
-        if hero:getSkillPoints() > hero:getSkillPointsMax() then
-          hero:setSkillPoints(hero:getSkillPointsMax())
-        end
+      self.data.activationCount = 0
+      RPG1.delStats("StatsA")
+      RPG.decreaseHtSp(self.data.dstats)
     end,
     
     accuracyFactor = function(self,item,user)

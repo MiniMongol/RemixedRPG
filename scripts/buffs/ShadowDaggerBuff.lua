@@ -15,6 +15,8 @@ state["SLEEPING"]    = true
 state["FLEEING"]     = true
 state["HORRIFIED"]   = true
 state["RUNNINGAMOK"] = true
+local type ="phys"
+local elmnt ="dark"
 
 local buff = require "scripts/lib/buff"
 
@@ -42,9 +44,9 @@ return buff.init{
      end
      
      if buff.target:buffLevel("Invisibility") == 1 or state[enemy:getState():getTag()] or enemy:isParalysed() then
-      enemy:damage(math.ceil(RPG.physStr()*0.35 +5 +6*Spell.lvl), buff.target)
+      RPG.damage(enemy,math.ceil(RPG.physStr()*0.35 +5 +6*Spell.lvl), type,elmnt)
      else
-      enemy:damage( math.ceil(RPG.physStr()*0.15 +3 +4*Spell.lvl), buff.target)
+      RPG.damage(enemy,math.ceil(RPG.physStr()*0.15 +3 +4*Spell.lvl), type,elmnt)
      end
      RPD.topEffect(enemy:getPos(),"bleeding_effect")
      buff:detach()

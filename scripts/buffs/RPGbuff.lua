@@ -29,6 +29,7 @@ return buff.init{
             icon          = -1,
             name          = "",
             info          = "",
+            
         }
     end,
     
@@ -37,47 +38,61 @@ return buff.init{
       hero = RPD.Dungeon.hero
       local Spells = require "scripts/spells/CustomSpellsList"
       local weapon = hero:getBelongings().weapon
+      local lefthand = hero:getBelongings().leftHand
 	  local armor = hero:getBelongings().armor
-	  local artifact = hero:getBelongings()[RPD.Slots.artifact]
-	  local leftArtifact = hero:getBelongings()[RPD.Slots.leftArtifact]
+	  local artifact = hero:getBelongings().ring1
+	  local leftArtifact = hero:getBelongings().ring2
 	  local StatsA = RPG.StatsA
 	  local StatsA2 = RPG.StatsA2
 	  local StatsB = RPG.StatsB
 	  local StatsArt = RPG.StatsArt
 	  local StatsArt2 = RPG.StatsArt2
+	  
 
 	  
       Spells.Combat = Que.getMas("spelllist")
       
+      if hero:STR() > 1 then
+        hero:STR(1)
+        RPG.physicStr = RPG.physicStr+5
+        storage.gamePut(stats, {str = RPG.strength, int = RPG.intelligence, dex = RPG.dexterity, vit = RPG.vitality, wis = RPG.wisdom, luc = RPG.luck, lvlT = RPG.lvlToUp, magS = RPG.magicStr, phyS = RPG.physicStr, fast = RPG.fast, sP = RPG.sPoints, spR = RPG.spRegen,magDef = RPG.magDef, class = RPG.class, subclass = RPG.subclass})
+        storage.gamePut(tostring(hero:lvl()), {str = RPG.strength, int = RPG.intelligence, dex = RPG.dexterity, vit = RPG.vitality, wis = RPG.wisdom, luc = RPG.luck, lvlT = RPG.lvlToUp, magS = RPG.magicStr, phyS = RPG.physicStr, fast = RPG.fast, sP = RPG.sPoints, spR = RPG.spRegen,magDef = RPG.magDef, class = RPG.class, subclass = RPG.subclass, spells = Que.getMas("spelllist")})	
+      end
+      
       if weapon:getClassName() == "DummyItem" then
-        RPG.physicStrA = 0
-        RPG.magicStrA = 0
-        RPG.fastA = 0
-        RPG.luckA = 0
-        RPG.spRegenA = 0
+        for i=1,6 do
+          StatsA[RPG.statsName[i]] = 0
+        end
+      end
+      if lefthand:getClassName() == "DummyItem" then
+        for i=1,6 do
+          StatsA2[RPG.statsName[i]] = 0
+        end
       end
 	  if armor:getClassName() == "DummyItem" then
-        RPG.physicStrB = 0
-        RPG.magicStrB = 0
-        RPG.fastB = 0
-        RPG.luckB = 0
-        RPG.spRegenB = 0
+	  for i=1,6 do
+          StatsB[RPG.statsName[i]] = 0
       end
-    -- if artifact:getClassName() == "DummyItem" then
-       -- RPG.physicStrB = 0
-      --  RPG.magicStrB = 0
-       -- RPG.fastB = 0
-       -- RPG.luckB = 0
-      --  RPG.spRegenB = 0
-     -- end
-    --  if leftArtifact:getClassName() == "DummyItem" then
-       -- RPG.physicStrB = 0
-       -- RPG.magicStrB = 0
-       -- RPG.fastB = 0
-        --RPG.luckB = 0
-        --RPG.spRegenB = 0
-      --end
-      --
+	  for i=7,18 do
+          StatsB[RPG.statsName[i]] = {0,0}
+        end
+      end
+     if artifact:getClassName() == "DummyItem" then
+     for i=1,6 do
+          StatsArt[RPG.statsName[i]] = 0
+     end
+     for i=7,18 do
+          StatsArt[RPG.statsName[i]] = {0,0}   end
+      end
+      if leftArtifact:getClassName() == "DummyItem" then
+      for i=1,6 do
+          StatsArt2[RPG.statsName[i]] = 0
+      end
+      for i=7,18 do
+          StatsArt2[RPG.statsName[i]] = {0,0}
+        end
+      end
+      
       if hero:getBelongings():getItem("TomeOfMastery") ~= nil then
          hero:getBelongings():getItem("TomeOfMastery"):detach(hero:getBelongings()
 .backpack)

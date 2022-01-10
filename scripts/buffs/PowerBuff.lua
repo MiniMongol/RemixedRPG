@@ -12,8 +12,9 @@ local hero = RPD.Dungeon.hero
 local depth = RPD.Dungeon.depth
 
 local level
-local dmgModifs = defence = {
+local dmgModifs = {
    FireElemental = {mod = 0, dmg = 0, type = {"mag",""}, element = {"fire",""}},
+   MirrorImage = {mod = 0, dmg = 0, type = {"phys",""}, element = {"crush",""}},
    Statue = {mod = 0, dmg = 0, type , element = {"",""}},
    Wraith = {mod = 3, dmg = 0.8, type = {"phys","mag"}, element = {"crush","dark"}},
    Piranha = {mod = 0, dmg = 0, type = {"phys",""}, element = {{"cut","chop"},""}},
@@ -29,7 +30,7 @@ local dmgModifs = defence = {
    b= {mod = 0, dmg = 0, type = {"",""}, element = {"",""}},
    c= {mod = 0, dmg = 0, type = {"",""}, element = {"",""}},
    
-   Rat = {mod = 1, dmg = 1, type = {"phys","mag"}, element = {"cut","poison"}},
+   Rat = {mod = 2, dmg = 2, type = {"phys","mag"}, element = {"cut","poison"}},
    Gnoll = {mod = 0, dmg = 0, type = {"phys",""}, element = {"crush",""}},
    Crab = {mod = 0, dmg = 0, type = {"phys",""}, element = {"chop",""}},
    Albino = {mod = 2, dmg = 2, type = {"phys","mag"}, element = {"cut","poison"}},
@@ -103,7 +104,7 @@ local dmgModifs = defence = {
    
    a = {mod = 0, dmg = 0, type = {"",""}, element = {"",""}}
    
-   },
+   }
    
 return buff.init{
     desc  = function ()
@@ -115,36 +116,35 @@ return buff.init{
     
 attackProc = function(self,buff,enemy,damage)
   depth = RPD.Dungeon.depth
-  local mobModifs = dmgModifs[self:getMobClassName()]
-  local type = mobModifs[type]
-  local element = mobModifs[element]
+  local mobModifs = dmgModifs[buff.target:getMobClassName()]
+  local type = mobModifs["type"]
+  local element = mobModifs["element"]
   local totalDmg = damage + math.ceil(0.2*depth)
-  local mainElement = element[1] or element
+  local mainElement = element[1]
   local addElement = element[2]
   
   if type ~= nil then
   totalDmg = RPG.getDamage(enemy,damage + math.ceil(0.2*depth),type[1],element[1])
-  if mobModifs[mod] == 1 then
-    totalDmg = totalDmg-mobModifs[dmg]
+  if mobModifs["mod"] == 1 then
+    totalDmg = totalDmg-mobModifs["dmg"]
 	enemy:getSprite():showStatus(0xffff00,(addElement[1] or addElement).."/"..(addElement[2] or "")..":")
-    RPG.damage(enemy,mobModifs[dmg],type[2],element[2])
+    RPG.damage(enemy,mobModifs["dmg"],type[2],element[2])
 	
-  else if mobModifs[mod] == 2 then
+  elseif mobModifs["mod"] == 2 then
     enemy:getSprite():showStatus(0xffff00,(addElement[1] or addElement).."/"..(addElement[2] or "")..":")
-    RPG.damage(enemy,mobModifs[dmg],type[2],element[2])
+    RPG.damage(enemy,mobModifs["dmg"],type[2],element[2])
     
-  else if mobModifs[mod] == 3 then
+  elseif mobModifs["mod"] == 3 then
     totalDmg = totalDmg*(1-mobModifs[dmg])
 	enemy:getSprite():showStatus(0xffff00,(addElement[1] or addElement).."/"..(addElement[2] or "")..":")
-    RPG.damage(enemy,damage*mobModifs[dmg],type[2],element[2])
+    RPG.damage(enemy,damage*mobModifs["dmg"],type[2],element[2])
 	
-	else if mobModifs[mod] == 4 then
+	elseif mobModifs["mod"] == 4 then
 	enemy:getSprite():showStatus(0xffff00,(addElement[1] or addElement).."/"..(addElement[2] or "")..":")
-	RPG.damage(enemy,damage*mobModifs[dmg],type[2],element[2])
+	RPG.damage(enemy,damage*mobModifs["dmg"],type[2],element[2])
 	end
   end
-  end
-  enemy:getSprite():showStatus(0xffff00,(mainElement).."/"..(mainElement[2] or "")..":")
+  enemy:getSprite():showStatus(0xffff00,(mainElement[1] or mainElement).."/"..(mainElement[2] or "")..":")
   return totalDmg
 end,
 

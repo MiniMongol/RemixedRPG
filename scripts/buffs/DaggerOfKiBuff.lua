@@ -15,6 +15,8 @@ state["SLEEPING"]    = true
 state["FLEEING"]     = true
 state["HORRIFIED"]   = true
 state["RUNNINGAMOK"] = true
+local type ="magic"
+local elmnt
 
 local buff = require "scripts/lib/buff"
 
@@ -37,9 +39,9 @@ return buff.init{
      end
      
      if buff.target:buffLevel("Invisibility") == 1 or state[enemy:getState():getTag()] or enemy:isParalysed() then
-      enemy:damage(math.ceil(RPG.magStr()*0.35 + 0.5*Spell.lvl), buff.target)
+      RPG.damage(enemy,math.ceil(RPG.magStr()*0.35 + 0.5*Spell.lvl),type,elmnt)
      else
-      enemy:damage( math.ceil(RPG.magStr()*0.15 + 0.2*Spell.lvl), buff.target)
+      RPG.damage(enemy, math.ceil(RPG.magStr()*0.15 + 0.2*Spell.lvl),type,elmnt)
      end
      
      if buff.target:buffLevel("SealShield") == 1 then

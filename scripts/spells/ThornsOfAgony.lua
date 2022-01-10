@@ -15,6 +15,8 @@ local lvl
 local expMax
 local exp
 local a = "thornsofagony"
+local type ="magic"
+local elmnt
 
 return spell.init{
     desc  = function ()
@@ -87,7 +89,7 @@ return spell.init{
                   local enemy2 = RPD.Actor:findChar(pos)
                   if enemy2 and enemy2 ~= hero then
        
-                    enemy2:damage(math.ceil(RPG.magStr()*0.1 + hero:ht()*0.15) + lvl, hero)
+                    RPG.damage(enemy2,math.ceil(RPG.magStr()*0.1 + hero:ht()*0.15) + lvl, type,elmnt)
                     RPD.removeBuff(enemy2, "BloodMark")
                   end
                 end

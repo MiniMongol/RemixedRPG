@@ -15,6 +15,8 @@ local lvl
 local expMax
 local exp
 local a = "lightning"
+local type ="mag"
+local elmnt ="lightning"
 
 return spell.init{
     desc  = function ()

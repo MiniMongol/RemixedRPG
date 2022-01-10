@@ -26,12 +26,12 @@ return trap.init(
           local enemy = RPD.Actor:findChar(level:cell(i,j))
             if enemy and level:cell(i,j) ~= cell then
             if enemy then
-              enemy:damage(math.ceil(RPG.physStr()*(0.11*Spell.BT)),hero)
+              RPG.damage(enemy,math.ceil(RPG.physStr()*(0.1*Spell.BT)),"phys",{"fire","crush"})
               end
               
               else
               if enemy then
-              enemy:damage(math.ceil(RPG.physStr()*(0.15*Spell.BT)),hero)
+              RPG.damage(enemy,math.ceil(RPG.physStr()*(0.15*Spell.BT)),"phys",{"fire","crush"})
               end
               
             end

@@ -24,7 +24,7 @@ return trap.init(
               RPD.placePseudoBlob(RPD.PseudoBlobs.Freezing,level:cell(i,j))
               local enemy = RPD.Actor:findChar(level:cell(i,j))
             if enemy then
-              enemy:damage(math.ceil(RPG.magStr()*(0.1*Spell.IT)),hero)
+              RPG.damage(enemy,math.ceil(RPG.magStr()*(0.1*Spell.IT)),"mag","ice")
               end
           end
         end

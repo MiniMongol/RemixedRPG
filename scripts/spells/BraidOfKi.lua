@@ -15,6 +15,8 @@ local lvl
 local expMax
 local exp
 local a = "braidofki"
+local type = "magic"
+local elmnt
 
 return spell.init{
     desc  = function ()
@@ -78,7 +80,7 @@ return spell.init{
     end
     
     if enemy1 and enemy1 ~= RPD.Dungeon.hero then
-      enemy1:damage(math.ceil(RPG.magStr()*0.35 + 0.5*lvl),hero)
+      RPG.damage(enemy1,math.ceil(RPG.magStr()*0.35 + 0.5*lvl),type,elmnt)
       RPD.affectBuff(enemy1,"KiMark",4)
     end
     
@@ -93,7 +95,7 @@ return spell.init{
        local pos = level:cell(i,j)
        local enemy2 = RPD.Actor:findChar(pos)
        if enemy2 and enemy2 ~= hero then
-        enemy2:damage(math.ceil(RPG.magStr()*0.15 + 0.2*lvl), hero)
+        RPG.damage(enemy2,math.ceil(RPG.magStr()*0.15 + 0.2*lvl), type, elmnt)
        end
      end
    end

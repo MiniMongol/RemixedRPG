@@ -10,6 +10,8 @@ local storage = require "scripts/lib/storage"
 local a = "flurryarrows"
 
 local num = 0
+local type ="phys"
+local elmnt ="stab"
 
 local buff = require "scripts/lib/buff"
 
@@ -33,7 +35,7 @@ return buff.init{
           Spell.expMax = Spell.expMax+8
           Spell.lvl = Spell.lvl+1
          end
-        enemy:damage(math.random(damage,damage+math.ceil(5+5*Spell.lvl()+RPG.physStr()*0.1 + RPG.AllFast()*(0.2))),hero)
+        RPG.damage(enemy,math.random(damage,damage+math.ceil(5+5*Spell.lvl()+RPG.physStr()*0.1 + RPG.AllFast()*(0.2))),type,elmnt)
       RPD.zapEffect(RPD.Dungeon.hero:getPos(),enemy:getPos(),"CommonArrow")
         buff:detach()
       else

@@ -19,6 +19,8 @@ local pos
 local moveTo
 local enemy
 local stop = false
+local type ="phys"
+local elmnt ={"chop","stab"}
 
 return spell.init{
     desc  = function ()
@@ -81,7 +83,7 @@ return spell.init{
     for i = 0, math.min( math.min(2+lvl, 5), RPD.Ballistica.distance ) do
       enemy = RPD.Actor:findChar(RPD.Ballistica.trace[i])
       if enemy and enemy ~= hero then
-        enemy:damage( math.ceil(RPG.physStr()*(0.15+lvl*0.02) + RPG.AllFast()*(0.5+lvl*0.1) + weaponA:damageRoll(hero)*0.75 ) - enemy:dr() - i, hero)
+        RPG.damage(enemy,math.ceil(RPG.physStr()*(0.15+lvl*0.02) + RPG.AllFast()*(0.5+lvl*0.1) + weaponA:damageRoll(hero)*0.75 ) - enemy:dr() - i, type,elmnt)
         RPD.topEffect(enemy:getPos(),"bleeding_effect")
         end
       end

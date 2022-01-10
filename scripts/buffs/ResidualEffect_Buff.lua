@@ -53,7 +53,7 @@ return buff.init{
      else
      local x = level:cellX(enemy:getPos())
      local y = level:cellY(enemy:getPos())
-     enemy:damage(math.ceil(weaponRoll*0.1), RPD.Dungeon.hero)
+     RPG.damage(enemy,math.ceil(weaponRoll*0.1), type,elmnt)
      RPD.affectBuff(enemy,RPD.Buffs.Paralysis,0.2)
      
      for i = x-1,x+1 do
@@ -62,7 +62,7 @@ return buff.init{
        local enemy2 = RPD.Actor:findChar(pos2)
        if enemy2 and enemy2 ~= RPD.Dungeon.hero and enemy2 ~= enemy then
        RPD.zapEffect(enemy:getPos(),enemy2:getPos(),"Lightning")
-        enemy2:damage(math.ceil(weaponRoll*0.1), RPD.Dungeon.hero)
+        RPG.damage(enemy2,math.ceil(weaponRoll*0.1), type,elmnt)
         RPD.affectBuff(enemy2,RPD.Buffs.Paralysis,0.2)
        end
       end

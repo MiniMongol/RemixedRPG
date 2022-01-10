@@ -3,12 +3,38 @@ local RPG
 
 
  RPG = {
+ Objects ={
+ Ui={
+ WndInfoItem = luajava.bindClass("com.watabou.pixeldungeon.windows.WndInfoItem")
+ }
+ },
+ 
  Buffs = {
   Bleeding       = luajava.bindClass("com.watabou.pixeldungeon.actors.buffs.Bleeding"),
   Terror       = luajava.bindClass("com.watabou.pixeldungeon.actors.buffs.Terror"),
   Shadows         = luajava.bindClass("com.watabou.pixeldungeon.actors.buffs.Shadows"),
   Amok            = luajava.bindClass("com.watabou.pixeldungeon.actors.buffs.Amok")
  },
+ 
+ statsName = {"luck",
+	"physicStr",
+	"magicStr",
+	"fast",
+	"magDef",
+	"spRegen",
+	"fire",
+	"water",
+	"ice",
+	"earth",
+	"wind",
+	"lightning",
+	"poison", 
+	"light", 
+	"dark",
+	"psy",
+	"cut",
+	"chop", 
+	"stab"},
  
  strength = strength,
  intelligence = intelligence,
@@ -35,6 +61,7 @@ local RPG
 	physicStr = 0,
 	magicStr = 0,
 	fast = 0,
+	magDef = 0,
 	spRegen = 0
  },
  StatsA2 = {
@@ -42,7 +69,8 @@ local RPG
 	physicStr = 0,
 	magicStr = 0,
 	fast = 0,
-	spRegen = 0,
+	magDef = 0,
+	spRegen = 0
  },
  StatsB = {
  	luck = 0,
@@ -51,20 +79,20 @@ local RPG
 	fast = 0,
 	magDef = 0,
 	spRegen = 0,
-	fire=0,
-	water=0,
-	ice=0,
-	earth=0,
-	wind=0,
-	lightning=0,
-	poison=0, 
-	light=0, 
-	dark=0,
-	psy=0,
-	cut=0,
-	chop=0, 
-	stab=0,
-	crush=0
+	fire={0,0},
+	water={0,0},
+	ice={0,0},
+	earth={0,0},
+	wind={0,0},
+	lightning={0,0},
+	poison={0,0}, 
+	light={0,0}, 
+	dark={0,0},
+	psy={0,0},
+	cut={0,0},
+	chop={0,0}, 
+	stab={0,0},
+	crush={0,0}
  },
  
  StatsArt = {
@@ -74,20 +102,20 @@ local RPG
 	fast = 0,
 	magDef = 0,
 	spRegen = 0,
-	fire=0,
-	water=0,
-	ice=0,
-	earth=0,
-	wind=0,
-	lightning=0,
-	poison=0, 
-	light=0, 
-	dark=0,
-	psy=0,
-	cut=0,
-	chop=0, 
-	stab=0,
-	crush=0
+	fire={0,0},
+	water={0,0},
+	ice={0,0},
+	earth={0,0},
+	wind={0,0},
+	lightning={0,0},
+	poison={0,0}, 
+	light={0,0}, 
+	dark={0,0},
+	psy={0,0},
+	cut={0,0},
+	chop={0,0}, 
+	stab={0,0},
+	crush={0,0}
  },
  
  StatsArt2 = {
@@ -97,20 +125,20 @@ local RPG
 	fast = 0,
 	magDef = 0,
 	spregen = 0,
-	fire=0,
-	water=0,
-	ice=0,
-	earth=0,
-	wind=0,
-	lightning=0,
-	poison=0, 
-	light=0, 
-	dark=0,
-	psy=0,
-	cut=0,
-	chop=0, 
-	stab=0,
-	crush=0
+	fire={0,0},
+	water={0,0},
+	ice={0,0},
+	earth={0,0},
+	wind={0,0},
+	lightning={0,0},
+	poison ={0,0}, 
+	light={0,0}, 
+	dark={0,0},
+	psy={0,0},
+	cut={0,0},
+	chop={0,0}, 
+	stab={0,0},
+	crush={0,0}
  },
  
  
@@ -124,7 +152,7 @@ local RPG
    IceElemental = {magDef=15, fire=0.5, water=1.3, ice, earth=1.2, wind=0.9, lightning=0.9, poison=1.5, light=1.5, dark=0.8, cut=1.2,  chop=0.8, stab=0.6,  crush=0.9},
    WaterElemental = {magDef=15, fire=0.8, water=1.5, ice, earth=1.2, wind=1.2, lightning=0.5, poison=0.8, light=1.2, dark=0.8, cut=1.5,  chop=1.1, stab=1.5,  crush=1.1},
    EarthElemental = {magDef=15, fire=1.2, water=0.5, ice, earth=1.5, wind=0.8, lightning=1.5, poison=0.8, light=1.2, dark, cut=1.1,  chop=0.9, stab=0.8,  crush=1.1},
-   AirElemental = {magDef=15, fire=0.8, water=1.5 ice,, ice, earth=1.2, wind=1.5, lightning=0.6, poison=0.9, light=1.5, dark, cut=1.5,  chop=1.2, stab=1.5,  crush=0.9},
+   AirElemental = {magDef=15, fire=0.8, water=1.5, ice, earth=1.2, wind=1.5, lightning=0.6, poison=0.9, light=1.5, dark, cut=1.5,  chop=1.2, stab=1.5,  crush=0.9},
    Crystal = {magDef=15, fire=1.2, water=0.8, ice, earth=1.5, wind=0.8, lightning, poison=1.5, light=1.5, dark, cut=1.2,  chop=0.7, stab=0.5,  crush=0.5},
    ArmoredStatue = {magDef=15, fire=1.5, water=0.8, ice, earth=1.5, wind=0.8, lightning=1.5, poison=2.5, light, dark, cut=1.5,  chop=1.2, stab=0.5,  crush=0.7},
    GoldenStatue = {magDef=20, fire=0.5, water=0.7, ice, earth=1.2, wind=0.8, lightning=1.5, poison=1.5, light=1.2, dark=0.8, cut,  chop=0.9, stab=0.8,  crush=0.9},
@@ -219,7 +247,7 @@ local RPG
  end,
  
  allMagDef = function()
-   return RPG.magDef +RPG.StatsB["magDef"] +RPG.StatsArt2["magDef"] +RPG.StatsArt["magDef"]
+   return RPG.magDef +RPG.StatsB["magDef"] +RPG.StatsArt2["magDef"] +RPG.StatsArt["magDef"] +RPG.StatsA["magDef"] +RPG.StatsA2["magDef"]
  end,
  
  AllSpRegen = function()
@@ -235,35 +263,36 @@ local RPG
  end,
  
  getElementCoef = function(element)
-   local percent = 1
+   local percent = 0.5
    local fixed = 0
+   
+   local art =RPG.StatsArt
+   local art2 =RPG.StatsArt2
+   local b = RPG.StatsB
+   
    local elmntCoefs = {
-   RPG.StatsArt[element[1] or element],
-   RPG.StatsArt2[element[1] or element],
-   RPG.StatsB[element[1] or element]
+   art[element[1] or element],
+   art2[element[1] or element],
+   b[element[1] or element]
    }
    local elmntCoefs2 = {
-   RPG.StatsArt[element[2]],
-   RPG.StatsArt2[element[2]],
-   RPG.StatsB[element[2]]
+   art[element[2]],
+   art2[element[2]],
+   b[element[2]]
    }
    for i = 1,3 do
-     if elmntCoefs[i] > 0 and elmntCoefs[i] < 1 then
-     percent = percent + elmntCoefs[i]*10
-     else
-     fixed = fixed + elmntCoefs[i]
-     end
+     local elmntCoef = elmntCoefs[i]
+     percent = percent + elmntCoef[1]
+     fixed = fixed + elmntCoef[2]
    end
    if element[2] ~= nil then
      for i = 1,3 do
-     if elmntCoefs2[i] > 0 and elmntCoefs2[i] < 1 then
-     percent = percent + elmntCoefs2[i]*10
-     else
-     fixed = fixed + elmntCoefs2[i]
-     end
+     local elmntCoef = elmntCoefs2[i]
+     percent = percent + elmntCoef[1]
+     fixed = fixed + elmntCoef[2]
    end
-     percent = percent\2
-	 fixed = math.ceil(fixed\2)
+     percent = percent/2
+	 fixed = math.ceil(fixed/2)
    end
    return {percent,fixed}
  end,
@@ -286,40 +315,58 @@ local RPG
    local depth = RPD.Dungeon.depth
    local defstats
    local name 
-   local drRoll = 0
-   local mag
+   local magRoll = 0
+   local mag = 0
    local coef = 1
    local fCoef = 0
    local pCoef = 1
+   local drRoll = 0
+   local dr = 0
+   local elmnt = element
 
    
-   if enemy:name() == "you" then
-     local coefs = RPG.getElementCoef(element)
+   if enemy:name() == "you" or enemy:getMobClassName() == "MirrorImage" then
+     local coefs = RPG.getElementCoef(elmnt)
      pCoef = coefs[1]
      fCoef = coefs[2]
+     
      mag = RPG.allMagDef()*pCoef +fCoef
+     dr = enemy:dr()*pCoef+fCoef
    else
      name = enemy:getMobClassName()
      defstats = def[name]
-     mag = defstats["magDef"] + depth*1.2 
-     coef = (defstats[element[1] or element] + (defstats[element[2]] or 0)) or 1
-	 if element[2] ~= nil then
-	   coef = coef\2
+     mag = (defstats["magDef"] or 0) + depth*1.2 
+     dr = enemy:dr()
+     
+     if elmnt then
+     coef = (defstats[elmnt[1] or elmnt] + (defstats[elmnt[2]] or 0)) or 1
+     if elmnt[2] ~= nil then
+	   coef = coef/2
 	 end
+	 else
+	 elmnt = type
+     end
    end
    
    if mag > 0 then
-     drRoll = math.floor(math.random(0.5*(mag*coef),(mag*coef)))
+     magRoll = math.floor(math.random(0.5*(mag*coef),(mag*coef)))
      else
-      drRoll = math.floor(math.random(1.5*(mag*coef),(mag*coef)))
+      magRoll = math.floor(math.random(1.5*(mag*coef),(mag*coef+1)))
+   end
+   
+   if dr > 0 then
+     drRoll = math.floor(math.random((dr*coef)*0.5,(dr*coef)))
+   else
+     drRoll = math.floor(math.random((dr*coef)*1.5,(dr*coef+1)))
    end
    
    if type ~= "phys" then
-     enemy:damage(dmg-drRoll,hero)
+     enemy:getSprite():showStatus(0xffff00,(elmnt[1] or elmnt).."/"..(elmnt[2] or "")..":")
+     enemy:damage(dmg-magRoll,hero)
    else
-     enemy:damage(dmg-math.floor(math.random((enemy:dr()*coef)*0.5,enemy:dr()*coef)),hero)
+     enemy:getSprite():showStatus(0xffff00,(elmnt[1] or elmnt).."/"..(elmnt[2] or "")..":")
+     enemy:damage(dmg-drRoll,hero)
    end
-   
  end,
  
  getDamage = function(enemy, dmg, type,element)
@@ -329,37 +376,50 @@ local RPG
    local depth = RPD.Dungeon.depth
    local defstats
    local name 
-   local drRoll = 0
+   local mag = 0
+   local magRoll = 0
    local coef = 1
    local fCoef = 0
    local pCoef = 1
+   local dr =0
+   local drRoll= 0
+   local elmnt = element
 
-   
-   if enemy:name() == "you" then
-     local coefs = RPG.getElementCoef(element)
+   if enemy:invalid() ~= true then
+   if enemy:name() == "you" or enemy:getMobClassName() == "MirrorImage" then
+     local coefs = RPG.getElementCoef(elmnt)
      pCoef = coefs[1]
      fCoef = coefs[2]
      mag = RPG.allMagDef()*pCoef +fCoef
+     dr = enemy:dr()*pCoef+fCoef
    else
      name = enemy:getMobClassName()
      defstats = def[name]
-     mag = defstats["magDef"] + depth*1.2 
-     coef = (defstats[element[1] or element] + (defstats[element[2]] or 0)) or 1
-	 if element[2] ~= nil then
-	   coef = coef\2
+     mag = (defstats["magDef"] or 0) + depth*1.2 
+     dr = enemy:dr()
+      coef = (defstats[elmnt[1] or elmnt] + (defstats[elmnt[2]] or 0)) or 1
+	  if elmnt[2] ~= nil then
+	    coef = coef/2
 	 end
+   end
    end
    
    if mag > 0 then
-     drRoll = math.floor(math.random(0.5*(mag*coef),(mag*coef)))
+     magRoll = math.floor(math.random(0.5*(mag*coef),(mag*coef)))
      else
-      drRoll = math.floor(math.random(1.5*(mag*coef),(mag*coef)))
+      magRoll = math.floor(math.random(1.5*(mag*coef),(mag*coef)))
+   end
+   
+   if dr > 0 then
+     drRoll = math.floor(math.random((dr*coef)*0.5,(dr*coef)))
+   else
+     drRoll = math.floor(math.random((dr*coef)*1.5,(dr*coef+1)))
    end
    
    if type ~= "phys" then
-     return dmg-drRoll
+     return dmg-magRoll
    else
-     return dmg-math.floor(math.random((enemy:dr()*coef)*0.5,enemy:dr()*coef))
+     return dmg-drRoll
    end
    
  end,
@@ -368,6 +428,40 @@ local RPG
    local hero = RPD.Dungeon.hero
    return (RPG.physStr() -str)*0.1
  end,
+ 
+ increaseHtSp = function(stats)
+    local hero = RPD.Dungeon.hero
+    hero:ht(hero:ht() + stats[1])
+    hero:setMaxSkillPoints(hero:getSkillPointsMax() + stats[2])
+ end,
+ 
+ decreaseHtSp = function(stats)
+    local hero = RPD.Dungeon.hero
+    hero:ht(hero:ht() - self.data.dstats[1])
+    if hero:hp() > hero:ht() then
+        hero:hp(hero:ht())
+    end
+    hero:setMaxSkillPoints(hero:getSkillPointsMax() - self.data.dstats[2])
+    if hero:getSkillPoints() > hero:getSkillPointsMax() then
+        hero:setSkillPoints(hero:getSkillPointsMax())
+    end
+ end,
+ 
+ addStats = function(stats, mas)
+     local ItemStats = RPG[mas]
+     local statsNames = {"","","physicStr","magicStr","fast","spRegen","luck","magDef"}
+	 for i = 3, 8 do
+	   ItemStats[statsNames[i]] = stats[i]
+	 end
+   end,
+ 
+  delStats = function(mas)
+    local ItemStats = RPG[mas]
+    local statsNames = {"","","physicStr","magicStr","fast","spRegen","luck","magDef"}
+	for i = 3, 8 do
+	  ItemStats[statsNames[i]] = 0
+	end
+  end,
  
  baseSpeed = function()
    local hero = RPD.Dungeon.hero
@@ -382,15 +476,35 @@ local RPG
  getItemInfo = function(stats)
    local itStInfo = ""
    local statsNames = {
+  RPD.textById("Hp"),
+  RPD.textById("Sp"),
   RPD.textById("PhysStr"),
   RPD.textById("MagStr"),
   RPD.textById("Fast"),
   RPD.textById("SpRegen"),
   RPD.textById("luck"),
   RPD.textById("magDef"),
-  RPD.textById("Hp"),
-  RPD.textById("Sp")}
+  RPD.textById("fireD"),
+  RPD.textById("waterD"),
+  RPD.textById("iceD"),
+  RPD.textById("earthD"),
+  RPD.textById("poisonD"),
+  RPD.textById("lightningD"),
+  RPD.textById("psyD"),
+  RPD.textById("windD"),
+  RPD.textById("lightD"),
+  RPD.textById("darkD"),
+  RPD.textById("cutD"),
+  RPD.textById("stabD"),
+  RPD.textById("chopD"),
+  RPD.textById("crushD"),
+  }
    for i = 1,8 do
+     if stats[i] ~= 0 then
+       itStInfo = itStInfo.." "..statsNames[i]..": +"..tostring(stats[i]).."\n"
+     end
+   end
+   for i = 9, 14 do
      if stats[i] ~= 0 then
        itStInfo = itStInfo.." "..statsNames[i]..": +"..tostring(stats[i]).."\n"
      end
@@ -399,19 +513,19 @@ local RPG
  end,
  
  getItemStats = function(cycles, statMax)
-  local statsList = {0, 0, 0, 0, 0, 0, 0, 0,0}
-  local stats = {0, 0, 0, 0, 0, 0, 0, 0,0}
+  local statsList = {0, 0, 0, 0, 0, 0, 0, 0}
+  local stats = {0, 0, 0, 0, 0, 0, 0, 0}
   local ran
   local ItemStatsInfo = ""
   local statsNames = {
+  RPD.textById("Hp"),
+  RPD.textById("Sp"),
   RPD.textById("PhysStr"),
   RPD.textById("MagStr"),
   RPD.textById("Fast"),
   RPD.textById("SpRegen"),
   RPD.textById("luck"),
-  RPD.textById("magDef"),
-  RPD.textById("Hp"),
-  RPD.textById("Sp")
+  RPD.textById("magDef")
   }
   for i = 1, cycles do
     ran = math.random(1,8)
@@ -422,7 +536,7 @@ local RPG
    for i = 1,8 do
      for j = 1,statsList[i] do
        
-       if i == 4 then
+       if i == 6 then
          statMax_Fix = math.floor(statMax/2)
        else
          statMax_Fix = statMax
@@ -441,6 +555,9 @@ local RPG
           local itemC = RPD.ItemFactory:itemByName(name)
           RPD.Dungeon.level:drop(itemC, cell)
         end
+ end,
+ itemByName = function(name)
+   return RPD.ItemFactory:itemByName(name)
  end,
  
  distance = function(pos)

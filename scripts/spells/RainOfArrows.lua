@@ -15,6 +15,8 @@ local lvl
 local expMax
 local exp
 local a = "rainofarrows"
+local type ="phys"
+local elmnt ="stab"
 
 return spell.init{
     desc  = function ()
@@ -93,7 +95,7 @@ return spell.init{
          RPD.topEffect(pos, "rainofarrows_effect")
        end
        if enemy and enemy ~= RPD.Dungeon.hero then
-        enemy:damage(math.ceil(RPG.physStr()*0.1 + RPG.AllFast()*0.2)+ 5*lvl, RPD.Dungeon.hero)
+        RPG.damage(enemy,math.ceil(RPG.physStr()*0.1 + RPG.AllFast()*0.2)+ 5*lvl, type,elmnt)
        end
      end
    end

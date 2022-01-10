@@ -15,6 +15,8 @@ local lvl
 local expMax
 local exp
 local a = "dissection"
+local type ="phys"
+local elmnt ={"cut","chop"}
 
 return spell.init{
     desc  = function ()
@@ -83,7 +85,7 @@ return spell.init{
        local pos = level:cell(i,j)
        local enemy = RPD.Actor:findChar(pos)
        if enemy and enemy ~= RPD.Dungeon.hero then
-        enemy:damage((math.ceil(RPG.physStr()*0.25) + weaponA:damageRoll(hero) + weaponB:damageRoll(hero)*0.65 + 2*lvl)-enemy:dr(), RPD.Dungeon.hero)
+        RPG.damage(enemy,(math.ceil(RPG.physStr()*0.25) + weaponA:damageRoll(hero) + weaponB:damageRoll(hero)*0.65 + 2*lvl)-enemy:dr(), type,elmnt)
         RPD.topEffect(pos,"bleeding_effect")
        end
      end

@@ -19,6 +19,8 @@ local pos
 local moveTo
 local enemy
 local stop = false
+local type ="phys"
+local elmnt ="dark"
 
 return spell.init{
     desc  = function ()
@@ -90,7 +92,7 @@ return spell.init{
     end
     enemy = RPD.Actor:findChar(moveTo) 
     if enemy and enemy ~= hero then
-     enemy:damage(3*lvl + math.ceil(RPG.physStr()*0.15),hero)
+     RPG.damage(enemy,3*lvl + math.ceil(RPG.physStr()*0.15),type,elmnt)
      RPD.topEffect(moveTo,"bleeding_effect")
      if level:cellValid(level:getEmptyCellNextTo(enemy:getPos())) then
       moveTo = level:getEmptyCellNextTo(enemy:getPos())
@@ -107,7 +109,7 @@ return spell.init{
     if stop ~= true then
     enemy = RPD.Actor:findChar(RPD.Ballistica.trace[i])
     if enemy and enemy ~= hero then
-     enemy:damage(3*lvl + math.ceil(RPG.physStr()*0.15),hero)
+     RPG.damage(enemy,3*lvl + math.ceil(RPG.physStr()*0.15),type,elmnt)
      RPD.topEffect(enemy:getPos(),"bleeding_effect")
     end
     end

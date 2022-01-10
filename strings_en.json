@@ -252,7 +252,7 @@
 ["RangedWeaponInfo0"," - ranged weapon ( Attack range - 3 cells ) "]
 ["WeaponInfo1", " order. The average damage is "]
 ["WeaponInfo2", " units per hit and usually requires "]
-["WeaponInfo3", " physical strenght points."]
+["WeaponInfo3", " physical strength points."]
 ["WeaponAccu", " This is a pretty accurate weapon."]
 ["WeaponAccuNotFast"," It's a pretty slow but accurate weapon."]
 ["WeaponFast"," It's a pretty fast weapon."]

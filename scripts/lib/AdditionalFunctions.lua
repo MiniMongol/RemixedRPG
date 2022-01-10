@@ -8,22 +8,6 @@ local RPG1 = {
         local wnd = luajava.newInstance(RPD.Objects.Ui.WndQuest, self, text)
         RPD.GameScene:show(wnd)
     end,
-    
-   addStats = function(stats, mas)
-     local ItemStats = RPG[mas]
-     local statsNames = {"physicStr","magicStr","fast","spRegen","luck","magDef"}
-	 for i = 1, 6 do
-	   ItemStats[statsNames[i]] = stats[i]
-	 end
-   end,
- 
-  delStats = function(mas)
-    local ItemStats = RPG[mas]
-    local statsNames = {"physicStr","magicStr","fast","spRegen","luck","magDef"}
-	for i = 1, 6 do
-	  ItemStats[statsNames[i]] = 0
-	end
-  end,
  
  pillChoise = function(dialog)
    RPD.chooseOption(dialog,
@@ -39,7 +23,7 @@ local RPG1 = {
    "TrapChoiseT ",
    "",
    "TrapChoise0",
-   RPD.textById("TrapChoise1").." ["..Spell.UP.." очков]")
+   RPD.textById("TrapChoise1").." ["..Spell.UP.." "..RPD.textById("SpecUpCost").."]")
  end,
  
  trapChoiseOn = function(dialog,index)
@@ -56,7 +40,7 @@ local RPG1 = {
    else
      RPD.chooseOption(dialog,
      "TrapChoiseOnT",
-     ""..Spell.UP.." очков улучшения",
+     ""..Spell.UP.." "..RPD.textById("SpecUpCost"),
    RPD.textById("TrapChoiseOn0").." ["..Spell.FT.." "..RPD.textById("Lvl").."]",
    RPD.textById("TrapChoiseOn1").." ["..Spell.BT.." "..RPD.textById("Lvl").."]",
    RPD.textById("TrapChoiseOn2").." ["..Spell.CT.." "..RPD.textById("Lvl").."]",

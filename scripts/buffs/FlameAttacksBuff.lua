@@ -12,6 +12,8 @@ local Spell = storage.gameGet(a) or {}
 local hero = RPD.Dungeon.hero
 local buff = require "scripts/lib/buff"
 local num = 0
+local type ="magic"
+local elmnt ="fire"
 
 return buff.init{
     desc  = function ()
@@ -25,10 +27,10 @@ return buff.init{
     attackProc = function(self,buff,enemy,damage)
       hero = RPD.Dungeon.hero
       if enemy:buffLevel("FlameMark") > 0 then
-        enemy:damage(math.ceil(3+4*Spell.lvl + RPG.magStr()*0.1 + hero:ht()*0.15),hero)
+        RPG.damage(enemy,math.ceil(3+4*Spell.lvl + RPG.magStr()*0.1 + hero:ht()*0.15),type,elmnt)
         enemy:getSprite():showStatus(0xffff00,RPD.textById("boom"))
       else
-        enemy:damage(math.ceil(5+5*Spell.lvl + RPG.magStr()*0.1 + hero:ht()*0.05),hero)
+        RPG.damage(enemy,math.ceil(5+5*Spell.lvl + RPG.magStr()*0.1 + hero:ht()*0.05),type,elmnt)
       end
     return damage
     end

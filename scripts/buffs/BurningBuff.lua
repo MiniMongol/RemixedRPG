@@ -9,10 +9,8 @@ local storage = require "scripts/lib/storage"
 local buff = require "scripts/lib/buff"
 
 local hero = RPD.Dungeon.hero
-
-
-
-
+local type ="magic"
+local elmnt ="fire"
 
 return buff.init{
     desc  = function ()
@@ -31,6 +29,6 @@ return buff.init{
     charAct = function(self,buff)
       local data = self:desc().data
       RPD.glog(data.dmg)
-      buff.target:damage(math.ceil(data.dmg*(1+math.min((buff:level() +buff:level()%2)*0.05,0.3)) ),RPD.Dungeon.hero)
+      RPG.damage(buff.target,math.ceil(data.dmg*(1+math.min((buff:level() +buff:level()%2)*0.05,0.3)) ),type,elmnt)
     end
 }

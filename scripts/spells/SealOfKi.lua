@@ -15,6 +15,8 @@ local lvl
 local expMax
 local exp
 local a = "sealofki"
+local type ="magic"
+local elmnt
 
 return spell.init{
     desc  = function ()
@@ -80,7 +82,7 @@ return spell.init{
       enemy = RPD.Actor:findChar(pos)
       RPD.zapEffect(RPD.Dungeon.hero:getPos(),pos,"Seal")
       if enemy and enemy ~= RPD.Dungeon.hero then
-        enemy:damage(math.ceil(RPG.magStr()*0.4 + 0.5*lvl),RPD.Dungeon.hero)
+        RPG.damage(enemy,math.ceil(RPG.magStr()*0.4 + 0.5*lvl),type,elmnt)
         RPD.affectBuff(enemy,"KiMark",4)
      end
    end

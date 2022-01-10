@@ -10,6 +10,8 @@ local storage = require "scripts/lib/storage"
 local buff = require "scripts/lib/buff"
 local hero = RPD.Dungeon.hero
 local num = 0
+local type ="phys"
+local elmnt ="crush"
 
 return buff.init{
     desc  = function ()
@@ -30,7 +32,7 @@ defenceProc = function(self, buff, enemy, damage)
   RPD.playSound("body_armor")
   hero:getSprite():showStatus(0xffff00,RPD.textById("counterblow"))
   RPD.glog(RPD.textById("Counterblow"))
-  enemy:damage(dmg - enemy:dr(), RPD.Dungeon.hero)
+  RPG.damage(enemy,dmg - enemy:dr(), type,elmnt)
   return 0
   else
   return damage

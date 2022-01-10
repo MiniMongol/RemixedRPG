@@ -12,6 +12,8 @@ local lvl
 local expMax
 local exp
 local a = "magicbolt"
+local type ="magic"
+local elmnt
 
 return spell.init{
     desc  = function ()
@@ -64,13 +66,11 @@ return spell.init{
  local Buff = RPD.affectBuff(hero, "ResidualEffect_Buff", 4):level(0)
  end
  
- 
  if enemy and enemy ~= RPD.Dungeon.hero then
-  enemy:damage(math.ceil(RPG.magStr()*0.25+3*lvl-RPG.distance(pos) + 6-lvl),hero)
+  RPG.damage(enemy,math.ceil(RPG.magStr()*0.25+3*lvl-RPG.distance(pos) + 6-lvl),type,elmnt)
   return true
  else
  return true
  end
- 
    end
 }

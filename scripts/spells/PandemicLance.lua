@@ -18,6 +18,8 @@ local a = "pandemiclance"
 local pos
 local moveTo
 local enemy
+local type ="magic"
+local elmnt ="poison"
 
 return spell.init{
     desc  = function ()
@@ -81,7 +83,7 @@ return spell.init{
     for i = 0, math.min( math.min(2+(Spell.staks or 0), 6), RPD.Ballistica.distance ) do
       enemy = RPD.Actor:findChar(RPD.Ballistica.trace[i])
       if enemy and enemy ~= hero then
-        enemy:damage( math.ceil(RPG.magStr()*(0.25+0.05*Spell.staks)), hero)
+        RPG.damage(enemy,math.ceil(RPG.magStr()*(0.25+0.05*Spell.staks)), type,elmnt)
         buff = RPD.affectBuff(enemy, "PoisonBuff", Spell.staks or 0)
         buff:level(RPG.magStr()*(0.8+0.15*Spell.staks))
         RPD.topEffect(enemy:getPos(),"bleeding_effect")

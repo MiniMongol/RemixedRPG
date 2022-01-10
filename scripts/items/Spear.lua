@@ -73,9 +73,7 @@ return item.init{
     activate = function(self)
       hero = RPD.Dungeon.hero
       if self.data.activationCount == 0 or RPG.luck == nil then
-        for i = 1,5 do
-          RPG1.addStats(self.data.dstats[i], i)
-        end
+          RPG1.addStats("StatsA",self.data.dstat)
       end
       if self.data.activationCount == 0 then
         hero:ht(hero:ht() + self.data.dstats[6])

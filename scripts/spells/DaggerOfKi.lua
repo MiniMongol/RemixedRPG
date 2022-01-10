@@ -16,6 +16,7 @@ local expMax
 local exp
 local a = "daggerofki"
 
+
 return spell.init{
     desc  = function ()
     local Count = storage.gameGet(a) or {}

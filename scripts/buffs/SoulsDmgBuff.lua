@@ -10,6 +10,8 @@ local storage = require "scripts/lib/storage"
 local a = "soulstormentor"
 local hero = RPD.Dungeon.hero
 local num = 0
+local type ="magic"
+local elmnt
 
 local buff = require "scripts/lib/buff"
 
@@ -26,8 +28,8 @@ return buff.init{
     local Count = storage.gameGet(a) or {}
     num = num+1
     if num == 2 then
-     enemy:damage(math.ceil(5 +4*Count.lvl +RPG.magStr()*0.25 + enemy:ht()*(0.05+0.01*Count.lvl)),RPD.Dungeon.hero)
-     enemy:getSprite():showStatus(0xffff00,RPD.textById("torment"))
+    enemy:getSprite():showStatus(0xffff00,RPD.textById("torment"))
+     RPG.damage(enemy,math.ceil(5 +4*Count.lvl +RPG.magStr()*0.25 + enemy:ht()*(0.05+0.01*Count.lvl)),type,elmnt)
      num = 0
     end
     return damage

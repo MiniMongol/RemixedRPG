@@ -2,7 +2,7 @@
 "defenseSkill":4,
 "attackSkill":12,
 "exp":5,
-"maxlevel":30,
+"maxlevel":999,
 "dr":16,
 "dmgMin":3,
 "dmgMax":6,
@@ -15,6 +15,5 @@
 "gender":"masculine",
 "spriteDesc":"spritesDesc/Woodlouise_sp.json",
 "walkingType":"NORMAL",
-"scriptFile":"scripts/mobs/FireAttacks",
 "canBePet":true
 }

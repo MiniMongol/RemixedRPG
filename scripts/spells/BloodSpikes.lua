@@ -19,6 +19,8 @@ local enemyId_1
 local enemyId_2
 local bloodPoison
 local staks
+local type = "magic"
+local element
 
 return spell.init{
     desc  = function ()
@@ -68,7 +70,7 @@ return spell.init{
       RPD.glog(RPD.textById("DistanceLimit"))
       return false
      else
-     cost = math.ceil(lvl*1.5 + RPG.distance(cell) + hero:ht()*0.1)
+     cost = math.ceil(lvl*1.5 + RPG.distance(cell) + hero:ht()*0.05)
      if hero:hp() > cost then
         hero:damage(cost,hero)
      else
@@ -113,7 +115,7 @@ return spell.init{
        local enemy2 = RPD.Actor:findChar(pos)
        if enemy2 and enemy2 ~= hero and enemy2 ~= enemy then
        
-        enemy2:damage(math.ceil(RPG.magStr()*0.1 + hero:ht()*0.15) + lvl, hero)
+        RPG.damage(enemy2,math.ceil(RPG.magStr()*0.1 + hero:ht()*0.15) + lvl, type, element)
         RPD.affectBuff(enemy2,"BloodMark", 3)
        end
       end
@@ -122,7 +124,7 @@ return spell.init{
     
      enemyId_2 = enemyId_1
     if enemy and enemy ~= RPD.Dungeon.hero then
-     enemy:damage(math.ceil(RPG.magStr()*0.2 + hero:ht()*0.25) + lvl ,hero)
+     RPG.damage(enemy,math.ceil(RPG.magStr()*0.2 + hero:ht()*0.25) + lvl, type, element)
      RPD.affectBuff(enemy,"BloodMark", 3)
      if enemy:hp() <= 0 then
       hero:heal(RPG.magStr()*0.2 + enemy:ht()*0.15 + 1.5*lvl,hero)

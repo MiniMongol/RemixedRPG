@@ -12,6 +12,8 @@ local hero = RPD.Dungeon.hero
 local level
 local scale = 0
 local acc = 0
+local type ="phys"
+local elmnt ="crush"
 
 local buff = require "scripts/lib/buff"
 
@@ -75,7 +77,7 @@ return buff.init{
             enName = nil
           end
           if enemy and enemy ~= hero and (enName ~= "BoneGolem_lvl1" and enName ~= "BoneGolem_lvl2" and enName ~= "BoneGolem_lvl3") then
-            enemy:damage(acc, hero)
+            RPG.damage(enemy,acc, type,elmnt)
           end
         end
       end

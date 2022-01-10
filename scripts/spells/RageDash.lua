@@ -20,6 +20,7 @@ local moveTo
 local enemy
 local stop = false
 
+
 return spell.init{
     desc  = function ()
     local Count = storage.gameGet(a) or {}

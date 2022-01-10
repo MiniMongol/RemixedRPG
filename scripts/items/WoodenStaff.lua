@@ -80,12 +80,12 @@ return item.init{
       
       self.data.level = str
       if self.data.activationCount == 0 or RPG.luck == nil then
-          RPG1.addStats(self.data.dstats,"StatsA")
+          RPG.addStats(self.data.dstats,"StatsA")
       end
       self.data.sInfo = RPG.getItemInfo(self.data.dstats)
       if self.data.activationCount == 0 then
-        hero:ht(hero:ht() + self.data.dstats[7])
-        hero:setMaxSkillPoints(hero:getSkillPointsMax() + self.data.dstats[8])
+        hero:ht(hero:ht() + self.data.dstats[1])
+        hero:setMaxSkillPoints(hero:getSkillPointsMax() + self.data.dstats[2])
       end
       self.data.activationCount = 1
     end,
@@ -93,12 +93,12 @@ return item.init{
     deactivate = function(self,item)
       hero = RPD.Dungeon.hero
         self.data.activationCount = 0
-          RPG1.delStats("StatsA")
-        hero:ht(hero:ht() - self.data.dstats[7])
+          RPG.delStats("StatsA")
+        hero:ht(hero:ht() - self.data.dstats[1])
         if hero:hp() > hero:ht() then
           hero:hp(hero:ht())
         end
-        hero:setMaxSkillPoints(hero:getSkillPointsMax() - self.data.dstats[8])
+        hero:setMaxSkillPoints(hero:getSkillPointsMax() - self.data.dstats[2])
         if hero:getSkillPoints() > hero:getSkillPointsMax() then
           hero:setSkillPoints(hero:getSkillPointsMax())
         end

@@ -17,6 +17,8 @@ local exp
 local a = "ragesouls"
 local pos
 local enemy
+local type ="magic"
+local elmnt ="dark"
 
 return spell.init{
     desc  = function ()
@@ -90,7 +92,7 @@ return spell.init{
         RPD.Sfx.CellEmitter:get(enemy:getPos()):burst(RPD.Sfx.Speck:factory(RPD.Sfx.Speck.HEALING ), 3)
       else
         if enemy and enemy ~= hero then
-          enemy:damage(math.ceil(RPG.magStr()*0.3 + 2*lvl),hero)
+          RPG.damage(enemy,math.ceil(RPG.magStr()*0.3 + 2*lvl),type,elmnt)
           RPD.zapEffect(from, enemy:getPos(), "ragesouls_effect")
           break
         end

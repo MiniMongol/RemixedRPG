@@ -10,6 +10,8 @@ local storage = require "scripts/lib/storage"
 local a = "chop"
 local hero = RPD.Dungeon.hero
 local num = 0
+local type ="phys"
+local elmnt ="chop"
 
 local buff = require "scripts/lib/buff"
 
@@ -36,7 +38,7 @@ return buff.init{
     RPD.topEffect(enemy:getPos(),"bleeding_effect")
     buff:detach()
     if RPG.physicStr ~= nil then
-    return damage+math.ceil(RPG.physStr()*0.2)
+    return RPG.damage(enemy,damage+math.ceil(RPG.physStr()*0.2),type,elmnt)
     else
     return
     end
