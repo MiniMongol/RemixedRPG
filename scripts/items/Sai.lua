@@ -28,7 +28,7 @@ local str
 local stats
 local hero 
 local statsInfo
-local config = onehandWeapon.makeWeapon("Sai","WeaponAccu",stra,minDmg,maxDmg,tier,accuracy,delayFactor,range,"phys","cutstab","") 
+local config = onehandWeapon.makeWeapon("Sai","WeaponAccu",stra,minDmg,maxDmg,tier,accuracy,delayFactor,range,"phys","cutstab","NONE") 
 config.desc = function(self, item)
       local a = RPG.getItemStats(quanStats,statsMax)
       statsInfo = a[1]
@@ -48,5 +48,28 @@ config.desc = function(self, item)
             upgradable    = true,
             equipable     ="weapon"
         }
+    end
+		config.activate = function(self,item)
+      hero = RPD.Dungeon.hero
+			if hero then
+      	RPD.removeBuff(hero,"SaiBuff")
+      	local buff = RPD.permanentBuff(hero, "SaiBuff")
+      	buff:level(item:level()+1)
+      end
+      if self.data.activationCount == 0 or RPG.luck == nil then
+      	RPG.addStats(self.data.dstats,"StatsA")
+      end
+      if self.data.activationCount == 0 then
+        RPG.increaseHtSp(self.data.dstats)
+      end
+      self.data.activationCount = 1
+    end
+    
+    config.deactivate = function(self,item)
+      hero = RPD.Dungeon.hero
+			RPD.removeBuff(hero,"SaiBuff")
+      self.data.activationCount = 0
+      RPG.delStats("StatsA")
+      RPG.decreaseHtSp(self.data.dstats)
     end
     return item.init(config)

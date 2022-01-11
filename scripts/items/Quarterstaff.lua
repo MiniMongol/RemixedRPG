@@ -29,7 +29,7 @@ local stats
 local hero 
 local statsInfo
 
-local config = twohandWeapon.makeWeapon("Quarterstaff","WeaponFast",stra,minDmg,maxDmg,tier,accuracy,delayFactor,range,"phys","crush")
+local config = twohandWeapon.makeWeapon("Quarterstaff","WeaponFast",stra,minDmg,maxDmg,tier,accuracy,delayFactor,range,"phys","crush","STAFF")
 
     config.desc  = function (self, item)
       local a = RPG.getItemStats(quanStats,statsMax)

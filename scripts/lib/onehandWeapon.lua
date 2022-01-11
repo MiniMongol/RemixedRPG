@@ -5,10 +5,7 @@ local RPG1                  = require "scripts/lib/AdditionalFunctions"
 
 local onehandWeapon = {}
 
-onehandWeapon.makeWeapon = function(name,mod,stra,minDmg,maxDmg,tier,accuracy,delayFactor,range,dmgType,dmgMod,visualName)
-    if visualName == "" or visualName == nil then
-      visualName = name
-    end
+onehandWeapon.makeWeapon = function(name,mod,stra,minDmg,maxDmg,tier,accuracy,delayFactor,range,dmgType,dmgMod,anim,visualName)
     return {
         info = function(self,item)
       hero = RPD.Dungeon.hero
@@ -22,7 +19,7 @@ onehandWeapon.makeWeapon = function(name,mod,stra,minDmg,maxDmg,tier,accuracy,de
     end,
     
     getVisualName = function()
-      return visualName
+      return visualName or name
     end,
     
     slot = function(self, item, belongings)
@@ -36,10 +33,10 @@ onehandWeapon.makeWeapon = function(name,mod,stra,minDmg,maxDmg,tier,accuracy,de
       hero = RPD.Dungeon.hero
       if self.data.activationCount == 0 or RPG.luck == nil then
       if RPG.handCheck(item) then
-          RPG1.addStats(self.data.dstats,"StatsA2")
+          RPG.addStats(self.data.dstats,"StatsA2")
           else
           if item.user() == hero then
-          RPG1.addStats(self.data.dstats,"StatsA")
+          RPG.addStats(self.data.dstats,"StatsA")
           end
       end
       end
@@ -53,11 +50,18 @@ onehandWeapon.makeWeapon = function(name,mod,stra,minDmg,maxDmg,tier,accuracy,de
         hero = RPD.Dungeon.hero
         self.data.activationCount = 0
         if RPG.handCheck(item) then
-            RPG1.delStats("StatsA2")
+            RPG.delStats("StatsA2")
             else
-            RPG1.delStats("StatsA")
+            RPG.delStats("StatsA")
         end
         RPG.decreaseHtSp(self.data.dstats)
+    end,
+	
+	damageRoll = function(self,item,user)
+      local hero = RPD.Dungeon.hero
+      local dmgRoll = math.random(minDmg +tier*item:level(),maxDmg +tier*item:level())
+      local dmg = RPG.getDamage(user:getEnemy(),dmgRoll,dmgType,dmgMod)
+      return dmg,dmg
     end,
     
     accuracyFactor = function(self,item,user)
@@ -74,6 +78,10 @@ onehandWeapon.makeWeapon = function(name,mod,stra,minDmg,maxDmg,tier,accuracy,de
 	  str = math.max(stra-2*item:level(),1)
       return str
     end,
+	
+	getAttackAnimationClass = function()
+	return anim
+	end,
     
     requiredSTR = function(self,item,user)
       return str
@@ -88,13 +96,6 @@ onehandWeapon.makeWeapon = function(name,mod,stra,minDmg,maxDmg,tier,accuracy,de
     end,
     
     onSelect = function(cell,selector)
-    end,
-    
-    damageRoll = function(self,item,user)
-      local hero = RPD.Dungeon.hero
-      local dmgRoll = math.random(minDmg +tier*item:level(),maxDmg +tier*item:level())
-      local dmg = RPG.getDamage(user:getEnemy(),dmgRoll,dmgType,dmgMod)
-      return dmg,dmg
     end,
     
     actions = function(self, item, hero)

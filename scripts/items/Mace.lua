@@ -27,7 +27,7 @@ local str
 local stats
 local hero 
 local statsInfo
-local config = onehandWeapon.makeWeapon("Mace","WeaponAccu",stra,minDmg,maxDmg,tier,accuracy,delayFactor,range,"crush","phys","Mace")
+local config = onehandWeapon.makeWeapon("Mace","WeaponAccu",stra,minDmg,maxDmg,tier,accuracy,delayFactor,range,"crush","phys","Mace","SWORD")
 config.desc  = function (self, item)
       local a = RPG.getItemStats(quanStats,statsMax)
       statsInfo = a[1]

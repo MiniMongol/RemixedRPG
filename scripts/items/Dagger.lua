@@ -27,7 +27,7 @@ local str
 local stats
 local hero 
 local statsInfo
-local config = onehandWeapon.makeWeapon("Dagger","WeaponAccu",stra,minDmg,maxDmg,tier,accuracy,delayFactor,1,"phys",{"cut","stab"}) 
+local config = onehandWeapon.makeWeapon("Dagger","WeaponAccu",stra,minDmg,maxDmg,tier,accuracy,delayFactor,1,"phys",{"cut","stab"},"NONE") 
 config.desc  = function(self, item)
       local a = RPG.getItemStats(quanStats,statsMax)
       statsInfo = a[1]

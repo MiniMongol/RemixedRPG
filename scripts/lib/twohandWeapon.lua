@@ -5,12 +5,9 @@ local RPG1                  = require "scripts/lib/AdditionalFunctions"
 
 local twohandWeapon = {}
 
-twohandWeapon.makeWeapon = function(name,mod,stra,minDmg,maxDmg,tier,accuracy,delayFactor,range,dmgType,dmgMod,visualName)
-    if visualName == "" or visualName == nil then
-      visualName = name
-    end
+twohandWeapon.makeWeapon = function(name,mod,stra,minDmg,maxDmg,tier,accuracy,delayFactor,range,dmgType,dmgMod,anim,visualName)
     return {
-        info = function(self,item)
+      info = function(self,item)
       hero = RPD.Dungeon.hero
       str = math.max(stra-2*item:level(),1)
       local info = RPD.textById(name.."_Info").."\n\n"..RPD.textById(name.."_Name")..RPD.textById("WeaponInfo0")..tier..RPD.textById("WeaponInfo1")..math.ceil((maxDmg+minDmg+tier*item:level()*2)/2)..RPD.textById("WeaponInfo2")..str..RPD.textById("WeaponInfo3")..RPD.textById(mod) .."\n\n"..self.data.sInfo
@@ -22,12 +19,12 @@ twohandWeapon.makeWeapon = function(name,mod,stra,minDmg,maxDmg,tier,accuracy,de
     end,
     
     getVisualName = function()
-      return visualName
+      return visualName or name
     end,
     
     getAttackAnimationClass = function()
-    return "HEAVY"
-    end,
+			return anim
+		end,
     
     blockSlot = function()
       return "LEFT_HAND"
@@ -36,7 +33,7 @@ twohandWeapon.makeWeapon = function(name,mod,stra,minDmg,maxDmg,tier,accuracy,de
     activate = function(self,item)
       hero = RPD.Dungeon.hero
       if self.data.activationCount == 0 or RPG.luck == nil then
-          RPG1.addStats(self.data.dstats,"StatsA")
+      	RPG.addStats(self.data.dstats,"StatsA")
       end
       if self.data.activationCount == 0 then
         RPG.increaseHtSp(self.data.dstats)
@@ -47,7 +44,7 @@ twohandWeapon.makeWeapon = function(name,mod,stra,minDmg,maxDmg,tier,accuracy,de
     deactivate = function(self,item)
       hero = RPD.Dungeon.hero
       self.data.activationCount = 0
-      RPG1.delStats("StatsA")
+      RPG.delStats("StatsA")
       RPG.decreaseHtSp(self.data.dstats)
     end,
     
@@ -62,12 +59,18 @@ twohandWeapon.makeWeapon = function(name,mod,stra,minDmg,maxDmg,tier,accuracy,de
     end,
     
     typicalSTR = function(self,item,user)
-	  str = math.max(stra-2*item:level(),1)
+	 		str = math.max(stra-2*item:level(),1)
       return str
     end,
     
     requiredSTR = function(self,item,user)
       return str
+    end,
+	
+	damageRoll = function(self,item,user)
+  	local dmgRoll = math.random(minDmg +tier*item:level(),maxDmg +tier*item:level())
+      local dmg = RPG.getDamage(user:getEnemy(),dmgRoll,dmgType,dmgMod)
+    return dmg,dmg
     end,
     
     goodForMelee = function()
@@ -80,13 +83,7 @@ twohandWeapon.makeWeapon = function(name,mod,stra,minDmg,maxDmg,tier,accuracy,de
     
     onSelect = function(cell,selector)
     end,
-    
-    damageRoll = function(self,item,user)
-    local dmgRoll = math.random(minDmg +tier*item:level(),maxDmg +tier*item:level())
-      local dmg = RPG.getDamage(user:getEnemy(),dmgRoll,dmgType,dmgMod)
-    return dmg,dmg
-    end,
-    
+
     actions = function(self, item, hero)
       return {}
     end,
