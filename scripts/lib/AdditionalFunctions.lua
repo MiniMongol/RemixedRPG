@@ -58,6 +58,13 @@ local Add = {
      RPD.textById("HeavyArmor"))
  end,
  
+ smithChooseMaterials = function(dialog)
+   RPD.chooseOption(dialog,
+	 	RPD.textById("mainMaterials"),
+     RPD.textById("addMaterials"),
+     RPD.textById("otherMaterials"))
+ end,
+ 
  trapChoise = function(dialog)
    local Spell = storage.gameGet("placetrap") or {}
    RPD.chooseOption(dialog,
