@@ -1,0 +1,28 @@
+{
+   "texture" : "mobs/test.png",
+   "width" : 32,
+   "height" : 32,
+   "idle" : {
+      "fps" : 3,
+      "looped" : true,
+      "frames" : [0]
+   },
+   "run" : {
+      "fps" : 8,
+      "looped" : true,
+      "frames" : [0, 1, 2]
+   },
+   "attack" : {
+      "fps" : 8,
+      "looped" : false,
+      "frames" : [0, 1, 2]
+   },
+   "die" : {
+      "fps" : 8,
+      "looped" : false,
+      "frames" : [0, 1, 2]
+   }
+
+}
+
+

@@ -9,6 +9,8 @@ local RPG = require "scripts/lib/Functions"
 
 local RPG1 = require "scripts/lib/AdditionalFunctions"
 
+local onehandWeapon = require "scripts/lib/onehandWeapon"
+
 local storage = require "scripts/lib/storage"
 
 local item = require "scripts/lib/item"

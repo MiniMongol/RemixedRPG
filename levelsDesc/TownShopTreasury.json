@@ -34,9 +34,8 @@
   },
   "WEAPON": {
     "categoryChance": 5,
-    "Sword": 1,
     "Knuckles": 1,
-    "Spear": 1,
+    "Glaive": 1,
     "CurareDart": 1,
     "Dagger": 1,
     "WoodenStaff": 1,

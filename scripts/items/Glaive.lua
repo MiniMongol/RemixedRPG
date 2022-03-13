@@ -46,3 +46,4 @@ config.desc  = function(self, item)
             equipable     ="weapon"
         }
     end
+    return item.init(config)

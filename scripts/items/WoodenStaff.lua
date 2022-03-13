@@ -30,7 +30,7 @@ return item.init{
     desc  = function (self, item)
       local a = RPG.getItemStats(quanStats,statsMax)
       stats = a[2]
-      stats[2] = stats[2] + addMag
+      stats[4] = stats[4] + addMag
       statsInfo = a[1]
         return {
             imageFile     = "rpgitems.png",

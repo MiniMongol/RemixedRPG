@@ -40,7 +40,7 @@ return buff.init{
     if RPG.physicStr ~= nil then
     return RPG.damage(enemy,damage+math.ceil(RPG.physStr()*0.2),type,elmnt)
     else
-    return
+    return damage
     end
     end
 }

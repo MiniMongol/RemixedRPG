@@ -117,8 +117,11 @@ return itemLib.init{
         RPD.glog("execute owner: %s", tostring(owner))
 
         if action == "action1" then
-        local testwnd = RPD.new(RPG.Objects.Ui.WndInfoItem,RPG.itemByName("Dagger"))
-        RPD.GameScene:show(testwnd)
+        
+        local st = { }
+        for i = 0,5 do
+          RPD.glog(tostring(#st))
+        end
         end
 
         if action == "action2" then

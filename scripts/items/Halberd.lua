@@ -14,6 +14,7 @@ local twohandWeapon = require "scripts/lib/twohandWeapon"
 local storage = require "scripts/lib/storage"
 
 local item = require "scripts/lib/item"
+
 local statsMax = 12
 local quanStats = 4
 local stra = 80
@@ -28,6 +29,7 @@ local hero
 local statsInfo
 local config = twohandWeapon.makeWeapon("Halberd","WeaponAccuNotFast",stra,minDmg,maxDmg,tier,accuracy,delayFactor,2,"phys",{"chop","stab"},"STAFF") 
 config.desc  = function(self, item)
+      local a = RPG.getItemStats(quanStats,statsMax)
       statsInfo = a[1]
       stats = a[2]
         return {
@@ -45,3 +47,4 @@ config.desc  = function(self, item)
             equipable     ="weapon"
         }
     end
+    return item.init(config)

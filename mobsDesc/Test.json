@@ -1,7 +1,7 @@
 {
    
    "baseSpeed"	   :0,
-   "spriteDesc"    :"spritesDesc/AlchemistNPC_sp.json",
+   "spriteDesc"    :"spritesDesc/Test.json",
    "scriptFile"    :"scripts/npc/Test",
    "friendly"      :true,
    "movable"       :false,

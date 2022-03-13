@@ -36,6 +36,7 @@ local dmgModifs = {
    Albino = {mod = 2, dmg = 2, type = {"phys","mag"}, element = {"cut","poison"}},
    Woodlouise = {mod = 0, dmg = 0, type = {"phys",""}, element = {"crush",""}},
    Goo = {mod = 3, dmg = 0.5, type = {"phys","mag"}, element = {"crush","poison"}},
+   RatKing = {mod = 2, dmg = 4, type = {"phys","mag"}, element = {"cut","poison"}},
    
    Thief = {mod = 0, dmg = 0, type = {"phys",""}, element = {"stab",""}},
    Skeleton = {mod = 0, dmg = 0, type = {"phys",""}, element = {"crush",""}},

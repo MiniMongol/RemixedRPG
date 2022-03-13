@@ -1,7 +1,8 @@
 
 local RPD                  = require "scripts/lib/commonClasses"
 local RPG                  = require "scripts/lib/Functions"
-local RPG1                  = require "scripts/lib/AdditionalFunctions"
+local Add                  = require "scripts/lib/AdditionalFunctions"
+local item = require "scripts/lib/item"
 
 local onehandWeapon = {}
 
@@ -31,13 +32,11 @@ onehandWeapon.makeWeapon = function(name,mod,stra,minDmg,maxDmg,tier,accuracy,de
     
     activate = function(self,item)
       hero = RPD.Dungeon.hero
-      if self.data.activationCount == 0 or RPG.luck == nil then
+      if self.data.activationCount == 0 and item.user == hero then
       if RPG.handCheck(item) then
           RPG.addStats(self.data.dstats,"StatsA2")
           else
-          if item.user() == hero then
           RPG.addStats(self.data.dstats,"StatsA")
-          end
       end
       end
       if self.data.activationCount == 0 then

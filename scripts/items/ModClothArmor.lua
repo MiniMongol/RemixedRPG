@@ -23,7 +23,7 @@ local str
 local stats
 local hero 
 local statsInfo
-local config = armor.makeArmor("ClothArmor",stra,tier,"")
+local config = armor.makeArmor("ClothArmor",stra,tier)
 
 config.desc = function(self, item)
       local a = RPG.getItemStats(quanStats,statsMax)

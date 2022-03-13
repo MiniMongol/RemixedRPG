@@ -3,7 +3,7 @@
 "attackSkill":12,
 "exp":5,
 "maxlevel":999,
-"dr":16,
+"dr":10,
 "dmgMin":3,
 "dmgMax":6,
 "baseSpeed":1,
