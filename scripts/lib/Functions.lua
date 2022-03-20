@@ -388,26 +388,29 @@ local RPG
    
    local skip
    local max ={}
-   if #replayMat > 2 then
+   local mat1
+   local mat2
+   if #replayMat > 1 then
    
    for i = 1,2 do
+     mat1 = replayMat[1]
    
-     for ii = 1,#replayMat-1 do
-       local mat = replayMat[ii]
-       local mat2 = replayMat[ii+1]
-       local maxMat = mat[2]
-       skip = mat[1]
-       if mat2[2] > maxMat and mat2[1] ~= skip then
-         maxMat = mat2[2]
-         skip = mat2[1]
+     for ii = 2,#replayMat do
+       mat2 = replayMat[ii]
+       
+       if (mat2[2] > mat1[2] and mat2[1] ~= max[1]) or mat1[1] == max[1]  then
+      
+         mat1 = mat2
        end
      end
      
-     max[i] = skip
+     max[i] = mat1[1]
    end
    else
-     mat = replayMat[1]
-     mat2 = replayMat[2] or {0,0}
+   
+   mat1 = replayMat[1]
+   max[1] = mat1[1]
+   max[2] = max[1]
      end
    
    local materialIcon =
@@ -419,7 +422,7 @@ local RPG
    }
     local icon
      
-    icon = materialIcon[max[1]:fileName()]*RPG.mainMatCount + materialIcon[max[2]:fileName()] -1
+    icon = materialIcon[max[1]:fileName()]*RPG.mainMatCount + materialIcon[max[2]:fileName()]
     
     local tierHelp = drOrDmg[mode]
     local tier
