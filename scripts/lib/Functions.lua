@@ -5,7 +5,7 @@ local RPG
  RPG = {
  
  forgedItem = forgedItem,
- mainMatCount = 3,
+ mainMatCount = 16,
  
  Objects ={
  Ui={
