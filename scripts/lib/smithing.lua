@@ -6,20 +6,18 @@ local forgedArmor = require "scripts/lib/forgedArmor"
 local hero
 local smithy
 
-smithy = 
-{
-
-local mainWnd,
-local weaponWnd,
-local armorWnd,
-local meleeWnd,
-local chooseMaterials,
-local missileWnd,
-local choosenObject,
-local chooseIconGroup,
-local iconGroup,
-local mode,
-local choosenMaterials={{},{},{}},
+smithy = {
+  mainWnd = mainWnd,
+  weaponWnd = weaponWnd,
+  armorWnd = armorWnd,
+  meleeWnd = meleeWnd,
+  chooseMaterials = chooseMaterials,
+  missileWnd = missileWnd,
+  choosenObject = choosenObject,
+  chooseIconGroup = chooseIcomGroup,
+  iconGroup = iconGroup,
+  mode = mode,
+  choosenMaterials={{},{},{}},
 
 mainWnd = function(index)
   local chooses = 
@@ -63,7 +61,7 @@ missileWnd = function(index)
   }
   
   choosenObject = chooses[index+1]
-  Add.chooseMaterialsSmith(smithy.chooseMaterials)
+  Add.smithChooseMaterials(smithy.chooseMaterials)
 end,
 
 armorWnd = function(index)
@@ -76,7 +74,7 @@ armorWnd = function(index)
   mode = chooses[index+1]
 
   choosenObject = chooses[index+1]
-  Add.chooseMaterialsSmith(smithy.chooseMaterials)
+  Add.smithChooseMaterials(smithy.chooseMaterials)
 end,
 
 chooseMaterials = function(index)
@@ -103,8 +101,8 @@ chooseMaterials = function(index)
   local mCount = materialCount[choosenObject]
   local check = moreCheck[choosenObject]
   
-    if index = 0 then
-      local materialGroup = choosenMaterials[index+1]
+    if index == 0 then
+      local materialGroup = smithy.choosenMaterials[index+1]
       
       
       for i = 1,mCount[index+1] do
@@ -146,8 +144,7 @@ chooseMaterials = function(index)
       RPD.glog("cantForge")
       end
     end
-end
 
 
 }
-return smithing
+return smithy

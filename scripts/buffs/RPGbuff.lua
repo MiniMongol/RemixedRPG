@@ -60,35 +60,35 @@ return buff.init{
       end
       
       if weapon:getClassName() == "DummyItem" then
-        for i=1,6 do
+        for i=3,8 do
           StatsA[RPG.statsName[i]] = 0
         end
       end
       if lefthand:getClassName() == "DummyItem" then
-        for i=1,6 do
+        for i=3,8 do
           StatsA2[RPG.statsName[i]] = 0
         end
       end
 	  if armor:getClassName() == "DummyItem" then
-	  for i=1,6 do
+	  for i=3,8 do
           StatsB[RPG.statsName[i]] = 0
       end
-	  for i=7,18 do
+	  for i=9,21 do
           StatsB[RPG.statsName[i]] = {0,0}
         end
       end
      if artifact:getClassName() == "DummyItem" then
-     for i=1,6 do
+     for i=3,8 do
           StatsArt[RPG.statsName[i]] = 0
      end
-     for i=7,18 do
+     for i=9,21 do
           StatsArt[RPG.statsName[i]] = {0,0}   end
       end
       if leftArtifact:getClassName() == "DummyItem" then
-      for i=1,6 do
+      for i=3,8 do
           StatsArt2[RPG.statsName[i]] = 0
       end
-      for i=7,18 do
+      for i=9,21 do
           StatsArt2[RPG.statsName[i]] = {0,0}
         end
       end

@@ -2,11 +2,11 @@
   "common": {
     "items": [
         {
-            "kind":"ScrollOfUpgrade",
+            "kind":"materials/iron",
             "quantity":100
         },
         {
-            "kind": "ModClothArmor"
+            "kind": "TestItem"
         }
     ],
     "str":9,

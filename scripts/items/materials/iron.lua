@@ -11,6 +11,7 @@ local Add = require "scripts/lib/AdditionalFunctions"
 
 local item = require "scripts/lib/item"
 
+return item.init{
 desc  = function(self, item)
         return {
             imageFile     = "items.png",
@@ -67,5 +68,9 @@ desc  = function(self, item)
               range = 0
             }
         }
+    end,
+    typicalSyr = function()
+     return 1.5
     end
-    return item.init(config)
+    
+    }

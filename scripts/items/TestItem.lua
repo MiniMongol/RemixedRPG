@@ -7,6 +7,10 @@
 
 local RPD = require "scripts/lib/commonClasses"
 
+local Add = require "scripts/lib/AdditionalFunctions"
+
+local smithing = require "scripts/lib/smithing"
+
 local itemLib = require "scripts/lib/item"
 
 local candle =
@@ -83,31 +87,7 @@ return itemLib.init{
 
     cellSelected = function(self, thisItem, action, cell)
 
-        local owner = thisItem:getOwner()
-
-        RPD.glog("cellSelected owner: %s", tostring(owner))
-
-        if action == "action1" then
-
-            local function cellAction(cell)
-                RPD.placeBlob(RPD.Blobs.ToxicGas,cell, 50)
-            end
-
-            --[[
-            local tgt = RPD.forEachCellOnRay(owner:getPos(),
-                                             cell,
-                                             false,
-                                             true,
-                                             true,
-                                             cellAction)
-]]
-            RPD.glogp("performing "..action.."on cell"..tostring(cell).."\n")
-            RPD.zapEffect(thisItem:getOwner():getPos(), cell, "Lightning")
-            --local book = RPD.creteItem("PotionOfHealing", {text="Test codex"})
-            --RPD.Dungeon.level:drop(book, cell)
-            RPD.createLevelObject(trap, cell)
-            --RPD.GameScene:particleEffect("BloodSink", cell);
-            end
+        
     end,
 
     execute = function(self, item, hero, action)
@@ -117,11 +97,7 @@ return itemLib.init{
         RPD.glog("execute owner: %s", tostring(owner))
 
         if action == "action1" then
-        
-        local st = { }
-        for i = 0,5 do
-          RPD.glog(tostring(#st))
-        end
+          Add.smithMain(smithing.mainWnd)
         end
 
         if action == "action2" then

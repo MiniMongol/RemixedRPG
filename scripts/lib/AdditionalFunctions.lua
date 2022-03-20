@@ -8,12 +8,6 @@ local Add = {
         local wnd = luajava.newInstance(RPD.Objects.Ui.WndQuest, self, text)
         RPD.GameScene:show(wnd)
     end,
-    
-  
-      
-      local wnd = RPD.new("com.watabou.pixeldungeon.windows.WndTitledMessage", RPD.new("com.watabou.noosa.Image",image),title, text)
-        RPD.GameScene:show(wnd)
-    end,
  
  pillChoise = function(dialog)
    RPD.chooseOption(dialog,
@@ -25,18 +19,24 @@ local Add = {
  
  smithMain = function(dialog)
    RPD.chooseOption(dialog,
+   "",
+   "",
      RPD.textById("chooseWeapon"),
      RPD.textById("chooseArmor"))
  end,
  
  smithWeapon = function(dialog)
    RPD.chooseOption(dialog,
+   "",
+   "",
      RPD.textById("chooseMelee"),
      RPD.textById("chooseRange"))
  end,
  
  smithMelee = function(dialog)
    RPD.chooseOption(dialog,
+   "",
+   "",
      RPD.textById("Sword"),
      RPD.textById("Longsword"),
      RPD.textById("Dagger"),
@@ -47,12 +47,16 @@ local Add = {
    
    smithRange = function(dialog)
      RPD.chooseOption(dialog,
+     "",
+     "",
      RPD.textById("Bow"),
      RPD.textById("Crossbow"))
    end,
  
  smithArmor = function(dialog)
    RPD.chooseOption(dialog,
+   "",
+   "",
      RPD.textById("LightArmor"),
      RPD.textById("MediumArmor"),
      RPD.textById("HeavyArmor"))
@@ -60,6 +64,8 @@ local Add = {
  
  smithChooseMaterials = function(dialog)
    RPD.chooseOption(dialog,
+   "",
+   "",
 	 	RPD.textById("mainMaterials"),
      RPD.textById("addMaterials"),
      RPD.textById("otherMaterials"))

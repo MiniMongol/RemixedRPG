@@ -10,7 +10,7 @@ local RPG
  Objects ={
  Ui={
  WndInfoItem = luajava.bindClass("com.watabou.pixeldungeon.windows.WndInfoItem"),
- 
+ DCellListener = luajava.bindClass("com.watabou.pixeldungeon.scenes.DefaultCellListener"),
  WndBag = luajava.bindClass("com.watabou.pixeldungeon.windows.WndBag")
  }
  },
@@ -107,7 +107,7 @@ local RPG
  },
  
  StatsArt = {
-    luck = 0,
+  luck = 0,
 	physicStr = 0,
 	magicStr = 0,
 	fast = 0,
@@ -130,12 +130,12 @@ local RPG
  },
  
  StatsArt2 = {
-    luck = 0,
+  luck = 0,
 	physicstr = 0,
 	magicstr = 0,
 	fast = 0,
 	magDef = 0,
-	spregen = 0,
+	spRegen = 0,
 	fire={0,0},
 	water={0,0},
 	ice={0,0},
@@ -263,7 +263,7 @@ local RPG
  end,
  
  AllSpRegen = function()
-   return RPG.spRegen +RPG.StatsA["spRegen"] +RPG.StatsA2["spRegen"] +RPG.StatsB["spRegen"]
+   return RPG.spRegen +RPG.StatsA["spRegen"] +RPG.StatsA2["spRegen"] +RPG.StatsB["spRegen"] +RPG.StatsArt["spRegen"] +RPG.StatsArt2["spRegen"]
  end,
  
  AllLuck = function()
@@ -276,9 +276,9 @@ local RPG
  
  selectItem = function(mode,title)
    local hero = RPD.Dungeon.hero
-   local WndBag = RPG.Objects.Ui.WndBag
-   local listener = WndBag:Listener()
-   RPD.GameScene:selectItem(hero,WndBag:Listener(),mode,title)
+   local cellListener = RPG.Objects.Ui.DCellListener
+   local listener = cellListener:onSelect(hero:getPos(),hero)
+   RPD.GameScene:selectItem(hero,listener,mode,title)
    
    return hero:getBelongings():getSelectedItem()
  end,
