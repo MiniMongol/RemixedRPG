@@ -163,9 +163,6 @@ dialog = function(index)
       if RPG.strength%2 == 0 and (RPG.subclass == "Berserk" or RPG.subclass == "BattleMage" or RPG.subclass == "Assassin") then
         RPG.physicStr = RPG.physicStr+1
       end
-      if RPG.strength%10 == 0 then
-        hero:STR(hero:STR()+1)
-      end
     end
   end
   
