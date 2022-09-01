@@ -85,7 +85,7 @@ return spell.init{
        local pos = level:cell(i,j)
        local enemy = RPD.Actor:findChar(pos)
        if enemy and enemy ~= RPD.Dungeon.hero then
-        RPG.damage(enemy,(math.ceil(RPG.physStr()*0.25) + weaponA:damageRoll(hero) + weaponB:damageRoll(hero)*0.65 + 2*lvl)-enemy:dr(), type,elmnt)
+        RPG.damage(enemy,(math.ceil(RPG.physStr()*0.25) + weaponA:damageRoll(hero) + weaponB:damageRoll(hero)*0.65 + 2*lvl), type,elmnt)
         RPD.topEffect(pos,"bleeding_effect")
        end
      end

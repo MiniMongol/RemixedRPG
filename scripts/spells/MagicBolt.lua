@@ -62,7 +62,9 @@ return spell.init{
  local enemy = RPD.Actor:findChar(pos)
  
  RPD.zapEffect(RPD.Dungeon.hero:getPos(),pos,"magic_missile")
+ 
  if RPG.subclass == "BattleMage" then
+ RPD.removeBuff(hero,"ResidualEffect_Buff")
  local Buff = RPD.affectBuff(hero, "ResidualEffect_Buff", 4):level(0)
  end
  

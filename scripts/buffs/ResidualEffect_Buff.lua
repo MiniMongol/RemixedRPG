@@ -53,7 +53,7 @@ return buff.init{
      else
      local x = level:cellX(enemy:getPos())
      local y = level:cellY(enemy:getPos())
-     RPG.damage(enemy,math.ceil(weaponRoll*0.1), type,elmnt)
+     RPG.damage(enemy,math.ceil(weaponRoll*0.1), "magic","lightning")
      RPD.affectBuff(enemy,RPD.Buffs.Paralysis,0.2)
      
      for i = x-1,x+1 do

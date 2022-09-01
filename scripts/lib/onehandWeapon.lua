@@ -30,9 +30,9 @@ onehandWeapon.makeWeapon = function(name,mod,stra,minDmg,maxDmg,tier,accuracy,de
         return RPD.Slots.weapon
     end,
     
-    activate = function(self,item)
+    activate = function(self,item,user)
       hero = RPD.Dungeon.hero
-      if self.data.activationCount == 0 and item.user == hero then
+      if self.data.activationCount == 0 and user == hero then
       if RPG.handCheck(item) then
           RPG.addStats(self.data.dstats,"StatsA2")
           else

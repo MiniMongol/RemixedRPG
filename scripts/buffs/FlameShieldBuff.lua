@@ -19,7 +19,7 @@ local level
 
 return buff.init{
     desc  = function ()
-      shield = math.ceil(10+10*Spell.lvl+hero:ht()*0.2)
+      shield = RPG.smartInt(12+2.5*Spell.lvl+hero:ht()*0.2)
       shield2 = shield
         return {
             icon          = 57,
@@ -56,7 +56,7 @@ charAct = function(self,buff)
 end,
 
 defenceProc = function(self, buff, enemy, damage)
- shield = shield - damage
+ shield = shield -(damage +buff.target:dr()*0.8)
  if shield <= 0 then
   buff:detach()
   return shield

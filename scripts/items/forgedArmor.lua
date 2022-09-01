@@ -15,6 +15,5 @@ local storage = require "scripts/lib/storage"
 
 local item = require "scripts/lib/item"
 
-local box
 local config = armor.makeArmor()
     return item.init(config)

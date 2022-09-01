@@ -71,7 +71,7 @@ return spell.init{
       local enemy = RPD.Actor:findChar(pos)
     if enemy and enemy ~= RPD.Dungeon.hero then
       chars = chars +1
-      RPD.affectBuff(enemy,"LowAttack",lvl)
+      RPD.affectBuff(enemy,"LowAttack",1+lvl)
       RPD.zapEffect(pos, RPD.Dungeon.hero:getPos(), "soulabsorbing_effect")
       end
      end
@@ -79,9 +79,9 @@ return spell.init{
     if chars ~= 1 then
       exp = exp +1
     end
-    RPD.removeBuff(hero,"FastAttacks")
-    local buff = RPD.affectBuff(hero,"FastAttacks" ,lvl + chars/2)
-    buff:level(chars + lvl)
+    RPD.removeBuff(hero,"FastSoulsMarks")
+    local buff = RPD.affectBuff(hero,"FastSoulsMarks" ,lvl + chars/2)
+    buff:level(math.max((chars + lvl)%2,1))
     
     storage.gamePut(a,{exp = exp, expMax = expMax, lvl = lvl})
   return true

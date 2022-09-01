@@ -7,6 +7,8 @@
 
 local RPD = require "scripts/lib/commonClasses"
 
+local RPG = require "scripts/lib/Functions"
+
 local Add = require "scripts/lib/AdditionalFunctions"
 
 local smithing = require "scripts/lib/smithing"
@@ -97,13 +99,11 @@ return itemLib.init{
         RPD.glog("execute owner: %s", tostring(owner))
 
         if action == "action1" then
-          Add.smithMain(smithing.mainWnd)
+          Add.smithStart(smithing.mainWnd)
         end
 
         if action == "action2" then
-            self.data.activationCount = self.data.activationCount + 1
-            RPD.glogp(tostring(item:getId()).." "..action)
-            RPD.affectBuff(hero,"Counter",1):level(10)
+          hero:collect(RPD.item("missiles/CommonArrows"),5)
         end
 
         if action == "action3" then

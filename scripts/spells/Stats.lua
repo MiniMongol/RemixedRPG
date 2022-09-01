@@ -282,7 +282,10 @@ return spell.init{
     local Stats = storage.gameGet(stats) or {}
     Spells = require "scripts/spells/CustomSpellsList"
     if Stats.str ~= nil then
-     RPD.glog("True")
+    
+     if caster:buffLevel("RPGbuff") == 0 then
+      RPD.permanentBuff(hero,"RPGbuff")
+    end
      
      if RPG.strength == nil then
      RPG.strength = Stats.str
@@ -306,7 +309,6 @@ return spell.init{
      storage.gamePut(stats, {str = RPG.strength, int = RPG.intelligence, dex = RPG.dexterity, vit = RPG.vitality, wis = RPG.wisdom, luc = RPG.luck, lvlT = RPG.lvlToUp, magS = RPG.magicStr, phyS = RPG.physicStr, fast = RPG.fast, sP = RPG.sPoints, spR = RPG.spRegen,magDef = RPG.magDef, class = RPG.class, subclass = RPG.subclass})
      
     else
-     RPD.glog("False")
      
      Que.new(sList)
      sMas = {"Stats","MagicBolt","ShadowClone","Chop"}
@@ -314,7 +316,7 @@ return spell.init{
      
      RPD.permanentBuff(hero,"RPGbuff")
      
-     RPG.sPoints = 25
+     RPG.sPoints = 250
      RPG.spRegen = 1
      RPG.physicStr = 1
      RPG.magicStr = 1

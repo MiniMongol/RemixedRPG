@@ -10,6 +10,6 @@ spells["Common"] = {"TownPortal"}
 
 spells["Combat"] = {"Stats", "Chop", "MagicBolt", "ShadowClone"}
 
-spells["Rogue"] = {"Cloak","Backstab","KunaiThrow","Haste"}
+spells["Rogue"] = {"Cloak","Backstab","KunaiThrow","Haste","Counterblows"}
 
 return spells

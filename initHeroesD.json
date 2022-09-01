@@ -1,0 +1,69 @@
+{
+  "common": {
+    "items": [
+        {
+            "kind":"materials/iron",
+            "quantity":100
+        },
+        {
+          "kind":"materials/leather",
+          "quantity":100
+        },
+        {
+          "kind":"materials/cloth"
+        },
+        {
+            "kind": "TestItem"
+        },
+        {
+          "kind":"materials/steel"
+        },
+                {
+          "kind":"PotionOfExperience",
+          "quantity":100
+        }
+    ],
+    "str":9,
+    "hp": 10,
+    "magicAffinity": "Common",
+    "sp": 1,
+    "maxSp": 1
+  },
+  "non_expert": {
+    "items": [
+      {
+        "kind": "Gold",
+        "quantity":100
+      }
+    ]
+  },
+  "WARRIOR": {
+    "str": 1,
+    "sp":1,
+    "maxSp":1,
+    "knownItems": [
+      {
+        "kind": "PotionOfStrength"
+      },
+      {
+          "kind": "ScrollOfUpgrade"
+      }
+    ],
+    "isSpellUser": true,
+    "magicAffinity": "Combat"
+  },
+  "LICH": {
+    "immunities": [
+      "Paralysis",
+      "ToxicGas",
+      "Terror",
+      "Death",
+      "Amok",
+      "Blindness",
+      "Sleep",
+      "Poison",
+      "Vertigo",
+      "Bleeding"
+    ]
+  }
+}

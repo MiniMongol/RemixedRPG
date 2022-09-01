@@ -33,36 +33,22 @@ return item.init{
         }
     end,
     
+    
     activate = function(self, item)
       local hero = RPD.Dungeon.hero
       if hero then
       RPD.removeBuff(hero, "MagicAbsorb")
       RPD.permanentBuff(hero, "MagicAbsorb"):level(item:level())
-      self.data.activationCount = 1
       end
     end,
+    
     
     deactivate = function(self, item)
       local hero = RPD.Dungeon.hero
       RPD.removeBuff(hero, "MagicAbsorb")
-      self.data.activationCount = 0
     end,
     
-    onSelect = function(cell,selector)
-    end,
 
-    actions = function(self, item, hero)
-      return {}
-    end,
-
-    execute = function(self, item, hero, action)
-    if action == "Scroll_ACRead" and self.data.activationCount == 1 then
-      local hero = RPD.Dungeon.hero
-      RPD.removeBuff(hero, "MagicAbsorb")
-      RPD.permanentBuff(hero, "MagicAbsorb"):level(item:level())
-    end
-    end,
-    
     isIdentified = function(self)
       return false
     end

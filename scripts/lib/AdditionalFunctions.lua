@@ -2,10 +2,11 @@ local RPD = require "scripts/lib/commonClasses"
 local RPG = require "scripts/lib/Functions"
 local storage = require "scripts/lib/storage"
 
+
 local Add = {
 
-   showQuestWindow = function(self, text)
-        local wnd = luajava.newInstance(RPD.Objects.Ui.WndQuest, self, text)
+   imgMessage = function(img, text)
+        local wnd = luajava.newInstance(RPG.Objects.Ui.WndMessage, img, text)
         RPD.GameScene:show(wnd)
     end,
  
@@ -17,7 +18,7 @@ local Add = {
    )
  end,
  
- smithMain = function(dialog)
+ smithStart = function(dialog)
    RPD.chooseOption(dialog,
    "",
    "",
@@ -37,12 +38,28 @@ local Add = {
    RPD.chooseOption(dialog,
    "",
    "",
+     RPD.textById("onehandedWeapon"),
+     RPD.textById("twohandedWeapon"))
+   end,
+   
+  smithOnehand = function(dialog)
+   RPD.chooseOption(dialog,
+   "",
+   "",
      RPD.textById("Sword"),
-     RPD.textById("Longsword"),
      RPD.textById("Dagger"),
+     RPD.textById("Axe"),
+     RPD.textById("Mace"))
+   end,
+   
+   smithTwohand = function(dialog)
+   RPD.chooseOption(dialog,
+   "",
+   "",
+     RPD.textById("Longsword"),
      RPD.textById("Spear"),
-     RPD.textById("Hammer"),
-     RPD.textById("Axe"))
+     RPD.textById("Halberd"),
+     RPD.textById("Hammer"))
    end,
    
    smithRange = function(dialog)
@@ -63,12 +80,35 @@ local Add = {
  end,
  
  smithChooseMaterials = function(dialog)
+   local smithy = require "scripts/lib/smithing"
+   mCount = 
+  {
+    Sword={7,4},
+    Longsword={10,4},
+    Dagger={3,4},
+    Spear={3,4,2},
+    Mace={8,4},
+    Hammer={12,4},
+    Axe={8,4},
+    Halberd={10,4,2},
+    Bow={4,4},
+    Crossbow={6,4},
+    LightArmor={5,4},
+    MediumArmor={8,4},
+    HeavyArmor={10,4}
+  }
+  local mc = mCount[smithy.choosenObject]
+  local mq = smithy.allQuantity
+  
    RPD.chooseOption(dialog,
    "",
-   "",
+   RPD.textById("smithQuantityToChoose")..smithy.quantityToChoose.."\n\n"..RPD.textById("mainMaterials")..": "..mq[1].."/"..mc[1].."\n"..RPD.textById("addMaterials")..": "..mq[2].."/"..mc[2].."\n"..RPD.textById("otherMaterials")..": "..mq[3].."/"..(mc[3] or "0"),
 	 	RPD.textById("mainMaterials"),
      RPD.textById("addMaterials"),
-     RPD.textById("otherMaterials"))
+     RPD.textById("otherMaterials"),
+     "+",
+     "-",
+     RPD.textById("startSmith"))
  end,
  
  trapChoise = function(dialog)

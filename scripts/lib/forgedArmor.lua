@@ -2,28 +2,33 @@
 local RPD                  = require "scripts/lib/commonClasses"
 local RPG                  = require "scripts/lib/Functions"
 local Add                  = require "scripts/lib/AdditionalFunctions"
+local smithy = require "scripts/lib/smithing"
+local item = require "scripts/lib/item"
 
 local forgedArmor = {}
-local data
+local str
 
-forgedArmor.makeArmor = function()
+forgedArmor.makeArmor = function(self)
     return{
     
-    desc = function(self, item)
-      data = self.data
+      desc = function(self, item)
+        
         return {
             stackable     = false,
             upgradable    = true,
             equipable     ="armor",
-            data = {}
+            data = smithy.finalStats,
+            imageFile     ="forgedArmor.png"
         }
-    end,
-    
+      end,
     
     info = function(self,item)
       hero = RPD.Dungeon.hero
-      str = math.max(data.str-2*item:level(),1)
-      local info = RPD.textById("Cloth_Info").."\n\n"..RPD.textById("Cloth_Name")..RPD.textById("ArmorInfo0")..data.tier..RPD.textById("ArmorInfo1")..data.tier*2+item:level()*data.tier..RPD.textById("ArmorInfo2")..str..RPD.textById("ArmorInfo3").."\n\n"..data.statsD
+      
+      str = math.max(self.data.str-2*item:level(),1)
+        p = 20*2^(self.data.tier-1)+10*2^(self.data.tier-1)*item:level()
+      local iDr = self.data.dr + self.data.tier*item:level()
+      local info = RPD.textById("ClothArmor_Info").."\n\n"..RPD.textById(self.data.name)..RPD.textById("ArmorInfo0")..self.data.tier..RPD.textById("ArmorInfo1")..iDr..RPD.textById("ArmorInfo2")..str..RPD.textById("ArmorInfo3").."\n\n"..self.data.info
       if RPG.physStr() >= str then
         return info
       else
@@ -31,33 +36,29 @@ forgedArmor.makeArmor = function()
       end
     end,
     
-    getVisualName = function()
-      return data.visualName or data.name
+    image = function(self)
+      return self.data.icon
     end,
     
-    price = function(self,item)
-      return 20*2^(data.tier-1)+10*2^(data.tier-1)*item:level()
+    name = function(self)
+      return self.data.name
     end,
-    
-    image = function()
-      return data.image
-    end,
-    
-    icon = function()
-      return data.icon
-    end,
+     
+     price = function(self)
+       return self.data.tier*100
+      end,
 	
 	effectiveDr = function(self,item)
-	  return data.dr + item:level()*data.tier
+	  return self.data.dr + item:level()*self.data.tier
 	end,
 	
 	typicalDR = function(self,item)
-	  return data.dr
+	  return self.data.dr
 	end,
    
     activate = function(self,item)
       hero = RPD.Dungeon.hero
-	  str = math.max(data.str-2*item:level(),1)
+	  str = math.max(self.data.str-2*item:level(),1)
       if self.data.activationCount == 0 or RPG.luck == nil then
           RPG.addStats(self.data.dstats,"StatsB")
       end
@@ -75,7 +76,7 @@ forgedArmor.makeArmor = function()
     end,
 
     typicalSTR = function(self,item,user)
-	  str = math.max(data.str-2*item:level(),1)
+	  str = math.max(self.data.str-2*item:level(),1)
       return str
     end,
     

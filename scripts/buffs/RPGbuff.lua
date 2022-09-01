@@ -28,7 +28,7 @@ return buff.init{
         return {
             icon          = -1,
             name          = "",
-            info          = "",
+            info          = ""
             
         }
     end,
@@ -115,10 +115,16 @@ return buff.init{
           for j = 0, levelH do
             local cell = RPD.Dungeon.level:cell(i,j)
             local enemy = RPD.Actor:findChar(cell)
-            if enemy and enemy ~= RPD.Dungeon.hero and enemy:buffLevel("PowerBuff") == 0 and enemy:getMobClassName() ~= "Swarm" then
+            if enemy and enemy ~= RPD.Dungeon.hero and enemy:buffLevel("PowerBuff") == 0 then
               RPD.permanentBuff(enemy,"PowerBuff")
-              enemy:ht(enemy:ht() + math.ceil(1.2*RPD.Dungeon.depth))
-              enemy:hp(enemy:ht())
+              if enemy:hp() < enemy:ht() then
+                local addHp = RPG.smartInt(1.2*RPD.Dungeon.depth)
+                enemy:ht(enemy:ht() + addHp)
+                enemy:hp(enemy:hp() + addHp)
+              else
+                enemy:ht(enemy:ht() + math.ceil(1.2*RPD.Dungeon.depth))
+                enemy:hp(enemy:ht())
+              end
             end
           end
         end
@@ -204,7 +210,8 @@ return buff.init{
     end,
     
     regenerationBonus = function(self,buff)
-        return 1 + buff.target:ht()*0.08
+    
+        return 1 + buff.target:ht()*0.03
     end,
     
     attackProc = function(self,buff,enemy,damage)
@@ -222,7 +229,7 @@ return buff.init{
       end
       
       if RPG.physicStr ~= nil then
-        if math.random(10,210+enemy:defenseSkill()*1.3) <= RPG.AllLuck()*luckBonus + hero:attackSkill() then
+        if math.random(10,100+enemy:defenseSkill()) <= RPG.AllLuck()*luckBonus then
         
           if enemy:hp() - ((damage + math.ceil(RPG.physStr()*0.2))*2 - enemy:dr()) <= 0 and RPG.subclass == "Bandit" then
             RPG.createItem("Gold", enemy:getPos(), RPG.AllLuck() + RPD.Dungeon.depth)
@@ -246,7 +253,7 @@ return buff.init{
     defenceProc = function(self, buff, enemy, damage)
     hero = RPD.Dungeon.hero
      if RPG.dexterity ~= nil then
-     if math.random(1,150+enemy:attackSkill()) <= (RPG.AllLuck()*0.5)*luckBonus + RPG.AllFast()*0.25 then
+     if math.random(1,120+enemy:attackSkill()) <= (RPG.AllLuck()*0.5)*luckBonus + RPG.AllFast()*0.25 then
      hero:getSprite():showStatus(0xffff00,RPD.textById("block"))
       RPD.glog(RPD.textById("Block0")..math.ceil(RPG.AllFast()*0.1 + hero:ht()*0.1 + RPG.physStr()*0.15)..RPD.textById("Block1"))
       return damage - math.ceil(RPG.AllFast()*0.1 + RPG.physStr()*0.15 + hero:ht()*0.1)

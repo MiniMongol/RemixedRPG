@@ -65,6 +65,7 @@ return spell.init{
      lvl = 1
      exp = 0
      expMax = 4
+     exp = exp+1
      storage.gamePut(a,{exp = exp, expMax = expMax, lvl = lvl})
     end
     
@@ -72,8 +73,6 @@ return spell.init{
        exp = 0
        expMax = expMax+5
        lvl = lvl+1
-     else
-       exp = exp+1
      end
      
     local weaponA = hero:getBelongings().weapon

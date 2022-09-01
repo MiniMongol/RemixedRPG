@@ -26,9 +26,11 @@ return buff.init{
       RPD.BuffIndicator:refreshHero()
     end,
     
+    
     name = function()
       return RPD.textById("PoisonedBloodN").."("..tostring(Spell.staks)..")"
     end,
+    
     
     detach = function(self,buff)
     Spell = storage.gameGet(a) or {}
@@ -37,12 +39,14 @@ return buff.init{
      
      storage.gamePut(a,{exp = Spell.exp, expMax = Spell.expMax, lvl = Spell.lvl, bp = Spell.bp, staks = 0})
     end,
+    
+    
     icon = function()
-    Spell = storage.gameGet(a) or {}
-      if tonumber(Spell.staks) == 5 then
-        return 60
-      else
-        return 59
+      Spell = storage.gameGet(a) or {}
+        if tonumber(Spell.staks) == 5 then
+          return 60
+        else
+          return 59
+        end
       end
-    end
 }

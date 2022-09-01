@@ -30,7 +30,7 @@ return item.init{
     desc  = function (self, item)
       local a = RPG.getItemStats(quanStats,statsMax)
       stats = a[2]
-      stats[2] = stats[2] + addMag
+      stats[5] = stats[5] + addMag
       statsInfo = a[1]
         return {
             imageFile     = "rpgitems.png",
@@ -75,11 +75,11 @@ return item.init{
       hero = RPD.Dungeon.hero
       str = math.max(stra-2*item:level(),1)
       for i = 1, self.data.level - str do
-        self.data.dstats[2] = self.data.dstats[2] + magAsLevel
+        self.data.dstats[5] = self.data.dstats[5] + magAsLevel
       end
       self.data.level = str
       if self.data.activationCount == 0 or RPG.luck == nil then
-          RPG1.addStats(self.data.dstats, "StatsA")
+          RPG.addStats(self.data.dstats, "StatsA")
       end
       self.data.sInfo = RPG.getItemInfo(self.data.dstats)
       if self.data.activationCount == 0 then
@@ -92,7 +92,7 @@ return item.init{
     deactivate = function(self,item)
       hero = RPD.Dungeon.hero
         self.data.activationCount = 0
-          RPG1.delStats("StatsA")
+          RPG.delStats("StatsA")
         hero:ht(hero:ht() - self.data.dstats[7])
         if hero:hp() > hero:ht() then
           hero:hp(hero:ht())

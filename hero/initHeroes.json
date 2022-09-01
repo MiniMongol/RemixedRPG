@@ -6,7 +6,20 @@
             "quantity":100
         },
         {
+          "kind":"materials/leather",
+          "quantity":100
+        },
+        {
+          "kind":"materials/cloth"
+        },
+        {
+          "kind":"materials/fireElmntCore"
+        },
+        {
             "kind": "TestItem"
+        },
+        {
+          "kind":"materials/steel"
         }
     ],
     "str":9,

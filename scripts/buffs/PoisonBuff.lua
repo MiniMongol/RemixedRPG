@@ -26,7 +26,7 @@ return buff.init{
     
     charAct = function(self,buff)
       local Spell = storage.gameGet(a) or {}
-      RPG.damage(enemy,math.ceil(buff:level()*(0.2 + scale*0.04)), type,elmnt)
+      RPG.damage(buff.target,RPG.smartInt(buff:level()*(0.2 + scale*0.025)), type,elmnt)
       scale = scale +1
     end
 }

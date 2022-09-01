@@ -26,8 +26,12 @@ return buff.init{
     
     attackProc = function(self,buff,enemy,damage)
       hero = RPD.Dungeon.hero
+      local weaponA = hero:getBelongings().weapon
+     local weaponB = hero:getBelongings().leftHand
+     local weaponRoll = (weaponA:dmgRoll(hero) + weaponB:dmgRoll(hero))/2
+     
       if enemy:buffLevel("FlameMark") > 0 then
-        RPG.damage(enemy,math.ceil(3+4*Spell.lvl + RPG.magStr()*0.1 + hero:ht()*0.15),type,elmnt)
+        RPG.damage(enemy,RPG.smartInt(3+4*Spell.lvl +RPG.magStr()*0.1 +hero:ht()*0.05 +weaponRoll*0.2),type,elmnt)
         enemy:getSprite():showStatus(0xffff00,RPD.textById("boom"))
       else
         RPG.damage(enemy,math.ceil(5+5*Spell.lvl + RPG.magStr()*0.1 + hero:ht()*0.05),type,elmnt)

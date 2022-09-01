@@ -30,7 +30,7 @@ return item.init{
     desc  = function (self, item)
       local a = RPG.getItemStats(quanStats,statsMax)
       stats = a[2]
-      stats[4] = stats[4] + addMag
+      stats[5] = stats[5] + addMag
       statsInfo = a[1]
         return {
             imageFile     = "rpgitems.png",
@@ -71,15 +71,15 @@ return item.init{
         return maxDmg+item:level()+math.ceil(RPG.magStr()*attackBonus),minDmg+item:level()+math.ceil(RPG.magStr()*attackBonus)
     end,
     
-    activate = function(self,item)
+    activate = function(self,item,user)
       hero = RPD.Dungeon.hero
       str = math.max(stra-2*item:level(),1)
       for i = 1, self.data.level - str do
-        self.data.dstats[2] = self.data.dstats[2] + magAsLevel
+        self.data.dstats[5] = self.data.dstats[5] + magAsLevel
       end
       
       self.data.level = str
-      if self.data.activationCount == 0 or RPG.luck == nil then
+      if self.data.activationCount == 0 and user == hero then
           RPG.addStats(self.data.dstats,"StatsA")
       end
       self.data.sInfo = RPG.getItemInfo(self.data.dstats)

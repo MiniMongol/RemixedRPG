@@ -68,6 +68,7 @@ return spell.init{
      expMax = 4
      storage.gamePut(a,{exp = exp, expMax = expMax, lvl = lvl})
     end
+    RPD.removeBuff(hero,"ResidualEffect_Buff")
     RPD.affectBuff(hero,"ResidualEffect_Buff",5):level(3)
  local pos = RPD.Ballistica:cast(RPD.Dungeon.hero:getPos(),cell,true,true,true)
  local enemy = RPD.Actor:findChar(pos)

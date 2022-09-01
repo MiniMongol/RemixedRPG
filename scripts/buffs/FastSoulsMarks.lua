@@ -6,7 +6,9 @@
 local RPD  = require "scripts/lib/commonClasses"
 
 local hero = RPD.Dungeon.hero
+local a = "soulstormentor"
 local buff = require "scripts/lib/buff"
+local storage = require "scripts/lib/storage"
 
 return buff.init{
     desc  = function ()
@@ -15,10 +17,5 @@ return buff.init{
             name          = "FastAttacksN",
             info          = "FastAttacksD",
         }
-    end,
-    
-    attackProc = function(self,buff,enemy,damage)
-    buff.target:spend(-math.min(0.8,buff:level()*0.05))
-    return damage
     end
 }
