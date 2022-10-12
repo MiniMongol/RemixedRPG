@@ -1,6 +1,7 @@
 local RPD = require "scripts/lib/commonClasses"
 local RPG = require "scripts/lib/Functions"
 local storage = require "scripts/lib/storage"
+local smith = storage.gameGet("smithing") or {}
 
 
 local Add = {
@@ -19,98 +20,89 @@ local Add = {
  end,
  
  smithStart = function(dialog)
+   local smith = storage.gameGet("smithing") or {}
    RPD.chooseOption(dialog,
-   "",
+   RPD.textById("Smithing")..": "..smith.lvl.." "..RPD.textById("Exp")..": "..smith.exp.." / "..smith.expToUp,
    "",
      RPD.textById("chooseWeapon"),
      RPD.textById("chooseArmor"))
  end,
  
  smithWeapon = function(dialog)
+   local smith = storage.gameGet("smithing") or {}
    RPD.chooseOption(dialog,
-   "",
+   RPD.textById("Smithing")..": "..smith.lvl.." "..RPD.textById("Exp")..": "..smith.exp.." / "..smith.expToUp,
    "",
      RPD.textById("chooseMelee"),
      RPD.textById("chooseRange"))
  end,
  
  smithMelee = function(dialog)
+   local smith = storage.gameGet("smithing") or {}
    RPD.chooseOption(dialog,
-   "",
+   RPD.textById("Smithing")..": "..smith.lvl.." "..RPD.textById("Exp")..": "..smith.exp.." / "..smith.expToUp,
    "",
      RPD.textById("onehandedWeapon"),
      RPD.textById("twohandedWeapon"))
    end,
    
   smithOnehand = function(dialog)
-   RPD.chooseOption(dialog,
+    local smith = storage.gameGet("smithing") or {}
+    RPD.chooseOption(dialog,
+    RPD.textById("Smithing")..": "..smith.lvl.." "..RPD.textById("Exp")..": "..smith.exp.." / "..smith.expToUp,
    "",
-   "",
-     RPD.textById("Sword"),
-     RPD.textById("Dagger"),
-     RPD.textById("Axe"),
-     RPD.textById("Mace"))
-   end,
+      RPD.textById("Sword"),
+      RPD.textById("Dagger"),
+      RPD.textById("Axe"),
+      RPD.textById("Mace"))
+    end,
    
    smithTwohand = function(dialog)
-   RPD.chooseOption(dialog,
+     local smith = storage.gameGet("smithing") or {}
+     RPD.chooseOption(dialog,
+     RPD.textById("Smithing")..": "..smith.lvl.." "..RPD.textById("Exp")..": "..smith.exp.." / "..smith.expToUp,
    "",
-   "",
-     RPD.textById("Longsword"),
-     RPD.textById("Spear"),
-     RPD.textById("Halberd"),
-     RPD.textById("Hammer"))
-   end,
+      RPD.textById("Longsword"),
+      RPD.textById("Spear"),
+      RPD.textById("Halberd"),
+      RPD.textById("Hammer"))
+    end,
    
    smithRange = function(dialog)
-     RPD.chooseOption(dialog,
+      local smith = storage.gameGet("smithing") or {}
+      RPD.chooseOption(dialog,
+   RPD.textById("Smithing")..": "..smith.lvl.." "..RPD.textById("Exp")..": "..smith.exp.." / "..smith.expToUp,
      "",
-     "",
-     RPD.textById("Bow"),
-     RPD.textById("Crossbow"))
+      RPD.textById("Bow"),
+      RPD.textById("Crossbow"))
    end,
  
  smithArmor = function(dialog)
-   RPD.chooseOption(dialog,
+    local smith = storage.gameGet("smithing") or {}
+    RPD.chooseOption(dialog,
+    RPD.textById("Smithing")..": "..smith.lvl.." "..RPD.textById("Exp")..": "..smith.exp.." / "..smith.expToUp,
    "",
-   "",
-     RPD.textById("LightArmor"),
-     RPD.textById("MediumArmor"),
-     RPD.textById("HeavyArmor"))
+      RPD.textById("LightArmor"),
+      RPD.textById("MediumArmor"),
+      RPD.textById("HeavyArmor"))
  end,
  
  smithChooseMaterials = function(dialog)
-   local smithy = require "scripts/lib/smithing"
-   mCount = 
-  {
-    Sword={7,4},
-    Longsword={10,4},
-    Dagger={3,4},
-    Spear={3,4,2},
-    Mace={8,4},
-    Hammer={12,4},
-    Axe={8,4},
-    Halberd={10,4,2},
-    Bow={4,4},
-    Crossbow={6,4},
-    LightArmor={5,4},
-    MediumArmor={8,4},
-    HeavyArmor={10,4}
-  }
-  local mc = mCount[smithy.choosenObject]
-  local mq = smithy.allQuantity
+    local smithy = require "scripts/lib/smithing"
+    local smith = storage.gameGet("smithing") or {}
+    local mc = smithy.materialCount[smithy.choosenObject]
+    local mq = smithy.allQuantity
   
-   RPD.chooseOption(dialog,
-   "",
-   RPD.textById("smithQuantityToChoose")..smithy.quantityToChoose.."\n\n"..RPD.textById("mainMaterials")..": "..mq[1].."/"..mc[1].."\n"..RPD.textById("addMaterials")..": "..mq[2].."/"..mc[2].."\n"..RPD.textById("otherMaterials")..": "..mq[3].."/"..(mc[3] or "0"),
-	 	RPD.textById("mainMaterials"),
-     RPD.textById("addMaterials"),
-     RPD.textById("otherMaterials"),
-     "+",
-     "-",
-     RPD.textById("startSmith"))
- end,
- 
+    RPD.chooseOption(dialog,
+    RPD.textById("Smithing")..": "..smith.lvl.." "..RPD.textById("Exp")..": "..smith.exp.." / "..smith.expToUp,
+    RPD.textById("smithQuantityToChoose")..smithy.quantityToChoose.."\n\n"..RPD.textById("mainMaterials")..": "..mq[1].."/"..mc[1].."\n"..RPD.textById("addMaterials")..": "..mq[2].."/"..mc[2].."\n",
+	  RPD.textById("mainMaterials"),
+    RPD.textById("addMaterials"),
+    "+",
+    "-",
+    RPD.textById("startSmith"))
+  end,
+  
  trapChoise = function(dialog)
    local Spell = storage.gameGet("placetrap") or {}
    RPD.chooseOption(dialog,

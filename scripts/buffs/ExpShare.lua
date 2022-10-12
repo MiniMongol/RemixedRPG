@@ -37,9 +37,7 @@ return buff.init{
     end,
     
     speedMultiplier = function(self, buff)
-      hero = RPD.Dungeon.hero
-      local level = RPD.Dungeon.level
-        return 1 + RPG.AllFast()*0.2 + RPG.distance(hero:getPos())/2
+        return 1.5
     end,
     
     attackProc = function(self,buff,enemy,damage)
@@ -48,7 +46,7 @@ return buff.init{
     end
     if RPG.physicStr ~= nil then
     if math.random(1,100+enemy:defenseSkill()) <= RPG.AllLuck()*luckBonus then
-    enemy:getSprite():showStatus(0xffff00,"крит")
+    enemy:getSprite():showStatus(0xffff00,"crit")
     enemy:damage(damage*2,RPD.Dungeon.hero)
     else
     enemy:damage(damage,RPD.Dungeon.hero)

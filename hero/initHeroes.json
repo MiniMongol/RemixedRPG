@@ -13,13 +13,28 @@
           "kind":"materials/cloth"
         },
         {
-          "kind":"materials/fireElmntCore"
+          "kind":"materials/FireElmntCore"
+        },
+        {
+          "kind":"materials/ZombieFinger"
+        },
+        {
+          "kind":"materials/EyeLens"
+        },
+        {
+          "kind":"materials/IceElmntCore"
         },
         {
             "kind": "TestItem"
         },
         {
           "kind":"materials/steel"
+        },
+        {
+          "kind":"materials/gold"
+        },
+        {
+          "kind":"materials/bone"
         }
     ],
     "str":9,

@@ -48,7 +48,7 @@ forgedWeapon.makeWeapon = function()
    
     
     name = function(self)
-      return ""
+      return self.data.name
     end,
     
     
@@ -101,8 +101,20 @@ forgedWeapon.makeWeapon = function()
       minDmg = self.data.minDmg +self.data.tier*item:level()
       
       local dmgRoll = math.random(minDmg,maxDmg)
+      local d = self.data
+      local id = 
+      {
+        cut = 10,
+        chop = 11,
+        stab = 12,
+        crush = 13
+      }
+      local dmgFrSt1 = d.addstats[id[d.element[1] or d.element]]
+      local dmgFrSt2 = d.addstats[id[d.element[2]]] or {0,dmgFrSt1[2]}
+      local dmg = RPG.getDamage(user:getEnemy(),dmgRoll,self.data.type,self.data.element) *((dmgFrSt1[2]+dmgFrSt2[2])/200 +1) + dmgFrSt1[1] +dmgFrSt2[1]
       
-      local dmg = RPG.getDamage(user:getEnemy(),dmgRoll,self.data.type,self.data.element)
+      RPG.weaponOtherDmg(user:getEnemy(), dmg, self.data.addstats) 
+      
       return dmg,dmg
     end,
    

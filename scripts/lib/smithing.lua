@@ -2,6 +2,7 @@ local RPD                  = require "scripts/lib/commonClasses"
 local RPG                  = require "scripts/lib/Functions"
 local Add                  = require "scripts/lib/AdditionalFunctions"
 
+
 local hero
 local smithy
 
@@ -18,15 +19,31 @@ smithy = {
   mode = mode,
   wType = wType,
   quantityToChoose = 0,
-  allQuantity = {0,0,0},
+  allQuantity = {0,0},
   selectedItem = selectedItem,
   finalStats = finalStats,
-  
-  finalMaterials={{},{},{}},
+  finalMaterials={{},{}},
+  materialCount = 
+  {
+    Sword={8,4},
+    Longsword={14,4},
+    Dagger={4,4},
+    Spear={10,4},
+    Mace={8,4},
+    Hammer={16,4},
+    Axe={8,4},
+    Halberd={14,4},
+    Bow={8,4},
+    Crossbow={12,4},
+    LightArmor={6,4},
+    MediumArmor={10,4},
+    HeavyArmor={14,4}
+  },
 
 mainWnd = function(index)
   smithy.quantityToChoose = 0
-  smithy.allQuantity = {0,0,0}
+  smithy.allQuantity = {0,0}
+  smithy.finalMaterials={{},{}}
   if index == 0 then
     Add.smithWeapon(smithy.weaponWnd)
     else
@@ -109,35 +126,14 @@ end,
 
 chooseMaterials = function(index)
   local WndBag = RPG.Objects.Ui.WndBag
-  materialCount = 
-  {
-    Sword={7,4},
-    Longsword={10,4},
-    Dagger={3,4},
-    Spear={3,4,2},
-    Mace={8,4},
-    Hammer={12,4},
-    Axe={8,4},
-    Halberd={10,4,2},
-    Bow={5,4},
-    Crossbow={7,4},
-    LightArmor={5,4},
-    MediumArmor={8,4},
-    HeavyArmor={10,4}
-  }
-  moreCheck =
-  {
-    Spear = 3,
-    Halberd = 3
-  }
+  local materialCount = smithy.materialCount
   
   local mCount = materialCount[smithy.choosenObject]
-  local check = moreCheck[smithy.choosenObject]
   local finalGroup = smithy.finalMaterials[index+1]
-  local quantityOfChoosed = {0,0,0}
+  local quantityOfChoosed = {0,0}
   local selectedItem
   
-  for i = 1,3 do
+  for i = 1,2 do
   
     local fMaterialsGroup = smithy.finalMaterials[i]
     
@@ -150,10 +146,10 @@ chooseMaterials = function(index)
   end
   
   
-  if index == 3 then
+  if index == 2 then
       
         smithy.quantityToChoose = smithy.quantityToChoose+1
-      elseif index == 4 then
+      elseif index == 3 then
       
         if smithy.quantityToChoose ~= 0 then
           smithy.quantityToChoose = smithy.quantityToChoose-1
@@ -165,26 +161,18 @@ chooseMaterials = function(index)
     if (mCount[index+1] or 0) - (quantityOfChoosed[index+1] or 0) >= smithy.quantityToChoose and smithy.quantityToChoose ~= 0 then
     
     
-      if index == 0 then
-      
+      if index < 2 then
         RPG.selectItemForSmithing(luajava.bindClass(WndBag).Mode.ALL,"chooseTheMaterials",index+1,smithy.quantityToChoose)
         smithy.quantityToChoose = 0
+      end
         
-        elseif index < 3 then
-        
-          if (index == 2 and check ~= nil) or index ~= 2 then
-          
-          RPG.selectItemForSmithing(luajava.bindClass(WndBag).Mode.ALL,"chooseTheMaterials",index+1,smithy.quantityToChoose)
-          smithy.quantityToChoose = 0
-          
-          end
-        end
-        elseif index ~= 5 then
+        elseif index ~= 4 then
         Add.smithChooseMaterials(smithy.chooseMaterials)
+        
       end
       
       
-      if index == 5 and quantityOfChoosed[1] == mCount[1] and (quantityOfChoosed[check] or true) == (mCount[check] or true) then
+      if index == 4 and quantityOfChoosed[1] == mCount[1] then
         hero = RPD.Dungeon.hero
         
         local is = RPG.statsFromMaterials(smithy.finalMaterials,smithy.mode)
@@ -199,9 +187,9 @@ chooseMaterials = function(index)
           hero:collect(weapon,1)
         end
         
-        smithy.finalMaterials={{},{},{}}
+        smithy.finalMaterials={{},{}}
         RPD.playSound("snd_evoke.ogg")
-      elseif index == 5 then
+      elseif index == 4 then
         RPD.playSound("snd_wrong.ogg")
         RPD.glog("cantForge")
       end

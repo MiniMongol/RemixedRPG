@@ -15,40 +15,46 @@ return item.init{
 desc  = function(self, item)
         return {
             imageFile     = "items/materials.png",
-            image         = 16,
-            name          = RPD.textById("Ядро огненного элементаля"),
-            price         = 20,
+            image         = 4,
+            name          = RPD.textById("Bone_Name"),
+            price         = 30,
             stackable     = true,
             data          = {
-              name = "",
+              name = "bone",
               armorUsable = false,
-              weaponUsable = false,
+              weaponUsable = true,
+              exp = 0.4,
               stats =
               {0,
                0,
-               0,
                2,
+               0,
                0,
                0,
                0,
                0},
                
               armor = 
-              {{1.25,0},
-               {0.5,0}, 
-               {-0.5,0},
+              {{0,0},
+               {0,0}, 
+               
+               {0,0},
+               {0,0},
+               
+               {1.5,0},
+               {0,0},
+               
+               {0,0},
+               {0,0},
+               
+               {-1,0},
+               {0.75,0},
+               
+               {1,0},
                {-0.75,0},
-               {0,0},
-               {0,0},
-               {0,0},
-               {0,0},
-               {0,0},
-               {0,0},
-               {0,0},
-               {0,0},
-               {0,0},
-               {0,0}},
-              dr = 0.8,
+               {1.25,0},
+               {-1,0}},
+              dr = 0.7,
               
               weapon = 
               {{0,0},
@@ -61,15 +67,16 @@ desc  = function(self, item)
                {0,0},
                {0,0},
                {0,0},
-               {0,0},
-               {0,0},
-               {0,0},
-               {0,0},
                
-               {1,0},
                {0,0},
-               {-0.25,0},
-               {-0.5,0},
+               {0.15,0},
+               {0.25,0.01},
+               {0.15,0},
+               
+               {0,0},
+               {0,0},
+               {0,0},
+               {0,0},
                {0,0},
                {0,0},
                {0,0},
@@ -81,8 +88,8 @@ desc  = function(self, item)
                {0,0},
                {0,0}},
               dmg = 
-              {0,
-               0},
+              {1.25,
+               1.7},
               delay = 0,
               accuracy = 0,
               range = 0
@@ -90,7 +97,7 @@ desc  = function(self, item)
         }
     end,
     typicalStr = function()
-     return 1.5
+     return 2.5
     end,
     
     
@@ -98,7 +105,7 @@ desc  = function(self, item)
       local d = self.data
       local sInfo = RPG.getMaterialsInfo(d.stats, d.armor, d.weapon, d.dmg, d.dr, d.delay, d.accuracy, d.range)
       
-      return RPD.textById("FireElmntCore_Info")..sInfo
+      return RPD.textById("Bone_Info").."\n"..sInfo
     end
     
     }

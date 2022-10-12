@@ -280,6 +280,7 @@ return spell.init{
     end,
     cast = function(self, spell, caster, cell)
     local Stats = storage.gameGet(stats) or {}
+    local smith = storage.gameGet("smithing") or {}
     Spells = require "scripts/spells/CustomSpellsList"
     if Stats.str ~= nil then
     
@@ -322,6 +323,9 @@ return spell.init{
      RPG.magicStr = 1
      RPG.fast = 1
      RPG.lvlToUp = 1
+     RPG.smithLvl = 0
+     RPG.smithToUp = 10
+     RPG.smithExp = 0
 
      RPG.strength = 1
      RPG.intelligence = 1
@@ -329,6 +333,8 @@ return spell.init{
      RPG.vitality = 1
      RPG.wisdom = 1
      RPG.luck = 1
+     
+     storage.gamePut("smithing", {lvl = RPG.smithLvl, expToUp = RPG.smithToUp, exp = RPG.smithExp})
 
      storage.gamePut(stats, {str = RPG.strength, int = RPG.intelligence, dex = RPG.dexterity, vit = RPG.vitality, wis = RPG.wisdom, luc = RPG.luck, lvlT = RPG.lvlToUp, magS = RPG.magicStr, phyS = RPG.physicStr, fast = RPG.fast, sP = RPG.sPoints, spR = RPG.spRegen,magDef = RPG.magDef, class = RPG.class, subclass = RPG.subclass})
 	 storage.gamePut(tostring(hero:lvl()), {str = RPG.strength, int = RPG.intelligence, dex = RPG.dexterity, vit = RPG.vitality, wis = RPG.wisdom, luc = RPG.luck, lvlT = RPG.lvlToUp, magS = RPG.magicStr, phyS = RPG.physicStr, fast = RPG.fast, sP = RPG.sPoints, spR = RPG.spRegen,magDef = RPG.magDef, class = RPG.class, subclass = RPG.subclass, spells = Que.getMas("spelllist")})

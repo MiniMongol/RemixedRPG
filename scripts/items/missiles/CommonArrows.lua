@@ -12,8 +12,7 @@ return item.init {
             stackable = true,
             data = {
             canUseToShoot = true,
-            addDmg = {0,0},
-            buff = {"PoisonBuff",5,3}
+            addDmg = {0,0}
             },
         }
     end,

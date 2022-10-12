@@ -7,7 +7,6 @@ local item = require "scripts/lib/item"
 
 local forgedWeapon = {}
 local str
-local image = "forgedArmor.png"
 local minDmg
 local maxDmg
 
@@ -33,7 +32,7 @@ forgedWeapon.makeWeapon = function()
       maxDmg = self.data.maxDmg +self.data.tier*item:level()*1.2
       minDmg = self.data.minDmg +self.data.tier*item:level()
       
-      local info = RPD.textById("WeaponInfo0")..self.data.tier..RPD.textById("WeaponInfo1")..RPD.textById("WeaponInfo2")..str..RPD.textById("WeaponInfo3").."\n\n"..self.data.info
+      local info = RPD.textById("WeaponInfo0")..self.data.tier..RPD.textById("WeaponInfo1")..minDmg.." — "..maxDmg..RPD.textById("WeaponInfo2")..str..RPD.textById("WeaponInfo3").."\n\n"..self.data.info
       if RPG.physStr() >= str then
         return info
       else
@@ -48,7 +47,7 @@ forgedWeapon.makeWeapon = function()
    
     
     name = function(self)
-      return ""
+      return self.data.name
     end,
     
     
@@ -149,6 +148,10 @@ forgedWeapon.makeWeapon = function()
     range = function(self)
       return self.data.range
     end,
+    
+    price = function(self,item)
+      return 20*2^(self.data.tier-1)+10*2^(self.data.tier-1)*item:level()
+    end
     
      
 }

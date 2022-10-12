@@ -17,18 +17,19 @@ desc  = function(self, item)
             imageFile     = "items/materials.png",
             image         = 2,
             name          = RPD.textById("Leather_Name"),
-            price         = 20,
+            price         = 15,
             stackable     = true,
             data          = {
               name = "leather",
               armorUsable = true,
               weaponUsable = false,
+              exp = 0.2,
               stats =
               {0,
                0,
                0,
                0,
-               0,
+               0.5,
                0,
                0,
                0},
@@ -44,9 +45,9 @@ desc  = function(self, item)
                {0,0},
                {0,0},
                {0,0},
-               {0.1,0.01},
+               {0.1,0.005},
+               {0.1,0},
                {0,0},
-               {0.5,0.05},
                {0.2,0.005}},
               dr = 0.3,
               
@@ -98,7 +99,7 @@ desc  = function(self, item)
       local d = self.data
       local sInfo = RPG.getMaterialsInfo(d.stats, d.armor, d.weapon, d.dmg, d.dr, d.delay, d.accuracy, d.range)
       
-      return RPD.textById("Leather_Info")..sInfo
+      return RPD.textById("Leather_Info").."\n"..sInfo
     end
     
     }

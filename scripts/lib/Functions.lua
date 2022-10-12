@@ -34,12 +34,12 @@ local RPG
  statsName = {
   "Ht",
   "Sp",
-  "luck",
 	"physicStr",
 	"magicStr",
 	"fast",
 	"magDef",
 	"spRegen",
+	"luck",
 	"fire",
 	"lightning",
 	"water",
@@ -68,12 +68,16 @@ local RPG
  spRegen = 1,
  magDef = 1,
  spellFast = 0,
- sPoints = 20,
+ sPoints = sPoints,
  lvlToUp = 0,
  triger = 0,
  class = class,
  subClass = subClass,
  boneId = boneId,
+ smithLvl = smithLvl,
+ smithToUp = smithToUp,
+ smithExp = smithExp,
+ 
  
  StatsA = {
  	luck = 0,
@@ -386,6 +390,22 @@ local RPG
    local smithy = require "scripts/lib/smithing"
    local stats = {0,0,0,0,0,0,0,0}
    local wFix = {armor = 0, weapon = 14}
+   local smith = storage.gameGet("smithing") or {}
+   local smithScale = 0.7 + 0.15*smith.lvl
+   local rareName = ""
+   
+   local rareRandom = math.random(1,10000)
+   if rareRandom <= 200 then
+     smithScale = smithScale +0.05*smith.lvl
+     rareName = "("..RPD.textById("Rare")..")"
+   elseif rareRandom <= 50 then
+     smithScale = smithScale +0.15*smith.lvl
+     rareName = "("..RPD.textById("Epic")..")"
+   elseif rareRandom <= 10 then
+     smithScale = smithScale +0.35*smith.lvl
+     rareName = "("..RPD.textById("Legendary")..")"
+   end
+   
    local addStatsGroups = 
    {
      armor = {{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0}},
@@ -405,10 +425,11 @@ local RPG
    Crossbow = {"phys","stab"}
    }
    local objectDrType = {
-   LightArmor = {{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0.5,0.05},{1,0.1}},
-   MediumArmor = {{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{1,0.1},{0.5,0.05}},
-   HeavyArmor = {{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{1,0.1},{0.5,0.01},{0,0},{0.2,0.02}}
+   LightArmor = {{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0.5,0.05},{1,0.08}},
+   MediumArmor = {{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{1,0.08},{0.5,0.05}},
+   HeavyArmor = {{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{1,0.08},{0.5,0.08},{0,0},{0.2,0.02}}
    }
+   
    
    local allAdd = addStatsGroups[mode]
    local info
@@ -419,13 +440,13 @@ local RPG
    local accuracy = 1
    local range = 1
    local dr = 0
+   local exp = 0
    local addStats
    local plusStats
    local groups = 
    {
    materials[1],
-   materials[2],
-   materials[3]
+   materials[2]
    }
   
   if mode == "armor" then
@@ -439,7 +460,7 @@ local RPG
     end
   end
   
-    for g = 1,3 do
+    for g = 1,2 do
       local group = groups[g]
       
     for i = 1, #group do
@@ -451,16 +472,17 @@ local RPG
        local mainStats = material1.data.stats
        addStats = material1.data[mode]
        str = str + matFile:typicalStr()*material[2]
-       minDmg = minDmg + material1.data.dmg[1]*material[2]
-       maxDmg = maxDmg + material1.data.dmg[2]*material[2]
+       minDmg = minDmg + material1.data.dmg[1]*material[2]*smithScale
+       maxDmg = maxDmg + material1.data.dmg[2]*material[2]*smithScale
        delayFactor = delayFactor - material1.data.delay*material[2]
-       accuraty = accuracy + material1.data.accuracy*material[2]
+       accuraty = accuracy + material1.data.accuracy*material[2]*smithScale
        range = range + material1.data.range*material[2]
-       dr = dr + material1.data.dr*material[2]
+       dr = dr + material1.data.dr*material[2]*smithScale
+       exp = RPG.smartInt(exp + material1.data.exp*material[2])
        
        for j = 1, 8 do
        
-         stats[j] = stats[j] + mainStats[j]*material[2]
+         stats[j] = stats[j] + mainStats[j]*material[2]*smithScale
          
        end
        
@@ -471,7 +493,7 @@ local RPG
          
          for jj = 1,2 do
          
-           allStat[jj] = allStat[jj] + modeStat[jj]*material[2]
+           allStat[jj] = allStat[jj] + modeStat[jj]*material[2]*smithScale
            
          end
          
@@ -546,13 +568,111 @@ local RPG
     max[2] = require("scripts/items/"..max[2])
     icon = materialIcon[max[1]:desc().data.name]*RPG.mainMatCount + materialIcon[max[2]:desc().data.name]
     
-    local name = max[1]:desc().name.."-"..max[2]:desc().name.."_"..mode
+    local weaponNames ={
+      iron = {
+        Sword = "sword",
+        Longsword = "palash",
+        Dagger = "dagger",
+        Mace = "mace",
+        Hammer = "hammer",
+        Spear = "spear",
+        Axe = "axe",
+        Halberd = "twohands_axe",
+        Bow = "bow",
+        Crossbow = "crossbow"
+        },
+      steel = {
+        Sword = "gladys",
+        Longsword = "espadon",
+        Dagger = "doug",
+        Mace = "pernach",
+        Hammer = "slander",
+        Spear = "rogatina",
+        Axe = "chekan",
+        Halberd = "brodex",
+        Bow = "long_bow",
+        Crossbow = "long_crossbow"
+      },
+      gold = {
+        Sword = "katana",
+        Longsword = "estok",
+        Dagger = "stilleto",
+        Mace = "buzdyhan",
+        Hammer = "warhammer",
+        Spear = "protazan",
+        Axe = "berdysh",
+        Halberd = "labris",
+        Bow = "composite_bow",
+        Crossbow = "composite_crossbow"
+      },
+      bone = {
+        Sword = "machete",
+        Longsword = "bigsword",
+        Dagger = "cris",
+        Mace = "morgenstern",
+        Hammer = "najak",
+        Spear = "peak",
+        Axe = "sagoris",
+        Halberd = "cleaver",
+        Bow = "big_bow",
+        Crossbow = "big_crossbow"
+      }
+    }
+    
+    local wEnds =
+    {
+      spear = "form4",
+      machete = "form4",
+      doug = "form3",
+      rogatina = "form3",
+      katana = "form3",
+      twohands_axe = "form3",
+      hammer = "form3",
+      mace = "form3",
+      peak = "form3"
+    }
+    
+    local wTypes =
+    { 
+      iron = {iron ="FullIron", steel="SemiIron", gold="Gilded", bone="Bony" },
+      steel = {iron="SemiSteel", steel="FullSteel", gold="Gilded", bone="Bony" },
+      gold = {iron="Spiky", steel="Sharp", gold="FullGold", bone="Bony" },
+      bone = {iron="Spiky", steel="Sharp" , gold="Gilded", bone="FullBone" }
+    }
+    
+    local name =""
+    if mode == "weapon" then
+      local subTypes = wTypes[max[1]:desc().data.name]
+      local wType = subTypes[max[2]:desc().data.name]
+      local groupOfNames = weaponNames[max[1]:desc().data.name]
+      local uniqueName = groupOfNames[smithy.choosenObject]
+    
+      local wordEnd = "form1"
+      
+      if wType == "FullSteel" or wType == "SemiSteel" or wType == "FullBone" then
+        wordEnd ="form2"
+      end
+      
+        if wEnds[uniqueName] ~= nil then 
+        wordEnd = wEnds[uniqueName]
+      end
+        
+        name = RPD.textById(wType)..RPD.textById(wordEnd).." "..RPD.textById(uniqueName)..rareName
+        
+    end
     
     local tier
     if mode == "weapon" then
       tier = math.max(RPG.smartInt((RPG.smartInt(maxDmg))/3),1)
     else
       tier = 1+RPG.smartInt((RPG.smartInt(dr)-2)/2)
+    end
+    
+    tier = RPG.smartInt((tier+smith.lvl)/2)
+    storage.gamePut("smithing", {lvl = smith.lvl, expToUp = smith.expToUp, exp = smith.exp + exp})
+    smith = storage.gameGet("smithing") or {}
+    if smith.exp >= smith.expToUp then
+      storage.gamePut("smithing", {lvl = smith.lvl+1, expToUp = smith.expToUp +5, exp = 0 +smith.exp -smith.expToUp})
     end
    
    if smithy.mode == "weapon" then
@@ -635,10 +755,10 @@ local RPG
     for i = 15, 28 do
       local dcoef = coefs[i]
       if dcoef[1] > 0 then
-        RPG.damage(enemy,dcoef[1], "mag", RPG.statsName[i])
+        RPG.damage(enemy,dcoef[1], "mag", RPG.statsName[i-6])
       end
       if dcoef[2] > 0 then
-        RPG.damage(enemy,dmg*dcoef[2],"mag", RPG.statsName[i])
+        RPG.damage(enemy,dmg*dcoef[2],"mag", RPG.statsName[i-6])
       end
     end
  end,
@@ -836,12 +956,12 @@ local RPG
    local statsNames = {
   RPD.textById("Hp"),
   RPD.textById("Sp"),
-  RPD.textById("luck"),
   RPD.textById("PhysStr"),
   RPD.textById("MagStr"),
   RPD.textById("Fast"),
   RPD.textById("magDef"),
   RPD.textById("SpRegen"),
+  RPD.textById("luck"),
   RPD.textById("fireD"),
   RPD.textById("lightningD"),
   RPD.textById("waterD"),
@@ -889,12 +1009,12 @@ local RPG
    local statsNames = {
   RPD.textById("Hp"),
   RPD.textById("Sp"),
-  RPD.textById("luck"),
   RPD.textById("PhysStr"),
   RPD.textById("MagStr"),
   RPD.textById("Fast"),
   RPD.textById("magDef"),
   RPD.textById("SpRegen"),
+  RPD.textById("luck"),
   RPD.textById("firePhys"),
   RPD.textById("lightningPhys"),
   RPD.textById("waterPhys"),
@@ -938,12 +1058,12 @@ local RPG
      
         itStInfo = itStInfo.." "..statsNames[i]..": "..tostring(twoStats[1])
           if twoStats[2] ~= 0 then
-            itStInfo = itStInfo..", "..tostring(twoStats[2]).."%\n"
+            itStInfo = itStInfo..", "..tostring(twoStats[2]*100).."%\n"
           else
             itStInfo = itStInfo.."\n"
         end
       elseif twoStats[2] > 0 then
-        itStInfo = itStInfo.." "..statsNames[i]..": "..tostring(twoStats[2]).."%\n"
+        itStInfo = itStInfo.." "..statsNames[i]..": "..tostring(twoStats[2]*100).."%\n"
       end
     end
    
@@ -953,12 +1073,12 @@ local RPG
      
         itStInfo = itStInfo.." "..statsNames[i]..": "..tostring(twoStats[1])
           if twoStats[2] > 0 then
-            itStInfo = itStInfo..", "..tostring(twoStats[2]).."%\n"
+            itStInfo = itStInfo..", "..tostring(twoStats[2]*100).."%\n"
           else
             itStInfo = itStInfo.."\n"
         end
       elseif twoStats[2] > 0 then
-        itStInfo = itStInfo.." "..statsNames[i]..": "..tostring(twoStats[2]).."%\n"
+        itStInfo = itStInfo.." "..statsNames[i]..": "..tostring(twoStats[2]*100).."%\n"
       end
     end
     
@@ -967,16 +1087,18 @@ local RPG
  
  
   getMaterialsInfo = function(stats,armorS,weaponS,dmg,dr,delay,acc,range)
-    local itStInfo = ""
+    local itStInfo = "\n"
+    local plus
+    local switch
     local statsNames = {
   RPD.textById("Hp"),
   RPD.textById("Sp"),
-  RPD.textById("luck"),
   RPD.textById("PhysStr"),
   RPD.textById("MagStr"),
   RPD.textById("Fast"),
   RPD.textById("magDef"),
-  RPD.textById("SpRegen")
+  RPD.textById("SpRegen"),
+  RPD.textById("luck")
   }
   local armorStNames = {
   RPD.textById("fireD"),
@@ -1027,55 +1149,117 @@ local RPG
     
       for i = 1,8 do
         if stats[i] ~= 0 then
-          itStInfo = itStInfo.." "..statsNames[i]..": +"..tostring(stats[i]).."\n"
+          plus = ""
+          if stats[i] > 0 then
+            plus = "+"
+          end
+          itStInfo = itStInfo.."  "..statsNames[i]..": "..plus..tostring(stats[i]).."\n"
         end
       end
       
-      itStInfo = itStInfo.." "..RPD.textById("DmgStat")..": "..tostring(dmg[1]).." — "..tostring(dmg[2].."\n")
+      if itStInfo ~= "\n" then
+          itStInfo = itStInfo.."\n"
+        end
+      
+      itStInfo = itStInfo.."  "..RPD.textById("DmgStat")..": "..tostring(dmg[1]).." — "..tostring(dmg[2]).."\n"
     
     if dr ~= 0 then
-      itStInfo = itStInfo.." "..RPD.textById("DrStat")..": "..tostring(dr).."\n"
+        plus = ""
+        if dr > 0 then
+          plus = "+"
+        end
+      itStInfo = itStInfo.."  "..RPD.textById("DrStat")..": "..plus..tostring(dr).."\n"
     end
     
     if delay ~= 0 then
-      itStInfo = itStInfo.." "..RPD.textById("DelayStat")..": "..tostring(delay).."\n"
+      plus = ""
+        if delay > 0 then
+          plus = "+"
+        end
+      itStInfo = itStInfo.."  "..RPD.textById("DelayStat")..": "..plus..tostring(delay).."\n"
     end
     
     if acc ~= 0 then
-      itStInfo = itStInfo.." "..RPD.textById("AccuracyStat")..": "..tostring(acc).."\n"
+      plus = ""
+        if acc > 0 then
+          plus = "+"
+        end
+      itStInfo = itStInfo.."  "..RPD.textById("AccuracyStat")..": "..plus..tostring(acc).."\n"
     end
     
     if range ~= 0 then
-      itStInfo = itStInfo.." "..RPD.textById("RangeStat")..": "..tostring(range).."\n"
+      plus = ""
+        if range > 0 then
+          plus = "+"
+        end
+      itStInfo = itStInfo.."  "..RPD.textById("RangeStat")..": "..plus..tostring(range).."\n"
     end
     
+    switch = true
     for i = 1,14 do 
       local twoStats = armorS[i]
+      if twoStats[1] ~= 0 or twoStats[2] ~= 0 then
+        if switch == true then
+          switch = false
+          itStInfo = itStInfo.."\n"
+        end
+      end
       if twoStats[1] ~= 0 then
+        plus = ""
+        if twoStats[1] > 0 then
+          plus = "+"
+        end
      
-        itStInfo = itStInfo.." "..armorStNames[i]..": "..tostring(twoStats[1])
+        itStInfo = itStInfo.."  "..armorStNames[i]..": "..plus..tostring(twoStats[1])
           if twoStats[2] ~= 0 then
-            itStInfo = itStInfo..", "..tostring(twoStats[2]*100).."%\n"
+            plus = ""
+          if twoStats[2] > 0 then
+            plus = "+"
+          end
+            itStInfo = itStInfo.." / "..plus..tostring(twoStats[2]*100).."%\n"
           else
             itStInfo = itStInfo.."\n"
         end
       elseif twoStats[2] ~= 0 then
-        itStInfo = itStInfo.." "..armorStNames[i]..": "..tostring(twoStats[2]*100).."%\n"
+        plus = ""
+        if twoStats[2] > 0 then
+          plus = "+"
+        end
+        itStInfo = itStInfo.."  "..armorStNames[i]..": "..plus..tostring(twoStats[2]*100).."%\n"
       end
     end
-   
+    
+    switch = true
     for i = 1, 28 do
       local twoStats = weaponS[i]
+      if twoStats[1] ~= 0 or twoStats[2] ~= 0 then
+        if switch == true then
+          switch = false
+          itStInfo = itStInfo.."\n"
+        end
+      end
       if twoStats[1] ~= 0 then
+        plus = ""
+        if twoStats[1] > 0 then
+          plus = "+"
+        end
      
-        itStInfo = itStInfo.." "..weaponStNames[i]..": "..tostring(twoStats[1])
+        itStInfo = itStInfo.."  "..weaponStNames[i]..": "..plus..tostring(twoStats[1])
           if twoStats[2] ~= 0 then
-            itStInfo = itStInfo..", "..tostring(twoStats[2]*100).."%\n"
+            plus = ""
+            if twoStats[2] > 0 then
+              plus = "+"
+            end
+            itStInfo = itStInfo.." / "..plus..tostring(twoStats[2]*100).."%\n"
           else
             itStInfo = itStInfo.."\n"
         end
       elseif twoStats[2] ~= 0 then
-        itStInfo = itStInfo.." "..weaponStNames[i]..": "..tostring(twoStats[2]*100).."%\n"
+        plus = ""
+        if twoStats[2] > 0 then
+          plus = "+"
+        end
+        itStInfo = itStInfo.."  "..weaponStNames[i]..": "..plus..tostring(twoStats[2]*100).."%\n"
       end
     end
     
@@ -1092,12 +1276,12 @@ local RPG
   local statsNames = {
   RPD.textById("Hp"),
   RPD.textById("Sp"),
-  RPD.textById("luck"),
   RPD.textById("PhysStr"),
   RPD.textById("MagStr"),
   RPD.textById("Fast"),
   RPD.textById("magDef"),
-  RPD.textById("SpRegen")
+  RPD.textById("SpRegen"),
+  RPD.textById("luck")
   }
   for i = 1, cycles do
     ran = math.random(1,8)

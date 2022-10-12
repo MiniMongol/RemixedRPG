@@ -1,0 +1,10 @@
+{
+   "spriteDesc"    :"spritesDesc/Town_Blacksmith.json",
+   "friendly"      :true,
+   "movable"       :false,
+   "aiState"       :"Passive",
+   "fraction"      :"NEUTRAL",
+   "immortal"      :true,
+   "name"          :"Кузнец",
+   "description"   :""
+}

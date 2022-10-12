@@ -46,7 +46,7 @@ forgedWeapon.makeWeapon = function()
     
     
     name = function(self)
-      return ""
+      return self.data.name
     end,
     
     
