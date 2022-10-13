@@ -317,6 +317,10 @@
 ["IronMail","плетён"]
 ["SteelMail","проволочн"]
 ["Clothy","тканев"]
+<<<<<<< HEAD
+=======
+["WithLeather","кожен"]
+>>>>>>> ded6f92daa3a261a04dc76ee737987e27eb625f6
 ["WithLeather","кожан"]
 ["",""]
 ["",""]
