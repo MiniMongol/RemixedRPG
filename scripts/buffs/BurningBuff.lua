@@ -21,14 +21,13 @@ return buff.init{
             info          = "",
             data          =
             {
-            dmg = int.dmg
+            dmg = int.dmg or 1
             }
         }
     end,
     
     charAct = function(self,buff)
       local data = self:desc().data
-      RPD.glog(data.dmg)
       RPG.damage(buff.target,math.ceil(data.dmg*(1+math.min((buff:level() +buff:level()%2)*0.05,0.3)) ),type,elmnt)
     end
 }
