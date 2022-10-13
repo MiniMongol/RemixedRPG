@@ -82,9 +82,9 @@ local Add = {
     RPD.chooseOption(dialog,
     RPD.textById("Smithing")..": "..smith.lvl.." "..RPD.textById("Exp")..": "..smith.exp.." / "..smith.expToUp,
    "",
-      RPD.textById("LightArmor"),
-      RPD.textById("MediumArmor"),
-      RPD.textById("HeavyArmor"))
+      RPD.textById("LightArmor")..RPD.textById("ая"),
+      RPD.textById("MediumArmor")..RPD.textById("яя"),
+      RPD.textById("HeavyArmor")..RPD.textById("ая"))
  end,
  
  smithChooseMaterials = function(dialog)

@@ -618,18 +618,38 @@ local RPG
         Crossbow = "big_crossbow"
       }
     }
+    local armorNames =
+    {
+      iron="IronArmor",
+      steel="SteelArmor",
+      leather="LeatherArmor",
+      cloth="ClothArmor"
+    }
     
     local wEnds =
     {
-      spear = "form4",
-      machete = "form4",
-      doug = "form3",
-      rogatina = "form3",
-      katana = "form3",
-      twohands_axe = "form3",
-      hammer = "form3",
-      mace = "form3",
-      peak = "form3"
+      spear = "ое",
+      machete = "ое",
+      doug = "ая",
+      rogatina = "ая",
+      katana = "ая",
+      twohands_axe = "ая",
+      hammer = "ая",
+      mace = "ая",
+      peak = "ая"
+    }
+    local aEnds1 =
+    {
+      iron = "ые",
+      steel = "ые",
+      leather = "ая",
+      cloth = "ая"
+    }
+    local aEnds2 =
+    {
+      LightArmor = {iron="ие",steel="ие",cloth="ая",leather="ая"},
+      MediumArmor = {iron="ие",steel="ие",cloth="яя",leather="яя"},
+      HeavyArmor = {iron="ые",steel="ые",cloth="ая",leather="ая"}
     }
     
     local wTypes =
@@ -639,6 +659,13 @@ local RPG
       gold = {iron="Spiky", steel="Sharp", gold="FullGold", bone="Bony" },
       bone = {iron="Spiky", steel="Sharp" , gold="Gilded", bone="FullBone" }
     }
+    local aTypes = 
+    {
+      iron = {iron="FullIron" ,steel="SemiIron" ,cloth="Clothy" ,leather="WithLeather" },
+      steel = {iron="SemiSteel",steel="FullSteel",cloth="Clothy",leather="WithLeather"},
+      cloth = {iron="IronMail",steel="SteelMail",cloth="Clothy",leather="WithLeather"},
+      leather = {iron="SemiIron",steel="SemiSteel",cloth="Clothy",leather="FullLeather"}
+    }
     
     local name =""
     if mode == "weapon" then
@@ -646,8 +673,9 @@ local RPG
       local wType = subTypes[max[2]:desc().data.name]
       local groupOfNames = weaponNames[max[1]:desc().data.name]
       local uniqueName = groupOfNames[smithy.choosenObject]
-    
-      local wordEnd = "form1"
+      local wordEnd = "ый"
+      local wordEndArmor1 = "ый"
+      local wordEndArmor2 = "ый"
       
       if wType == "FullSteel" or wType == "SemiSteel" or wType == "FullBone" then
         wordEnd ="form2"
@@ -656,10 +684,26 @@ local RPG
         if wEnds[uniqueName] ~= nil then 
         wordEnd = wEnds[uniqueName]
       end
+      
+      name = RPD.textById(wType)..RPD.textById(wordEnd).." "..RPD.textById(uniqueName)..rareName
+      
+      else
+      
+        local subTypes = aTypes[max[1]:desc().data.name]
+      local aType = subTypes[max[2]:desc().data.name]
+      local uniqueName = armorNames[max[1]:desc().data.name]
+      
+      if aEnds1[max[1]:desc().data.name] ~= nil then 
+        wordEndArmor1 = aEnds1[max[1]:desc().data.name]
+      end
+      
+        local aEnd2 = aEnds2[smithy.choosenObject]
+        wordEndArmor2 = aEnd2[max[1]:desc().data.name]
+      
+        name = RPD.textById(aType)..RPD.textById(wordEndArmor1).." "..RPD.textById(smithy.choosenObject)..RPD.textById(wordEndArmor2).." "..RPD.textById(uniqueName)..rareName
+      end
         
-        name = RPD.textById(wType)..RPD.textById(wordEnd).." "..RPD.textById(uniqueName)..rareName
         
-    end
     
     local tier
     if mode == "weapon" then
@@ -679,7 +723,7 @@ local RPG
      
      return {str = RPG.smartInt(str),info = itemInfo, icon = icon, name = name, tier = tier, minDmg = RPG.smartInt(minDmg), maxDmg = RPG.smartInt(maxDmg), delay = delayFactor, accuracy = accuracy, range = range, dstats = stats, addStats = addStatsGroups[mode], type = table.unpack(objectDmgType[smithy.choosenObject],1), element = table.unpack(objectDmgType[smithy.choosenObject],2)}
    else
-     return {str = RPG.smartInt(str),info = itemInfo, icon = icon, tier = tier, dr = drOrDmg[mode], dstats = RPG.unpackAll({stats,allAdd})}
+     return {str = RPG.smartInt(str),name = name, info = itemInfo, icon = icon, tier = tier, dr = drOrDmg[mode], dstats = RPG.unpackAll({stats,allAdd})}
    end
  end,
  

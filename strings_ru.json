@@ -316,7 +316,11 @@
 ["IronMail","плетён"]
 ["SteelMail","проволочн"]
 ["Clothy","тканев"]
+<<<<<<< HEAD
+["WithLeather","кожен"]
+=======
 ["WithLeather","кожан"]
+>>>>>>> branch 'master' of https://github.com/MiniMongol/RemixedRPG
 ["",""]
 ["",""]
 ["",""]
