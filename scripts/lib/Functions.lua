@@ -395,13 +395,13 @@ local RPG
    local rareName = ""
    
    local rareRandom = math.random(1,10000)
-   if rareRandom <= 200 then
+   if rareRandom <= 200 +RPG.AllLuck() then
      smithScale = smithScale +0.05*smith.lvl
      rareName = "("..RPD.textById("Rare")..")"
-   elseif rareRandom <= 50 then
+   elseif rareRandom <= 50 +RPG.AllLuck() then
      smithScale = smithScale +0.15*smith.lvl
      rareName = "("..RPD.textById("Epic")..")"
-   elseif rareRandom <= 10 then
+   elseif rareRandom <= 10 +RPG.AllLuck() then
      smithScale = smithScale +0.35*smith.lvl
      rareName = "("..RPD.textById("Legendary")..")"
    end
@@ -726,6 +726,35 @@ local RPG
      return {str = RPG.smartInt(str),name = name, info = itemInfo, icon = icon, tier = tier, dr = drOrDmg[mode], dstats = RPG.unpackAll({stats,allAdd})}
    end
  end,
+ 
+	conversionStatsToGold = function(stats,addstats,delay,accuracy,range,mode) 
+  	local gold = 0
+		local wFix = {armor = 0, weapon = 14}
+		local gAddStats= { 2, 300}
+		local gStats ={ 2,2,2.5,2.5,2.5,3,2,5 }
+		local gDelay = 100
+		local gAccuracy = 250
+		local gRange = 200
+ 		for i = 1, 8 do
+   	    
+  		gold = gold +stats[i]*gStats[i]
+         
+ 		end
+       
+  	for j = 1, 14 + wFix[mode] do
+    	local modeStat = addstats[j]
+         
+    	for jj = 1,2 do
+      	gold = gold + modeStat[jj]*gAddStats[jj] 
+    	end
+  	end
+		
+		gold = gold +delay*gDelay
+		gold = gold +accuracy*gAccuracy
+		gold = gold +range*gRange
+		
+		return gold
+  end,
  
  
  smartInt = function(int)

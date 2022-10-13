@@ -1,18 +1,18 @@
-
 local RPD = require "scripts/lib/commonClasses"
 local item = require "scripts/lib/item"
 
 return item.init {
     desc  = function (self, item)
         return {
-            image = 7,
+            image = 9,
             imageFile = "items/ammo.png",
-            name = "CommonArrow_Name",
-            info = "CommonArrow_Info",
+            name = "PoisonArrow_Name",
+            info = "PoisonArrow_Info",
             stackable = true,
             data = {
             canUseToShoot = true,
-            addDmg = {1,2}
+            addDmg = {1,2},
+						buff = {"PoisonBuff",5,2.5}
             },
         }
     end,

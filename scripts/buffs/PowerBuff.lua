@@ -32,39 +32,39 @@ local dmgModifs = {
    c= {mod = 0, dmg = 0, type = {"",""}, element = {"",""}},
    
    Rat = {mod = 2, dmg = 2, type = {"phys","mag"}, element = {"cut","poison"},loot ={"materials/RatClaw"}, chance ={20}},
-   Gnoll = {mod = 0, dmg = 0, type = {"phys",""}, element = {"crush",""},loot ={"materials/GnollHide"}, chance ={15}},
+   Gnoll = {mod = 0, dmg = 0, type = {"phys",""}, element = {"crush",""},loot ={"materials/GnollSkin"}, chance ={15}},
    Crab = {mod = 0, dmg = 0, type = {"phys",""}, element = {"chop",""},loot ={"materials/CrabClaw"}, chance ={15}},
    Albino = {mod = 2, dmg = 2, type = {"phys","mag"}, element = {"cut","poison"},loot ={"materials/AlbinoFang"}, chance ={50}},
    Woodlouise = {mod = 0, dmg = 0, type = {"phys",""}, element = {"crush",""},loot ={"materials/WoodlouiseCarapace"}, chance ={15}},
-   Goo = {mod = 3, dmg = 0.5, type = {"phys","mag"}, element = {"crush","poison"},loot ={}, chance ={}},
+   Goo = {mod = 3, dmg = 0.5, type = {"phys","mag"}, element = {"crush","poison"},loot ={"materials/PieceOfGoo"}, chance ={0.05}},
    RatKing = {mod = 2, dmg = 4, type = {"phys","mag"}, element = {"cut","poison"},loot ={}, chance ={}},
    
    Thief = {mod = 0, dmg = 0, type = {"phys",""}, element = {"stab",""},loot ={"materials/PieceOfDagger"}, chance ={15}},
-   Skeleton = {mod = 0, dmg = 0, type = {"phys",""}, element = {"crush",""},loot ={"materials/bone"}, chance ={35}},
+   Skeleton = {mod = 0, dmg = 0, type = {"phys",""}, element = {"crush",""},loot ={"materials/SkeletonBone"}, chance ={35}},
    Swarm = {mod = 2, dmg = 3, type = {"phys","mag"}, element = {"cut","poison"},loot ={}, chance ={}}, 
    Shadow = {mod = 1, dmg = 5, type = {"phys","mag"}, element = {"crush","dark"},loot ={}, chance ={}}, 
    Bandit = {mod = 0, dmg = 0, type = {"phys",""}, element = {"stab",""},loot ={"materials/PieceOfDoug"}, chance ={50}},
-   Tengu = {mod = 0, dmg = 0, type = {"phys",""}, element = {"stab",""},loot ={}, chance ={}},
+   Tengu = {mod = 0, dmg = 0, type = {"phys",""}, element = {"stab",""},loot ={"materials/OldKunai"}, chance ={0.05}},
    
    Bat = {mod = 0, dmg = 0, type = {"phys",""}, element = {"cut",""},loot ={"materials/BatWing"}, chance ={20}},
-   Brute = {mod = 0, dmg = 0, type = {"phys",""}, element = {"crush",""},loot ={"materials/BruteHide"}, chance ={20}},
+   Brute = {mod = 0, dmg = 0, type = {"phys",""}, element = {"crush",""},loot ={"materials/BruteSkin"}, chance ={20}},
    Shaman = {mod = 0, dmg = 0, type = {"mag",""}, element = {"lightning",""},loot ={"materials/ShamanMask"}, chance ={20}},
    Spinner = {mod = 1, dmg = 6, type = {"phys","mag"}, element = {"cut","poison"},loot ={"materials/SpiderFang"}, chance ={20}},
    Shielded = {mod = 0, dmg = 0, type = {"phys",""}, element = {"crush",""},loot ={"materials/PieceOfShield"}, chance ={50}}, 
-   DM300 = {mod = 2, dmg = 8, type = {"phys","phys"}, element = {"stab","crush"},loot ={}, chance ={}},
+   DM300 = {mod = 2, dmg = 8, type = {"phys","phys"}, element = {"stab","crush"},loot ={"materials/PieceOfDM300"}, chance ={0.05}},
    
    Monk = {mod = 0, dmg = 0, type = {"phys",""}, element = {"crush",""},loot ={"materials/MonkTooth"}, chance ={20}},
    Warlock = {mod = 0, dmg = 0, type = {"mag",""}, element = {"dark",""},loot ={"materials/WispOfBeard"}, chance ={20}},
    Golem = {mod = 1, dmg = 5, type = {"phys","mag"}, element = {"crush","earth"},loot ={"materials/PieceOfGolemCore"}, chance ={10}},
    Senior = {mod = 2, dmg = 5, type = {"phys","phys"}, element = {"crush","stab"},loot ={"materials/MentorTooth"}, chance ={40}},
    Undead = {mod = 2, dmg = 5, type = {"phys","mag"}, element = {"crush","dark"},loot ={}, chance ={}},
-   King = {mod = 0, dmg = 0, type = {"phys",""}, element = {"chop",""},loot ={}, chance ={}},
+   King = {mod = 0, dmg = 0, type = {"phys",""}, element = {"chop",""},loot ={"materials/KingCrown"}, chance ={0.05}},
    
    Succubus = {mod = 3, dmg = 0.5, type = {"phys","mag"}, element = {{"crush","stab"},"dark"},loot ={}, chance ={}},
    Eye = {mod = 0, dmg = 0, type = {"mag",""}, element = {{"dark","light"},""},loot ={"materials/EyeLens"}, chance ={10}},
    Scorpio = {mod = 3, dmg = 0.2, type = {"phys","mag"}, element = {"stab","poison"},loot ={"materials/ScorpionSting"}, chance ={15}},
    Acidic = {mod = 4, dmg = 0.2, type = {"phys","mag"}, element = {"stab","poison"},loot ={"materials/AcidicSting"}, chance ={50}},
-   ShadowLord = {mod = 0, dmg = 0, type = {"mag",""}, element = {{"dark","stab"},""},loot ={}, chance ={}},
+   ShadowLord = {mod = 0, dmg = 0, type = {"mag",""}, element = {{"dark","stab"},""},loot ={"materials/PieceOFShadowLord"}, chance ={0.05}},
    
    SuspiciousRat = {mod = 0, dmg = 0, type = {"",""}, element = {"",""},loot ={}, chance ={}},
    PseudoRat = {mod = 0, dmg = 0.5, type = {"phys",""}, element = {{"cut","chop"},""},loot ={"materials/PseudoRatFang"}, chance ={10}},
@@ -89,13 +89,13 @@ local dmgModifs = {
    SpiderNest = {mod = 0, dmg = 0, type , element = {"",""},loot ={}, chance ={}},
    SpiderEgg = {mod = 0, dmg = 0, type  , element = {"",""},loot ={}, chance ={}},
    f = {mod = 0, dmg = 0, type = {"",""}, element = {"",""}},
-   SpiderQueen = {mod = 2, dmg = 6, type = {"phys","mag"}, element = {{"stab","chop"},"poison"},loot ={}, chance ={}},
+   SpiderQueen = {mod = 2, dmg = 6, type = {"phys","mag"}, element = {{"stab","chop"},"poison"},loot ={"materials/SpiderQueenMandible"}, chance ={0.05}},
    
-   Kobold = {mod = 2, dmg = 5, type = {"phys","mag"}, element = {"crush","ice"},loot ={"materials/KoboldHide"}, chance ={20}},
+   Kobold = {mod = 2, dmg = 5, type = {"phys","mag"}, element = {"crush","ice"},loot ={"materials/KoboldSkin"}, chance ={20}},
    KoboldIcemancer= {mod = 0, dmg = 0, type = {"mag",""}, element = {"ice",""},loot ={"materials/IcemancerEye"}, chance ={20}},
    ColdSpirit = {mod = 4, dmg = 0.15, type = {"mag","phys"}, element = {"ice","stab"},loot ={"materials/MagicSnow"}, chance ={20}},
    IceGuardianCore= {mod = 4, dmg = 0.4, type = {"phys","mag"}, element = {"stab","ice"},loot ={"materials/IceElmntCore"}, chance ={50}},
-   IceGuardian = {mod = 4, dmg = 0.4, type = {"phys","mag"}, element = {"stab","ice"},loot ={}, chance ={}},
+   IceGuardian = {mod = 4, dmg = 0.4, type = {"phys","mag"}, element = {"stab","ice"},loot ={"materials/IceGuardianCore"}, chance ={0.05}},
    
    DeathKnight = {mod = 1, dmg = 5, type = {"phys","mag"}, element = {{"cut","chop"},"dark"},loot ={"materials/DeathKnightSpaulder"}, chance ={20}},
    DreadKnight = {mod = 2, dmg = 6, type = {"phys","mag"}, element = {{"cut","chop"},"dark"},loot ={"materials/DreadKnightSpaulder"}, chance ={20}},
@@ -104,7 +104,7 @@ local dmgModifs = {
    JarOfSouls = {mod = 0, dmg = 0, type = {"",""}, element = {"",""},loot ={}, chance ={}},
    Zombie = {mod = 4, dmg = 0.2, type = {"phys","mag"}, element = {{"cut","chop"},"poison"},loot ={"materials/ZombieFinger"}, chance ={20}},
    RunicSkull = {mod = 0, dmg = 0, type = {"",""}, element = {"",""},loot ={}, chance ={}},
-   Lich = {mod = 2, dmg = 5, type = {"mag",""}, element = {{"dark","earth"},"poison"},loot ={}, chance ={}},
+   Lich = {mod = 2, dmg = 5, type = {"mag",""}, element = {{"dark","earth"},"poison"},loot ={"materials/LichBone"}, chance ={0.05}},
    
    a = {mod = 0, dmg = 0, type = {"",""}, element = {"",""}}
    

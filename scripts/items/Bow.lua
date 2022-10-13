@@ -3,28 +3,59 @@ local RPD                  = require "scripts/lib/commonClasses"
 local RPG                  = require "scripts/lib/Functions"
 local Add                  = require "scripts/lib/AdditionalFunctions"
 local smithy = require "scripts/lib/smithing"
+local storage = require "scripts/lib/storage"
 local item = require "scripts/lib/item"
 
 local forgedWeapon = {}
 local str
+local checkForBuff
 local minDmg
 local maxDmg
+local addMin = 0
+local addMax = 0
 
 
 forgedWeapon.makeWeapon = function()
+		local a = RPG.getItemStats(quanStats,statsMax)
+    local statsInfo = a[1]
+    local stats = a[2]
     return{
     desc = function(self, item)
         
         return {
             stackable     = false,
             upgradable    = true,
-            data = smithy.finalStats,
-            imageFile = "items/forgedSpear.png",
+            data = {
+						str = 5,
+						info = statsInfo,
+						icon = 0, 
+						name = "WoodenBow_Name", 
+						tier = 1, 
+						minDmg = 2, 
+						maxDmg = 4, 
+						delay = 1, 
+						accuracy = 1, 
+						range = 20, 
+						dstats = stats, 
+						type = {"phys"}, 
+						element = {"stab"}
+						},
+            imageFile = "items/ranged.png",
             equipable = "weapon"
         }
         
     end,
     
+    actions = function(self)
+    return {"selectAmmo"}
+    end,
+    
+    execute = function(self,item,hero,action)
+      local WndBag = RPG.Objects.Ui.WndBag
+      if action == "selectAmmo" then
+        RPG.selectAmmo(luajava.bindClass(WndBag).Mode.ALL,"selectAmmo2")
+      end
+    end,
     
     info = function(self,item)
       hero = RPD.Dungeon.hero
@@ -52,14 +83,14 @@ forgedWeapon.makeWeapon = function()
     
     
     getVisualName = function()
-      return "Spear"
+      return "CompoundBow"
     end,
-    
-    
-    getAttackAnimationClass = function()
-	    return "SPEAR_ATTACK"
-	  end,
    
+   
+    getAttackAnimationClass = function()
+	    return "BOW"
+	  end,
+	
    
     slot = function(self, item, belongings)
         return RPD.Slots.weapon
@@ -97,30 +128,59 @@ forgedWeapon.makeWeapon = function()
         end
         RPG.decreaseHtSp(self.data.dstats)
     end,
-	
-	
-	damageRoll = function(self,item,user)
-      local hero = RPD.Dungeon.hero
-      maxDmg = self.data.maxDmg +self.data.tier*item:level()
-      minDmg = self.data.minDmg +self.data.tier*item:level()
+    
+    
+    preAttack = function(self,item,enemy)
+      hero = RPD.Dungeon.hero
+      local choosedArrows = storage.gameGet("choosedArrows") or {}
+      local file = require("scripts/items/"..choosedArrows.is)
+      checkForBuff = false 
       
-      local dmgRoll = math.random(minDmg,maxDmg)
-      local d = self.data
-      local id = 
-      {
-        cut = 10,
-        chop = 11,
-        stab = 12,
-        crush = 13
-      }
-      local dmgFrSt1 = d.addstats[id[d.element[1] or d.element]]
-      local dmgFrSt2 = d.addstats[id[d.element[2]]] or {0,dmgFrSt1[2]}
-      local dmg = RPG.getDamage(user:getEnemy(),dmgRoll *((dmgFrSt1[2]+dmgFrSt2[2])/200 +1) + dmgFrSt1[1] +dmgFrSt2[1],self.data.type,self.data.element)
-      
-      RPG.weaponOtherDmg(user:getEnemy(), dmg, self.data.addstats) 
-			enemy:getSprite():showStatus(0xffff00,(self.data.element[1] or self.data.element).."/"..(self.data.element[2] or "")..":")
-      return dmg,dmg
+      if choosedArrows.is ~= nil and RPG.distance(enemy:getPos()) > 0 then
+        if item:getUser():getBelongings():getItem(choosedArrows.is) ~= nil then
+          checkForBuff = true
+          addMin = file:desc().data.addDmg[1]
+          addMax = file:desc().data.addDmg[2]
+          item:getUser():getBelongings():getItem(choosedArrows.is):detach(item:getUser():getBelongings().backpack)
+          RPD.zapEffect(hero:getPos(),enemy:getPos(),"Arrow")
+          
+        else
+          RPD.glogn("dontHaveArrows")
+       
+        end
+      end
     end,
+	
+	
+	damageRoll = function(self,item,user,enemy)
+    local hero = RPD.Dungeon.hero
+    local dmg = 0
+    maxDmg = self.data.maxDmg +self.data.tier*item:level()
+    minDmg = self.data.minDmg +self.data.tier*item:level()
+      
+    local dmgRoll = math.random(minDmg,maxDmg)
+      local dmg = RPG.getDamage(user:getEnemy(),dmgRoll,self.data.type,self.data.element)
+			enemy:getSprite():showStatus(0xffff00,(self.data.element[1] or self.data.element).."/"..(self.data.element[2] or "")..":")
+    return dmg,dmg
+  end,
+  
+  
+  postAttack = function(self,item,enemy)
+  
+    local choosedArrows = storage.gameGet("choosedArrows") or {}
+    local file = require("scripts/items/"..choosedArrows.is)
+    
+    if file:desc().data.buff ~= nil and checkForBuff == true then
+          
+      local arrowBuff = file:desc().data.buff
+      local buffName = arrowBuff[1]
+      local buffDuration = arrowBuff[2]
+      local buffLevel = arrowBuff[3]
+      
+      RPD.affectBuff(enemy,buffName, buffDuration):level(buffLevel)
+      
+    end
+  end,
     
     
     accuracyFactor = function(self,item,user)
@@ -131,7 +191,7 @@ forgedWeapon.makeWeapon = function()
     
     attackDelayFactor = function(self,item,user)
       str = math.max(self.data.str -2*item:level(),1)
-      return math.max(self.data.delay -RPG.itemStrBonus(str)-0.15,0.25)
+      return math.max(self.data.delay -RPG.itemStrBonus(str),0.25)
     end,
     
     
@@ -146,13 +206,28 @@ forgedWeapon.makeWeapon = function()
     end,
     
     
-    goodForMelee = function(self)
-      return true
+    goodForMelee = function()
+      return false
     end,
     
     
-    range = function(self)
-      return self.data.range +1
+    range = function(self,item)
+      local choosedArrows = storage.gameGet("choosedArrows") or {}
+      
+      if choosedArrows.is ~= nil then
+      
+        if item:getUser():getBelongings():getItem(choosedArrows.is) ~= nil then
+          return self.data.range +20
+          
+        else 
+          return self.data.range 
+          
+        end
+        
+      else
+        return self.data.range 
+        
+      end
     end,
 		
 		price = function(self,item)

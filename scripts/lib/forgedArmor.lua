@@ -43,10 +43,6 @@ forgedArmor.makeArmor = function(self)
     name = function(self)
       return self.data.name
     end,
-     
-     price = function(self)
-       return self.data.tier*100
-      end,
 	
 	effectiveDr = function(self,item)
 	  return self.data.dr + item:level()*self.data.tier
@@ -92,6 +88,10 @@ forgedArmor.makeArmor = function(self)
     end,
 
     execute = function(self, item, hero, action)
+    end,
+		
+		price = function(self,item)
+      return 20*2^(self.data.tier-1)+10*2^(self.data.tier-1)*item:level() +RPG.conversionStatsToGold(self.data.stats,self.data.addstats,0,0,0,"armor")
     end
 }
 end

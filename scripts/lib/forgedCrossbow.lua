@@ -102,8 +102,25 @@ forgedWeapon.makeWeapon = function()
 	
 	damageRoll = function(self,item,user)
       local hero = RPD.Dungeon.hero
-      local dmgRoll = math.random(self.data.minDmg +self.data.tier*item:level(),self.data.maxDmg +self.data.tier*item:level())
-      local dmg = RPG.getDamage(user:getEnemy(),dmgRoll,self.data.type,self.data.element)
+			local dmg = 0
+      maxDmg = self.data.maxDmg +self.data.tier*item:level()
+       minDmg = self.data.minDmg +self.data.tier*item:level()
+			
+      local dmgRoll = math.random(minDmg,maxDmg)
+      local d = self.data
+      local id = 
+      {
+        cut = 10,
+        chop = 11,
+        stab = 12,
+        crush = 13
+      }
+      local dmgFrSt1 = d.addstats[id[d.element[1] or d.element]]
+      local dmgFrSt2 = d.addstats[id[d.element[2]]] or {0,dmgFrSt1[2]}
+      local dmg = RPG.getDamage(user:getEnemy(),dmgRoll *((dmgFrSt1[2]+dmgFrSt2[2])/200 +1) + dmgFrSt1[1] +dmgFrSt2[1],self.data.type,self.data.element)
+      
+      RPG.weaponOtherDmg(user:getEnemy(), dmg, self.data.addstats) 
+			enemy:getSprite():showStatus(0xffff00,(self.data.element[1] or self.data.element).."/"..(self.data.element[2] or "")..":")
       return dmg,dmg
     end,
  
@@ -139,6 +156,10 @@ forgedWeapon.makeWeapon = function()
     range = function(self)
       return self.data.range +30
     end,
+		
+		price = function(self,item)
+      return 20*2^(self.data.tier-1)+10*2^(self.data.tier-1)*item:level() +RPG.conversionStatsToGold(self.data.stats,self.data.addstats,self.data.delay,self.data.accuracy,self.data.range,"weapon")
+    end
     
      
 }

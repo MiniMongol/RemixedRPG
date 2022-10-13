@@ -3,7 +3,6 @@
   "settings": {
     "decayFactor":2,
     "probabilities" : {
-      "SHIELD" : 8,
       "WEAPON" : 15,
       "ARMOR"  : 15,
       "POTION" : 50,
@@ -20,12 +19,11 @@
   },
   "categories": {
     "BULLETS": {
-      "AmokArrow": 2,
-      "HealthArrow": 2,
-      "CommonArrow": 10,
-      "PoisonArrow": 2,
-      "ParalysisArrow": 2,
-      "FireArrow": 2
+      "missiles/CommonArrow": 10,
+      "missiles/PoisonArrow": 2,
+      "missiles/ParalysisArrow": 2,
+      "missiles/FireArrow": 2,
+			"missiles/SharpArrow":6
     },
     "UNIQUE": {
       "Torch": 4,
@@ -138,30 +136,19 @@
       "ManaPotion": 40
     },
     "WEAPON": {
-      "AmokDart": 0.1,
-      "Dart": 1,
       "Sword": 1,
-      "SacrificialSword": 0.1,
       "Knuckles": 1,
-      "Javelin": 1,
       "Claymore": 1,
       "Mace": 1,
       "Boomerang": 0,
-      "HealthDart": 0.1,
-      "Kusarigama": 0.1,
-      "Shuriken": 1,
-      "GoldenSword": 0.1,
       "Halberd": 1,
       "Glaive": 1,
-      "Tamahawk": 1,
-      "IncendiaryDart": 1,
       "Spear": 1,
       "BattleAxe": 1,
       "Quarterstaff": 1,
       "WarHammer": 1,
       "ShortSword": 0,
       "Longsword": 1,
-      "CurareDart": 1,
       "Dagger": 1,
       "Sai": 1,
       "Gasock": 1,
