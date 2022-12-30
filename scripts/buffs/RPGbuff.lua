@@ -10,10 +10,11 @@ local RPG  = require "scripts/lib/Functions"
 local Que  = require "scripts/lib/Queue"
 
 local storage = require "scripts/lib/storage"
+local spellList = require "scripts/spells/CustomSpellsList"
 
-local hero = RPD.Dungeon.hero
-
-local level = RPD.Dungeon.hero
+local hero
+local depth
+local level
 
 local luckBonus = 1
 
@@ -25,6 +26,7 @@ local buff = require "scripts/lib/buff"
 
 return buff.init{
     desc  = function ()
+      spellList["Combat"] = Que.getMas("spelllist")
         return {
             icon          = -1,
             name          = "",
@@ -36,6 +38,8 @@ return buff.init{
     charAct = function(self,buff)
       local Stats = storage.gameGet(stats) or {}
       hero = RPD.Dungeon.hero
+      level = RPD.Dungeon.level
+      depth = RPD.Dungeon.depth
       local Spells = require "scripts/spells/CustomSpellsList"
       local weapon = hero:getBelongings().weapon
       local lefthand = hero:getBelongings().leftHand
@@ -48,9 +52,15 @@ return buff.init{
 	  local StatsArt = RPG.StatsArt
 	  local StatsArt2 = RPG.StatsArt2
 	  
-
 	  
       Spells.Combat = Que.getMas("spelllist")
+      
+      
+      if hero:buffLevel("Poison") > 0 then 
+        RPD.affectBuff(hero,"PoisonBuff",hero:buffLevel("Poison")):level(RPG.smartInt(0.5+depth*0.5))
+        RPD.removeBuff(hero,"Poison")
+      end
+      
       
       if hero:STR() > 1 then
         hero:STR(1)
@@ -59,23 +69,16 @@ return buff.init{
         storage.gamePut(tostring(hero:lvl()), {str = RPG.strength, int = RPG.intelligence, dex = RPG.dexterity, vit = RPG.vitality, wis = RPG.wisdom, luc = RPG.luck, lvlT = RPG.lvlToUp, magS = RPG.magicStr, phyS = RPG.physicStr, fast = RPG.fast, sP = RPG.sPoints, spR = RPG.spRegen,magDef = RPG.magDef, class = RPG.class, subclass = RPG.subclass, spells = Que.getMas("spelllist")})	
       end
       
+      local heroSteps = storage.gameGet("heroSteps")
+      storage.gamePut("heroSteps",{steps = heroSteps.steps +1})
+      
       if weapon:getClassName() == "DummyItem" then
-        for i=3,8 do
-          StatsA[RPG.statsName[i]] = 0
-        end
+        weapon:deactivate(hero)
+        weapon:activate(hero)
       end
       if lefthand:getClassName() == "DummyItem" then
-        for i=3,8 do
-          StatsA2[RPG.statsName[i]] = 0
-        end
-      end
-	  if armor:getClassName() == "DummyItem" then
-	  for i=3,8 do
-          StatsB[RPG.statsName[i]] = 0
-      end
-	  for i=9,21 do
-          StatsB[RPG.statsName[i]] = {0,0}
-        end
+        lefthand:deactivate(hero)
+        lefthand:activate(hero)
       end
      if artifact:getClassName() == "DummyItem" then
      for i=3,8 do
@@ -93,6 +96,13 @@ return buff.init{
         end
       end
       
+
+      
+      if hero:getBelongings():getItem("RatArmor") ~= nil then
+         hero:getBelongings():getItem("RatArmor"):detach(hero:getBelongings()
+.backpack) 
+         hero:collect(RPD.item("ModRatArmor"))
+    end
       if hero:getBelongings():getItem("TomeOfMastery") ~= nil then
          hero:getBelongings():getItem("TomeOfMastery"):detach(hero:getBelongings()
 .backpack)
@@ -108,6 +118,13 @@ return buff.init{
       storage.gamePut(a,{exp = golem.exp, expMax = golem.expMax, lvl = golem.lvl, summon = golem.summon +petsCount -3, summonMax = golem.summonMax})
     end
     
+    local mobsExeptions =
+    {
+    BoneGolem_lvl1=false,
+    BoneGolem_lvl2=false,
+    BoneGolem_lvl3=false
+    }
+    
       local levelW = RPD.Dungeon.level:getWidth()
         local levelH = RPD.Dungeon.level:getHeight()
       if RPD.Dungeon.depth ~= 0 then
@@ -115,14 +132,14 @@ return buff.init{
           for j = 0, levelH do
             local cell = RPD.Dungeon.level:cell(i,j)
             local enemy = RPD.Actor:findChar(cell)
-            if enemy and enemy ~= RPD.Dungeon.hero and enemy:buffLevel("PowerBuff") == 0 then
+            if enemy and enemy ~= RPD.Dungeon.hero and enemy:buffLevel("PowerBuff") == 0 and mobsExeptions[enemy:name()] then
               RPD.permanentBuff(enemy,"PowerBuff")
+              local addHp = RPG.smartInt(-5 +1.2*RPD.Dungeon.depth  +4*(RPD.Dungeon.depth%5))
               if enemy:hp() < enemy:ht() then
-                local addHp = RPG.smartInt(1.2*RPD.Dungeon.depth)
-                enemy:ht(enemy:ht() + addHp)
-                enemy:hp(enemy:hp() + addHp)
+                enemy:ht(enemy:ht() +enemy:ht()*0.02*depth + addHp)
+                enemy:hp(enemy:hp() +enemy:ht()*0.02*depth + addHp)
               else
-                enemy:ht(enemy:ht() + math.ceil(1.2*RPD.Dungeon.depth))
+                enemy:ht(enemy:ht() +enemy:ht()*0.02*depth + addHp)
                 enemy:hp(enemy:ht())
               end
             end

@@ -21,7 +21,7 @@ local tier = 2
 local maxDmg = 14
 local minDmg = 6
 local accuracy = 1.5
-local delayFactor = 1.5
+local delayFactor = 1.25
 local str 
 local stats
 local hero 

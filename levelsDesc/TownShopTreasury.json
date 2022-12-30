@@ -9,10 +9,9 @@
   },
   "THROWABLE": {
     "categoryChance": 10,
-    "Dart": 1,
-    "CurareDart": 0.1,
-    "IncendiaryDart": 0.1,
-    "CommonArrow": 5
+    "missiles/PoisonArrow": 1,
+    "missiles/SharpArrow": 3,
+    "missiles/CommonArrow": 6
   },
   "ARMOR": {
     "categoryChance": 5,
@@ -30,22 +29,20 @@
     "categoryChance": 10,
     "PotionOfPurity": 1,
     "PotionOfHealing": 1,
-    "ManaPotion": 1
+    "ManaPotion": 1,
+    "consume/AntidoteFromPoison":5
   },
   "WEAPON": {
     "categoryChance": 5,
     "Knuckles": 1,
     "Glaive": 1,
-    "CurareDart": 1,
     "Dagger": 1,
     "WoodenStaff": 1,
-    "WoodenBow": 1,
     "Sai": 1,
     "Gasock": 1,
     "Tonfa": 1
   },
   "SHIELDS": {
-    "categoryChance": 5,
-    "WoodenShield": 1
+    "categoryChance": 5
   }
 }

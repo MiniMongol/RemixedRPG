@@ -38,22 +38,23 @@ onehandWeapon.makeWeapon = function(name,mod,stra,minDmg,maxDmg,tier,accuracy,de
           else
           RPG.addStats(self.data.dstats,"StatsA")
       end
-      end
-      if self.data.activationCount == 0 then
+        self.data.activationCount = 1
         RPG.increaseHtSp(self.data.dstats)
       end
-      self.data.activationCount = 1
+      
     end,
     
-    deactivate = function(self,item)
+    deactivate = function(self,item,user)
         hero = RPD.Dungeon.hero
-        self.data.activationCount = 0
-        if RPG.handCheck(item) then
+        if self.data.activationCount == 1 then
+          if RPG.handCheck(item) then
             RPG.delStats("StatsA2")
-            else
+          else
             RPG.delStats("StatsA")
+          end
+          RPG.decreaseHtSp(self.data.dstats)
+          self.data.activationCount = 0
         end
-        RPG.decreaseHtSp(self.data.dstats)
     end,
 	
 	damageRoll = function(self,item,user)

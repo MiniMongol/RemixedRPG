@@ -1,41 +1,13 @@
 {
   "common": {
+      
+
     "items": [
-        {
-            "kind":"materials/iron",
-            "quantity":100
-        },
-        {
-          "kind":"materials/leather",
-          "quantity":100
-        },
-        {
-          "kind":"materials/cloth"
-        },
-        {
-          "kind":"materials/FireElmntCore"
-        },
-        {
-          "kind":"materials/ZombieFinger"
-        },
-        {
-          "kind":"materials/EyeLens"
-        },
-        {
-          "kind":"materials/IceElmntCore"
-        },
-        {
-            "kind": "TestItem"
-        },
-        {
-          "kind":"materials/steel"
-        },
-        {
-          "kind":"materials/gold"
-        },
-        {
-          "kind":"materials/bone"
-        }
+      {
+        "kind":"PotionOfExperience",
+        "quantity": 200
+        
+      }
     ],
     "str":9,
     "hp": 10,

@@ -24,8 +24,8 @@ return buff.init{
     desc  = function ()
         return {
             icon          = 52,
-            name          = "ShadowDaggerN",
-            info          = "ShadowDaggerD",
+            name          = "ShadowDagger_BuffN",
+            info          = "ShadowDagger_BuffD",
         }
     end,
     

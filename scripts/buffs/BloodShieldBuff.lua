@@ -21,11 +21,11 @@ return buff.init{
       shield2 = shield
         return {
             icon          = 57,
-            info          = "BloodShieldD",
+            info          = "BloodShield_BuffD",
         }
     end,
 name = function()
-return RPD.textById("BloodShieldN")..tostring(shield).."/"..tostring(shield2)
+return RPD.textById("BloodShield_BuffN")..tostring(shield).."/"..tostring(shield2)
 end,
 
 defenceProc = function(self, buff, enemy, damage)

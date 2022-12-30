@@ -21,8 +21,8 @@ return buff.init{
     desc  = function ()
         return {
             icon          = 66,
-            name          = "BoneArmorN",
-            info          = "BoneArmorD",
+            name          = "BoneArmor_BuffN",
+            info          = "BoneArmor_BuffD",
         }
     end,
     charAct = function(self,buff)

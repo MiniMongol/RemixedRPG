@@ -13,14 +13,17 @@ local minDmg
 local maxDmg
 local addMin = 0
 local addMax = 0
+local quanStats = 2
+local statsMax = 3
+local stats
+local statsInfo
 
-
-forgedWeapon.makeWeapon = function()
-		local a = RPG.getItemStats(quanStats,statsMax)
-    local statsInfo = a[1]
-    local stats = a[2]
-    return{
+  return item.init{
+		
     desc = function(self, item)
+    local a = RPG.getItemStats(quanStats,statsMax)
+    statsInfo = a[1]
+    stats = a[2]
         
         return {
             stackable     = false,
@@ -31,14 +34,15 @@ forgedWeapon.makeWeapon = function()
 						icon = 0, 
 						name = "WoodenBow_Name", 
 						tier = 1, 
-						minDmg = 2, 
-						maxDmg = 4, 
+						minDmg = 3, 
+						maxDmg = 5, 
 						delay = 1, 
 						accuracy = 1, 
-						range = 20, 
+						range = 1, 
 						dstats = stats, 
 						type = {"phys"}, 
-						element = {"stab"}
+						element = {"stab"},
+						activationCount = 0
 						},
             imageFile = "items/ranged.png",
             equipable = "weapon"
@@ -53,7 +57,7 @@ forgedWeapon.makeWeapon = function()
     execute = function(self,item,hero,action)
       local WndBag = RPG.Objects.Ui.WndBag
       if action == "selectAmmo" then
-        RPG.selectAmmo(luajava.bindClass(WndBag).Mode.ALL,"selectAmmo2")
+        RPG.selectAmmo(luajava.bindClass(WndBag).Mode.ALL,RPD.textById("selectAmmo2"))
       end
     end,
     
@@ -139,8 +143,8 @@ forgedWeapon.makeWeapon = function()
       if choosedArrows.is ~= nil and RPG.distance(enemy:getPos()) > 0 then
         if item:getUser():getBelongings():getItem(choosedArrows.is) ~= nil then
           checkForBuff = true
-          addMin = file:desc().data.addDmg[1]
-          addMax = file:desc().data.addDmg[2]
+          addMin = file:dmg()[1]
+          addMax = file:dmg()[2]
           item:getUser():getBelongings():getItem(choosedArrows.is):detach(item:getUser():getBelongings().backpack)
           RPD.zapEffect(hero:getPos(),enemy:getPos(),"Arrow")
           
@@ -157,10 +161,11 @@ forgedWeapon.makeWeapon = function()
     local dmg = 0
     maxDmg = self.data.maxDmg +self.data.tier*item:level()
     minDmg = self.data.minDmg +self.data.tier*item:level()
+    element1 = RPD.textById(self.data.element[1]) or RPD.textById(self.data.element)
+    element2 = RPD.textById(self.data.element[2]) or ""
       
     local dmgRoll = math.random(minDmg,maxDmg)
       local dmg = RPG.getDamage(user:getEnemy(),dmgRoll,self.data.type,self.data.element)
-			enemy:getSprite():showStatus(0xffff00,(self.data.element[1] or self.data.element).."/"..(self.data.element[2] or "")..":")
     return dmg,dmg
   end,
   
@@ -170,9 +175,9 @@ forgedWeapon.makeWeapon = function()
     local choosedArrows = storage.gameGet("choosedArrows") or {}
     local file = require("scripts/items/"..choosedArrows.is)
     
-    if file:desc().data.buff ~= nil and checkForBuff == true then
+    if file:buff() ~= nil and checkForBuff == true then
           
-      local arrowBuff = file:desc().data.buff
+      local arrowBuff = file:buff()
       local buffName = arrowBuff[1]
       local buffDuration = arrowBuff[2]
       local buffLevel = arrowBuff[3]
@@ -231,10 +236,8 @@ forgedWeapon.makeWeapon = function()
     end,
 		
 		price = function(self,item)
-      return 20*2^(self.data.tier-1)+10*2^(self.data.tier-1)*item:level() +RPG.conversionStatsToGold(self.data.stats,self.data.addstats,self.data.delay,self.data.accuracy,self.data.range,"weapon")
+      return 20*2^(self.data.tier-1)+10*2^(self.data.tier-1)*item:level()
     end
     
      
 }
-end
-return forgedWeapon

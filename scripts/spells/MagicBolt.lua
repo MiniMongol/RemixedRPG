@@ -64,12 +64,12 @@ return spell.init{
  RPD.zapEffect(RPD.Dungeon.hero:getPos(),pos,"magic_missile")
  
  if RPG.subclass == "BattleMage" then
- RPD.removeBuff(hero,"ResidualEffect_Buff")
- local Buff = RPD.affectBuff(hero, "ResidualEffect_Buff", 4):level(0)
+   RPD.removeBuff(hero,"ResidualEffect_Buff")
+   local Buff = RPD.affectBuff(hero, "ResidualEffect_Buff", 4):level(0)
  end
  
  if enemy and enemy ~= RPD.Dungeon.hero then
-  RPG.damage(enemy,math.ceil(RPG.magStr()*0.25+3*lvl-RPG.distance(pos) + 6-lvl),type,elmnt)
+  RPG.damage(enemy,RPG.smartInt(7+RPG.magStr()*0.25+2*lvl-RPG.distance(pos) ),type,elmnt)
   return true
  else
  return true

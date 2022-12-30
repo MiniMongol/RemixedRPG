@@ -52,23 +52,23 @@ forgedArmor.makeArmor = function(self)
 	  return self.data.dr
 	end,
    
-    activate = function(self,item)
+    activate = function(self,item,user)
       hero = RPD.Dungeon.hero
 	  str = math.max(self.data.str-2*item:level(),1)
-      if self.data.activationCount == 0 or RPG.luck == nil then
-          RPG.addStats(self.data.dstats,"StatsB")
+      if self.data.activationCount == 0 and user == hero then
+          RPG.addStats(self.data.dstats,"StatsB") 
+          RPG.increaseHtSp(self.data.dstats)
+          self.data.activationCount = 1
       end
-      if self.data.activationCount == 0 then
-        RPG.increaseHtSp(self.data.dstats)
-      end
-      self.data.activationCount = 1
     end,
     
-    deactivate = function(self,item)
+    deactivate = function(self,item,user)
       hero = RPD.Dungeon.hero
-      self.data.activationCount = 0
-      RPG.delStats("StatsB")
-      RPG.decreaseHtSp(self.data.dstats)
+      if self.data.activationCount == 1 and user == hero then
+        self.data.activationCount = 0
+        RPG.delStats("StatsB")
+        RPG.decreaseHtSp(self.data.dstats)
+      end
     end,
 
     typicalSTR = function(self,item,user)
@@ -91,7 +91,7 @@ forgedArmor.makeArmor = function(self)
     end,
 		
 		price = function(self,item)
-      return 20*2^(self.data.tier-1)+10*2^(self.data.tier-1)*item:level() +RPG.conversionStatsToGold(self.data.stats,self.data.addstats,0,0,0,"armor")
+      return 8*2^(self.data.tier-1)+10*2^(self.data.tier-1)*item:level() +RPG.conversionStatsToGold(self.data.dstats,self.data.addstats,0,0,1,"armor")
     end
 }
 end

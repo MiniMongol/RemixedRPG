@@ -4,7 +4,8 @@
    "movable"       :false,
    "aiState"       :"Passive",
    "fraction"      :"NEUTRAL",
-   "immortal"      :true,
-   "name"          :"Кузнец",
-   "description"   :""
+   "immortal"      :true, 
+   "scriptFile"    :"scripts/npc/Blacksmith",
+   "name"          :"Town_Blacksmith_Name",
+   "description"   :"Town_Blacksmith_Info"
 }

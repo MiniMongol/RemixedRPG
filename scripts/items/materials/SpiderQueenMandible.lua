@@ -11,6 +11,7 @@ local Add = require "scripts/lib/AdditionalFunctions"
 
 local item = require "scripts/lib/item"
 local itemName = ("SpiderQueenMandible")
+local str =6
 
 return item.init{
 desc  = function(self, item)
@@ -24,6 +25,7 @@ desc  = function(self, item)
               name = "",
               armorUsable = false,
               weaponUsable = false,
+              exp = 10,
               stats =
               {5,
                0,
@@ -105,14 +107,21 @@ desc  = function(self, item)
             }
         }
     end,
+            
+    
+    bag = function() 
+  		return "SeedPouch"
+  	end,
+    
+    
     typicalStr = function()
-     return 6
+     return str
     end,
     
     
     info = function(self)
       local d = self.data
-      local sInfo = RPG.getMaterialsInfo(d.stats, d.armor, d.weapon, d.dmg, d.dr, d.delay, d.accuracy, d.range)
+      local sInfo = RPG.getMaterialsInfo(d.stats, d.armor, d.weapon, d.dmg, d.dr, d.delay, d.accuracy, d.range,str)
       
       return RPD.textById(itemName.."_Info").."\n"..sInfo
     end

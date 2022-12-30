@@ -43,7 +43,7 @@
            "identified": true
           },
           {
-           "kind": "Quarterstaff",
+           "kind": "StudentStaff",
            "identified": true
           },
           {
@@ -69,20 +69,20 @@
            "kind": "WandHolster"
           },
           {
-           "kind": "OverpricedRation",
-           "quantity": 3
-          },
-          {
-           "kind": "CommonArrow",
+           "kind": "missiles/CommonArrow",
            "quantity": 150
           },
           {
-           "kind": "Dart",
-           "quantity": 15
+           "kind": "ModWoodenBow",
+           "quantity": 1
           },
           {
            "kind": "Torch",
            "quantity": 3
+          },
+          {
+           "kind": "consume/AntidoteFromPoison",
+           "quantity": 5
           }
          ]
 

@@ -11,19 +11,19 @@
       "RING"   : 2,
       "SEED"   : 10,
       "FOOD"   : 1,
-      "GOLD"   : 40,
+      "GOLD"   : 80,
       "RANGED" : 10,
-      "BULLETS": 15,
+      "BULLETS": 60,
       "UNIQUE" : 2
     }
   },
   "categories": {
     "BULLETS": {
-      "missiles/CommonArrow": 10,
-      "missiles/PoisonArrow": 2,
-      "missiles/ParalysisArrow": 2,
-      "missiles/FireArrow": 2,
-			"missiles/SharpArrow":6
+      "missiles/CommonArrow":15,
+      "missiles/PoisonArrow": 8,
+      "missiles/ParalysisArrow": 5,
+      "missiles/FireArrow": 8,
+			"missiles/SharpArrow":10
     },
     "UNIQUE": {
       "Torch": 4,
@@ -45,16 +45,10 @@
       "RottenFish": 0
     },
     "RANGED": {
-      "CompoundBow": 3,
-      "CompositeCrossbow": 3,
-      "RubyCrossbow": 0.5,
-      "WoodenBow": 4,
-      "WoodenCrossbow": 3,
-      "RubyBow": 0.5,
+      "ModWoodenBow": 3,
       "WoodenStaff": 3,
       "StudentStaff": 5,
-      "CompositeScepter": 3,
-      "ElvenBow": 0
+      "CompositeScepter": 3
     },
     "GOLD": {
       "Gold": 1
@@ -66,7 +60,6 @@
       "ModLeatherArmor": 1,
       "ModClothArmor": 1,
       "ModMailArmor": 1,
-      "ModRatArmor": 0,
       "SpiderArmor":0
     },
     "RING": {
@@ -132,7 +125,7 @@
       "PotionOfFrost": 10,
       "PotionOfPurity": 12,
       "PotionOfToxicGas": 15,
-      "PotionOfHealing": 45,
+      "PotionOfHealing": 55,
       "ManaPotion": 40
     },
     "WEAPON": {
@@ -158,13 +151,6 @@
       "GnollTamahawk":0
     },
     "THROWABLE": {
-      "Dart": 1,
-      "Shuriken": 1,
-      "Javelin": 1,
-      "Tamahawk": 1,
-      "GnollTamahawk":0,
-      "CurareDart": 1,
-      "IncendiaryDart": 1
     },
     "SHIELD": {
       "WoodenShield": 1,

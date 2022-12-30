@@ -1,0 +1,23 @@
+{
+  "kind":"Deco",
+
+  "appearance": {
+    "desc": {
+      "desc": "deco_horn_info",
+      "name": "deco_horn_name"
+    },
+    "sprite":{
+      "textureFile": "levelObjects/horn_sprite.png",
+      "width":32,
+      "height":32,
+      "imageIndex" : 1,
+      "animations": {
+        "basic": {
+          "fps": 10,
+          "frames": [1,1,1,1,1,0,2,1,0,2,1,1,1,1,1,1,0,2],
+          "looped": true
+        }
+      }
+    }
+  }
+}

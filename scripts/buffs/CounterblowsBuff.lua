@@ -18,8 +18,8 @@ return buff.init{
     desc  = function ()
         return {
             icon          = 55,
-            name          = "CounterblowsN",
-            info          = "CounterblowsD",
+            name          = "Counterblows_BuffN",
+            info          = "Counterblows_BuffD",
         }
     end,
 

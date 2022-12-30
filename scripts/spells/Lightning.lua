@@ -68,26 +68,30 @@ return spell.init{
      expMax = 4
      storage.gamePut(a,{exp = exp, expMax = expMax, lvl = lvl})
     end
-    RPD.removeBuff(hero,"ResidualEffect_Buff")
-    RPD.affectBuff(hero,"ResidualEffect_Buff",5):level(3)
- local pos = RPD.Ballistica:cast(RPD.Dungeon.hero:getPos(),cell,true,true,true)
- local enemy = RPD.Actor:findChar(pos)
- RPD.zapEffect(RPD.Dungeon.hero:getPos(),pos,"Lightning")
- if enemy and enemy ~= RPD.Dungeon.hero then
- RPD.playSound("snd_lightning.ogg")
-  enemy:damage(math.ceil(RPG.magStr()*(0.3+lvl*0.05)),RPD.Dungeon.hero)
-  RPD.affectBuff(enemy,RPD.Buffs.Paralysis,1)
-  local x = level:cellX(enemy:getPos())
-     local y = level:cellY(enemy:getPos())
+    
+    if RPG.subclass == "BatleMage" then
+      RPD.removeBuff(hero,"ResidualEffect_Buff")
+      RPD.affectBuff(hero,"ResidualEffect_Buff",5):level(3)
+    end
+    
+    local pos = RPD.Ballistica:cast(RPD.Dungeon.hero:getPos(),cell,true,true,true)
+    local enemy = RPD.Actor:findChar(pos)
+    RPD.zapEffect(RPD.Dungeon.hero:getPos(),pos,"Lightning")
+    if enemy and enemy ~= RPD.Dungeon.hero then
+      RPD.playSound("snd_lightning.ogg")
+      enemy:damage(math.ceil(RPG.magStr()*(0.3+lvl*0.05)),RPD.Dungeon.hero)
+      RPD.affectBuff(enemy,RPD.Buffs.Paralysis,1)
+      local x = level:cellX(enemy:getPos())
+      local y = level:cellY(enemy:getPos())
      
-     for i = x-1,x+1 do
-      for j = y-1,y+1 do
-       local pos2 = level:cell(i,j)
-       local enemy2 = RPD.Actor:findChar(pos2)
-       if enemy2 and enemy2 ~= RPD.Dungeon.hero and enemy2 ~= enemy then
-       RPD.zapEffect(enemy:getPos(),enemy2:getPos(),"Lightning")
-        enemy2:damage(math.ceil(RPG.magStr()*(0.2+lvl*0.03)), RPD.Dungeon.hero)
-        RPD.affectBuff(enemy2,RPD.Buffs.Paralysis,1)
+      for i = x-1,x+1 do
+        for j = y-1,y+1 do
+          local pos2 = level:cell(i,j)
+          local enemy2 = RPD.Actor:findChar(pos2)
+          if enemy2 and enemy2 ~= RPD.Dungeon.hero and enemy2 ~= enemy then
+          RPD.zapEffect(enemy:getPos(),enemy2:getPos(),"Lightning")
+          enemy2:damage(math.ceil(RPG.magStr()*(0.2+lvl*0.03)), RPD.Dungeon.hero)
+          RPD.affectBuff(enemy2,RPD.Buffs.Paralysis,1)
        end
       end
      end

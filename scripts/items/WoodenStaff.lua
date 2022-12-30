@@ -7,20 +7,22 @@ local RPD = require "scripts/lib/commonClasses"
 
 local RPG = require "scripts/lib/Functions"
 
-local RPG1 = require "scripts/lib/AdditionalFunctions"
+local Add = require "scripts/lib/AdditionalFunctions"
 
 local storage = require "scripts/lib/storage"
 
 local item = require "scripts/lib/item"
+local name = "WoodenStaff"
+local icon = 16
 local statsMax = 3
 local quanStats = 2
 local tier = 1
 local maxDmg = 3
-local minDmg = 1
+local minDmg = 2
 local stra = 5
 local addMag = 10
-local magAsLevel = 2
-local attackBonus = 0.05
+local magAsLevel = 4
+local attackBonus = 0.08
 local hero
 local str
 local stats
@@ -30,18 +32,18 @@ return item.init{
     desc  = function (self, item)
       local a = RPG.getItemStats(quanStats,statsMax)
       stats = a[2]
-      stats[5] = stats[5] + addMag
-      statsInfo = a[1]
+      stats[4] = stats[4] +addMag
+      statsInfo = RPG.getItemInfo(stats)
         return {
             imageFile     = "rpgitems.png",
-            image         = 16,
+            image         = icon,
             data          = {
-            activationCount = 0,
+            equipped = 0,
             sInfo = statsInfo,
             dstats = stats,
-            level = stra
+            level = 0
             },
-            name          = RPD.textById("WoodenStaff_Name")..": "..tostring(math.max(stra-2*item:level(),1)),
+            name          = RPD.textById(name.."_Name")..": "..tostring(math.max(stra-2*item:level(),1)),
             price         = 20*2^(tier-1)+10*2^(tier-1)*item:level(),
             stackable     = false,
             upgradable    = true,
@@ -51,7 +53,7 @@ return item.init{
     info = function(self,item)
       hero = RPD.Dungeon.hero
       str = math.max(stra-2*item:level(),1)
-      local info = RPD.textById("WoodenStaff_Info").."\n\n"..RPD.textById("WoodenStaff_Name")..RPD.textById("RangedWeaponInfo0")..tier..RPD.textById("WeaponInfo1")..math.ceil((maxDmg+minDmg)/2).." + "..math.ceil(attackBonus*100).."%"..RPD.textById("WeaponInfo2")..str..RPD.textById("WeaponInfo3")..RPD.textById("").."\n\n"..self.data.sInfo
+      local info = RPD.textById(name.."_Info").."\n\n"..RPD.textById(name.."_Name")..RPD.textById("RangedWeaponInfo0")..tier..RPD.textById("WeaponInfo1")..math.ceil((maxDmg+minDmg)/2).." + "..math.ceil(attackBonus*100).."%"..RPD.textById("WeaponInfo2")..str..RPD.textById("WeaponInfo3").."\n\n"..self.data.sInfo
       if RPG.physStr() >= str then
         return info
       else
@@ -67,41 +69,35 @@ return item.init{
       return "LEFT_HAND"
     end,
     
-    damageRoll = function(self, item, user)
-        return maxDmg+item:level()+math.ceil(RPG.magStr()*attackBonus),minDmg+item:level()+math.ceil(RPG.magStr()*attackBonus)
-    end,
     
     activate = function(self,item,user)
       hero = RPD.Dungeon.hero
       str = math.max(stra-2*item:level(),1)
-      for i = 1, self.data.level - str do
-        self.data.dstats[5] = self.data.dstats[5] + magAsLevel
-      end
-      
-      self.data.level = str
-      if self.data.activationCount == 0 and user == hero then
+      if self.data.equipped == 0 and user == hero then
           RPG.addStats(self.data.dstats,"StatsA")
+          RPG.increaseHtSp(self.data.dstats)
       end
-      self.data.sInfo = RPG.getItemInfo(self.data.dstats)
-      if self.data.activationCount == 0 then
-        hero:ht(hero:ht() + self.data.dstats[1])
-        hero:setMaxSkillPoints(hero:getSkillPointsMax() + self.data.dstats[2])
-      end
-      self.data.activationCount = 1
+      self.data.equipped = 1
     end,
     
     deactivate = function(self,item)
       hero = RPD.Dungeon.hero
-        self.data.activationCount = 0
+        self.data.equipped = 0
           RPG.delStats("StatsA")
-        hero:ht(hero:ht() - self.data.dstats[1])
-        if hero:hp() > hero:ht() then
-          hero:hp(hero:ht())
-        end
-        hero:setMaxSkillPoints(hero:getSkillPointsMax() - self.data.dstats[2])
-        if hero:getSkillPoints() > hero:getSkillPointsMax() then
-          hero:setSkillPoints(hero:getSkillPointsMax())
-        end
+          RPG.decreaseHtSp(self.data.dstats)
+    end,
+    
+    
+    attackProc = function(self,item,hero,enemy,dmg)
+      local hero = RPD.Dungeon.hero
+      local dmgRoll = RPG.intRoll((maxDmg+item:level() +RPG.magStr()*attackBonus)*1.25,(minDmg+item:level() +RPG.magStr()*attackBonus)*0.75)
+      RPG.damage(enemy,RPG.smartInt(dmgRoll),"magic")
+      return 0
+    end,
+    
+    
+    damageRoll = function()
+      return 0,0
     end,
     
     goodForMelee = function()
@@ -127,17 +123,22 @@ return item.init{
     
     typicalSTR = function(self,item,user)
       str = math.max(stra-2*item:level(),1)
-	  return str
+      if self.data.level < item:level() then
+        self.data.level = item:level()
+        self.data.dstats[4] = self.data.dstats[4] +magAsLevel
+          if self.data.equipped == 1 then
+            RPG.delStats("StatsA")
+            RPG.addStats(self.data.dstats,"StatsA")
+          end
+        self.data.sInfo = RPG.getItemInfo(self.data.dstats)
+      end
+	    return str
     end,
     
     requiredSTR = function(self,item,user)
       return str
     end,
     
-    attackProc = function(self,item,hero,enemy,dmg)
-      local hero = RPD.Dungeon.hero
-      return dmg
-    end,
     
     actions = function(self, item, hero)
      return {}

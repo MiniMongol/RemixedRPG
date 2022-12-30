@@ -8,6 +8,9 @@ local RPD = require "scripts/lib/commonClasses"
 
 local storage = require "scripts/lib/storage"
 
+local Que = require "scripts/lib/Queue"
+local Spells = require "scripts/spells/CustomSpellsList"
+
 local actor = require "scripts/lib/actor"
 
 local dungeonEntrance = {13, 4}
@@ -45,12 +48,16 @@ return actor.init({
         return 1
     end,
     activate = function()
-    local Stats = storage.gameGet("") or {}
+	  	local hero = RPD.Dungeon.hero
+      local Stats = storage.gameGet("") or {}
+      
       if Stats.str == nil then
+        sMas = {"Stats","MagicBolt","ShadowClone","Chop"}
+        Que.pushMas("spelllist",sMas) 
+        Spells["Combat"] = Que.getMas("spelllist")
         local ModWnd = RPD.new(RPD.Objects.Ui.WndStory,RPD.textById("ModWnd"))
 		RPD.GameScene:show(ModWnd)
 		
-		local hero = RPD.Dungeon.hero
         
         if hero:getBelongings():getItem("TomeOfMastery") ~= nil then
          hero:getBelongings():getItem("TomeOfMastery"):detach(hero:getBelongings().backpack)

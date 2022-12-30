@@ -3,12 +3,13 @@
 --- Created by mike.
 --- DateTime: 21.03.19 22:08
 ---
+local Que = require "scripts/lib/Queue"
 
 local spells = {}
 spells["Necromancy"] = {"RaiseDead","Exhumation", "DarkSacrifice","Possess"}
 spells["Common"] = {"TownPortal"}
 
-spells["Combat"] = {"Stats", "Chop", "MagicBolt", "ShadowClone"}
+spells["Combat"] = {"Stats","Chop","ShadowClone","MagicBolt","Dissection","SoulsTormentor","BloodShield","BloodSpikes","BloodyGreed","BoneArmor","BraidOfKi","ChaosOfMind","Counterblows","CircleAttack","DaggerOfKi","Disguise","EarthHeal","FastRun","Fireball","FlameAttacks","FlameShield","FlurryArrows","HorAttack","KnifeThrow","Lightning","PandemicLance","PlaceTrap","RageDash","RageSouls","RainOfArrows","Rebound","SealOfKi","ShadowDagger","ShadowDash","SoulsAbsorbing","SteelBody","SummonBoneGolem","ThornsOfAgony"}
 
 spells["Rogue"] = {"Cloak","Backstab","KunaiThrow","Haste","Counterblows"}
 

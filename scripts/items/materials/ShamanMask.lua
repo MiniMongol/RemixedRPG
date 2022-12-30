@@ -10,7 +10,8 @@ local RPG = require "scripts/lib/Functions"
 local Add = require "scripts/lib/AdditionalFunctions"
 
 local item = require "scripts/lib/item"
-local itemName = ("GnollMask")
+local itemName = ("ShamanMask")
+local str =0.2
 
 return item.init{
 desc  = function(self, item)
@@ -18,7 +19,7 @@ desc  = function(self, item)
             imageFile     = "items/materials.png",
             image         = 20,
             name          = RPD.textById(itemName.."_Name"),
-            price         = 40,
+            price         = 65,
             stackable     = true,
             data          = {
               name = "",
@@ -95,15 +96,21 @@ desc  = function(self, item)
               range = 0
             }
         }
-    end,
+    end,    
+    
+    bag = function() 
+  		return "SeedPouch"
+  	end,
+    
+    
     typicalStr = function()
-     return 0.2
+     return str
     end,
     
     
     info = function(self)
       local d = self.data
-      local sInfo = RPG.getMaterialsInfo(d.stats, d.armor, d.weapon, d.dmg, d.dr, d.delay, d.accuracy, d.range)
+      local sInfo = RPG.getMaterialsInfo(d.stats, d.armor, d.weapon, d.dmg, d.dr, d.delay, d.accuracy, d.range,str)
       
       return RPD.textById(itemName.."_Info").."\n"..sInfo
     end

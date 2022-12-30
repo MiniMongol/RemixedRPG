@@ -19,8 +19,8 @@ return buff.init{
     desc  = function ()
         return {
             icon          = 70,
-            name          = "FlurryArrowsN",
-            info          = "FlurryArrowsD",
+            name          = "FlurryArrows_BuffN",
+            info          = "FlurryArrows_BuffD",
         }
     end,
     
@@ -35,8 +35,9 @@ return buff.init{
           Spell.expMax = Spell.expMax+8
           Spell.lvl = Spell.lvl+1
          end
-        RPG.damage(enemy,math.random(damage,damage+math.ceil(5+5*Spell.lvl()+RPG.physStr()*0.1 + RPG.AllFast()*(0.2))),type,elmnt)
-      RPD.zapEffect(RPD.Dungeon.hero:getPos(),enemy:getPos(),"CommonArrow")
+        local dmg = RPG.smartInt(5+5*Spell.lvl+RPG.physStr()*0.1 + RPG.AllFast()*0.2)
+        RPG.damage(enemy,math.random(dmg*0.75,dmg*1.25),type,elmnt)
+      RPD.zapEffect(RPD.Dungeon.hero:getPos(),enemy:getPos(),"Arrow")
         buff:detach()
       else
         RPD.glog(RPD.textById("FlurryArrowsLimit"))

@@ -69,8 +69,8 @@ return spell.init{
       RPD.zapEffect(RPD.Dungeon.hero:getPos(),pos,"ThrowingKnife")
       if enemy and enemy ~= RPD.Dungeon.hero then
         RPG.damage(enemy,math.ceil(RPG.physStr()*0.1 + 0.05*lvl),type,elmnt)
-        local poison = RPD.affectBuff(enemy, "PoisonBuff",math.ceil(RPG.AllFast()*0.3 + 0.5*lvl))
-        poison:level(RPG.physStr())
+        local poison = RPD.affectBuff(enemy, "PoisonBuff",RPG.smartInt(RPG.AllFast()*0.3 + 0.5*lvl))
+        poison:level(RPG.physStr()*0.1)
         RPD.affectBuff(enemy, RPD.Buffs.Paralysis, 4)
      end
  return true

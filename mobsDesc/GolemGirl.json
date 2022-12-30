@@ -1,0 +1,13 @@
+{
+   
+   "baseSpeed"	   :0,
+   "spriteDesc"    :"spritesDesc/AlchemistNPC_sp.json",
+   "scriptFile"    :"scripts/npc/GolemGirl",
+   "friendly"      :true,
+   "movable"       :false,
+   "aiState"       :"Passive",
+   "fraction"      :"NEUTRAL",
+   "immortal"      :true,
+   "name"          :"Алхимик",
+   "description"          :"Приехавший с дальнего востока ради бизнеса алхимик."
+}

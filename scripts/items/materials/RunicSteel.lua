@@ -10,52 +10,49 @@ local RPG = require "scripts/lib/Functions"
 local Add = require "scripts/lib/AdditionalFunctions"
 
 local item = require "scripts/lib/item"
-local itemName = ("MagicSnowball")
+local name = "RunicSteel"
+local str =1.3
 
 return item.init{
 desc  = function(self, item)
         return {
             imageFile     = "items/materials.png",
-            image         = 45,
-            name          = RPD.textById(itemName.."_Name"),
-            price         = 80,
+            image         = 7,
+            name          = RPD.textById(name.."_Name"),
+            price         = 30,
             stackable     = true,
             data          = {
-              name = "",
+              name = "runic",
               armorUsable = false,
               weaponUsable = false,
-              exp = 1
+              magicUsable = true,
+              exp = 0.35,
               stats =
               {0,
-               7.5,
+               0.8,
+               0,
+               1.7,
                0,
                0,
-               6,
-               2,
-               3.5,
+               0,
                0},
                
               armor = 
-              {{-1.25,-0.01},
-               {-1.25,-0.01}, 
-               
+              {{0,0},
+               {0,0}, 
+               {0,0},
+               {0,0},
+               {0,0},
+               {0,0},
+               {0,0},
+               {0,0},
+               {0,0},
+               {0,0},
+               {2,0},
                {1,0},
-               {1.75,0.025},
-               
                {0,0},
-               {0,0},
-               
-               {-1.25,-0.01},
-               {0,0},
-               
-               {0,0},
-               {0,0},
-               
-               {0,0},
-               {0,0},
-               {0,0},
-               {0,0}},
-              dr = 1.25,
+               {2,0}},
+              dr = 0.3,
               
               weapon = 
               {{0,0},
@@ -94,28 +91,34 @@ desc  = function(self, item)
                {0,0},
                
                {0,0},
-               {0,0},
+               {0.36,0},
                {0,0},
                {0,0}},
               dmg = 
-              {0,
-               0},
+              {0.6,
+               1},
               delay = 0,
               accuracy = 0,
               range = 0
             }
         }
     end,
-    typicalStr = function()
-     return 2.5
-    end,
+            
     
+    bag = function() 
+  		return "SeedPouch"
+  	end,
+    
+    
+    typicalStr = function()
+     return str
+    end,
     
     info = function(self)
       local d = self.data
-      local sInfo = RPG.getMaterialsInfo(d.stats, d.armor, d.weapon, d.dmg, d.dr, d.delay, d.accuracy, d.range)
+      local sInfo = RPG.getMaterialsInfo(d.stats, d.armor, d.weapon, d.dmg, d.dr, d.delay, d.accuracy, d.range,str)
       
-      return RPD.textById(itemName.."_Info").."\n"..sInfo
+      return RPD.textById(name.."_Info").."\n"..sInfo
     end
     
     }

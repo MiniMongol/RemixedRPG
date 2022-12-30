@@ -11,8 +11,10 @@ local str
 local checkForBuff
 local minDmg
 local maxDmg
+local dmg
+local dmgFromArrow = 0
 local addMin = 0
-local addMax = 0
+local addMax =0
 
 
 forgedWeapon.makeWeapon = function()
@@ -35,7 +37,7 @@ forgedWeapon.makeWeapon = function()
     
     execute = function(self,item,hero,action)
       local WndBag = RPG.Objects.Ui.WndBag
-      if action == RPD.textById("selectAmmo") then
+      if action == "selectAmmo" then
         RPG.selectAmmo(luajava.bindClass(WndBag).Mode.ALL,RPD.textById("selectAmmo2"))
       end
     end,
@@ -43,8 +45,8 @@ forgedWeapon.makeWeapon = function()
     info = function(self,item)
       hero = RPD.Dungeon.hero
       str = math.max(self.data.str -2*item:level(),1)
-      maxDmg = self.data.maxDmg +self.data.tier*item:level()
-      minDmg = self.data.minDmg +self.data.tier*item:level()
+      maxDmg = RPG.smartInt(self.data.maxDmg +self.data.tier*item:level())
+      minDmg = RPG.smartInt(self.data.minDmg +self.data.tier*item:level())
       
       local info = RPD.textById("WeaponInfo0")..self.data.tier..RPD.textById("WeaponInfo1")..minDmg.." — "..maxDmg..RPD.textById("WeaponInfo2")..str..RPD.textById("WeaponInfo3").."\n\n"..self.data.info
       if RPG.physStr() >= str then
@@ -85,31 +87,23 @@ forgedWeapon.makeWeapon = function()
     end,
     
     
-    activate = function(self,item)
+    activate = function(self,item,user)
       hero = RPD.Dungeon.hero
-      if self.data.activationCount == 0 and item.user == hero then
-      if RPG.handCheck(item) then
-          RPG.addStats(self.data.dstats,"StatsA2")
-          else
+      if self.data.activationCount == 0 and user == hero then
           RPG.addStats(self.data.dstats,"StatsA")
+          RPG.increaseHtSp(self.data.dstats) 
+          self.data.activationCount = 1
       end
-      end
-      if self.data.activationCount == 0 then
-        RPG.increaseHtSp(self.data.dstats)
-      end
-      self.data.activationCount = 1
     end,
     
     
     deactivate = function(self,item)
         hero = RPD.Dungeon.hero
-        self.data.activationCount = 0
-        if RPG.handCheck(item) then
-            RPG.delStats("StatsA2")
-            else
-            RPG.delStats("StatsA")
+        if self.data.activationCount == 1 then
+          RPG.delStats("StatsA")
+          self.data.activationCount = 0
+          RPG.decreaseHtSp(self.data.dstats)
         end
-        RPG.decreaseHtSp(self.data.dstats)
     end,
     
     
@@ -122,8 +116,8 @@ forgedWeapon.makeWeapon = function()
       if choosedArrows.is ~= nil and RPG.distance(enemy:getPos()) > 0 then
         if item:getUser():getBelongings():getItem(choosedArrows.is) ~= nil then
           checkForBuff = true
-          addMin = file:desc().data.addDmg[1]
-          addMax = file:desc().data.addDmg[2]
+          addMin = file:dmg()[1]
+          addMax = file:dmg()[2]
           item:getUser():getBelongings():getItem(choosedArrows.is):detach(item:getUser():getBelongings().backpack)
           RPD.zapEffect(hero:getPos(),enemy:getPos(),"Arrow")
           
@@ -140,8 +134,14 @@ forgedWeapon.makeWeapon = function()
     local dmg = 0
     maxDmg = self.data.maxDmg +self.data.tier*item:level()
     minDmg = self.data.minDmg +self.data.tier*item:level()
+    local dmgRoll
       
-    local dmgRoll = math.random(minDmg,maxDmg)
+    if RPG.distance(hero:getEnemy():getPos()) > 0 then
+      dmgRoll =math.random(minDmg +addMin,maxDmg+addMax)
+    else
+      dmgRoll =math.random((minDmg +addMin)*0.5,(maxDmg+addMax)*0.5)
+    end
+    
       local d = self.data
       local id = 
       {
@@ -152,12 +152,16 @@ forgedWeapon.makeWeapon = function()
       }
       local dmgFrSt1 = d.addstats[id[d.element[1] or d.element]]
       local dmgFrSt2 = d.addstats[id[d.element[2]]] or {0,dmgFrSt1[2]}
-      local dmg = RPG.getDamage(user:getEnemy(),dmgRoll *((dmgFrSt1[2]+dmgFrSt2[2])/200 +1) + dmgFrSt1[1] +dmgFrSt2[1],self.data.type,self.data.element)
+      dmg = RPG.getDamage(user:getEnemy(),dmgRoll *((dmgFrSt1[2]+dmgFrSt2[2])/200 +1) + dmgFrSt1[1] +dmgFrSt2[1],self.data.type,self.data.element)
       
-      RPG.weaponOtherDmg(user:getEnemy(), dmg, self.data.addstats) 
-			enemy:getSprite():showStatus(0xffff00,(self.data.element[1] or self.data.element).."/"..(self.data.element[2] or "")..":")
-    return dmg,dmg
-  end,
+      user:getEnemy():getSprite():showStatus(0xffff00,RPD.textById(self.data.element[1] or self.data.element).."/"..(RPD.textById(self.data.element[2]) or "")..":")
+			
+      return dmg,dmg
+    end,
+    
+    postAttack = function(self,item,enemy) 
+      
+    end,
   
   
   postAttack = function(self,item,enemy)
@@ -165,9 +169,9 @@ forgedWeapon.makeWeapon = function()
     local choosedArrows = storage.gameGet("choosedArrows") or {}
     local file = require("scripts/items/"..choosedArrows.is)
     
-    if file:desc().data.buff ~= nil and checkForBuff == true then
+    if file:buff() ~= nil and checkForBuff == true then
           
-      local arrowBuff = file:desc().data.buff
+      local arrowBuff = file:buff()
       local buffName = arrowBuff[1]
       local buffDuration = arrowBuff[2]
       local buffLevel = arrowBuff[3]
@@ -175,6 +179,8 @@ forgedWeapon.makeWeapon = function()
       RPD.affectBuff(enemy,buffName, buffDuration):level(buffLevel)
       
     end
+    
+    RPG.weaponOtherDmg(enemy,dmg,self.data.addstats) 
   end,
     
     
@@ -226,7 +232,7 @@ forgedWeapon.makeWeapon = function()
     end,
 		
 		price = function(self,item)
-      return 20*2^(self.data.tier-1)+10*2^(self.data.tier-1)*item:level() +RPG.conversionStatsToGold(self.data.stats,self.data.addstats,self.data.delay,self.data.accuracy,self.data.range,"weapon")
+      return 8*2^(self.data.tier-1)+10*2^(self.data.tier-1)*item:level() +RPG.conversionStatsToGold(self.data.dstats,self.data.addstats,self.data.delay,self.data.accuracy,self.data.range,"weapon")
     end
     
      

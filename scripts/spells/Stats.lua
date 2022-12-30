@@ -311,13 +311,15 @@ return spell.init{
      
     else
      
-     Que.new(sList)
+    
      sMas = {"Stats","MagicBolt","ShadowClone","Chop"}
-     Que.pushMas(sList,sMas)
+     Que.pushMas(sList,sMas) 
+     storage.gamePut("choosedArrows",{is = "missiles/CommonArrow"})
+     storage.gamePut("heroSteps",{steps = 0})
      
      RPD.permanentBuff(hero,"RPGbuff")
      
-     RPG.sPoints = 250
+     RPG.sPoints = 32
      RPG.spRegen = 1
      RPG.physicStr = 1
      RPG.magicStr = 1

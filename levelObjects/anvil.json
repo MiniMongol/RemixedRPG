@@ -1,0 +1,24 @@
+{
+  "kind":"CustomObject",
+  "script":"anvil",
+
+  "appearance": {
+    "desc": {
+      "desc": "object_anvil_info",
+      "name": "object_anvil_name"
+    },
+    "sprite":{
+      "textureFile": "levelObjects/anvil_sprite.png",
+      "width":16,
+      "height":16,
+      "imageIndex" : 0,
+      "animations": {
+        "basic": {
+          "fps": 14,
+          "frames": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,2,2,2,2,1],
+          "looped": true
+        }
+      }
+    }
+  }
+}

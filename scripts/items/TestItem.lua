@@ -15,6 +15,7 @@ local smithing = require "scripts/lib/smithing"
 
 local itemLib = require "scripts/lib/item"
 
+
 local candle =
 {
     kind="Deco",
@@ -99,11 +100,14 @@ return itemLib.init{
         RPD.glog("execute owner: %s", tostring(owner))
 
         if action == "action1" then
-          Add.smithStart(smithing.mainWnd)
+         hero:damage(math.random(5.5457,10.29494),hero)
         end
 
         if action == "action2" then
-          hero:collect(RPD.item("missiles/CommonArrows"),5)
+          local r
+          if r ~= "true" then
+            RPD.glog("nil")
+          end
         end
 
         if action == "action3" then

@@ -23,11 +23,11 @@ return buff.init{
       shield2 = shield
         return {
             icon          = 57,
-            info          = "FlameshieldD",
+            info          = "Flameshield_BuffD",
         }
     end,
 name = function()
-return RPD.textById("FlameshieldN").." "..tostring(shield).."/"..tostring(shield2)
+return RPD.textById("Flameshield_BuffN").." "..tostring(shield).."/"..tostring(shield2)
 end,
 
 immunities = function(self,buff)

@@ -11,19 +11,21 @@ local Add = require "scripts/lib/AdditionalFunctions"
 
 local item = require "scripts/lib/item"
 local itemName = ("IceGuardianCore")
+local str =25
 
 return item.init{
 desc  = function(self, item)
         return {
-            imageFile     = "items/materials.png",
-            image         = 36,
+            imageFile     = "items/materialsFromBosses.png",
+            image         = 5,
             name          = RPD.textById(itemName.."_Name"),
-            price         = 0,
+            price         = 5000,
             stackable     = true,
             data          = {
               name = "",
               armorUsable = false,
               weaponUsable = false,
+              exp = 30,
               stats =
               {20,
                0,
@@ -105,14 +107,20 @@ desc  = function(self, item)
             }
         }
     end,
+        
+    bag = function() 
+  		return "SeedPouch"
+  	end,
+  	
+    
     typicalStr = function()
-     return 25
+     return 
     end,
     
     
     info = function(self)
       local d = self.data
-      local sInfo = RPG.getMaterialsInfo(d.stats, d.armor, d.weapon, d.dmg, d.dr, d.delay, d.accuracy, d.range)
+      local sInfo = RPG.getMaterialsInfo(d.stats, d.armor, d.weapon, d.dmg, d.dr, d.delay, d.accuracy, d.range,str)
       
       return RPD.textById(itemName.."_Info").."\n"..sInfo
     end

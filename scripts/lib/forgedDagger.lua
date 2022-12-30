@@ -30,8 +30,8 @@ forgedWeapon.makeWeapon = function()
     info = function(self,item)
       hero = RPD.Dungeon.hero
       str = math.max(self.data.str-2*item:level(),1)
-      maxDmg = (self.data.maxDmg +self.data.tier*item:level())*0.8
-      minDmg = (self.data.minDmg +self.data.tier*item:level())*0.8
+      maxDmg = RPG.smartInt((self.data.maxDmg +self.data.tier*item:level())*1.5)
+      minDmg = RPG.smartInt((self.data.minDmg +self.data.tier*item:level()))
       
       local info = RPD.textById("WeaponInfo0")..self.data.tier..RPD.textById("WeaponInfo1")..minDmg.." — "..maxDmg..RPD.textById("WeaponInfo2")..str..RPD.textById("WeaponInfo3").."\n\n"..self.data.info
       if RPG.physStr() >= str then
@@ -65,32 +65,31 @@ forgedWeapon.makeWeapon = function()
     end,
   
     
-    activate = function(self,item)
+    activate = function(self,item,user)
       hero = RPD.Dungeon.hero
-      
-      if self.data.activationCount == 0 and item.user == hero then
+      if self.data.activationCount == 0 and user == hero then
       if RPG.handCheck(item) then
           RPG.addStats(self.data.dstats,"StatsA2")
           else
           RPG.addStats(self.data.dstats,"StatsA")
       end
-      end
-      if self.data.activationCount == 0 then
-        RPG.increaseHtSp(self.data.dstats)
-      end
       self.data.activationCount = 1
+      RPG.increaseHtSp(self.data.dstats)
+      end
     end,
     
     
     deactivate = function(self,item)
-        hero = RPD.Dungeon.hero
-        self.data.activationCount = 0
+      hero = RPD.Dungeon.hero
+      if self.data.activationCount == 1 then
         if RPG.handCheck(item) then
             RPG.delStats("StatsA2")
             else
             RPG.delStats("StatsA")
         end
         RPG.decreaseHtSp(self.data.dstats)
+        self.data.activationCount = 0
+      end
     end,
 	
 	
@@ -113,7 +112,7 @@ forgedWeapon.makeWeapon = function()
       local dmg = RPG.getDamage(user:getEnemy(),dmgRoll *((dmgFrSt1[2]+dmgFrSt2[2])/200 +1) + dmgFrSt1[1] +dmgFrSt2[1],self.data.type,self.data.element)
       
       RPG.weaponOtherDmg(user:getEnemy(), dmg, self.data.addstats) 
-			enemy:getSprite():showStatus(0xffff00,(self.data.element[1] or self.data.element).."/"..(self.data.element[2] or "")..":")
+			user:getEnemy():getSprite():showStatus(0xffff00,RPD.textById(self.data.element[1] or self.data.element).."/"..(RPD.textById(self.data.element[2]) or "")..":")
       return dmg,dmg
     end,
    
@@ -151,7 +150,7 @@ forgedWeapon.makeWeapon = function()
     end,
 		
 		price = function(self,item)
-      return 20*2^(self.data.tier-1)+10*2^(self.data.tier-1)*item:level() +RPG.conversionStatsToGold(self.data.stats,self.data.addstats,self.data.delay,self.data.accuracy,self.data.range,"weapon")
+      return 8*2^(self.data.tier-1)+10*2^(self.data.tier-1)*item:level() +RPG.conversionStatsToGold(self.data.dstats,self.data.addstats,self.data.delay,self.data.accuracy,self.data.range,"weapon")
     end
     
      

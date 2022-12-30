@@ -1,9 +1,6 @@
 local RPD = require "scripts/lib/commonClasses"
 local storage = require "scripts/lib/storage"
 
-
-
-
 local RPG
 
 
@@ -18,7 +15,7 @@ local RPG
  WndInfoItem = luajava.bindClass("com.watabou.pixeldungeon.windows.WndInfoItem"),
  DCellListener = luajava.bindClass("com.watabou.pixeldungeon.scenes.DefaultCellListener"),
  WndBag = "com.watabou.pixeldungeon.windows.WndBag",
- WndMessage = "com.watabou.pixeldungeon.windows.WndTitledMessage"
+ WndImageMessage = "com.watabou.pixeldungeon.windows.WndTitledMessage"
  }
  },
  
@@ -78,7 +75,7 @@ local RPG
  smithToUp = smithToUp,
  smithExp = smithExp,
  
- 
+ updateStatsA = updateStatsA,
  StatsA = {
  	luck = 0,
 	physicStr = 0,
@@ -87,6 +84,7 @@ local RPG
 	magDef = 0,
 	spRegen = 0
  },
+ updateStatsA2 = updateStatsA2,
  StatsA2 = {
  	luck = 0,
 	physicStr = 0,
@@ -95,6 +93,7 @@ local RPG
 	magDef = 0,
 	spRegen = 0
  },
+ updateStatsB = updateStatsB,
  StatsB = {
  	luck = 0,
 	physicStr = 0,
@@ -117,7 +116,7 @@ local RPG
 	stab={0,0},
 	crush={0,0}
  },
- 
+ updateStatsArt = updateStatsArt,
  StatsArt = {
   luck = 0,
 	physicStr = 0,
@@ -140,7 +139,7 @@ local RPG
 	stab={0,0},
 	crush={0,0}
  },
- 
+ updateStatsArt2 = updateStatsArt2,
  StatsArt2 = {
   luck = 0,
 	physicstr = 0,
@@ -166,102 +165,105 @@ local RPG
  
  
  defence = {
-   FireElemental = {magDef = 15, fire=2, water=0.8, ice=0.5, ice, earth, wind=0.9, lightning=1.1, poison, light, dark, psy, cut,  chop, stab,  crush=0.8},
-   Statue = {magDef=10, fire, water, ice, earth, wind=0.8, lightning=1.5, poison, light, dark, psy=2, cut=1.5,  chop, stab=0.85,  crush=0.7},
-   Wraith = {magDef=5, fire, water, ice, earth, wind=0.9, lightning=0.7,  crush=1.5},
-   Piranha = {magDef=10, fire=0.5, water=1.5, ice, earth=0.9, wind=0.9, lightning=0.5, poison=0.8, light, dark, psy, cut,  chop=0.9, stab=0.8,  crush=0.9},
-   Mimic = {magDef = 15, fire=0.9, water, ice, earth, wind, lightning=0.8, poison=0.8, light=0.5, dark, psy, cut=1.3,  chop, stab=0.8,  crush},
-   MimicPie = {magDef=10, fire=0.8, water=0.9, ice, earth=0.7, wind, lightning=0.9, poison=0.8, light=0.5, dark, psy, cut=0.5,  chop=0.5, stab=0.7,  crush=0.8},
-   IceElemental = {magDef=15, fire=0.5, water=1.3, ice, earth=1.2, wind=0.9, lightning=0.9, poison=1.5, light=1.5, dark=0.8, cut=1.2,  chop=0.8, stab=0.6,  crush=0.9},
-   WaterElemental = {magDef=15, fire=0.8, water=1.5, ice, earth=1.2, wind=1.2, lightning=0.5, poison=0.8, light=1.2, dark=0.8, cut=1.5,  chop=1.1, stab=1.5,  crush=1.1},
-   EarthElemental = {magDef=15, fire=1.2, water=0.5, ice, earth=1.5, wind=0.8, lightning=1.5, poison=0.8, light=1.2, dark, cut=1.1,  chop=0.9, stab=0.8,  crush=1.1},
-   AirElemental = {magDef=15, fire=0.8, water=1.5, ice, earth=1.2, wind=1.5, lightning=0.6, poison=0.9, light=1.5, dark, cut=1.5,  chop=1.2, stab=1.5,  crush=0.9},
-   Crystal = {magDef=15, fire=1.2, water=0.8, ice, earth=1.5, wind=0.8, lightning, poison=1.5, light=1.5, dark, cut=1.2,  chop=0.7, stab=0.5,  crush=0.5},
-   ArmoredStatue = {magDef=15, fire=1.5, water=0.8, ice, earth=1.5, wind=0.8, lightning=1.5, poison=2.5, light, dark, cut=1.5,  chop=1.2, stab=0.5,  crush=0.7},
-   GoldenStatue = {magDef=20, fire=0.5, water=0.7, ice, earth=1.2, wind=0.8, lightning=1.5, poison=1.5, light=1.2, dark=0.8, cut,  chop=0.9, stab=0.8,  crush=0.9},
+   BoneGolem_lvl1 = {magDef = 2, fire =1.2, water=0.9, ice, earth=0.9, wind=0.9, lightning=1.5, poison=5, light=0.5, dark=1.5, cut=1.5,  chop=0.7, stab=0.8,  crush=0.6},
+   BoneGolem_lvl2 = {magDef = 5, fire =1.2, water=0.9, ice, earth=0.9, wind=0.9, lightning=1.5, poison=5, light=0.5, dark=1.5, cut=1.5,  chop=0.7, stab=0.8,  crush=0.6},
+   BoneGolem_lvl3 = {magDef = 8, fire =1.2, water=0.9, ice, earth=0.9, wind=0.9, lightning=1.5, poison=5, light=0.5, dark=1.5, cut=1.5,  chop=0.7, stab=0.8,  crush=0.6},
+   NecromancerNPC = {magDef = 2, fire =1.2, water=0.9, ice, earth=0.9, wind=0.9, lightning=1.5, poison=5, light=0.5, dark=1.5, cut=1.5,  chop=0.7, stab=0.8,  crush=0.6},
+   FireElemental = {magDef = 3, fire=2, water=0.7, ice=0.2, earth, wind=0.9, lightning=1.1, poison, light, dark, psy, cut,  chop, stab,  crush=0.8},
+   Statue = {magDef=5, fire, water, ice, earth, wind=0.8, lightning=1.5, poison, light, dark, psy=2, cut=1.5,  chop, stab=0.85,  crush=0.6},
+   Wraith = {magDef=5, fire, water, ice, earth, wind=0.9, lightning=0.6,  crush=1.5},
+   Piranha = {magDef=4, fire=0.5, water=1.5, ice, earth=0.9, wind=0.9, lightning=0.5, poison=0.8, light, dark, psy, cut,  chop=0.9, stab=0.8,  crush=0.9},
+   Mimic = {magDef = 4, fire=0.9, water, ice, earth, wind, lightning=0.8, poison=0.8, light=0.3, dark, psy, cut=1.3,  chop, stab=0.8,  crush},
+   MimicPie = {magDef=4, fire=0.8, water=0.9, ice, earth=0.7, wind, lightning=0.9, poison=0.8, light=0.3, dark, psy, cut=0.5,  chop=0.5, stab=0.7,  crush=0.8},
+   IceElemental = {magDef=3, fire=0.3, water=1.3, ice, earth=1.2, wind=0.9, lightning=0.9, poison=1.5, light=1.5, dark=0.8, cut=1.2,  chop=0.8, stab=0.6,  crush=0.9},
+   WaterElemental = {magDef=3, fire=0.5, water=1.5, ice, earth=1.2, wind=1.2, lightning=0.3, poison=0.5, light=1.2, dark=0.8, cut=1.5,  chop=1.1, stab=1.5,  crush=1.1},
+   EarthElemental = {magDef=3, fire=1.2, water=0.3, ice, earth=1.5, wind=0.7, lightning=1.5, poison=0.8, light=1.2, dark, cut=1.1,  chop=0.9, stab=0.8,  crush=1.1},
+   AirElemental = {magDef=3, fire=0.7, water=1.5, ice, earth=1.2, wind=1.5, lightning=0.3, poison=0.9, light=1.5, dark, cut=1.5,  chop=1.2, stab=1.5,  crush=0.9},
+   Crystal = {magDef=3, fire=1.2, water=0.8, ice, earth=1.5, wind=0.8, lightning, poison=1.5, light=1.5, dark, cut=1.2,  chop=0.5, stab=0.3,  crush=0.3},
+   ArmoredStatue = {magDef=5, fire=1.5, water=0.8, ice, earth=1.5, wind=0.8, lightning=1.5, poison=2.5, light, dark, cut=1.5,  chop=1.2, stab=0.5,  crush=0.7},
+   GoldenStatue = {magDef=4, fire=0.5, water=0.7, ice, earth=1.2, wind=0.8, lightning=1.5, poison=1.5, light=1.2, dark=0.8, cut,  chop=0.9, stab=0.8,  crush=0.9},
    b= {magDef, fire, water, ice, earth, wind, lightning, poison, light, dark, cut,  chop, stab,  crush},
    c= {magDef, fire, water, ice, earth, wind, lightning, poison, light, dark, cut,  chop, stab,  crush},
    
-   Rat = {magDef = 2, fire = 0, water, ice, earth, wind, lightning=0.8, poison=0.8, light, dark, cut=0.6,  .65, chop=0.6, stab=0.7,  crush=0.6},
-   FetidRat= {magDef = 3, fire = 0, water=0.5, ice, earth, wind, lightning=0.8, poison=1.5, light, dark, cut=0.6,  .65, chop=0.6, stab=0.7,  crush=0.6},
-   Gnoll = {magDef = 5, fire = 0.2, water, ice, earth, wind, lightning=0.8, poison=0.8, light, dark, cut=0.8,  .85, chop=0.8, stab=0.8,  crush=0.8},
-   Crab = {magDef = 5, fire = 0.5, water = 1.5, ice, earth = 1.2, wind = 0.8, lightning = 0.8, poison=0.8, light, dark, cut=1.3,  chop=0.9, stab=0.7,  crush=0.8},
-   Albino = {magDef = 4, fire = 0.2, water, ice, earth, wind, lightning = 0.8, poison, light = 0.5, dark, cut=0.6,  .65, chop=0.6, stab=0.7,  crush=0.6},
-   Woodlouise = {magDef = 5, fire = 0.5, water = 1.5, ice, earth = 1.2, wind, lightning = 0, poison = 1.1, light = 0.5, dark, cut=1.2, chop, stab=0.3,  crush=0.8},
-   Goo = {magDef=10, fire=0.8, water=1.5, ice, earth=1.5, wind=1.5, lightning=0.5, poison=1.5, light=0.5, dark=1.5, cut=1.2,  chop=0.9, stab=1.2,  crush=0.9},
-   RatKing = {magDef = 8, fire = 0.2, water, ice, earth, wind, lightning = 0.8, poison, light = 0.5, dark, cut=0.6,  .65, chop=0.6, stab=0.7,  crush=0.6},
+   Rat = {magDef = 1, fire = 0, water, ice, earth, wind, lightning=0.5, poison=0.8, light, dark, cut=0.6,  .65, chop=0.6, stab=0.7,  crush=0.6},
+   FetidRat= {magDef = 2, fire = 0, water=0.3, ice, earth, wind, lightning=0.8, poison=1.5, light, dark, cut=0.6,  .65, chop=0.6, stab=0.7,  crush=0.6},
+   Gnoll = {magDef = 2.5, fire = 0.2, water, ice, earth, wind, lightning=0.8, poison=0.8, light, dark, cut=0.8, chop=0.8, stab=0.8,  crush=0.8},
+   Crab = {magDef = 2.5, fire = 0.5, water = 1.5, ice, earth = 1.2, wind = 0.5, lightning = 0.5, poison=0.8, light, dark, cut=1.3,  chop=0.9, stab=0.4,  crush=0.8},
+   Albino = {magDef = 3, fire = 0.2, water, ice, earth, wind, lightning = 0.8, poison, light = 0.5, dark, cut=0.6,  .65, chop=0.6, stab=0.7,  crush=0.6},
+   Woodlouise = {magDef = 2, fire = 0.5, water = 1.5, ice, earth = 1.2, wind, lightning = 0, poison = 1.1, light = 0.5, dark, cut=1.2, chop, stab=0.3,  crush=0.6},
+   Goo = {magDef=5, fire=0.6, water=1.5, ice, earth=1.5, wind=1.5, lightning=0.3, poison=1.5, light=0.3, dark=1.5, cut=1.2,  chop=0.9, stab=1.2,  crush=0.9},
+   RatKing = {magDef = 4, fire = 0.2, water, ice, earth, wind, lightning = 0.8, poison, light, dark, cut=0.6,  .65, chop=0.6, stab=0.7,  crush=0.6},
    
-   Thief = {magDef = 8, fire = 0.5, water, ice, earth=0.8, wind, lightning=0.8, poison=0.8, light=0.9, dark, cut=0.8,  .75, chop=0.8, stab=0.7,  crush=0.8},
-   Skeleton = {magDef = 10, fire =1.2, water=0.9, ice, earth=0.9, wind=0.9, lightning=1.5, poison=5, light=0.5, dark=1.5, cut=1.5,  chop=0.7, stab=0.8,  crush=0.6},
-   Swarm = {magDef = 5, fire = 0.2, water=0.5, ice, earth=0.9, wind=0.7, lightning=0.5, poison=0.5, light=0.5, dark, cut=0.9,  chop=0.9, stab=1.1,  crush=0.8}, 
-   Shadow = {magDef = 10, fire = 1.5, water=1.5, ice, earth=1.5, wind=1.5, lightning=1.5, poison=5, light=0.5, dark=1.5, cut=1.5,  chop=1.5, stab=1.5,  crush=1.5}, 
-   Bandit = {magDef = 10, fire = 0.5, water, ice, earth=0.9, wind, lightning=0.5, poison=0.5, light=0.5, dark=1.5, cut=0.8, psy =1.5, chop=0.8, stab=0.7,  crush=0.9},
-   Tengu = {magDef=15, fire=0.8, water=1.3, ice, earth=0.9, wind=1.2, lightning=0.7, poison=1.2, light=0.8, dark=1.5, psy = 0.8, cut=1.2,  chop=0.9, stab=0.8,  crush=0.9},
+   Thief = {magDef = 4, fire = 0.5, water, ice, earth=0.8, wind, lightning=0.5, poison=0.8, light=0.9, dark, psy=1.5 , cut=0.8, chop=0.8, stab=0.7,  crush=0.8},
+   Skeleton = {magDef = 4.5, fire =1.2, water=0.9, ice, earth=0.9, wind=0.9, lightning=1.5, poison=5, light=0.5, dark=1.5, cut=1.5,  chop=0.7, stab=0.8,  crush=0.6},
+   Swarm = {magDef = 3, fire = 0.1, water=0.5, ice, earth=0.9, wind=0.7, lightning=0.1, poison=0.5, light=0.3, dark, cut=0.9,  chop=0.9, stab=1.1,  crush=0.8}, 
+   Shadow = {magDef = 5, fire = 1.5, water=1.5, ice, earth=1.5, wind=1.5, lightning=1.5, poison=5, light=0.5, dark=1.5, cut=1.5,  chop=1.5, stab=1.5,  crush=1.5}, 
+   Bandit = {magDef = 4.5, fire = 0.5, water, ice, earth=0.9, wind, lightning=0.5, poison=0.5, light=0.3, dark=1.5, cut=0.8, psy =1.5, chop=0.8, stab=0.7,  crush=0.9},
+   Tengu = {magDef=6, fire=0.8, water=1.3, ice, earth=0.9, wind=1.2, lightning=0.7, poison=1.2, light=0.8, dark=1.5, psy = 0.8, cut=1.2,  chop=0.9, stab=0.8,  crush=0.9},
    
-   Bat = {magDef = 10, fire = 0.2, water, ice, earth=0.9, wind=1.5, lightning=0.8, poison=1.2, light=0.5, dark=1.5, cut=0.8,  chop=0.8, stab,  crush=0.8},
-   Brute = {magDef = 15, fire = 0.5, water, ice, earth, wind, lightning=0.9, poison=0.9, light, dark, cut=0.9,  chop=0.8, stab=0.9,  crush=1.2},
-   Shaman = {magDef = 8, fire = 0.5, water, ice, earth, wind=0.8, lightning=0.7, poison=0.5, light, dark, cut=0.8,  .75, chop=0.8, stab=0.7,  crush=0.8},
-   Spinner = {magDef=10, fire=0.5, water, ice, earth=0.8, wind, lightning=0.8, poison=1.5, light=0.9, dark, cut=0.7,  .75, chop=0.7, stab=0.8,  crush=0.6},
-   Shielded = {magDef=18, fire=0.5, water, ice, earth=1.2, wind=0.9, lightning=0.7, poison=1.2, light, dark, cut=1.3, chop=1.2, stab=0.3,  crush=0.9}, 
-   DM300 = {magDef=20, fire=1.5, water=0.7, ice, earth=1.5, wind=0.9, lightning=0.7, poison=5, light, dark, cut=1.5,  chop=1.3, stab=0.9,  crush},
+   Bat = {magDef = 3, fire = 0.2, water, ice, earth=0.9, wind=1.5, lightning=0.8, poison=1.2, light=0.5, dark=1.5, cut=0.8,  chop=0.8, stab,  crush=0.8},
+   Brute = {magDef = 5, fire = 0.3, water, ice, earth, wind, lightning=0.9, poison=0.9, light, dark, cut=0.9,  chop=0.8, stab=0.9,  crush=1.2},
+   Shaman = {magDef = 4, fire = 0.3, water, ice, earth, wind=0.8, lightning=0.7, poison=0.5, light, dark, cut=0.8, psy, chop=0.8, stab=0.7,  crush=0.8},
+   Spinner = {magDef=10, fire=0.5, water, ice, earth=0.8, wind, lightning=0.8, poison=1.5, light=0.9, dark, cut=0.7, psy=0.75, chop=0.7, stab=0.8,  crush=0.6},
+   Shielded = {magDef=7, fire=0.3, water, ice, earth=1.2, wind=0.9, lightning=0.3, poison=1.2, light, dark, psy, cut=1.3, chop=1.2, stab=0.3,  crush=0.9}, 
+   DM300 = {magDef=5, fire=1.5, water=0.5, ice, earth=1.5, wind=0.9, lightning=0.8, poison=5, light, dark, cut=1.5,  chop=1.3, stab=0.8,  crush},
    
-   Monk = {magDef=10, fire=0.5, water, ice, earth=1.1, wind=1.1, lightning=0.8, poison=1.2, light, dark, cut=0.9,  chop=0.9, stab=0.9,  crush=0.95},
-   Warlock = {magDef=8, fire=0.5, water, ice, earth=0.8, wind=0.8, lightning=0.7, poison=0.5, light=0.5, dark=1.5, cut=0.8,  .75, chop=0.75, stab=0.7,  crush=0.8},
-   Golem = {magDef=30, fire=1.5, water=0.6, ice, earth=1.5, wind=0.8, lightning=1.5, poison=2.5, light, dark, cut=1.1,  .95, chop=0.9, stab=0.85,  crush=0.7},
-   Senior = {magDef=15, fire=0.5, water, ice, earth=1.1, wind=1.1, lightning=0.8, poison=1.2, light, dark, cut=0.95,  .95, chop, stab=0.9,  crush=1.1},
-   Undead = {magDef=8, fire, water=0.8, ice, earth=0.5, wind=0.8, lightning=1.5, poison=1.5, light=0.5, dark=1.5, psy=1.5, cut, chop=0.8, stab=1.2,  crush=0.5},
-   King = {magDef=20, fire=0.7, water, ice, earth=1.1, wind=0.9, lightning=0.8, poison, light=0.5, dark, cut=0.8, psy=0.75, chop=0.8, stab=0.75,  crush=0.9},
+   Monk = {magDef=4, fire=0.5, water, ice, earth=1.1, wind=1.1, lightning=0.5, poison=1.2, light, dark, cut=0.9,  chop=0.9, stab=0.9,  crush=0.95},
+   Warlock = {magDef=6, fire=0.5, water, ice, earth=0.8, wind=0.8, lightning=0.7, poison=0.5, light=0.3, dark=1.5, cut=0.8,  .75, chop=0.75, stab=0.7,  crush=0.8},
+   Golem = {magDef=5, fire=1.5, water=0.3, ice, earth=1.5, wind=0.6, lightning=1.5, poison=2.5, light, dark, cut=1.1, psy, chop=0.9, stab=0.85,  crush=0.7},
+   Senior = {magDef=5, fire=0.5, water, ice, earth=1.1, wind=1.1, lightning=0.8, poison=1.2, light, dark, cut=0.95,  .95, chop, stab=0.9,  crush=1.1},
+   Undead = {magDef=4.5, fire, water=0.8, ice, earth=0.5, wind=0.8, lightning=1.5, poison=1.5, light=0.3, dark=1.5, psy=1.5, cut, chop=0.6, stab=1.2,  crush=0.3},
+   King = {magDef=6, fire=0.7, water, ice, earth=1.1, wind=0.9, lightning=0.8, poison, light=0.5, dark, cut=0.8, psy=0.75, chop=0.8, stab=0.75,  crush=0.9},
    
-   Succubus = {magDef=15, fire=0.8, water=0.8, ice, earth, wind, lightning=0.9, poison=1.2, light=0.5, dark=1.5, cut=0.8,  .75, chop=0.8, stab=0.7,  crush=0.8},
-   Eye = {magDef=5, fire=0.6, water=1.1, ice, earth=0.8, wind=0.9, lightning=0.7, poison=0.7, light=0.5, dark=1.5, cut=0.5,  .45, chop=0.6, stab=0.4,  crush=0.8},
-   Scorpio = {magDef=5, fire=0.2, water, ice, earth=0.7, wind=0.8, lightning=0.7, poison=1.5, light=0.5, dark=1.5, cut=0.7,  chop=0.65, stab=0.5,  crush=0.4},
-   Acidic = {magDef=5, fire=0.2, water, ice, earth=0.7, wind=0.8, lightning=0.7, poison=1.5, light=0.5, dark=1.5, cut=0.7,  chop=0.6, stab=0.5,  crush=0.4},
-   ShadowLord = {magDef=25, fire=0.8, water, ice, earth, wind, lightning=0.6, poison=1.2, light=0.5, dark=1.5, cut=1.2,  chop=1.1, stab=1.2,  crush=0.9},
+   Succubus = {magDef=6, fire=0.8, water=0.8, ice, earth, wind, lightning=0.9, poison=1.2, light=0.2, dark=1.5, cut=0.8,  .75, chop=0.8, stab=0.7,  crush=0.8},
+   Eye = {magDef=5, fire=0.6, water=1.1, ice, earth=0.8, wind=0.9, lightning=0.7, poison=0.7, light=0.2, dark=1.5, cut=0.5,  .45, chop=0.6, stab=0.4,  crush=0.8},
+   Scorpio = {magDef=2, fire=0.2, water, ice, earth=0.7, wind=0.8, lightning=0.7, poison=1.5, light=0.2, dark=1.5, cut=0.7,  chop=0.65, stab=0.5,  crush=0.4},
+   Acidic = {magDef=3, fire=0.2, water, ice, earth=0.7, wind=0.8, lightning=0.7, poison=1.5, light=0.2, dark=1.5, cut=0.7,  chop=0.6, stab=0.5,  crush=0.4},
+   ShadowLord = {magDef=7, fire=0.8, water, ice, earth, wind, lightning=0.6, poison=1.2, light=0.3, dark=1.5, cut=1.2,  chop=1.1, stab=1.2,  crush=0.9},
    
-   SuspiciousRat = {magDef=5, fire=0.5, water, ice, earth, wind=0.8, lightning=0.6, poison=0.5, light=0.6, dark=1.2, cut=0.6,  chop=0.6, stab=0.5,  crush=0.8},
-   PseudoRat = {magDef=20, fire=0.6, water, ice, earth, wind, lightning=0.8, poison=1.2, light=0.3, dark=1.5, cut=1.2,  chop=1.2, stab=0.9,  crush},
-   ZombieGnoll = {magDef=10, fire=0.6, water, ice, earth, wind, lightning=0.8, poison=1.5, light=0.6, dark=1.1, cut=0.9,  chop=0.8, stab=0.8,  crush},
-   Worm = {magDef=15, fire=0.4, water=1.2, ice=0.8, earth=1.5, wind=0.8, lightning=1.2, poison=1.5, light=0.7, dark=1.2, cut=0.9,  chop=0.8, stab,  crush},
-   Nightmare = {magDef=8, fire=0.8, water, ice, earth, wind, lightning=1.1, poison=1.2, light=0.3, dark=1.5, cut=1.1,  chop, stab=1.1,  crush=0.9},
-   MimicAmulet = {magDef=25, fire=0.8, water, ice, earth=0.9, wind=0.9, lightning=0.8, poison=0.9, light=0.5, dark=1.5, cut=1.1,  chop=1.1, stab=0.9,  crush},
-   TreacherousSpirit = {magDef=15, fire=0.8, water=0.8, ice, earth, wind, lightning=0.7, poison=1.2, light=0.3, dark=1.5, cut=1.1,  chop, stab=1.1,  crush},
-   SpiritOfPain= {magDef=5, fire=0.8, water=0.8, ice, earth, wind, lightning=0.7, poison=1.2, light=0.3, dark=1.5, cut=1.1,  chop, stab=1.1,  crush},
-   YogsBrain= {magDef=6, fire=0.8, water=0.6, ice=1.2, earth=0.9, wind=0.9, lightning=1.5, poison=0.8, light=0.5, dark=1.2, cut=0.7,  chop=0.6, stab=0.8,  crush=0.9},
-   YogsEye= {magDef=10, fire=0.7, water=1.2, ice=0.6, earth=0.7, wind=0.7, lightning=0.7, poison=0.6, light=0.2, dark=1.5, cut=0.5,  chop=0.6, stab=0.6,  crush=0.8},
-   YogsHeart= {magDef=10, fire=0.8, water, ice=0.8, earth=1.2, wind, lightning=0.7, poison=1.3, light=0.5, dark=1.5, cut=0.9,  chop=0.9, stab=0.8,  crush=1.1},
-   RottingFist= {magDef=10, fire=0.8, water, ice=0.8, earth=1.2, wind, lightning=0.7, poison=1.3, light=0.5, dark=1.5, cut=0.9,  chop=0.9, stab=0.8,  crush=1.1},
-   BurningFist= {magDef=20, fire=1.5, water=0.8, ice=0.5, earth, wind=0.9, lightning=0.85, poison, light, dark=1.5, cut,  chop=0.9, stab=0.8,  crush=0.7},
-   Yog = {magDef=10, fire=0.8, water=1.2, ice=0.6, earth=0.7, wind=0.7, lightning=0.7, poison=0.6, light=0.2, dark=1.5, cut=0.5,  chop=0.6, stab=0.6,  crush=0.8},
-   YogsTeeth= {magDef=20, fire, water=0.9, ice=0.9, earth, wind, lightning=0.85, poison, light=0.5, dark=1.5, cut,  chop=0.9, stab=0.8,  crush=0.7},
-   Yog = {magDef=10, fire=0.8, water=1.2, ice=0.6, earth=0.7, wind=0.7, lightning=0.7, poison=0.6, light=0.2, dark=1.5, cut=0.5,  chop=0.6, stab=0.6,  crush=0.8},
-   Larva = {magDef=5, fire=0.8, water=0.8, ice, earth, wind, lightning=0.7, poison=1.2, light=0.3, dark=1.5, cut=0.8,  chop=0.8, stab,  crush=0.8},
+   SuspiciousRat = {magDef=7, fire=0.5, water, ice, earth, wind=0.8, lightning=0.6, poison=0.5, light=0.5, dark=1.2, cut=0.6,  chop=0.6, stab=0.5,  crush=0.8},
+   PseudoRat = {magDef=7, fire=0.6, water, ice, earth, wind, lightning=0.8, poison=1.2, light=0.4, dark=1.5, cut=1.2,  chop=1.2, stab=0.9,  crush},
+   ZombieGnoll = {magDef=5, fire=0.6, water, ice, earth, wind, lightning=0.8, poison=1.5, light=0.4, dark=1.1, cut=0.9,  chop=0.8, stab=0.8,  crush},
+   Worm = {magDef=6, fire=0.4, water=1.2, ice=0.8, earth=1.5, wind=0.8, lightning=1.2, poison=1.5, light=0.7, dark=1.2, cut=0.9,  chop=0.8, stab,  crush},
+   Nightmare = {magDef=5, fire=0.8, water, ice, earth, wind, lightning=1.1, poison=1.2, light=0.3, dark=1.5, cut=1.1,  chop, stab=1.1,  crush=0.9},
+   MimicAmulet = {magDef=6, fire=0.8, water, ice, earth=0.9, wind=0.9, lightning=0.8, poison=0.9, light=0.5, dark=1.5, cut=1.1,  chop=1.1, stab=0.9,  crush},
+   TreacherousSpirit = {magDef=6, fire=0.8, water=0.8, ice, earth, wind, lightning=0.7, poison=1.2, light=0.2, dark=1.5, cut=1.1,  chop, stab=1.1,  crush},
+   SpiritOfPain= {magDef=3, fire=0.8, water=0.8, ice, earth, wind, lightning=0.7, poison=1.2, light=0.2, dark=1.5, cut=1.1,  chop, stab=1.1,  crush},
+   YogsBrain= {magDef=3, fire=0.8, water=0.6, ice=1.2, earth=0.9, wind=0.9, lightning=1.5, poison=0.8, light=0.5, dark=1.2, cut=0.7,  chop=0.6, stab=0.8,  crush=0.9},
+   YogsEye= {magDef=7, fire=0.7, water=1.2, ice=0.6, earth=0.7, wind=0.7, lightning=0.7, poison=0.6, light=0.2, dark=1.5, cut=0.5,  chop=0.6, stab=0.6,  crush=0.8},
+   YogsHeart= {magDef=5, fire=0.8, water, ice=0.8, earth=1.2, wind, lightning=0.7, poison=1.3, light=0.5, dark=1.5, cut=0.9,  chop=0.9, stab=0.8,  crush=1.1},
+   RottingFist= {magDef=6, fire=0.8, water, ice=0.8, earth=1.2, wind, lightning=0.7, poison=1.3, light=0.5, dark=1.5, cut=0.9,  chop=0.9, stab=0.8,  crush=1.1},
+   BurningFist= {magDef=6, fire=1.5, water=0.8, ice=0.5, earth, wind=0.9, lightning=0.85, poison, light, dark=1.5, cut,  chop=0.9, stab=0.8,  crush=0.7},
+   Yog = {magDef=6, fire=0.8, water=1.2, ice=0.6, earth=0.7, wind=0.7, lightning=0.7, poison=0.6, light=0.2, dark=1.5, cut=0.5,  chop=0.6, stab=0.6,  crush=0.8},
+   YogsTeeth= {magDef=8, fire, water=0.9, ice=0.9, earth, wind, lightning=0.85, poison, light=0.5, dark=1.5, cut,  chop=0.9, stab=0.8,  crush=0.7},
+   Larva = {magDef=3, fire=0.8, water=0.8, ice, earth, wind, lightning=0.7, poison=1.2, light=0.3, dark=1.5, cut=0.8,  chop=0.8, stab,  crush=0.8},
    
-   SpiderServant = {magDef=7, fire=0.7, water, ice, earth, wind, lightning=0.8, poison=1.2, light=0.9, dark, cut=1.15,  chop=0.8, stab=0.7,  crush},
-   SpiderGuard = {magDef=10, fire=0.8, water, ice, earth, wind, lightning=0.8, poison=1.5, light, dark, cut=1.3,  chop, stab=0.9,  crush=1.1},
+   SpiderServant = {magDef=4, fire=0.7, water, ice, earth, wind, lightning=0.8, poison=1.2, light=0.9, dark, cut=1.15,  chop=0.8, stab=0.7,  crush},
+   SpiderGuard = {magDef=6, fire=0.8, water, ice, earth, wind, lightning=0.8, poison=1.5, light, dark, cut=1.3,  chop, stab=0.9,  crush=1.1},
    SpiderExploding = {magDef=-5, fire=0.5, water=1.5, ice, earth=1.1, wind, lightning, poison, light, dark, cut=0.5,  chop=0.5, stab,  crush=0.8},
-   SpiderMind= {magDef=5, fire=0.6, water, ice=0.8, earth, wind, lightning=0.6, poison=1.2, light, dark, cut=0.7,  chop=0.7, stab=0.7,  crush=0.9},
-   SpiderMindAmber= {magDef=4, fire=0.8, water, ice=0.7, earth, wind, lightning=0.6, poison=1.2, light, dark, cut=0.8,  chop=0.8, stab=0.7,  crush},
+   SpiderMind= {magDef=2, fire=0.6, water, ice=0.8, earth, wind, lightning=0.6, poison=1.2, light, dark, cut=0.7,  chop=0.7, stab=0.7,  crush=0.9},
+   SpiderMindAmber= {magDef=3, fire=0.8, water, ice=0.7, earth, wind, lightning=0.6, poison=1.2, light, dark, cut=0.8,  chop=0.8, stab=0.7,  crush},
    SpiderNest= {magDef=3, fire=0.2, water, ice, earth, wind=0.9, lightning=0.8, poison=1.2, light, dark, cut=0.3,  chop=0.5, stab=0.5,  crush=0.8},
    SpiderEgg= {magDef=1, fire=0.2, water, ice=0.2, earth=0.2, wind=0.2, lightning=0.2, poison=1.2, light, dark, cut=0.2,  chop=0.2, stab=0.2,  crush=0.2},
   f = {magDef, fire, water, ice, earth, wind, lightning, poison, light, dark, cut,  chop, stab,  crush},
-   SpiderQueen = {magDef=12, fire=0.8, water, ice, earth, wind, lightning=0.8, poison=1.5, light=0.9, dark=1.2, cut=1.2,  chop=1.1, stab=0.8,  crush},
+   SpiderQueen = {magDef=7, fire=0.8, water, ice, earth, wind, lightning=0.8, poison=1.5, light=0.9, dark=1.2, cut=1.2,  chop=1.1, stab=0.8,  crush},
    
-   Kobold = {magDef=10, fire=0.6, water=1.5, ice=2, earth, wind, lightning=0.8, poison, light, dark, cut=1.1,  chop, stab=0.9,  crush},
-   KoboldIcemancer= {magDef=8, fire=0.6, water=1.5, ice=2, earth, wind, lightning=0.7, poison=0.9, light=0.9, dark, cut,  chop=0.9, stab=0.8,  crush=0.9},
-   ColdSpirit = {magDef=15, fire=0.5, water=1.5, ice=2, earth, wind, lightning, poison, light=1.2, dark, cut=1.1,  chop=0.9, stab=0.8,  crush},
-	IceGuardianCore= {magDef=20, fire=0.6, water=1.5, ice=2, earth, wind, lightning, poison=1.2, light=1.2, dark, cut=1.1,  chop=0.9, stab=0.8,  crush},
-   IceGuardian = {magDef=20, fire=0.5, water=1.5, ice=2, earth, wind, lightning, poison=1.5, light=1.3, dark, cut=1.2,  chop=0.95, stab=0.8,  crush},
+   Kobold = {magDef=6, fire=0.6, water=1.5, ice=2, earth, wind, lightning=0.8, poison, light, dark, cut=1.1,  chop, stab=0.9,  crush},
+   KoboldIcemancer= {magDef=5, fire=0.6, water=1.5, ice=2, earth, wind, lightning=0.7, poison=0.9, light=0.9, dark, cut,  chop=0.9, stab=0.8,  crush=0.9},
+   ColdSpirit = {magDef=4, fire=0.5, water=1.5, ice=2, earth, wind, lightning, poison, light=1.2, dark, cut=1.1,  chop=0.9, stab=0.8,  crush},
+	IceGuardianCore= {magDef=8, fire=0.3, water=1.5, ice=2, earth, wind, lightning, poison=1.2, light=1.2, dark, cut=1.1,  chop=0.9, stab=0.5,  crush},
+   IceGuardian = {magDef=7, fire=0.3, water=1.5, ice=2, earth, wind, lightning, poison=1.5, light=1.3, dark, cut=1.2,  chop=0.95, stab=0.5,  crush},
    
-   DeathKnight = {magDef=10, fire, water=0.9, ice, earth, wind, lightning=0.7, poison=1.2, light=0.7, dark=1.3, cut=1.2,  chop, stab=0.9,  crush},
-   DreadKnight = {magDef=15, fire, water=0.9, ice, earth, wind, lightning=0.7, poison, light, dark=1.5, cut=1.2,  chop=1.1, stab=0.95,  crush},
-   EnslavedSoul = {magDef=8, fire, water, ice, earth, wind, lightning, poison=1.5, light=0.5, dark=1.5, cut,  chop, stab,  crush},
-   ExplodingSkull = {magDef=5, fire=1.5, water=0.5, ice=0.6, earth, wind=0.8, lightning, poison=1.5, light=0.8, dark=0.8, cut,  chop=0.95, stab=0.8,  crush=0.7},
-   JarOfSouls = {magDef=10, fire, water, ice, earth=0.9, wind, lightning, poison, light=0.8, dark=1.2, cut,  chop=0.9, stab=0.5,  crush=0.45},
-   Zombie = {magDef=8, fire=0.9, water, ice, earth, wind, lightning=0.9, poison=1.2, light=0.8, dark=1.2, cut=0.9,  chop=0.85, stab=0.85,  crush},
-   RunicSkull = {magDef=12, fire, water, ice, earth, wind, lightning, poison=1.5, light, dark, cut,  chop=0.9, stab=0.8,  crush=0.75},
-   Lich = {magDef=20, fire=0.8, water, ice, earth=1.2, wind, lightning, poison=1.2, light=0.7, dark=1.5, cut,  chop=0.9, stab=0.8,  crush=0.85},
+   DeathKnight = {magDef=6, fire, water=0.9, ice, earth, wind, lightning=0.7, poison=1.2, light=0.4, dark=1.3, cut=1.2,  chop, stab=0.9,  crush},
+   DreadKnight = {magDef=7, fire, water=0.9, ice, earth, wind, lightning=0.7, poison, light=0.3, dark=1.5, cut=1.2,  chop=1.1, stab=0.95,  crush},
+   EnslavedSoul = {magDef=4, fire, water, ice, earth, wind, lightning, poison=1.5, light=0.3, dark=1.5, cut,  chop, stab,  crush},
+   ExplodingSkull = {magDef=2, fire=1.5, water=0.5, ice=0.6, earth, wind=0.8, lightning, poison=1.5, light=0.8, dark=0.8, cut,  chop=0.95, stab=0.8,  crush=0.7},
+   JarOfSouls = {magDef=2, fire, water, ice, earth=0.9, wind, lightning, poison, light=0.4, dark=1.2, cut,  chop=0.9, stab=0.5,  crush=0.45},
+   Zombie = {magDef=4, fire=0.9, water, ice, earth, wind, lightning=0.9, poison=1.2, light=0.3, dark=1.2, cut=0.9,  chop=0.85, stab=0.85,  crush},
+   RunicSkull = {magDef=3, fire, water, ice, earth, wind, lightning, poison=1.5, light, dark, cut,  chop=0.9, stab=0.8,  crush=0.75},
+   Lich = {magDef=8, fire=0.8, water, ice, earth=1.2, wind, lightning, poison=1.2, light=0.4, dark=1.5, cut,  chop=0.9, stab=0.8,  crush=0.85},
    
-   a = {magDef, fire, water, ice, earth, wind, lightning, poison, light, dark, cut,  chop, stab,  crush}
+   none = {magDef =0, fire, water, ice, earth, wind, lightning, poison, light, dark, cut,  chop, stab,  crush}
    
    },
  
@@ -281,7 +283,7 @@ local RPG
  end,
  
  
- allMagDef = function()
+ AllMagDef = function()
    return RPG.magDef +RPG.StatsB["magDef"] +RPG.StatsArt2["magDef"] +RPG.StatsArt["magDef"] +RPG.StatsA["magDef"] +RPG.StatsA2["magDef"]
  end,
  
@@ -303,7 +305,6 @@ local RPG
   selectAmmo = function(mode,title)
  
     local hero = RPD.Dungeon.hero
-    local Add = require "scripts/lib/AdditionalFunctions"
     local WndBag = RPG.Objects.Ui.WndBag
     local listener = luajava.createProxy("com.watabou.pixeldungeon.windows.WndBag$Listener",{
   
@@ -314,14 +315,12 @@ local RPG
         if check == "missiles" then
           local matFile = require("scripts/items/"..itemEK)
     
-          if matFile:desc().data["canUseToShoot"] == true then
             storage.gamePut("choosedArrows",{is = itemEK})
         
           else
             RPD.playSound("snd_wrong.ogg")
             RPG.selectAmmo(title)
         
-          end
         end
       end
     end})
@@ -342,10 +341,27 @@ local RPG
   local listener = luajava.createProxy("com.watabou.pixeldungeon.windows.WndBag$Listener",{
   onSelect = function(item,selector)
     if item ~= nil then
-    local itemEK = item:getEntityKind()
-    
-     local check = false
-     local itemCheck = false
+      local itemEK = item:getEntityKind()
+      
+      local check = false
+      local itemCheck = false
+      local changedIndex ={I1=2,I2=1}
+      local matNumFromGroups = 0
+      local finalGroupAnother = smithy.finalMaterials[changedIndex["I"..tostring(index)]]
+      
+      for i = 1,#finalGroup do
+        local masFG = finalGroup[i] 
+        if masFG[1] == itemEK then 
+          matNumFromGroups = matNumFromGroups + masFG[2]
+        end
+      end
+      for i = 1,#finalGroupAnother do 
+        local masFG = finalGroupAnother[i]
+        if masFG[1] == itemEK then 
+          matNumFromGroups = matNumFromGroups + masFG[2]
+        end
+      end
+      
      
      if string.sub(itemEK,0,9) == "materials" then
        local matFile = require("scripts/items/"..itemEK)
@@ -361,15 +377,15 @@ local RPG
         for i = 1,#finalGroup do
           local elements = finalGroup[i]
           if itemEK == elements[1] then
-          check = i
+            check = i
+            RPD.glog(elements[2])
           end
         end
         
-        if itemCheck == true then
+        if itemCheck == true and hero:getBelongings():getItem(itemEK):quantity()-matNumFromGroups >= quantity then
           smithy.allQuantity[index] = smithy.allQuantity[index] + quantity
           if check == false then
             finalGroup[#finalGroup+1] = {itemEK,quantity}
-            RPD.glog(itemEK)
           else
             local elements = finalGroup[check]
             elements[2] = elements[2] + quantity
@@ -388,47 +404,73 @@ local RPG
  
  statsFromMaterials = function(materials,mode)
    local smithy = require "scripts/lib/smithing"
+   local hero = RPD.Dungeon.hero
    local stats = {0,0,0,0,0,0,0,0}
-   local wFix = {armor = 0, weapon = 14}
-   local smith = storage.gameGet("smithing") or {}
-   local smithScale = 0.7 + 0.15*smith.lvl
+   local wFix = {armor = 0, weapon = 14, magic = 14}
+   local smithData = storage.gameGet("smithing") or {}
+   local smithScale = 0.7 + 0.15*smithy.lvl
    local rareName = ""
+   local exp = 0
    
-   local rareRandom = math.random(1,10000)
-   if rareRandom <= 200 +RPG.AllLuck() then
-     smithScale = smithScale +0.05*smith.lvl
-     rareName = "("..RPD.textById("Rare")..")"
-   elseif rareRandom <= 50 +RPG.AllLuck() then
-     smithScale = smithScale +0.15*smith.lvl
-     rareName = "("..RPD.textById("Epic")..")"
-   elseif rareRandom <= 10 +RPG.AllLuck() then
-     smithScale = smithScale +0.35*smith.lvl
+   local rareRandom = math.random(1,15000)
+   if rareRandom <= 100 +RPG.AllLuck()*2 then 
+     smithScale = smithScale +0.666*smithy.lvl
      rareName = "("..RPD.textById("Legendary")..")"
+     exp = exp + 12
+     
+   elseif rareRandom <= 800 +RPG.AllLuck()*2 then
+     smithScale = smithScale +0.3*smithy.lvl
+     rareName = "("..RPD.textById("Epic")..")"
+     exp = exp +5
+     
+   elseif rareRandom <= 3500 +RPG.AllLuck()*2 then
+     smithScale = smithScale +0.1*smithy.lvl
+     rareName = "("..RPD.textById("Rare")..")"
+     exp = exp+2
+     
    end
    
    local addStatsGroups = 
    {
      armor = {{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0}},
-     weapon = {{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0}}
+     weapon = {{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0}},
+     magic = {{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0}}
    }
    
    local objectDmgType = {
-   Sword = {"phys",{"cut","chop"}},
-   Longsword = {"phys",{"cut","chop"}},
-   Axe = {"phys",{"chop"}},
-   Halberd = {"phys",{"chop"}},
-   Dagger = {"phys",{"cut","stab"}},
-   Mace = {"phys","crush"},
-   Hammer = {"phys","crush"},
-   Spear = {"phys","stab"},
-   Bow = {"phys","stab"},
-   Crossbow = {"phys","stab"}
+     Sword = {"phys",{"cut","chop"}},
+     Longsword = {"phys",{"cut","chop"}},
+     Axe = {"phys","chop"},
+     Hatchet = {"phys","chop"},
+     Halberd = {"phys",{"chop"}},
+     Dagger = {"phys",{"cut","stab"}},
+     Mace = {"phys","crush"},
+     Hammer = {"phys","crush"},
+     Spear = {"phys","stab"},
+     Bow = {"phys","stab"},
+     Crossbow = {"phys","stab"},
+     MagicStaff = {"magic",""},
+     MagicWand = {"magic",""}
    }
    local objectDrType = {
-   LightArmor = {{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0.5,0.05},{1,0.08}},
-   MediumArmor = {{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{1,0.08},{0.5,0.05}},
-   HeavyArmor = {{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{1,0.08},{0.5,0.08},{0,0},{0.2,0.02}}
+     LightArmor = {{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0.5,0.05},{1,0.08}},
+     MediumArmor = {{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{1,0.08},{0.5,0.05}},
+     HeavyArmor = {{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{1,0.08},{0.5,0.08},{0,0},{0.2,0.02}}
    }
+   local armorsFeatures ={
+     LightArmor = {0.6,1.2,1.2,1.2,1.2,0.6,1.2,1.2},
+     MediumArmor = {1,1,1,1,1,1,1,1},
+     HeavyArmor = {1.35,1,0.8,0.8,0.8,1.35,1,1}
+   }
+   local armorFeature = armorsFeatures[smithy.choosenObject] or {1,1,1,1,1,1,1,1}
+   local moreStr = 1
+   if smithy.thisTwohanded == true then
+     if smithy.choosenObject == "Spear" then
+       moreStr = 1.25
+     else  
+       moreStr = 1.5
+     end
+   end
    
    
    local allAdd = addStatsGroups[mode]
@@ -440,7 +482,6 @@ local RPG
    local accuracy = 1
    local range = 1
    local dr = 0
-   local exp = 0
    local addStats
    local plusStats
    local groups = 
@@ -470,8 +511,16 @@ local RPG
        
        local material1 = matFile:desc()
        local mainStats = material1.data.stats
-       addStats = material1.data[mode]
-       str = str + matFile:typicalStr()*material[2]
+       if mode == "magic" then 
+         addStats = material1.data["weapon"]
+       else 
+         addStats = material1.data[mode]
+       end
+       
+       hero:getBelongings():getItem(material[1]):detach(hero:getBelongings().backpack,material[2])
+       
+       
+       str = str + matFile:typicalStr()*material[2]*moreStr
        minDmg = minDmg + material1.data.dmg[1]*material[2]*smithScale
        maxDmg = maxDmg + material1.data.dmg[2]*material[2]*smithScale
        delayFactor = delayFactor - material1.data.delay*material[2]
@@ -481,8 +530,8 @@ local RPG
        exp = RPG.smartInt(exp + material1.data.exp*material[2])
        
        for j = 1, 8 do
-       
-         stats[j] = stats[j] + mainStats[j]*material[2]*smithScale
+         
+         stats[j] = stats[j] + mainStats[j]*material[2]*smithScale*armorFeature[j]
          
        end
        
@@ -505,6 +554,11 @@ local RPG
    accuracy = RPG.smartInt(accuracy)
    range = RPG.smartInt(range)
    
+   if mode == "magic" then 
+     stats[2] = stats[2]*1.25 
+     stats[4] = stats[4]*1.25
+   end
+   
    for i = 1, 8 do
      stats[i] = RPG.smartInt(stats[i])
    end
@@ -516,13 +570,14 @@ local RPG
    local drOrDmg =
    {
      armor = RPG.smartInt(dr),
-     weapon = {RPG.smartInt(minDmg),RPG.smartInt(maxDmg)}
+     weapon = {RPG.smartInt(minDmg),RPG.smartInt(maxDmg)},
+     magic = {RPG.smartInt(minDmg),RPG.smartInt(maxDmg)}
    }
    
     local itemInfo
     if mode == "armor" then
       itemInfo = RPG.getItemInfo(stats,allAdd)
-    else
+    else 
       itemInfo = RPG.getWeaponInfo(stats,allAdd)
     end
    
@@ -561,7 +616,11 @@ local RPG
      leather = 3,
      gold = 3,
      cloth = 4,
-     bone = 4
+     bone = 4,
+     wood = 1,
+     runic = 2,
+     ruby = 3,
+     nephrite = 4
    }
     local icon
     max[1] = require("scripts/items/"..max[1])
@@ -577,7 +636,8 @@ local RPG
         Hammer = "hammer",
         Spear = "spear",
         Axe = "axe",
-        Halberd = "twohands_axe",
+        Hatchet = "twohands_axe",
+        Halberd = "halberd",
         Bow = "bow",
         Crossbow = "crossbow"
         },
@@ -589,7 +649,8 @@ local RPG
         Hammer = "slander",
         Spear = "rogatina",
         Axe = "chekan",
-        Halberd = "brodex",
+        Hatchet = "brodex",
+        Halberd = "halberd",
         Bow = "long_bow",
         Crossbow = "long_crossbow"
       },
@@ -601,7 +662,8 @@ local RPG
         Hammer = "warhammer",
         Spear = "protazan",
         Axe = "berdysh",
-        Halberd = "labris",
+        Hatchet = "labris",
+        Halberd = "halberd",
         Bow = "composite_bow",
         Crossbow = "composite_crossbow"
       },
@@ -613,10 +675,28 @@ local RPG
         Hammer = "najak",
         Spear = "peak",
         Axe = "sagoris",
-        Halberd = "cleaver",
+        Hatchet = "cleaver",
+        Halberd = "halberd",
         Bow = "big_bow",
         Crossbow = "big_crossbow"
+      },
+      wood ={ 
+        MagicStaff = "crutch",
+        MagicWand = "stick"
+      },
+      runic ={
+        MagicStaff = "staff",
+        MagicWand = "wand"
+      },
+      ruby ={
+        MagicStaff = "scepter",
+        MagicWand = "wand"
+      },
+      nephrite ={
+        MagicStaff = "cane",
+        MagicWand = "rod"
       }
+      
     }
     local armorNames =
     {
@@ -628,15 +708,23 @@ local RPG
     
     local wEnds =
     {
-      spear = "ое",
-      machete = "ое",
-      doug = "ая",
-      rogatina = "ая",
-      katana = "ая",
-      twohands_axe = "ая",
-      hammer = "ая",
-      mace = "ая",
-      peak = "ая"
+      spear =  {iron="ое",steel="ое",gold="ое",bone="ое"},
+      machete = {iron="ое",steel="ое",gold="ое",bone="ое"},
+      doug = {iron="ая",steel="ая",gold="ая",bone="ая"},
+      rogatina = {iron="ая",steel="ая",gold="ая",bone="ая"},
+      katana = {iron="ая",steel="ая",gold="ая",bone="ая"},
+      twohands_axe = {iron="ая",steel="ая",gold="ая",bone="ая"},
+      hammer = {iron="ая",steel="ая",gold="ая",bone="ая"},
+      mace = {iron="ая",steel="ая",gold="ая",bone="ая"},
+      peak = {iron="ая",steel="ая",gold="ая",bone="ая"},
+      staff = {wood="ый",runic="ий",ruby="ый",nephrite="ый"},
+      scepter = {wood="ый",runic="ий",ruby="ый",nephrite="ый"},
+      crutch = {wood="ая",runic="ая",ruby="ая",nephrite="ая"},
+      cane = {wood="ая",runic="ая",ruby="ая",nephrite="ая"},
+      stick = {wood="ая",runic="ая",ruby="ая",nephrite="ая"},
+      wand = {wood="ая",runic="ая",ruby="ая",nephrite="ая"},
+      rod = {wood="ый",runic="ий",ruby="ый",nephrite="ый"}
+      
     }
     local aEnds1 =
     {
@@ -657,7 +745,12 @@ local RPG
       iron = {iron ="FullIron", steel="SemiIron", gold="Gilded", bone="Bony" },
       steel = {iron="SemiSteel", steel="FullSteel", gold="Gilded", bone="Bony" },
       gold = {iron="Spiky", steel="Sharp", gold="FullGold", bone="Bony" },
-      bone = {iron="Spiky", steel="Sharp" , gold="Gilded", bone="FullBone" }
+      bone = {iron="Spiky", steel="Sharp" , gold="Gilded", bone="FullBone" },
+      
+      wood ={wood ="Wooden", runic ="Runic", ruby ="Precious", nephrite ="Elegant"},
+      runic ={wood ="Comfort", runic ="Runic", ruby ="Precious", nephrite ="Elegant"},
+      ruby ={wood ="Comfort", runic ="Runic", ruby ="Ruby", nephrite ="Elegant"},
+      nephrite ={wood ="Comfort", runic ="Runic", ruby ="Precious", nephrite ="Jade"}
     }
     local aTypes = 
     {
@@ -668,7 +761,7 @@ local RPG
     }
     
     local name =""
-    if mode == "weapon" then
+    if mode == "weapon" or mode == "magic" then
       local subTypes = wTypes[max[1]:desc().data.name]
       local wType = subTypes[max[2]:desc().data.name]
       local groupOfNames = weaponNames[max[1]:desc().data.name]
@@ -678,11 +771,11 @@ local RPG
       local wordEndArmor2 = "ый"
       
       if wType == "FullSteel" or wType == "SemiSteel" or wType == "FullBone" then
-        wordEnd ="form2"
+        wordEnd ="ой"
       end
       
         if wEnds[uniqueName] ~= nil then 
-        wordEnd = wEnds[uniqueName]
+        wordEnd = (wEnds[uniqueName])[max[2]:desc().data.name]
       end
       
       name = RPD.textById(wType)..RPD.textById(wordEnd).." "..RPD.textById(uniqueName)..rareName
@@ -708,18 +801,22 @@ local RPG
     local tier
     if mode == "weapon" then
       tier = math.max(RPG.smartInt((RPG.smartInt(maxDmg))/3),1)
+    elseif mode == "magic" then 
+      tier = 1+RPG.smartInt(stats[4]/8)
     else
       tier = 1+RPG.smartInt((RPG.smartInt(dr)-2)/2)
     end
     
-    tier = RPG.smartInt((tier+smith.lvl)/2)
-    storage.gamePut("smithing", {lvl = smith.lvl, expToUp = smith.expToUp, exp = smith.exp + exp})
-    smith = storage.gameGet("smithing") or {}
-    if smith.exp >= smith.expToUp then
-      storage.gamePut("smithing", {lvl = smith.lvl+1, expToUp = smith.expToUp +5, exp = 0 +smith.exp -smith.expToUp})
+    tier = RPG.smartInt((tier+smithy.lvl)/2)
+    if smithy.myself then
+      storage.gamePut("smithing", {lvl = smithData.lvl, expToUp = smithData.expToUp, exp = smithData.exp + exp})
+    end
+    smithData = storage.gameGet("smithing") or {}
+    if smithData.exp >= smithData.expToUp then
+      storage.gamePut("smithing", {lvl = smithData.lvl+1, expToUp = smithData.expToUp +6, exp = 0 +smithData.exp -smithData.expToUp})
     end
    
-   if smithy.mode == "weapon" then
+   if smithy.mode == "weapon" or smithy.mode == "magic" then
      
      return {str = RPG.smartInt(str),info = itemInfo, icon = icon, name = name, tier = tier, minDmg = RPG.smartInt(minDmg), maxDmg = RPG.smartInt(maxDmg), delay = delayFactor, accuracy = accuracy, range = range, dstats = stats, addStats = addStatsGroups[mode], type = table.unpack(objectDmgType[smithy.choosenObject],1), element = table.unpack(objectDmgType[smithy.choosenObject],2)}
    else
@@ -729,29 +826,38 @@ local RPG
  
 	conversionStatsToGold = function(stats,addstats,delay,accuracy,range,mode) 
   	local gold = 0
-		local wFix = {armor = 0, weapon = 14}
-		local gAddStats= { 2, 300}
-		local gStats ={ 2,2,2.5,2.5,2.5,3,2,5 }
-		local gDelay = 100
-		local gAccuracy = 250
+		local gAddStats= { 2, 300 }
+		local gStats ={ 2,2,2.5,2.5,2.5,3,2,5}
+		local gDelay = 10
+		local gAccuracy = 25
 		local gRange = 200
+		
  		for i = 1, 8 do
    	    
   		gold = gold +stats[i]*gStats[i]
          
  		end
-       
-  	for j = 1, 14 + wFix[mode] do
+    if mode == "armor" then
+    for j = 9,22 do 
+      local modeStat = stats[j]
+         
+    	for jj = 1,2 do
+      	gold = gold + modeStat[jj]*gAddStats[jj]
+    	end
+    end
+    else
+  	for j = 1, 28 do
     	local modeStat = addstats[j]
          
     	for jj = 1,2 do
       	gold = gold + modeStat[jj]*gAddStats[jj] 
     	end
   	end
+  	end
 		
 		gold = gold +delay*gDelay
 		gold = gold +accuracy*gAccuracy
-		gold = gold +range*gRange
+		gold = gold +(range-1)*gRange
 		
 		return gold
   end,
@@ -803,18 +909,18 @@ local RPG
  
  
  handCheck = function(item)
-   local hero = RPD.Dungeon.hero
-   if hero then
-   if hero:getBelongings():itemSlot(item) == "LEFT_HAND" then
+   if item:slotName() == "LEFT_HAND" then
      return true
 	 else
 	 return false
-   end
    end
  end,
  
  
   weaponOtherDmg = function(enemy, dmg, coefs)
+  
+    if enemy then
+    
     for i = 1, 10 do
       local dcoef = coefs[i]
       if dcoef[1] > 0 then
@@ -833,6 +939,8 @@ local RPG
       if dcoef[2] > 0 then
         RPG.damage(enemy,dmg*dcoef[2],"mag", RPG.statsName[i-6])
       end
+    end
+    
     end
  end,
  
@@ -853,17 +961,17 @@ local RPG
    local dr = 0
    local elmnt = element
 
-   
+   if enemy then
    if enemy:name() == hero:name() or enemy:getMobClassName() == "MirrorImage" then
      local coefs = RPG.getElementCoef(elmnt)
      pCoef = coefs[1]
      fCoef = coefs[2]
      
-     mag = RPG.allMagDef()*pCoef +fCoef
+     mag = RPG.AllMagDef()*pCoef +fCoef
      dr = enemy:dr()*pCoef+fCoef
    else
      name = enemy:getMobClassName()
-     defstats = def[name]
+     defstats = def[name] or def["Rat"]
      mag = (defstats["magDef"] or 0) + depth*0.8
      dr = enemy:dr()
      
@@ -877,17 +985,10 @@ local RPG
      end
    end
    
-   if mag > 0 then
-     magRoll = math.floor(math.random(0.5*(mag*coef),(mag*coef)))
-     else
-      magRoll = math.floor(math.random((mag*coef),(mag*coef)*0.5+1))
-   end
    
-   if dr > 0 then
-     drRoll = math.floor(math.random((dr*coef)*0.5,(dr*coef)))
-   else
-     drRoll = math.floor(math.random((dr*coef),(dr*coef)*0.5+1))
-   end
+      magRoll = math.floor(RPG.intRoll((mag*coef)*0.87,(mag*coef)*1.12))
+   
+     drRoll = math.floor(RPG.intRoll((dr*coef)*0.87,(dr*coef)*1.12))
    
    if type ~= "phys" then
      enemy:getSprite():showStatus(0x33ccff,(elmnt[1] or elmnt).."/"..(elmnt[2] or "")..":")
@@ -895,6 +996,7 @@ local RPG
    else
      enemy:getSprite():showStatus(0xffff00,(elmnt[1] or elmnt).."/"..(elmnt[2] or "")..":")
      enemy:damage(dmg-drRoll,hero)
+     end
    end
  end,
  
@@ -920,11 +1022,11 @@ local RPG
      local coefs = RPG.getElementCoef(elmnt)
      pCoef = coefs[1]
      fCoef = coefs[2]
-     mag = RPG.allMagDef()*pCoef +fCoef
+     mag = RPG.AllMagDef()*pCoef +fCoef
      dr = enemy:dr()*pCoef+fCoef
    else
      name = enemy:getMobClassName()
-     defstats = def[name]
+     defstats = def[name] or def["Rat"]
      mag = (defstats["magDef"] or 0) + depth*1.2 
      dr = enemy:dr()
       coef = ((defstats[elmnt[1] or elmnt]) or 0) + (defstats[elmnt[2]] or 1)
@@ -934,17 +1036,9 @@ local RPG
    end
    end
    
-   if mag > 0 then
-     magRoll = math.floor(math.random(0.5*(mag*coef),(mag*coef)))
-     else
-      magRoll = math.floor(math.random(1.5*(mag*coef),(mag*coef)))
-   end
+   magRoll = math.floor(RPG.intRoll((mag*coef)*0.75,(mag*coef)*1.25))
    
-   if dr > 0 then
-     drRoll = math.floor(math.random((dr*coef)*0.5,(dr*coef)))
-   else
-     drRoll = math.floor(math.random((dr*coef)*1.5,(dr*coef+1)))
-   end
+     drRoll = math.floor(RPG.intRoll((dr*coef)*0.75,(dr*coef)*1.25))
    
    if type ~= "phys" then
      return dmg-magRoll
@@ -957,7 +1051,7 @@ local RPG
  
  itemStrBonus = function(str)
    local hero = RPD.Dungeon.hero
-   return (RPG.physStr() -str)*0.1
+   return (RPG.physStr() -str)*0.02
  end,
  
  increaseHtSp = function(stats)
@@ -980,12 +1074,14 @@ local RPG
  end,
  
  
- addStats = function(stats, mas)
-     local ItemStats = RPG[mas]
-	 for i = 3, 8 do
-	   ItemStats[RPG.statsName[i]] = stats[i]
-	 end
-	 if #ItemStats > 8 then
+  addStats = function(stats, mas)
+    local ItemStats = RPG[mas]
+    
+  	for i = 3, 8 do
+	    ItemStats[RPG.statsName[i]] = stats[i]
+	  end
+	  
+	  if #ItemStats > 8 then
 	   for i = 9, 22 do
 	     local twoItemStats = ItemStats[RPG.statsName[i]]
 	     local twoStats = stats[i]
@@ -993,7 +1089,7 @@ local RPG
 	       twoItemStats[ii] = twoStats[ii]
 	     end
 	   end
-	 end
+	   end
    end,
  
  
@@ -1016,12 +1112,18 @@ local RPG
  baseSpeed = function()
    local hero = RPD.Dungeon.hero
    local armor = hero:getBelongings().armor
-   local a =0.001
-   if armor:requiredSTR() > hero:STR() then
-     a = armor:requiredSTR() - hero:STR()
-   end
-   return math.max(0.1,((0.8 +RPG.AllFast()*0.04) -0.03*RPD.Dungeon.depth -math.max(0,(armor:requiredSTR() -RPG.physStr())*0.05))*math.pow(1.3,a))
+   local a =armor:requiredSTR()-1
+   
+   return math.max(0.1, ((0.8 +RPG.AllFast()*0.04) -0.03*RPD.Dungeon.depth -0.025*(math.min(0,armor:requiredSTR()-RPG.physStr())) ))*math.pow(1.3,a)
  end,
+ 
+  plus = function(int)
+    local plus = ""
+    if int > 0 then 
+      plus = "+" 
+    end
+    return plus
+  end,
  
  
  getItemInfo = function(stats, add)
@@ -1052,7 +1154,8 @@ local RPG
   }
    for i = 1,8 do
      if stats[i] ~= 0 then
-       itStInfo = itStInfo.." "..statsNames[i]..": +"..tostring(stats[i]).."\n"
+       
+       itStInfo = itStInfo.." "..statsNames[i]..": "..RPG.plus(stats[i])..tostring(stats[i]).."\n"
      end
    end
   
@@ -1061,14 +1164,14 @@ local RPG
       local twoStats = add[i-8]
       if twoStats[1] ~= 0  then
      
-        itStInfo = itStInfo.." "..statsNames[i]..": "..tostring(twoStats[1])
+        itStInfo = itStInfo.." "..statsNames[i]..": "..RPG.plus(twoStats[1])..tostring(twoStats[1])
           if twoStats[2] ~= 0 then
-            itStInfo = itStInfo..",  "..tostring(twoStats[2]*100).."%\n"
+            itStInfo = itStInfo..",  "..RPG.plus(twoStats[2])..tostring(twoStats[2]*100).."%\n"
           else
             itStInfo = itStInfo.."\n"
         end
       elseif twoStats[2] > 0 then
-        itStInfo = itStInfo.." "..statsNames[i]..": "..tostring(twoStats[2]*100).."%\n"
+        itStInfo = itStInfo.." "..statsNames[i]..": "..RPG.plus(twoStats[2])..tostring(twoStats[2]*100).."%\n"
       end
     end
     end
@@ -1120,7 +1223,7 @@ local RPG
     if stats ~= nil then
       for i = 1,8 do
         if stats[i] ~= 0 then
-          itStInfo = itStInfo.." "..statsNames[i]..": +"..tostring(stats[i]).."\n"
+          itStInfo = itStInfo.." "..statsNames[i]..": "..RPG.plus(stats[i])..tostring(stats[i]).."\n"
         end
       end
     end
@@ -1129,14 +1232,14 @@ local RPG
       local twoStats = addStats[i-8]
       if twoStats[1] ~= 0 then
      
-        itStInfo = itStInfo.." "..statsNames[i]..": "..tostring(twoStats[1])
+        itStInfo = itStInfo.." "..statsNames[i]..": "..RPG.plus(twoStats[1])..tostring(twoStats[1])
           if twoStats[2] ~= 0 then
-            itStInfo = itStInfo..", "..tostring(twoStats[2]*100).."%\n"
+            itStInfo = itStInfo..", "..RPG.plus(twoStats[2])..tostring(twoStats[2]*100).."%\n"
           else
             itStInfo = itStInfo.."\n"
         end
       elseif twoStats[2] > 0 then
-        itStInfo = itStInfo.." "..statsNames[i]..": "..tostring(twoStats[2]*100).."%\n"
+        itStInfo = itStInfo.." "..statsNames[i]..": "..RPG.plus(twoStats[2])..tostring(twoStats[2]*100).."%\n"
       end
     end
    
@@ -1144,14 +1247,14 @@ local RPG
       local twoStats = addStats[i-8]
       if twoStats[1] > 0 then
      
-        itStInfo = itStInfo.." "..statsNames[i]..": "..tostring(twoStats[1])
+        itStInfo = itStInfo.." "..statsNames[i]..": "..RPG.plus(twoStats[1])..tostring(twoStats[1])
           if twoStats[2] > 0 then
-            itStInfo = itStInfo..", "..tostring(twoStats[2]*100).."%\n"
+            itStInfo = itStInfo..", "..RPG.plus(twoStats[2])..tostring(twoStats[2]*100).."%\n"
           else
             itStInfo = itStInfo.."\n"
         end
       elseif twoStats[2] > 0 then
-        itStInfo = itStInfo.." "..statsNames[i]..": "..tostring(twoStats[2]*100).."%\n"
+        itStInfo = itStInfo.." "..statsNames[i]..": "..RPG.plus(twoStats[2])..tostring(twoStats[2]*100).."%\n"
       end
     end
     
@@ -1159,7 +1262,7 @@ local RPG
  end,
  
  
-  getMaterialsInfo = function(stats,armorS,weaponS,dmg,dr,delay,acc,range)
+  getMaterialsInfo = function(stats,armorS,weaponS,dmg,dr,delay,acc,range,str)
     local itStInfo = "\n"
     local plus
     local switch
@@ -1335,6 +1438,8 @@ local RPG
         itStInfo = itStInfo.."  "..weaponStNames[i]..": "..plus..tostring(twoStats[2]*100).."%\n"
       end
     end
+    
+    itStInfo = itStInfo.."  "..RPD.textById("Weight")..": "..str.."\n"
     
     return itStInfo
    

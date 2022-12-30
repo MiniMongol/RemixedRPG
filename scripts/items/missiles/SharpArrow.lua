@@ -3,22 +3,26 @@ local item = require "scripts/lib/item"
 
 return item.init {
     desc  = function (self, item)
+      item:quantity(math.random(8,25))
         return {
-            image = 7,
+            image = 11,
             imageFile = "items/ammo.png",
             name = "SharpArrow_Name",
             info = "SharpArrow_Info",
             stackable = true,
-            data = {
-            canUseToShoot = true,
-            addDmg = {2,4}
-            },
+            price = 2,
         }
     end,
-  isFliesStraight = function() 
-   return true
-  end,
-	bag = function() 
-		return "Quiver"
-	end
+  dmg = function() 
+      return {4,8}
+    end,
+    buff = function()
+      return
+    end,
+    isFliesStraight = function() 
+      return true
+    end,
+  	bag = function() 
+  		return "Quiver"
+  	end
 }

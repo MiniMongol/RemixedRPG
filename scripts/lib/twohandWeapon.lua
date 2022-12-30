@@ -19,6 +19,13 @@ twohandWeapon.makeWeapon = function(name,mod,stra,minDmg,maxDmg,tier,accuracy,de
       end
     end,
     
+    charAct = function(self,item,user) 
+      hero = RPD.Dungeon.hero
+      if RPG.luck == nil then
+	 		  RPD.glog("act")
+	 		  end
+    end,
+    
     getVisualName = function()
       return (visualName or name)
     end,
@@ -31,22 +38,22 @@ twohandWeapon.makeWeapon = function(name,mod,stra,minDmg,maxDmg,tier,accuracy,de
       return "LEFT_HAND"
     end,
     
-    activate = function(self,item)
+    activate = function(self,item,user)
       hero = RPD.Dungeon.hero
-      if self.data.activationCount == 0 and item.user == hero then
+      if (self.data.activationCount == 0 and user == hero) or (RPG.luck == nil and user == hero) then
       	RPG.addStats(self.data.dstats,"StatsA")
-      end
-      if self.data.activationCount == 0 then
-        RPG.increaseHtSp(self.data.dstats)
+      	RPG.increaseHtSp(self.data.dstats)
       end
       self.data.activationCount = 1
     end,
     
-    deactivate = function(self,item)
+    deactivate = function(self,item,user)
       hero = RPD.Dungeon.hero
-      self.data.activationCount = 0
-      RPG.delStats("StatsA")
-      RPG.decreaseHtSp(self.data.dstats)
+      if self.data.activationCount == 1 then
+        RPG.delStats("StatsA")
+        RPG.decreaseHtSp(self.data.dstats)
+        self.data.activationCount = 0
+      end
     end,
     
     accuracyFactor = function(self,item,user)

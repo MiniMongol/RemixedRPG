@@ -1,14 +1,16 @@
 local RPD = require "scripts/lib/commonClasses"
 local RPG = require "scripts/lib/Functions"
 local storage = require "scripts/lib/storage"
-local smith = storage.gameGet("smithing") or {}
+
 
 
 local Add = {
 
-   imgMessage = function(img, text)
-        local wnd = luajava.newInstance(RPG.Objects.Ui.WndMessage, img, text)
+    imgMessage = function(img, title, text)     
+      local redbutton = luajava.newInstance("com.watabou.pixeldungeon.ui.RedButton","choose")
+      local wnd = luajava.newInstance(RPG.Objects.Ui.WndImageMessage, RPD.new("com.watabou.noosa.Image",img), title, text)
         RPD.GameScene:show(wnd)
+        
     end,
  
  pillChoise = function(dialog)
@@ -19,37 +21,50 @@ local Add = {
    )
  end,
  
+  blacksmithDialog = function(dialog) 
+    RPD.chooseOption(dialog,
+   RPD.textById("Town_Blacksmith_Name"),
+   RPD.textById("Town_Blacksmith_Say"),
+   RPD.textById("Shop"),
+   RPD.textById("Order_An_Item")
+   )
+  end,
+ 
  smithStart = function(dialog)
+   local smithy = require "scripts/lib/smithing"
    local smith = storage.gameGet("smithing") or {}
    RPD.chooseOption(dialog,
-   RPD.textById("Smithing")..": "..smith.lvl.." "..RPD.textById("Exp")..": "..smith.exp.." / "..smith.expToUp,
+   RPD.textById("Smithing")..": "..smithy.lvl.." "..RPD.textById("Exp")..": "..smithy.exp.." / "..smithy.expToUp,
    "",
      RPD.textById("chooseWeapon"),
      RPD.textById("chooseArmor"))
  end,
  
  smithWeapon = function(dialog)
+   local smithy = require "scripts/lib/smithing"
    local smith = storage.gameGet("smithing") or {}
    RPD.chooseOption(dialog,
-   RPD.textById("Smithing")..": "..smith.lvl.." "..RPD.textById("Exp")..": "..smith.exp.." / "..smith.expToUp,
+   RPD.textById("Smithing")..": "..smithy.lvl.." "..RPD.textById("Exp")..": "..smithy.exp.." / "..smith.expToUp,
    "",
      RPD.textById("chooseMelee"),
      RPD.textById("chooseRange"))
  end,
  
  smithMelee = function(dialog)
+   local smithy = require "scripts/lib/smithing"
    local smith = storage.gameGet("smithing") or {}
    RPD.chooseOption(dialog,
-   RPD.textById("Smithing")..": "..smith.lvl.." "..RPD.textById("Exp")..": "..smith.exp.." / "..smith.expToUp,
+   RPD.textById("Smithing")..": "..smithy.lvl.." "..RPD.textById("Exp")..": "..smithy.exp.." / "..smith.expToUp,
    "",
      RPD.textById("onehandedWeapon"),
      RPD.textById("twohandedWeapon"))
    end,
    
   smithOnehand = function(dialog)
+    local smithy = require "scripts/lib/smithing"
     local smith = storage.gameGet("smithing") or {}
     RPD.chooseOption(dialog,
-    RPD.textById("Smithing")..": "..smith.lvl.." "..RPD.textById("Exp")..": "..smith.exp.." / "..smith.expToUp,
+    RPD.textById("Smithing")..": "..smithy.lvl.." "..RPD.textById("Exp")..": "..smithy.exp.." / "..smith.expToUp,
    "",
       RPD.textById("Sword"),
       RPD.textById("Dagger"),
@@ -58,33 +73,39 @@ local Add = {
     end,
    
    smithTwohand = function(dialog)
+     local smithy = require "scripts/lib/smithing"
      local smith = storage.gameGet("smithing") or {}
      RPD.chooseOption(dialog,
-     RPD.textById("Smithing")..": "..smith.lvl.." "..RPD.textById("Exp")..": "..smith.exp.." / "..smith.expToUp,
+     RPD.textById("Smithing")..": "..smithy.lvl.." "..RPD.textById("Exp")..": "..smithy.exp.." / "..smith.expToUp,
    "",
       RPD.textById("Longsword"),
       RPD.textById("Spear"),
+      RPD.textById("Hatchet"),
       RPD.textById("Halberd"),
       RPD.textById("Hammer"))
     end,
    
    smithRange = function(dialog)
+      local smithy = require "scripts/lib/smithing"
       local smith = storage.gameGet("smithing") or {}
       RPD.chooseOption(dialog,
-   RPD.textById("Smithing")..": "..smith.lvl.." "..RPD.textById("Exp")..": "..smith.exp.." / "..smith.expToUp,
+   RPD.textById("Smithing")..": "..smithy.lvl.." "..RPD.textById("Exp")..": "..smithy.exp.." / "..smith.expToUp,
      "",
       RPD.textById("Bow"),
-      RPD.textById("Crossbow"))
+      RPD.textById("Crossbow"),
+      RPD.textById("MagicStaff"),
+      RPD.textById("MagicWand"))
    end,
  
  smithArmor = function(dialog)
+    local smithy = require "scripts/lib/smithing"
     local smith = storage.gameGet("smithing") or {}
     RPD.chooseOption(dialog,
-    RPD.textById("Smithing")..": "..smith.lvl.." "..RPD.textById("Exp")..": "..smith.exp.." / "..smith.expToUp,
+    RPD.textById("Smithing")..": "..smithy.lvl.." "..RPD.textById("Exp")..": "..smithy.exp.." / "..smith.expToUp,
    "",
-      RPD.textById("LightArmor")..RPD.textById("ая"),
-      RPD.textById("MediumArmor")..RPD.textById("яя"),
-      RPD.textById("HeavyArmor")..RPD.textById("ая"))
+      RPD.textById("LightArmorUp")..RPD.textById("ая"),
+      RPD.textById("MediumArmorUp")..RPD.textById("яя"),
+      RPD.textById("HeavyArmorUp")..RPD.textById("ая"))
  end,
  
  smithChooseMaterials = function(dialog)
@@ -92,15 +113,41 @@ local Add = {
     local smith = storage.gameGet("smithing") or {}
     local mc = smithy.materialCount[smithy.choosenObject]
     local mq = smithy.allQuantity
+    local gold = 0
+    local goldSum = 0
+    
+    if smithy.myself == false then
+      local groups =
+      {
+      smithy.finalMaterials[1],
+      smithy.finalMaterials[2]
+      }
+      for g = 1,2 do
+      local group = groups[g]
+       
+        for i = 1, #group do
+    
+          local material = group[i]
+          local matFile = require("scripts/items/"..material[1])
+      
+       
+           local mPrice = matFile:desc().price 
+           goldSum = RPG.smartInt(goldSum +mPrice*material[2]*0.75)
+           end
+         gold = goldSum
+         smithy.goldForBuy = gold
+         end
+       end
+       
   
     RPD.chooseOption(dialog,
-    RPD.textById("Smithing")..": "..smith.lvl.." "..RPD.textById("Exp")..": "..smith.exp.." / "..smith.expToUp,
+    RPD.textById("Smithing")..": "..smithy.lvl.." "..RPD.textById("Exp")..": "..smith.exp.." / "..smith.expToUp,
     RPD.textById("smithQuantityToChoose")..smithy.quantityToChoose.."\n\n"..RPD.textById("mainMaterials")..": "..mq[1].."/"..mc[1].."\n"..RPD.textById("addMaterials")..": "..mq[2].."/"..mc[2].."\n",
 	  RPD.textById("mainMaterials"),
     RPD.textById("addMaterials"),
     "+",
     "-",
-    RPD.textById("startSmith"))
+    RPD.textById("startSmith").." ("..RPD.textById("Price")..": "..gold..")")
   end,
   
  trapChoise = function(dialog)
@@ -138,7 +185,7 @@ local Add = {
  statusWindow = function(dialog,states,index1)
  RPD.chooseOption( dialog,
                 RPD.textById("status"),
-                RPD.textById("str")..": "..tostring(RPG.strength).." [1 "..RPD.textById("SPcost").."]\n"..RPD.textById("int")..": "..tostring(RPG.intelligence).." [1 "..RPD.textById("SPcost").."]\n"..RPD.textById("dex")..": "..tostring(RPG.dexterity).." [1 "..RPD.textById("SPcost").."]\n"..RPD.textById("sur")..": "..tostring(RPG.vitality).." [1 "..RPD.textById("SPcost").."]\n"..RPD.textById("wis").." : "..tostring(RPG.wisdom).." [1 "..RPD.textById("SPcost").."]\n"..RPD.textById("luck")..": "..tostring(RPG.AllLuck()).." [1 "..RPD.textById("SPcost").."]\n\n"..RPD.textById("PhysStr")..": "..tostring(RPG.physStr()).."\n"..RPD.textById("MagStr")..": "..tostring(RPG.magStr()).."\n"..RPD.textById("Fast")..": "..tostring(RPG.AllFast()).."\n"..RPD.textById("magDef")..": "..tostring(RPG.allMagDef()).."\n "..tostring(RPG.AllSpRegen()).." "..RPD.textById("SpRegenMove"),
+                RPD.textById("str")..": "..tostring(RPG.strength).."\n"..RPD.textById("int")..": "..tostring(RPG.intelligence).."\n"..RPD.textById("dex")..": "..tostring(RPG.dexterity).."\n"..RPD.textById("sur")..": "..tostring(RPG.vitality).."\n"..RPD.textById("wis").." : "..tostring(RPG.wisdom).."\n"..RPD.textById("luck")..": "..tostring(RPG.AllLuck()).."\n\n"..RPD.textById("PhysStr")..": "..tostring(RPG.physStr()).."\n"..RPD.textById("MagStr")..": "..tostring(RPG.magStr()).."\n"..RPD.textById("Fast")..": "..tostring(RPG.AllFast()).."\n"..RPD.textById("magDef")..": "..tostring(RPG.AllMagDef()).."\n "..tostring(RPG.AllSpRegen()).." "..RPD.textById("SpRegenMove"),
                 "["..tostring(states[index1]).."]",
                 RPD.textById("SpecUp").."["..tostring(RPG.sPoints).." "..RPD.textById("SpecUpCost")
         )
@@ -147,7 +194,7 @@ local Add = {
  statusWindowClass = function(dialog,states,index1)
  RPD.chooseOption( dialog,
               RPD.textById("status"),
-                RPD.textById("str")..": "..tostring(RPG.strength).." [1 "..RPD.textById("SPcost").."]\n"..RPD.textById("int")..": "..tostring(RPG.intelligence).." [1 "..RPD.textById("SPcost").."]\n"..RPD.textById("dex")..": "..tostring(RPG.dexterity).." [1 "..RPD.textById("SPcost").."]\n"..RPD.textById("sur")..": "..tostring(RPG.vitality).." [1 "..RPD.textById("SPcost").."]\n"..RPD.textById("wis").." : "..tostring(RPG.wisdom).." [1 "..RPD.textById("SPcost").."]\n"..RPD.textById("luck")..": "..tostring(RPG.AllLuck()).." [1 "..RPD.textById("SPcost").."]\n\n"..RPD.textById("PhysStr")..": "..tostring(RPG.physStr()).."\n"..RPD.textById("MagStr")..": "..tostring(RPG.magStr()).."\n"..RPD.textById("Fast")..": "..tostring(RPG.AllFast()).."\n "..RPD.textById("magDef")..": "..tostring(RPG.allMagDef()).."\n "..tostring(RPG.AllSpRegen()).." "..RPD.textById("SpRegenMove"),
+              RPD.textById("str")..": "..tostring(RPG.strength).."\n"..RPD.textById("int")..": "..tostring(RPG.intelligence).."\n"..RPD.textById("dex")..": "..tostring(RPG.dexterity).."\n"..RPD.textById("sur")..": "..tostring(RPG.vitality).."\n"..RPD.textById("wis").." : "..tostring(RPG.wisdom).."\n"..RPD.textById("luck")..": "..tostring(RPG.AllLuck()).."\n\n"..RPD.textById("PhysStr")..": "..tostring(RPG.physStr()).."\n"..RPD.textById("MagStr")..": "..tostring(RPG.magStr()).."\n"..RPD.textById("Fast")..": "..tostring(RPG.AllFast()).."\n"..RPD.textById("magDef")..": "..tostring(RPG.AllMagDef()).."\n "..tostring(RPG.AllSpRegen()).." "..RPD.textById("SpRegenMove"),
                 "["..tostring(states[index1]).."]",
                 RPD.textById("SpecUp").."["..tostring(RPG.sPoints).." "..RPD.textById("SpecUpCost"),
                 "ClassPick"
@@ -166,7 +213,7 @@ local Add = {
  statusWindowSubclass = function(dialog,states,index1)
  RPD.chooseOption( dialog,
                RPD.textById("status"),
-                RPD.textById("str")..": "..tostring(RPG.strength).." [1 "..RPD.textById("SPcost").."]\n"..RPD.textById("int")..": "..tostring(RPG.intelligence).." [1 "..RPD.textById("SPcost").."]\n"..RPD.textById("dex")..": "..tostring(RPG.dexterity).." [1 "..RPD.textById("SPcost").."]\n"..RPD.textById("sur")..": "..tostring(RPG.vitality).." [1 "..RPD.textById("SPcost").."]\n"..RPD.textById("wis").." : "..tostring(RPG.wisdom).." [1 "..RPD.textById("SPcost").."]\n"..RPD.textById("luck")..": "..tostring(RPG.AllLuck()).." [1 "..RPD.textById("SPcost").."]\n\n"..RPD.textById("PhysStr")..": "..tostring(RPG.physStr()).."\n"..RPD.textById("MagStr")..": "..tostring(RPG.magStr()).."\n"..RPD.textById("Fast")..": "..tostring(RPG.AllFast()).."\n"..RPD.textById("magDef")..": "..tostring(RPG.allMagDef()).."\n "..tostring(RPG.AllSpRegen()).." "..RPD.textById("SpRegenMove"),
+                RPD.textById("str")..": "..tostring(RPG.strength).."\n"..RPD.textById("int")..": "..tostring(RPG.intelligence).."\n"..RPD.textById("dex")..": "..tostring(RPG.dexterity).."\n"..RPD.textById("sur")..": "..tostring(RPG.vitality).."\n"..RPD.textById("wis").." : "..tostring(RPG.wisdom).."\n"..RPD.textById("luck")..": "..tostring(RPG.AllLuck()).."\n\n"..RPD.textById("PhysStr")..": "..tostring(RPG.physStr()).."\n"..RPD.textById("MagStr")..": "..tostring(RPG.magStr()).."\n"..RPD.textById("Fast")..": "..tostring(RPG.AllFast()).."\n"..RPD.textById("magDef")..": "..tostring(RPG.AllMagDef()).."\n "..tostring(RPG.AllSpRegen()).." "..RPD.textById("SpRegenMove"),
                 "["..tostring(states[index1]).."]",
                 RPD.textById("SpecUp").."["..tostring(RPG.sPoints).." "..RPD.textById("SpecUpCost"),
                 "SubclassPick"
