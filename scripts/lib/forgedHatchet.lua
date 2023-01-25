@@ -9,6 +9,10 @@ local forgedWeapon = {}
 local str
 local minDmg
 local maxDmg
+local dmgFrSt1
+local dmgFrSt2
+local dmgRoll
+local dmg
 
 
 forgedWeapon.makeWeapon = function()
@@ -19,7 +23,7 @@ forgedWeapon.makeWeapon = function()
             stackable     = false,
             upgradable    = true,
             data = smithy.finalStats,
-            imageFile = "items/forgedHalberd.png",
+            imageFile = "items/forgedHatchet.png",
             equipable = "weapon"
         }
         
@@ -29,8 +33,8 @@ forgedWeapon.makeWeapon = function()
     info = function(self,item)
       hero = RPD.Dungeon.hero
       str = math.max(self.data.str -2*item:level(),1)
-      maxDmg = RPG.smartInt((self.data.maxDmg +self.data.tier*item:level())*1.3)
-      minDmg = RPG.smartInt(self.data.minDmg +self.data.tier*item:level())
+      maxDmg = RPG.smartInt(self.data.maxDmg +self.data.tier*item:level())
+      minDmg = RPG.smartInt(math.min((self.data.minDmg +self.data.tier*item:level())*1.3,maxDmg))
       
       local info = RPD.textById("WeaponInfo0")..self.data.tier..RPD.textById("WeaponInfo1")..minDmg.." — "..maxDmg..RPD.textById("WeaponInfo2")..str..RPD.textById("WeaponInfo3").."\n\n"..self.data.info
       if RPG.physStr() >= str then
@@ -52,13 +56,13 @@ forgedWeapon.makeWeapon = function()
     
     
     getVisualName = function()
-      return "Halberd"
+      return "BattleHammer"
     end,
     
     
     getAttackAnimationClass = function()
-	return "SPEAR_ATTACK"
-	end,
+	    return "HEAVY_ATTACK"
+	  end,
    
    
     slot = function(self, item, belongings)
@@ -93,10 +97,10 @@ forgedWeapon.makeWeapon = function()
 	
 	damageRoll = function(self,item,user)
       local hero = RPD.Dungeon.hero
-      maxDmg = (self.data.maxDmg +self.data.tier*item:level())*1.3
-      minDmg = self.data.minDmg +self.data.tier*item:level()
+      maxDmg = self.data.maxDmg +self.data.tier*item:level()
+      minDmg = math.min(self.data.minDmg +self.data.tier*item:level()*1.3,maxDmg)
       
-      local dmgRoll = math.random(minDmg,maxDmg)
+      dmgRoll = math.random(minDmg,maxDmg)
       local d = self.data
       local id = 
       {
@@ -105,14 +109,15 @@ forgedWeapon.makeWeapon = function()
         stab = 12,
         crush = 13
       }
-      local dmgFrSt1 = d.addstats[id[d.element[1] or d.element]]
-      local dmgFrSt2 = d.addstats[id[d.element[2]]] or {0,dmgFrSt1[2]}
-      local dmg = RPG.getDamage(user:getEnemy(),dmgRoll *((dmgFrSt1[2]+dmgFrSt2[2])/200 +1) + dmgFrSt1[1] +dmgFrSt2[1],self.data.type,self.data.element)
+      dmgFrSt1 = d.addstats[id[d.element[1] or d.element]]
+      dmgFrSt2 = d.addstats[id[d.element[2]]] or {0,dmgFrSt1[2]}
       
-			user:getEnemy():getSprite():showStatus(0xffff00,RPD.textById(self.data.element[1] or self.data.element).."/"..(RPD.textById(self.data.element[2]) or "")..":")
+        dmg = RPG.getDamage(user:getEnemy(),dmgRoll *((dmgFrSt1[2]+dmgFrSt2[2])/200 +1) + dmgFrSt1[1] +dmgFrSt2[1],self.data.type,self.data.element)
+        
+        user:getEnemy():getSprite():showStatus(0xffff00,RPD.textById(self.data.element[1] or self.data.element).."/"..(RPD.textById(self.data.element[2]) or "")..":")
+			
       return dmg,dmg
     end,
-    
     
     postAttack = function(self,item,enemy) 
       RPG.weaponOtherDmg(enemy,dmg,self.data.addstats) 
@@ -121,13 +126,13 @@ forgedWeapon.makeWeapon = function()
     
     accuracyFactor = function(self,item,user)
       str = math.max(self.data.str -2*item:level(),1)
-      return self.data.accuracy + RPG.itemStrBonus(str)-0.35
+      return self.data.accuracy*0.5 + RPG.itemStrBonus(str)*0.5
     end,
     
     
     attackDelayFactor = function(self,item,user)
       str = math.max(self.data.str -2*item:level(),1)
-      return math.max(self.data.delay -RPG.itemStrBonus(str)+0.15,0.25)
+      return math.max(self.data.delay*1.25 -RPG.itemStrBonus(str)*0.75,0.25)
     end,
     
     

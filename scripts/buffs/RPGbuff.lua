@@ -132,7 +132,7 @@ return buff.init{
           for j = 0, levelH do
             local cell = RPD.Dungeon.level:cell(i,j)
             local enemy = RPD.Actor:findChar(cell)
-            if enemy and enemy ~= RPD.Dungeon.hero and enemy:buffLevel("PowerBuff") == 0 and mobsExeptions[enemy:name()] then
+            if enemy and enemy ~= RPD.Dungeon.hero and enemy:buffLevel("PowerBuff") == 0 and mobsExeptions[enemy:name()] ~= false then
               RPD.permanentBuff(enemy,"PowerBuff")
               local addHp = RPG.smartInt(-5 +1.2*RPD.Dungeon.depth  +4*(RPD.Dungeon.depth%5))
               if enemy:hp() < enemy:ht() then

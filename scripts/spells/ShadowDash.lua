@@ -92,7 +92,7 @@ return spell.init{
     end
     enemy = RPD.Actor:findChar(moveTo) 
     if enemy and enemy ~= hero then
-     RPG.damage(enemy,3*lvl + math.ceil(RPG.physStr()*0.15),type,elmnt)
+     RPG.damage(enemy,3*lvl + RPG.smartInt(RPG.physStr()*0.4),type,elmnt)
      RPD.topEffect(moveTo,"bleeding_effect")
      if level:cellValid(level:getEmptyCellNextTo(enemy:getPos())) then
       moveTo = level:getEmptyCellNextTo(enemy:getPos())
@@ -109,7 +109,7 @@ return spell.init{
     if stop ~= true then
     enemy = RPD.Actor:findChar(RPD.Ballistica.trace[i])
     if enemy and enemy ~= hero then
-     RPG.damage(enemy,3*lvl + math.ceil(RPG.physStr()*0.15),type,elmnt)
+     RPG.damage(enemy,3*lvl + RPG.smartInt(RPG.physStr()*0.4),type,elmnt)
      RPD.topEffect(enemy:getPos(),"bleeding_effect")
     end
     end

@@ -158,10 +158,6 @@ forgedWeapon.makeWeapon = function()
 			
       return dmg,dmg
     end,
-    
-    postAttack = function(self,item,enemy) 
-      
-    end,
   
   
   postAttack = function(self,item,enemy)

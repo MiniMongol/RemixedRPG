@@ -197,7 +197,7 @@ chooseMaterials = function(index)
         
         local is = RPG.statsFromMaterials(smithy.finalMaterials,smithy.mode)
         
-        smithy.finalStats = {activationCount = 0, str = is.str,info=is.info, name = is.name, icon = is.icon, tier = is.tier, dr = is.dr, maxDmg = is.maxDmg, minDmg = is.minDmg, accuracy = is.accuracy, delay = is.delay, range = is.range, dstats = is.dstats, addstats = is.addStats, type = is.type, element = is.element, wType = smithy.wType, pCoef = 20*2^(is.tier-1) + 10*2^(is.tier-1), choosenObject = smithy.choosenObject, level = 0}
+        smithy.finalStats = {activationCount = 0, str = is.str,info=is.info, name = is.name, visualName = is.visualName, icon = is.icon, tier = is.tier, dr = is.dr, maxDmg = is.maxDmg, minDmg = is.minDmg, accuracy = is.accuracy, delay = is.delay, range = is.range, dstats = is.dstats, addstats = is.addStats, type = is.type, element = is.element, wType = smithy.wType, pCoef = 20*2^(is.tier-1) + 10*2^(is.tier-1), choosenObject = smithy.choosenObject, level = 0}
         
         if smithy.mode == "armor" then
           armor = RPD.item("forgedArmor")

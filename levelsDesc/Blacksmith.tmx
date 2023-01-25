@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
+<map version="1.2" orientation="orthogonal" renderorder="right-down" width="15" height="17" tilewidth="16" tileheight="16" nextobjectid="1">
+  <properties>
+    <property name="sw1" value="67" />
+    <property name="sw2" value="69" />
+    <property name="sw3" value="131" />
+    <property name="sw4" value="133" />
+    <property name="sw5" value="68" />
+    <property name="sw6" value="99" />
+  </properties>
+  <tileset firstgid="1" name="tiles0" columns="16" tilecount="64" tileheight="16" tilewidth="16">
+    <image source="tiles0.png" width="256" height="64" />
+  </tileset>
+  <tileset firstgid="65" name="tiles_town_inside_2021_03" columns="32" tilecount="1024" tileheight="16" tilewidth="16">
+    <image source="tiles_town_inside_2021_03.png" width="512" height="512" />
+  </tileset>
+  <layer name="logic" width="15" height="17">
+    <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAAGNiYGBgGkDMSgImRa8KEsalVwWLOnS1uPSii7ERqY4Yv+FzMzZ3E2svobggNqxI1UupveTqJTb9UVsvOuYgIs4pzQvkYACfrvZW/AMAAA==
+  </data>
+  </layer>
+  <layer name="base" width="15" height="17">
+    <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAAHNiYGBwGkDsDMQuaNgNi5grFr3JQKzGiIphYkuBeBkQL4eKYdOrxIiKO7CIEasXGyZWbytQ7BETAuPTi+5fECZWLzY3DkW9xIRzM5F6W7HoTSBSb8IA5x1KMQDAGdCq/AMAAA==
+  </data>
+  </layer>
+  <layer name="deco" width="15" height="17">
+    <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAAGNgGPqAjxlT7AgjA8NpID7LiFufFiMqhomtAOKVQLwKj15s4BATAh9mwq2ulQmCW6AYHTzGoxcEUoDyqUDsAsSuaGrx6UX260Ogukck6P0CxJ+B+CsD6XqRASV6GYHxzISGmbHEPbUAtnSFTxwEFmDB+MQHEgAAPNCLxPwDAAA=
+  </data>
+  </layer>
+  <layer name="deco2" width="15" height="17">
+    <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAAGNgGLmghQmCW6E0CLAB6SeMDAwvgfgdI3nmHgRiTyby3ZVJgV4vIvReBWItRghGBlkU2OtNgd5sPHq5mPHr5SQgPwpwAwCOiqhP/AMAAA==
+  </data>
+  </layer>
+  <layer name="roof_base" width="15" height="17">
+    <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAAGNgGAX0Bi5oeBTQBrQQgXGBBDS8lhFTbKgDABT7rkP8AwAA
+  </data>
+  </layer>
+  <layer name="roof_deco" width="15" height="17">
+    <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAAGNgGAXUAJ0D7YBRMGjBOsaBdgF2AAA843nh/AMAAA==
+  </data>
+  </layer>
+</map>

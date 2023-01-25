@@ -17,7 +17,7 @@ return item.init{
 desc  = function(self, item)
         return {
             imageFile     = "items/materials.png",
-            image         = 55,
+            image         = 40,
             name          = RPD.textById(itemName.."_Name"),
             price         = 55,
             stackable     = true,

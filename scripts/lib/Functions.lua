@@ -452,17 +452,21 @@ local RPG
      MagicStaff = {"magic",""},
      MagicWand = {"magic",""}
    }
+   
    local objectDrType = {
      LightArmor = {{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0.5,0.05},{1,0.08}},
      MediumArmor = {{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{1,0.08},{0.5,0.05}},
      HeavyArmor = {{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{1,0.08},{0.5,0.08},{0,0},{0.2,0.02}}
    }
+   
    local armorsFeatures ={
      LightArmor = {0.6,1.2,1.2,1.2,1.2,0.6,1.2,1.2},
      MediumArmor = {1,1,1,1,1,1,1,1},
      HeavyArmor = {1.35,1,0.8,0.8,0.8,1.35,1,1}
    }
+   
    local armorFeature = armorsFeatures[smithy.choosenObject] or {1,1,1,1,1,1,1,1}
+   
    local moreStr = 1
    if smithy.thisTwohanded == true then
      if smithy.choosenObject == "Spear" then
@@ -795,7 +799,20 @@ local RPG
       
         name = RPD.textById(aType)..RPD.textById(wordEndArmor1).." "..RPD.textById(smithy.choosenObject)..RPD.textById(wordEndArmor2).." "..RPD.textById(uniqueName)..rareName
       end
-        
+      
+      
+      visualName = "forged_"..max[1]:desc().data.name
+      RPD.glog(visualName)
+      if max[2] ~= nil then
+        visualName = visualName..max[2]:desc().data.name
+        RPD.glog(visualName)
+      end
+      
+      if mode == "weapon" or mode == "magic" then
+        visualName = visualName..smithy.choosenObject
+      else 
+        visualName = visualName.."Armor"
+      end
         
     
     local tier
@@ -818,9 +835,9 @@ local RPG
    
    if smithy.mode == "weapon" or smithy.mode == "magic" then
      
-     return {str = RPG.smartInt(str),info = itemInfo, icon = icon, name = name, tier = tier, minDmg = RPG.smartInt(minDmg), maxDmg = RPG.smartInt(maxDmg), delay = delayFactor, accuracy = accuracy, range = range, dstats = stats, addStats = addStatsGroups[mode], type = table.unpack(objectDmgType[smithy.choosenObject],1), element = table.unpack(objectDmgType[smithy.choosenObject],2)}
+     return {str = RPG.smartInt(str),info = itemInfo, icon = icon, name = name, visualName = visualName, tier = tier, minDmg = RPG.smartInt(minDmg), maxDmg = RPG.smartInt(maxDmg), delay = delayFactor, accuracy = accuracy, range = range, dstats = stats, addStats = addStatsGroups[mode], type = table.unpack(objectDmgType[smithy.choosenObject],1), element = table.unpack(objectDmgType[smithy.choosenObject],2)}
    else
-     return {str = RPG.smartInt(str),name = name, info = itemInfo, icon = icon, tier = tier, dr = drOrDmg[mode], dstats = RPG.unpackAll({stats,allAdd})}
+     return {str = RPG.smartInt(str),name = name, visualName = visualName, info = itemInfo, icon = icon, tier = tier, dr = drOrDmg[mode], dstats = RPG.unpackAll({stats,allAdd})}
    end
  end,
  

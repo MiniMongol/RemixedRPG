@@ -1,0 +1,11 @@
+{
+   "spriteDesc"    :"spritesDesc/Blacksmith_Shopkeeper.json",
+   "friendly"      :true,
+   "movable"       :false,
+   "aiState"       :"Passive",
+   "fraction"      :"NEUTRAL",
+   "immortal"      :true, 
+   "scriptFile"    :"scripts/npc/Blacksmith_Shop",
+   "name"          :"Blacksmith_Shopkeeper_Name",
+   "description"   :"Blacksmith_Shopkeeper_Info"
+}

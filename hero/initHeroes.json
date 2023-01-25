@@ -18,7 +18,7 @@
   "non_expert": {
     "items": [
       {
-        "kind": "Gold",
+        "kind": "materials/AcidicSting",
         "quantity":100
       }
     ]

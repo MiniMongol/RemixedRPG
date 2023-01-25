@@ -25,16 +25,15 @@ local Add = {
     RPD.chooseOption(dialog,
    RPD.textById("Town_Blacksmith_Name"),
    RPD.textById("Town_Blacksmith_Say"),
-   RPD.textById("Shop"),
    RPD.textById("Order_An_Item")
    )
   end,
  
  smithStart = function(dialog)
    local smithy = require "scripts/lib/smithing"
-   local smith = storage.gameGet("smithing") or {}
+   
    RPD.chooseOption(dialog,
-   RPD.textById("Smithing")..": "..smithy.lvl.." "..RPD.textById("Exp")..": "..smithy.exp.." / "..smithy.expToUp,
+   RPD.textById("Smithing")..": "..smithy.lvl.."\n"..RPD.textById("Exp")..": "..smithy.exp.." / "..smithy.expToUp,
    "",
      RPD.textById("chooseWeapon"),
      RPD.textById("chooseArmor"))
@@ -42,9 +41,9 @@ local Add = {
  
  smithWeapon = function(dialog)
    local smithy = require "scripts/lib/smithing"
-   local smith = storage.gameGet("smithing") or {}
+   
    RPD.chooseOption(dialog,
-   RPD.textById("Smithing")..": "..smithy.lvl.." "..RPD.textById("Exp")..": "..smithy.exp.." / "..smith.expToUp,
+   RPD.textById("Smithing")..": "..smithy.lvl.."\n"..RPD.textById("Exp")..": "..smithy.exp.." / "..smithy.expToUp,
    "",
      RPD.textById("chooseMelee"),
      RPD.textById("chooseRange"))
@@ -52,9 +51,9 @@ local Add = {
  
  smithMelee = function(dialog)
    local smithy = require "scripts/lib/smithing"
-   local smith = storage.gameGet("smithing") or {}
+   
    RPD.chooseOption(dialog,
-   RPD.textById("Smithing")..": "..smithy.lvl.." "..RPD.textById("Exp")..": "..smithy.exp.." / "..smith.expToUp,
+   RPD.textById("Smithing")..": "..smithy.lvl.."\n"..RPD.textById("Exp")..": "..smithy.exp.." / "..smithy.expToUp,
    "",
      RPD.textById("onehandedWeapon"),
      RPD.textById("twohandedWeapon"))
@@ -62,9 +61,9 @@ local Add = {
    
   smithOnehand = function(dialog)
     local smithy = require "scripts/lib/smithing"
-    local smith = storage.gameGet("smithing") or {}
+    
     RPD.chooseOption(dialog,
-    RPD.textById("Smithing")..": "..smithy.lvl.." "..RPD.textById("Exp")..": "..smithy.exp.." / "..smith.expToUp,
+    RPD.textById("Smithing")..": "..smithy.lvl.."\n"..RPD.textById("Exp")..": "..smithy.exp.." / "..smithy.expToUp,
    "",
       RPD.textById("Sword"),
       RPD.textById("Dagger"),
@@ -74,9 +73,9 @@ local Add = {
    
    smithTwohand = function(dialog)
      local smithy = require "scripts/lib/smithing"
-     local smith = storage.gameGet("smithing") or {}
+     
      RPD.chooseOption(dialog,
-     RPD.textById("Smithing")..": "..smithy.lvl.." "..RPD.textById("Exp")..": "..smithy.exp.." / "..smith.expToUp,
+     RPD.textById("Smithing")..": "..smithy.lvl.."\n"..RPD.textById("Exp")..": "..smithy.exp.." / "..smithy.expToUp,
    "",
       RPD.textById("Longsword"),
       RPD.textById("Spear"),
@@ -87,9 +86,9 @@ local Add = {
    
    smithRange = function(dialog)
       local smithy = require "scripts/lib/smithing"
-      local smith = storage.gameGet("smithing") or {}
+      
       RPD.chooseOption(dialog,
-   RPD.textById("Smithing")..": "..smithy.lvl.." "..RPD.textById("Exp")..": "..smithy.exp.." / "..smith.expToUp,
+   RPD.textById("Smithing")..": "..smithy.lvl.."\n"..RPD.textById("Exp")..": "..smithy.exp.." / "..smithy.expToUp,
      "",
       RPD.textById("Bow"),
       RPD.textById("Crossbow"),
@@ -99,9 +98,9 @@ local Add = {
  
  smithArmor = function(dialog)
     local smithy = require "scripts/lib/smithing"
-    local smith = storage.gameGet("smithing") or {}
+    
     RPD.chooseOption(dialog,
-    RPD.textById("Smithing")..": "..smithy.lvl.." "..RPD.textById("Exp")..": "..smithy.exp.." / "..smith.expToUp,
+    RPD.textById("Smithing")..": "..smithy.lvl.."\n"..RPD.textById("Exp")..": "..smithy.exp.." / "..smithy.expToUp,
    "",
       RPD.textById("LightArmorUp")..RPD.textById("ая"),
       RPD.textById("MediumArmorUp")..RPD.textById("яя"),
@@ -141,7 +140,7 @@ local Add = {
        
   
     RPD.chooseOption(dialog,
-    RPD.textById("Smithing")..": "..smithy.lvl.." "..RPD.textById("Exp")..": "..smith.exp.." / "..smith.expToUp,
+    RPD.textById("Smithing")..": "..smithy.lvl.."\n"..RPD.textById("Exp")..": "..smithy.exp.." / "..smithy.expToUp,
     RPD.textById("smithQuantityToChoose")..smithy.quantityToChoose.."\n\n"..RPD.textById("mainMaterials")..": "..mq[1].."/"..mc[1].."\n"..RPD.textById("addMaterials")..": "..mq[2].."/"..mc[2].."\n",
 	  RPD.textById("mainMaterials"),
     RPD.textById("addMaterials"),

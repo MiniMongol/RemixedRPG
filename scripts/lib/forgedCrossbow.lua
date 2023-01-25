@@ -122,6 +122,8 @@ forgedWeapon.makeWeapon = function()
       RPD.affectBuff(enemy,buffName, buffDuration):level(buffLevel)
       
     end
+    
+      RPG.weaponOtherDmg(enemy,dmg,self.data.addstats) 
   end,
   
     

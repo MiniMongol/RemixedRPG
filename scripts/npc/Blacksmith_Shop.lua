@@ -18,17 +18,10 @@ local lvl = 2
 local seller
 local data
 
-blacksmithInteract = function(index) 
-      smithy.lvl = 2
-      smithy.exp = "-"
-      smithy.expToUp = "-"
-      smithy.myself = false
-      Add.smithStart(smithy.mainWnd)
-  end
-
 return mob.init({ 
     
   interact = function(self, chr)
+    
     hero = RPD.Dungeon.hero
     seller = self
     data = storage.gameGet("heroSteps")
@@ -56,11 +49,10 @@ return mob.init({
         
         self:collect(RPD.createItem("materials/Nephrite",{quantity= RPG.smartInt(buyDelay/125) }))
         end
-      
+        
       if RPG.luck ~= nil then
-        Add.blacksmithDialog(blacksmithInteract)
+        RPD.showTradeWindow(seller,hero)
       end
-      return true
     end,
     
     priceForSell = function(self, item)
@@ -68,5 +60,27 @@ return mob.init({
     end,
     
     spawn = function(self, chr)
+      data = storage.gameGet("heroSteps") or {steps = 0}
+      if data.steps == 0 then
+        RPD.glog("spawn")
+      self:collect(RPD.createItem("materials/iron",{quantity=10}))
+      
+      self:collect(RPD.createItem("materials/steel",{quantity=10}))
+      
+      self:collect(RPD.createItem("materials/gold",{quantity=10}))
+      
+      self:collect(RPD.createItem("materials/leather",{quantity=10}))
+      
+      self:collect(RPD.createItem("materials/cloth",{quantity=10}))
+      
+      self:collect(RPD.createItem("materials/Wood",{quantity=10}))
+      
+      self:collect(RPD.createItem("materials/RunicSteel",{quantity=10}))
+      
+      self:collect(RPD.createItem("materials/Ruby",{quantity=10}))
+      
+      self:collect(RPD.createItem("materials/Nephrite",{quantity=10}))
+
+      end
     end
 })

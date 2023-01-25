@@ -25,7 +25,7 @@ desc  = function(self, item)
               name = "",
               armorUsable = false,
               weaponUsable = false,
-              exp = 15
+              exp = 15,
               stats =
               {0,
                0,

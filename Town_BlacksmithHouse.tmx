@@ -453,7 +453,6 @@ Dn74zmp19rXF6szLawPy+3ElUSCyTvstfKXv+usYZRAACAHSKEee5bQBsooAPQAX5AKQC8B56QFY
 BwE/rPNb+7V6MO/Uu83qxEcL1cfv1uu1AZgexAzBibML1en3qgPyg9ASIDM8ARAcYoA8gDxbepbD
 G4A4IA2PQN4niwjkm4FyAcgFIEU488E6dfqjWnX8reW6tT/1Xq06dbRWLxDCGgFMEx5/rSkg/89+
 9rNKE3TxQWqSHd0BEp2tPURCdgkA815pRSDfDpwLQGcM/z88ATsAVlSPpgAAAABJRU5ErkJggg==
-
 </property>
     </properties>
     <image source="../assets/tiles_town_inside.png" width="256" height="256" />
@@ -463,7 +462,7 @@ G4A4IA2PQN4niwjkm4FyAcgFIEU488E6dfqjWnX8reW6tT/1Xq06dbRWLxDCGgFMEx5/rSkg/89+
   </tileset>
   <layer name="logic" width="11" height="12">
     <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAAGNgGAWjAAEA9jN6LhACAAA=
+   H4sIAAAAAAAAAGNgGAXEAMaBdgCdAAArH3YxEAIAAA==
   </data>
   </layer>
   <layer name="base" width="11" height="12">
@@ -487,12 +486,24 @@ G4A4IA2PQN4niwjkm4FyAcgFIEU488E6dfqjWnX8reW6tT/1Xq06dbRWLxDCGgFMEx5/rSkg/89+
   </data>
   </layer>
   <objectgroup name="mobs">
-    <object id="0" x="0" y="0" width="" height="" />
-    <object id="0" x="0" y="0" width="" height="" />
-    <object id="0" x="0" y="0" width="" height="" />
-    <object id="0" x="0" y="0" width="" height="" />
-    <object id="0" x="0" y="0" width="" height="" />
-    <object id="0" x="0" y="0" width="" height="" />
+    <object id="0" x="0" y="0">
+      <point />
+    </object>
+    <object id="0" x="0" y="0">
+      <point />
+    </object>
+    <object id="0" x="0" y="0">
+      <point />
+    </object>
+    <object id="0" x="0" y="0">
+      <point />
+    </object>
+    <object id="0" x="0" y="0">
+      <point />
+    </object>
+    <object id="0" x="0" y="0">
+      <point />
+    </object>
     <object name="Town_Blacksmith" type="mobs" id="9" x="40" y="104">
       <point />
     </object>

@@ -43,6 +43,10 @@ forgedArmor.makeArmor = function(self)
     name = function(self)
       return self.data.name
     end,
+    
+    getVisualName = function(self) 
+      return self.data.visualName
+    end,
 	
 	effectiveDr = function(self,item)
 	  return self.data.dr + item:level()*self.data.tier
