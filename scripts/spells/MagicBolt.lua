@@ -12,7 +12,7 @@ local lvl
 local expMax
 local exp
 local a = "magicbolt"
-local type ="magic"
+local type ="mag"
 local elmnt
 
 return spell.init{

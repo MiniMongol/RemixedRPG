@@ -55,13 +55,14 @@ return actor.init({
         sMas = {"Stats","MagicBolt","ShadowClone","Chop"}
         Que.pushMas("spelllist",sMas) 
         Spells["Combat"] = Que.getMas("spelllist")
+        
         local ModWnd = RPD.new(RPD.Objects.Ui.WndStory,RPD.textById("ModWnd"))
 		RPD.GameScene:show(ModWnd)
 		
-        
-        if hero:getBelongings():getItem("TomeOfMastery") ~= nil then
+		if hero:getBelongings():getItem("TomeOfMastery") ~= nil then
          hero:getBelongings():getItem("TomeOfMastery"):detach(hero:getBelongings().backpack)
     end
+		
 	  end
     end
 })

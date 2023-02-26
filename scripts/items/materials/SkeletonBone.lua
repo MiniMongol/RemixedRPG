@@ -89,8 +89,8 @@ desc  = function(self, item)
                {0,0},
                {0,0}},
               dmg = 
-              {0.75,
-               1.4},
+              {0.55,
+               1.25},
               delay = 0,
               accuracy = 0,
               range = 0

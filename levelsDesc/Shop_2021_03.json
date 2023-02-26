@@ -15,7 +15,7 @@
 
          "items": [
           {
-           "kind": "LeatherArmor",
+           "kind": "ModLeatherArmor",
            "identified": true
           },
           {
@@ -31,11 +31,7 @@
            "identified": true
           },
           {
-           "kind": "Quarterstaff",
-           "identified": true
-          },
-          {
-           "kind": "TomeOfKnowledge",
+           "kind": "MagicBrooch",
            "identified": true
           },
           {

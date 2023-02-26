@@ -65,6 +65,16 @@ return item.init{
     return "STAFF"
     end,
     
+    statsRequirementsSatisfied = function(self,item)
+      str = math.max(stra - 2*item:level(),1)
+      if str <= RPG.physStr() then
+        return true 
+      else 
+        return false
+      end
+    end,
+    
+    
     blockSlot = function()
       return "LEFT_HAND"
     end,
@@ -91,7 +101,7 @@ return item.init{
     attackProc = function(self,item,hero,enemy,dmg)
       local hero = RPD.Dungeon.hero
       local dmgRoll = RPG.intRoll((maxDmg+item:level() +RPG.magStr()*attackBonus)*1.25,(minDmg+item:level() +RPG.magStr()*attackBonus)*0.75)
-      RPG.damage(enemy,RPG.smartInt(dmgRoll),"magic")
+      RPG.damage(enemy,RPG.smartInt(dmgRoll),"mag")
       return 0
     end,
     

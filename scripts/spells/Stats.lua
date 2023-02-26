@@ -160,8 +160,10 @@ dialog = function(index)
       RPG.sPoints = RPG.sPoints-1
       RPG.strength = RPG.strength+1
       RPG.physicStr = RPG.physicStr+1
+      
       if RPG.strength%2 == 0 and (RPG.subclass == "Berserk" or RPG.subclass == "BattleMage" or RPG.subclass == "Assassin") then
         RPG.physicStr = RPG.physicStr+1
+        
       end
     end
   end
@@ -202,6 +204,7 @@ dialog = function(index)
       hero:ht(hero:ht()+1)
       hero:heal(1,hero)
       if RPG.vitality%2 == 0 then
+        RPG.magDef = RPG.magDef +1
         hero:ht(hero:ht()+1)
         hero:heal(1,hero)
         if RPG.class == "Warrior" or RPG.subclass == "Demonologist" then
@@ -210,6 +213,7 @@ dialog = function(index)
         end
       end
       if RPG.vitality%5 == 0 and RPG.subclass == "Paladin" then
+        RPG.magDef = RPG.magDef +1
         hero:ht(hero:ht()+1)
         hero:heal(1,hero)
       end
@@ -317,7 +321,8 @@ return spell.init{
      storage.gamePut("choosedArrows",{is = "missiles/CommonArrow"})
      storage.gamePut("heroSteps",{steps = 0})
      
-     RPD.permanentBuff(hero,"RPGbuff")
+     storage.gamePut("subClassNone",{none = tostring(hero:getSubClass())})
+     RPGbuff = RPD.permanentBuff(hero,"RPGbuff")
      
      RPG.sPoints = 32
      RPG.spRegen = 1

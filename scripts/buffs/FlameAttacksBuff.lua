@@ -12,7 +12,7 @@ local Spell = storage.gameGet(a) or {}
 local hero = RPD.Dungeon.hero
 local buff = require "scripts/lib/buff"
 local num = 0
-local type ="magic"
+local type ="mag"
 local elmnt ="fire"
 
 return buff.init{

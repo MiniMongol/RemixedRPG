@@ -9,7 +9,7 @@ local storage = require "scripts/lib/storage"
 local buff = require "scripts/lib/buff"
 
 local hero = RPD.Dungeon.hero
-local type ="magic"
+local type ="mag"
 local elmnt ="fire"
 
 return buff.init{

@@ -442,15 +442,15 @@ local RPG
      Longsword = {"phys",{"cut","chop"}},
      Axe = {"phys","chop"},
      Hatchet = {"phys","chop"},
-     Halberd = {"phys",{"chop"}},
+     Halberd = {"phys",{"chop","stab"}},
      Dagger = {"phys",{"cut","stab"}},
      Mace = {"phys","crush"},
      Hammer = {"phys","crush"},
      Spear = {"phys","stab"},
      Bow = {"phys","stab"},
      Crossbow = {"phys","stab"},
-     MagicStaff = {"magic",""},
-     MagicWand = {"magic",""}
+     MagicStaff = {"mag",""},
+     MagicWand = {"mag",""}
    }
    
    local objectDrType = {
@@ -654,7 +654,7 @@ local RPG
         Spear = "rogatina",
         Axe = "chekan",
         Hatchet = "brodex",
-        Halberd = "halberd",
+        Halberd = "pollaxe",
         Bow = "long_bow",
         Crossbow = "long_crossbow"
       },
@@ -667,7 +667,7 @@ local RPG
         Spear = "protazan",
         Axe = "berdysh",
         Hatchet = "labris",
-        Halberd = "halberd",
+        Halberd = "glaive",
         Bow = "composite_bow",
         Crossbow = "composite_crossbow"
       },
@@ -680,7 +680,7 @@ local RPG
         Spear = "peak",
         Axe = "sagoris",
         Hatchet = "cleaver",
-        Halberd = "halberd",
+        Halberd = "voulge",
         Bow = "big_bow",
         Crossbow = "big_crossbow"
       },
@@ -718,6 +718,8 @@ local RPG
       rogatina = {iron="ая",steel="ая",gold="ая",bone="ая"},
       katana = {iron="ая",steel="ая",gold="ая",bone="ая"},
       twohands_axe = {iron="ая",steel="ая",gold="ая",bone="ая"},
+      halberd = {iron="ая",steel="ая",gold="ая",bone="ая"},
+      glaive = {iron="ая",steel="ая",gold="ая",bone="ая"},
       hammer = {iron="ая",steel="ая",gold="ая",bone="ая"},
       mace = {iron="ая",steel="ая",gold="ая",bone="ая"},
       peak = {iron="ая",steel="ая",gold="ая",bone="ая"},
@@ -824,13 +826,15 @@ local RPG
       tier = 1+RPG.smartInt((RPG.smartInt(dr)-2)/2)
     end
     
-    tier = RPG.smartInt((tier+smithy.lvl)/2)
+    
+    tier = smithy.lvl + RPG.smartInt(tier*0.25)
+    
     if smithy.myself then
       storage.gamePut("smithing", {lvl = smithData.lvl, expToUp = smithData.expToUp, exp = smithData.exp + exp})
     end
     smithData = storage.gameGet("smithing") or {}
     if smithData.exp >= smithData.expToUp then
-      storage.gamePut("smithing", {lvl = smithData.lvl+1, expToUp = smithData.expToUp +6, exp = 0 +smithData.exp -smithData.expToUp})
+      storage.gamePut("smithing", {lvl = smithData.lvl+1, expToUp = smithData.expToUp +2*((smithData.lvl+1)%2)+smithData.lvl+1, exp = 0 +smithData.exp -smithData.expToUp})
     end
    
    if smithy.mode == "weapon" or smithy.mode == "magic" then
@@ -843,7 +847,7 @@ local RPG
  
 	conversionStatsToGold = function(stats,addstats,delay,accuracy,range,mode) 
   	local gold = 0
-		local gAddStats= { 2, 300 }
+		local gAddStats= { 15, 500 }
 		local gStats ={ 2,2,2.5,2.5,2.5,3,2,5}
 		local gDelay = 10
 		local gAccuracy = 25
@@ -876,7 +880,8 @@ local RPG
 		gold = gold +accuracy*gAccuracy
 		gold = gold +(range-1)*gRange
 		
-		return gold
+		
+		return RPG.smartInt(gold)
   end,
  
  
@@ -940,24 +945,76 @@ local RPG
     
     for i = 1, 10 do
       local dcoef = coefs[i]
+      local dmgPhys = 0
+      
       if dcoef[1] > 0 then
-        RPG.damage(enemy,dcoef[1], "phys", RPG.statsName[i+8])
+        dmgPhys = dcoef[1]
       end
+      
       if dcoef[2] > 0 then
-        RPG.damage(enemy,dmg*dcoef[2],"phys", RPG.statsName[i+8])
+        dmgPhys = dmgPhys +dmg*dcoef[2]
       end
+      
+      if dmgPhys > 0 then
+        RPG.damage(enemy,dmgPhys,"phys",RPG.statsName[i+8])
+      end
+      
     end
+    
     
     for i = 15, 28 do
       local dcoef = coefs[i]
+      local dmgMag = 0
+      
       if dcoef[1] > 0 then
-        RPG.damage(enemy,dcoef[1], "mag", RPG.statsName[i-6])
+        dmgMag = dmgMag + dcoef[1]
       end
+      
       if dcoef[2] > 0 then
-        RPG.damage(enemy,dmg*dcoef[2],"mag", RPG.statsName[i-6])
+        dmgMag = dmgMag + dmg*dcoef[2]
       end
+      
+      if dmgMag > 0 then
+        RPG.damage(enemy,dmgMag, "mag", RPG.statsName[i-6])
+      end
+
     end
     
+    end
+ end,
+ 
+ 
+  dmgText = function(type,elmnt,enemy)
+  
+    color = 0xffffff
+    if type == "phys" then 
+      color = 0xffff00
+    elseif type == "mag" then 
+      color = 0x33ccff
+    end
+    
+    if #elmnt == 2 then
+      
+      if type == "phys" then 
+        enemy:getSprite():showStatus(0xffff00,(RPD.textById(elmnt[1])).."/"..(RPD.textById(elmnt[2]))..":")
+      elseif type == "mag" then 
+        enemy:getSprite():showStatus(0x33ccff,(RPD.textById(elmnt[1])).."/"..(RPD.textById(elmnt[2]))..":")
+      else 
+        enemy:getSprite():showStatus(0xffffff,(RPD.textById(elmnt[1])).."/"..(RPD.textById(elmnt[2]))..":")
+      end
+      
+    else 
+    
+      if type == "phys" then 
+        enemy:getSprite():showStatus(0xffff00,RPD.textById(elmnt)..":")
+        
+      elseif type == "mag" then 
+        enemy:getSprite():showStatus(0x33ccff,RPD.textById(elmnt)..":")
+        
+      else 
+        enemy:getSprite():showStatus(0xffffff,RPD.textById(elmnt)..":")
+      end
+      
     end
  end,
  
@@ -1006,15 +1063,20 @@ local RPG
       magRoll = math.floor(RPG.intRoll((mag*coef)*0.87,(mag*coef)*1.12))
    
      drRoll = math.floor(RPG.intRoll((dr*coef)*0.87,(dr*coef)*1.12))
+     
+     RPG.dmgText(type,elmnt,enemy)
    
-   if type ~= "phys" then
-     enemy:getSprite():showStatus(0x33ccff,(elmnt[1] or elmnt).."/"..(elmnt[2] or "")..":")
-     enemy:damage(dmg-magRoll,hero)
-   else
-     enemy:getSprite():showStatus(0xffff00,(elmnt[1] or elmnt).."/"..(elmnt[2] or "")..":")
-     enemy:damage(dmg-drRoll,hero)
+    if type == "mag" then
+      enemy:damage(dmg-magRoll,hero)
+      
+    elseif type == "phys" then
+      enemy:damage(dmg-drRoll,hero)
+      
+    else
+      enemy:damage(dmg,hero)
      end
    end
+   
  end,
  
  
@@ -1057,10 +1119,12 @@ local RPG
    
      drRoll = math.floor(RPG.intRoll((dr*coef)*0.75,(dr*coef)*1.25))
    
-   if type ~= "phys" then
-     return dmg-magRoll
-   else
-     return dmg-drRoll
+    if type == "mag" then
+      return dmg-magRoll
+    elseif type == "phys" then
+      return dmg-drRoll
+    else 
+      return dmg
    end
    
  end,

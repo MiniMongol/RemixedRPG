@@ -12,7 +12,7 @@ local lvl
 local expMax
 local exp
 local a = "fireball"
-local type ="magic"
+local type ="mag"
 local elmnt ="fire"
 
 return spell.init{

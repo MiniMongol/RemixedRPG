@@ -46,7 +46,7 @@
       "7":{"kind":"PrisonLevel", "depth":7,       "size":[32,32], "music":"ost_prison"},
       "8":{"kind":"PrisonLevel", "depth":8,       "size":[32,32], "music":"ost_prison"},
       "9":{"kind":"PrisonLevel", "depth":9,       "size":[32,32], "music":"ost_prison"},
-      "10":{"kind":"PrisonBossLevel", "depth":10, "size":[32,32], "music":"ost_boss_2_ambient", "fallbackMusic":"ost_boss_ambient"},
+      "10":{"kind":"PrisonBossLevel", "depth":10, "size":[32,32], "music":"ost_boss_2_ambient", "fallbackMusic":"ost_boss_ambient", "script":"scripts/actors/TomOfMastery"},
       "11":{"kind":"CavesLevel", "depth":11,      "size":[32,32], "music":"ost_caves"},
       "12":{"kind":"CavesLevel", "depth":12,      "size":[32,32], "music":"ost_caves"},
       "13":{"kind":"CavesLevel", "depth":13,      "size":[32,32], "music":"ost_caves"},

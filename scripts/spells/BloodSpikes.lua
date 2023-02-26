@@ -19,7 +19,7 @@ local enemyId_1
 local enemyId_2
 local bloodPoison
 local staks
-local type = "magic"
+local type = "mag"
 local element
 
 return spell.init{
@@ -61,19 +61,19 @@ return spell.init{
     end
     
     if Count.lvl ~= nil then
-     lvl = Count.lvl
-     exp = Count.exp
-     expMax = Count.expMax
-     staks = Count.staks
-     bloodPoison = Count.bp
-     if RPG.distance(cell) >= lvl+1 then
-      RPD.glog(RPD.textById("DistanceLimit"))
-      return false
-     else
-     cost = math.ceil(lvl*1.5 + RPG.distance(cell) + hero:ht()*0.05)
-     if hero:hp() > cost then
-        hero:damage(cost,hero)
-     else
+      lvl = Count.lvl
+      exp = Count.exp
+      expMax = Count.expMax
+      staks = Count.staks
+      bloodPoison = Count.bp
+      if RPG.distance(cell) >= lvl+1 then
+        RPD.glog(RPD.textById("DistanceLimit"))
+        return false
+      else
+      cost = math.ceil(lvl*1.5 + RPG.distance(cell) + hero:ht()*0.05)
+      if hero:hp() > cost then
+         hero:damage(cost,hero)
+      else
         RPD.glog(RPD.textById("HpLimit"))
         return false
       end
@@ -96,6 +96,41 @@ return spell.init{
      staks = 0
      storage.gamePut(a,{exp = exp, expMax = expMax, lvl = lvl, bp = bloodPoison, staks = staks})
     end
+    
+    local mobsExeptions =
+    {
+    BoneGolem_lvl1=false,
+    BoneGolem_lvl2=false,
+    BoneGolem_lvl3=false,
+    Skeleton = false,
+    DM300 = false,
+    Goo = false,
+    EarthElemental = false,
+    WaterElemental = false,
+    FireElemental = false,
+    AirElemental = false,
+    Golem = false,
+    SpiritOfPain = false,
+    Statue = false,
+    Wraith = false,
+    IceElemental = false,
+    Crystal = false,
+    ArmoredStatue = false,
+    GoldenStatue = false,
+    Shadow = false,
+    Undead = false,
+    ShadowLord = false,
+    TreacherousSpirit = false,
+    IceGuardianCore = false,
+    IceGuardian = false,
+    EnslavedSoul = false,
+    ExplodingSkull = false,
+    JarOfSouls = false,
+    Lich = false,
+    RunicSkull = false
+    
+    }
+    
     local enemy = RPD.Actor:findChar(cell)
     
     if enemy and enemy ~= hero then
@@ -125,22 +160,24 @@ return spell.init{
      enemyId_2 = enemyId_1
     if enemy and enemy ~= RPD.Dungeon.hero then
      RPG.damage(enemy,math.ceil(RPG.magStr()*0.2 + hero:ht()*0.25) + lvl, type, element)
-     RPD.affectBuff(enemy,"BloodMark", 3)
-     if enemy:hp() <= 0 then
-      hero:heal(RPG.magStr()*0.2 + enemy:ht()*0.15 + 1.5*lvl,hero)
-      RPD.Sfx.CellEmitter:get(hero:getPos()):burst(RPD.Sfx.Speck:factory(RPD.Sfx.Speck.HEALING ), 3)
-      if tonumber(staks) ~= 5 then
-        staks = tonumber(staks) + 1
-      end
-      
-       bloodPoison = math.ceil(hero:ht()*(0.05 + 0.1*staks))
+     
+      if mobsExeptions[enemy:name()] ~= false then
+        RPD.affectBuff(enemy,"BloodMark", 3)
+        if enemy:hp() <= 0 then
+        hero:heal(RPG.magStr()*0.2 + enemy:ht()*0.15 + 1.5*lvl,hero)
+        RPD.Sfx.CellEmitter:get(hero:getPos()):burst(RPD.Sfx.Speck:factory(RPD.Sfx.Speck.HEALING ), 3)
+        if tonumber(staks) ~= 5 then
+          staks = tonumber(staks) + 1
+        end
+        bloodPoison = math.ceil(hero:ht()*(0.05 + 0.1*staks))
        hero:ht(hero:ht()-bloodPoison)
        if hero:hp() >= hero:ht() then
-        hero:hp(hero:ht())
+         hero:hp(hero:ht())
        end
-       
-      RPD.removeBuff(hero,"PoisonedBlood")
+       RPD.removeBuff(hero,"PoisonedBlood")
       RPD.affectBuff(hero,"PoisonedBlood",15+5*staks)
+      end
+      
       storage.gamePut(a,{exp = exp, expMax = expMax, lvl = lvl, bp = bloodPoison, staks = staks})
      end
     end

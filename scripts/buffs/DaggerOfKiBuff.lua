@@ -15,7 +15,7 @@ state["SLEEPING"]    = true
 state["FLEEING"]     = true
 state["HORRIFIED"]   = true
 state["RUNNINGAMOK"] = true
-local type ="magic"
+local type ="mag"
 local elmnt
 
 local buff = require "scripts/lib/buff"

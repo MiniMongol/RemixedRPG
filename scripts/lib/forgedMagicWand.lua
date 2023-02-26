@@ -59,6 +59,15 @@ forgedWeapon.makeWeapon = function()
     end,
     
     
+    statsRequirementsSatisfied = function(self,item)
+      str = math.max(self.data.str-2*item:level(),1)
+      if str <= RPG.physStr() then
+        return true 
+      else 
+        return false
+      end
+    end,
+    
     getAttackAnimationClass = function()
 	    return "STAFF"
 	  end,
@@ -98,7 +107,7 @@ forgedWeapon.makeWeapon = function()
       local dmgRoll = math.random(minDmg,maxDmg)
       local dmg = RPG.getDamage(user:getEnemy(),dmgRoll,"mag","")
       
-      user:getEnemy():getSprite():showStatus(0xffff00,RPD.textById(self.data.element[1] or self.data.element).."/"..(RPD.textById(self.data.element[2]) or "")..":")
+      RPG.dmgText("mag",self.data.element,user:getEnemy())
 			
       return dmg,dmg
     end,
@@ -150,7 +159,9 @@ forgedWeapon.makeWeapon = function()
     end,
 		
 		price = function(self,item)
-      return 8*2^(self.data.tier-1)+10*2^(self.data.tier-1)*item:level() +RPG.conversionStatsToGold(self.data.dstats,self.data.addstats,self.data.delay,self.data.accuracy,self.data.range,"weapon")
+      local d = self.data
+      mediumDmg = RPG.smartInt( (d.tier*1.5*(4+1.5*item:level())) )
+      return mediumDmg*10 +2^(self.data.tier-1)-4^math.max(self.data.tier-10,0)+50*(self.data.tier-1)*item:level() +RPG.conversionStatsToGold(self.data.dstats,self.data.addstats,self.data.delay,self.data.accuracy,self.data.range,"weapon")
     end
     
      

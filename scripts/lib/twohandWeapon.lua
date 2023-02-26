@@ -30,6 +30,15 @@ twohandWeapon.makeWeapon = function(name,mod,stra,minDmg,maxDmg,tier,accuracy,de
       return (visualName or name)
     end,
     
+    statsRequirementsSatisfied = function(self,item)
+      str = math.max(stra-2*item:level(),1)
+      if str <= RPG.physStr() then
+        return true 
+      else 
+        return false
+      end
+    end,
+    
     getAttackAnimationClass = function()
 			return anim
 		end,
@@ -78,6 +87,9 @@ twohandWeapon.makeWeapon = function(name,mod,stra,minDmg,maxDmg,tier,accuracy,de
 	damageRoll = function(self,item,user)
   	local dmgRoll = math.random(minDmg +tier*item:level(),maxDmg +tier*item:level())
       local dmg = RPG.getDamage(user:getEnemy(),dmgRoll,dmgType,dmgMod)
+      
+      RPG.dmgText(dmgType,dmgMod,user:getEnemy())
+      
     return dmg,dmg
     end,
     

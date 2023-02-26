@@ -36,7 +36,7 @@ forgedWeapon.makeWeapon = function()
       maxDmg = RPG.smartInt(self.data.maxDmg +self.data.tier*item:level())
       minDmg = RPG.smartInt(math.min((self.data.minDmg +self.data.tier*item:level())*1.3,maxDmg))
       
-      local info = RPD.textById("WeaponInfo0")..self.data.tier..RPD.textById("WeaponInfo1")..minDmg.." — "..maxDmg..RPD.textById("WeaponInfo2")..str..RPD.textById("WeaponInfo3").."\n\n"..self.data.info
+      local info = self.data.name..RPD.textById("WeaponInfo0")..self.data.tier..RPD.textById("WeaponInfo1")..minDmg.." — "..maxDmg..RPD.textById("WeaponInfo2")..str..RPD.textById("WeaponInfo3").."\n\n"..self.data.info
       if RPG.physStr() >= str then
         return info
       else
@@ -57,6 +57,16 @@ forgedWeapon.makeWeapon = function()
     
     getVisualName = function()
       return "BattleHammer"
+    end,
+    
+    
+    statsRequirementsSatisfied = function(self,item)
+      str = math.max(self.data.str-2*item:level(),1)
+      if str <= RPG.physStr() then
+        return true 
+      else 
+        return false
+      end
     end,
     
     
@@ -114,7 +124,7 @@ forgedWeapon.makeWeapon = function()
       
         dmg = RPG.getDamage(user:getEnemy(),dmgRoll *((dmgFrSt1[2]+dmgFrSt2[2])/200 +1) + dmgFrSt1[1] +dmgFrSt2[1],self.data.type,self.data.element)
         
-        user:getEnemy():getSprite():showStatus(0xffff00,RPD.textById(self.data.element[1] or self.data.element).."/"..(RPD.textById(self.data.element[2]) or "")..":")
+        RPG.dmgText("phys",self.data.element,user:getEnemy())
 			
       return dmg,dmg
     end,
@@ -157,7 +167,8 @@ forgedWeapon.makeWeapon = function()
     end,
 		
 		price = function(self,item)
-      return 8*2^(self.data.tier-1)+10*2^(self.data.tier-1)*item:level() +RPG.conversionStatsToGold(self.data.dstats,self.data.addstats,self.data.delay,self.data.accuracy,self.data.range,"weapon")
+      mediumDmg = RPG.smartInt( (self.data.minDmg+self.data.maxDmg)/3 )
+      return mediumDmg*(item:level()+1)*self.data.tier*10 +2^(self.data.tier-1)-4^math.max(self.data.tier-10,0)+50*(self.data.tier-1)*item:level() +RPG.conversionStatsToGold(self.data.dstats,self.data.addstats,self.data.delay,self.data.accuracy,self.data.range,"weapon")
     end
     
      

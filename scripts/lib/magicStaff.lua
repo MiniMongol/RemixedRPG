@@ -137,6 +137,17 @@ local magicStaff ={}
       return str
     end,
     
+    
+    statsRequirementsSatisfied = function(self,item)
+      str = math.max(stra-2*item:level(),1)
+      if str <= RPG.physStr() then
+        return true 
+      else 
+        return false
+      end
+    end,
+    
+    
     attackProc = function(self,item,hero,enemy,dmg)
       local hero = RPD.Dungeon.hero
       return dmg

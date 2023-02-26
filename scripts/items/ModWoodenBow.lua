@@ -89,6 +89,16 @@ local statsInfo
     getVisualName = function()
       return "CompoundBow"
     end,
+    
+    
+    statsRequirementsSatisfied = function(self,item)
+      str = math.max(self.data.str-2*item:level(),1)
+      if str <= RPG.physStr() then
+        return true 
+      else 
+        return false
+      end
+    end,
    
    
     getAttackAnimationClass = function()

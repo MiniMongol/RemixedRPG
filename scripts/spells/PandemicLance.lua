@@ -18,7 +18,7 @@ local a = "pandemiclance"
 local pos
 local moveTo
 local enemy
-local type ="magic"
+local type ="mag"
 local elmnt ="poison"
 
 return spell.init{

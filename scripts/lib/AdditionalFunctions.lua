@@ -4,7 +4,10 @@ local storage = require "scripts/lib/storage"
 
 
 
-local Add = {
+local Add = { 
+    rpdImage = function(image) 
+      return RPD.new("com.watabou.noosa.Image",image)
+    end,
 
     imgMessage = function(img, title, text)     
       local redbutton = luajava.newInstance("com.watabou.pixeldungeon.ui.RedButton","choose")

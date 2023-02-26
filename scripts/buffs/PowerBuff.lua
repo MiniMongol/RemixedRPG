@@ -105,7 +105,7 @@ local dmgModifs = {
    DeathKnight = {mod = 1, dmg = 5, type = {"phys","mag"}, element = {{"cut","chop"},"dark"},loot ={"materials/DeathKnightSpaulder"}, chance ={30}},
    DreadKnight = {mod = 2, dmg = 6, type = {"phys","mag"}, element = {{"cut","chop"},"dark"},loot ={"materials/DreadKnightSpaulder"}, chance ={30}},
    EnslavedSoul = {mod = 0, dmg = 0, type = {"mag",""}, element = {{"dark","chop"},""},loot ={"materials/SoulEctoplasm"}, chance ={30}},
-   ExplodingSkull = {mod = 3, dmg = 0.4, type = {"mag","phys"}, element = {"fire","crush"},loot ={"SkullSharp"}, chance ={25}},
+   ExplodingSkull = {mod = 3, dmg = 0.4, type = {"mag","phys"}, element = {"fire","crush"},loot ={"materials/SkullSharps"}, chance ={25}},
    JarOfSouls = {mod = 0, dmg = 0, type = {"",""}, element = {"",""},loot ={}, chance ={}},
    Zombie = {mod = 4, dmg = 0.2, type = {"phys","mag"}, element = {{"cut","chop"},"poison"},loot ={"materials/ZombieFinger"}, chance ={30}},
    RunicSkull = {mod = 0, dmg = 0, type = {"",""}, element = {"",""},loot ={}, chance ={}},
@@ -152,7 +152,8 @@ attackProc = function(self,buff,enemy,damage)
   
   local color = {phys = 0xffff00, mag = 0x33ccff}
   
-  enemy:getSprite():showStatus(color[type[1]],(mainElement[1] or mainElement).."/"..(mainElement[2] or "")..":")
+  
+  RPG.dmgText(type[1],mainElement,enemy)
   return totalDmg
 end,
 

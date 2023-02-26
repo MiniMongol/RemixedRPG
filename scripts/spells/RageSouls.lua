@@ -17,7 +17,7 @@ local exp
 local a = "ragesouls"
 local pos
 local enemy
-local type ="magic"
+local type ="mag"
 local elmnt ="dark"
 
 return spell.init{

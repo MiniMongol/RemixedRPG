@@ -86,7 +86,7 @@ desc  = function(self, item)
               {0,
                0},
               delay = 0,
-              accuracy = 0.025,
+              accuracy = 0.15,
               range = 0
             }
         }

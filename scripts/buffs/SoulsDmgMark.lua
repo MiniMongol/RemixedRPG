@@ -10,7 +10,7 @@ local storage = require "scripts/lib/storage"
 local hero = RPD.Dungeon.hero
 local a = "soulstormentor"
 local scale = 0
-local type ="magic"
+local type ="mag"
 local elmnt
 
 local buff = require "scripts/lib/buff"

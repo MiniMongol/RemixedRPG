@@ -13,7 +13,6 @@ local Spell = storage.gameGet(a) or {}
 local hero = RPD.Dungeon.hero
 local shield
 local shield2
-local debuffs = {"Burning"}
 
 local level
 
@@ -28,10 +27,6 @@ return buff.init{
     end,
 name = function()
 return RPD.textById("Flameshield_BuffN").." "..tostring(shield).."/"..tostring(shield2)
-end,
-
-immunities = function(self,buff)
-  return debuffs
 end,
 
 charAct = function(self,buff)

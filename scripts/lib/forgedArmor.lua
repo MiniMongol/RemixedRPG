@@ -26,9 +26,8 @@ forgedArmor.makeArmor = function(self)
       hero = RPD.Dungeon.hero
       
       str = math.max(self.data.str-2*item:level(),1)
-        p = 20*2^(self.data.tier-1)+10*2^(self.data.tier-1)*item:level()
       local iDr = self.data.dr + self.data.tier*item:level()
-      local info = RPD.textById("ClothArmor_Info").."\n\n"..RPD.textById(self.data.name)..RPD.textById("ArmorInfo0")..self.data.tier..RPD.textById("ArmorInfo1")..iDr..RPD.textById("ArmorInfo2")..str..RPD.textById("ArmorInfo3").."\n\n"..self.data.info
+      local info = self.data.name..RPD.textById("ArmorInfo0")..self.data.tier..RPD.textById("ArmorInfo1")..iDr..RPD.textById("ArmorInfo2")..str..RPD.textById("ArmorInfo3").."\n\n"..self.data.info
       if RPG.physStr() >= str then
         return info
       else
@@ -46,6 +45,19 @@ forgedArmor.makeArmor = function(self)
     
     getVisualName = function(self) 
       return self.data.visualName
+    end,
+    
+    hasHelmet = function() 
+      return true
+    end,
+    
+    statsRequirementsSatisfied = function(self,item)
+      str = math.max(self.data.str-2*item:level(),1)
+      if str <= RPG.physStr() then
+        return true 
+      else 
+        return false
+      end
     end,
 	
 	effectiveDr = function(self,item)
@@ -95,7 +107,7 @@ forgedArmor.makeArmor = function(self)
     end,
 		
 		price = function(self,item)
-      return 8*2^(self.data.tier-1)+10*2^(self.data.tier-1)*item:level() +RPG.conversionStatsToGold(self.data.dstats,self.data.addstats,0,0,1,"armor")
+      return self.data.dr*(item:level()+1)*self.data.tier*10 +2^(self.data.tier-1)-4^math.max(self.data.tier-10,0)+50*(self.data.tier-1)*item:level() +RPG.conversionStatsToGold(self.data.dstats,self.data.addstats,0,0,1,"armor")
     end
 }
 end

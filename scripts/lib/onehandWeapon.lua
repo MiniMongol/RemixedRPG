@@ -11,7 +11,7 @@ onehandWeapon.makeWeapon = function(name,mod,stra,minDmg,maxDmg,tier,accuracy,de
         info = function(self,item)
       hero = RPD.Dungeon.hero
       str = math.max(stra-2*item:level(),1)
-      local info = RPD.textById(name.."_Info").."\n\n"..RPD.textById(name.."_Name")..RPD.textById("WeaponInfo0")..tier..RPD.textById("WeaponInfo1")..math.ceil((maxDmg+minDmg+tier*item:level()*2)/2)..RPD.textById("WeaponInfo2")..str..RPD.textById("WeaponInfo3")..RPD.textById(mod) .."\n\n"..self.data.sInfo
+      local info = RPD.textById(name.."_Info").."\n\n"..RPD.textById(name.."_Name")..RPD.textById("WeaponInfo0").."_(."..tier..")_"..RPD.textById("WeaponInfo1")..math.ceil((maxDmg+minDmg+tier*item:level()*2)/2)..RPD.textById("WeaponInfo2")..str..RPD.textById("WeaponInfo3")..RPD.textById(mod) .."\n\n"..self.data.sInfo
       if RPG.physStr() >= str then
         return info
       else
@@ -61,6 +61,9 @@ onehandWeapon.makeWeapon = function(name,mod,stra,minDmg,maxDmg,tier,accuracy,de
       local hero = RPD.Dungeon.hero
       local dmgRoll = math.random(minDmg +tier*item:level(),maxDmg +tier*item:level())
       local dmg = RPG.getDamage(user:getEnemy(),dmgRoll,dmgType,dmgMod)
+      
+      RPG.dmgText(dmgType,dmgMod,user:getEnemy())
+      
       return dmg,dmg
     end,
     
@@ -85,6 +88,15 @@ onehandWeapon.makeWeapon = function(name,mod,stra,minDmg,maxDmg,tier,accuracy,de
     
     requiredSTR = function(self,item,user)
       return str
+    end,
+    
+    statsRequirementsSatisfied = function(self,item)
+      str = math.max(stra-2*item:level(),1)
+      if str <= RPG.physStr() then
+        return true 
+      else 
+        return false
+      end
     end,
     
     goodForMelee = function()

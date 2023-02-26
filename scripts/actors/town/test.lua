@@ -18,9 +18,7 @@ return actor.init({
     act = function()
         local hero = RPD.Dungeon.hero
         
-        if hero:getBelongings():getItem("TomeOfMastery") ~= nil then
-         hero:getBelongings():getItem("TomeOfMastery"):detach(hero:getBelongings().backpack)
-    end
+        
 
         time = time + 1
 

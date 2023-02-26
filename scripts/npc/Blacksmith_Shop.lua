@@ -31,15 +31,15 @@ return mob.init({
       if buyDelay > 50 then
         storage.gamePut("heroSteps",{steps = 1})
       
-        self:collect(RPD.createItem("materials/iron",{quantity= RPG.smartInt(buyDelay/8) }))
+        self:collect(RPD.createItem("materials/iron",{quantity= RPG.smartInt(buyDelay/80) }))
         
-        self:collect(RPD.createItem("materials/steel",{quantity= RPG.smartInt(buyDelay/100) }))
+        self:collect(RPD.createItem("materials/steel",{quantity= RPG.smartInt(buyDelay/80) }))
         
-        self:collect(RPD.createItem("materials/gold",{quantity= RPG.smartInt(buyDelay/120) }))
+        self:collect(RPD.createItem("materials/gold",{quantity= RPG.smartInt(buyDelay/100) }))
         
         self:collect(RPD.createItem("materials/leather",{quantity= RPG.smartInt(buyDelay/80) }))
         
-        self:collect(RPD.createItem("materials/cloth",{quantity= RPG.smartInt(buyDelay/70) }))
+        self:collect(RPD.createItem("materials/cloth",{quantity= RPG.smartInt(buyDelay/60) }))
         
         self:collect(RPD.createItem("materials/Wood",{quantity= RPG.smartInt(buyDelay/75) }))
         
@@ -60,9 +60,9 @@ return mob.init({
     end,
     
     spawn = function(self, chr)
-      data = storage.gameGet("heroSteps") or {steps = 0}
-      if data.steps == 0 then
-        RPD.glog("spawn")
+      data = storage.gameGet("blacksmithAct") or {act = 0}
+      if data.act == 0 then
+        storage.gamePut("blacksmithAct",{ act = 1})
       self:collect(RPD.createItem("materials/iron",{quantity=10}))
       
       self:collect(RPD.createItem("materials/steel",{quantity=10}))

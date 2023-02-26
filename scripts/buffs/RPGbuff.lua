@@ -30,7 +30,8 @@ return buff.init{
         return {
             icon          = -1,
             name          = "",
-            info          = ""
+            info          = "",
+            data = {}
             
         }
     end,
@@ -40,17 +41,18 @@ return buff.init{
       hero = RPD.Dungeon.hero
       level = RPD.Dungeon.level
       depth = RPD.Dungeon.depth
+      subClass = storage.gameGet("subClassNone")
       local Spells = require "scripts/spells/CustomSpellsList"
       local weapon = hero:getBelongings().weapon
       local lefthand = hero:getBelongings().leftHand
-	  local armor = hero:getBelongings().armor
-	  local artifact = hero:getBelongings().ring1
-	  local leftArtifact = hero:getBelongings().ring2
-	  local StatsA = RPG.StatsA
-	  local StatsA2 = RPG.StatsA2
-	  local StatsB = RPG.StatsB
-	  local StatsArt = RPG.StatsArt
-	  local StatsArt2 = RPG.StatsArt2
+	    local armor = hero:getBelongings().armor
+ 	    local artifact = hero:getBelongings().ring1
+	    local leftArtifact = hero:getBelongings().ring2
+	    local StatsA = RPG.StatsA
+	    local StatsA2 = RPG.StatsA2
+	    local StatsB = RPG.StatsB
+	    local StatsArt = RPG.StatsArt
+	    local StatsArt2 = RPG.StatsArt2
 	  
 	  
       Spells.Combat = Que.getMas("spelllist")
@@ -72,41 +74,60 @@ return buff.init{
       local heroSteps = storage.gameGet("heroSteps")
       storage.gamePut("heroSteps",{steps = heroSteps.steps +1})
       
-      if weapon:getClassName() == "DummyItem" then
-        weapon:deactivate(hero)
-        weapon:activate(hero)
-      end
-      if lefthand:getClassName() == "DummyItem" then
-        lefthand:deactivate(hero)
-        lefthand:activate(hero)
-      end
-     if artifact:getClassName() == "DummyItem" then
-     for i=3,8 do
-          StatsArt[RPG.statsName[i]] = 0
-     end
-     for i=9,21 do
-          StatsArt[RPG.statsName[i]] = {0,0}   end
-      end
-      if leftArtifact:getClassName() == "DummyItem" then
-      for i=3,8 do
-          StatsArt2[RPG.statsName[i]] = 0
-      end
-      for i=9,21 do
-          StatsArt2[RPG.statsName[i]] = {0,0}
+      
+      if RPG.luck == nil then
+
+        if string.sub(tostring(weapon:getClass()),-10) == "CustomItem" then
+          weapon:deactivate(hero)
+          weapon:activate(hero)
         end
+      
+        if string.sub(tostring(lefthand:getClass()),-10) == "CustomItem" then
+          lefthand:deactivate(hero)
+          lefthand:activate(hero)
+        end
+      
+        if string.sub(tostring(armor:getClass()),-10) == "CustomItem" then
+          lefthand:deactivate(hero)
+          lefthand:activate(hero)
+        end
+      
+     
+       if string.sub(tostring(artifact:getClass()),-10) == "CustomItem"  then
+       for i=3,8 do
+            StatsArt[RPG.statsName[i]] = 0
+       end
+       for i=9,21 do
+            StatsArt[RPG.statsName[i]] = {0,0}     end
+        end
+      
+        if string.sub(tostring(leftArtifact:getClass()),-10) == "CustomItem"  then
+        for i=3,8 do
+            StatsArt2[RPG.statsName[i]] = 0
+        end
+        for i=9,21 do
+            StatsArt2[RPG.statsName[i]] = {0,0}
+          end
+        end
+      
       end
       
-
       
       if hero:getBelongings():getItem("RatArmor") ~= nil then
-         hero:getBelongings():getItem("RatArmor"):detach(hero:getBelongings()
-.backpack) 
+         hero:getBelongings():getItem("RatArmor"):detach(hero:getBelongings().backpack)
+         if hero:getBelongings():getItem("RatArmor") ~= nil then
+           armor:doUnequip(hero,false)
+           end
          hero:collect(RPD.item("ModRatArmor"))
     end
-      if hero:getBelongings():getItem("TomeOfMastery") ~= nil then
-         hero:getBelongings():getItem("TomeOfMastery"):detach(hero:getBelongings()
-.backpack)
-    end
+     
+      
+      if tostring(hero:getSubClass()) ~= subClass.none and subClass.actv ~= 1 then 
+        hero:setSubClass(subClass.none)
+        storage.gamePut("subClassNone",{none = "", actv = 1})
+        RPD.glog(RPD.textById("KydaLezem"))
+      end
+      
 	if hero:getBelongings():getItem("ArmorKit") ~= nil then
          hero:getBelongings():getItem("ArmorKit"):detach(hero:getBelongings()
 .backpack)
@@ -248,19 +269,19 @@ return buff.init{
       if RPG.physicStr ~= nil then
         if math.random(10,100+enemy:defenseSkill()) <= RPG.AllLuck()*luckBonus then
         
-          if enemy:hp() - ((damage + math.ceil(RPG.physStr()*0.2))*2 - enemy:dr()) <= 0 and RPG.subclass == "Bandit" then
+          if enemy:hp() - ((damage)*2 - enemy:dr()) <= 0 and RPG.subclass == "Bandit" then
             RPG.createItem("Gold", enemy:getPos(), RPG.AllLuck() + RPD.Dungeon.depth)
           end
       
           enemy:getSprite():showStatus(0xffff00,RPD.textById("crit"))
-          return (damage + math.ceil(RPG.physStr()*0.2))*2
+          return (damage+RPG.smartInt(RPG.physStr()*0.25))*2
         else
         
-          if enemy:hp() - ((damage + math.ceil(RPG.physStr()*0.2))-enemy:dr()) <= 0 and RPG.subclass == "Bandit" then
+          if enemy:hp() - ((damage+RPG.smartInt(RPG.physStr()*0.25))-enemy:dr()) <= 0 and RPG.subclass == "Bandit" then
             RPG.createItem("Gold", enemy:getPos(), RPG.AllLuck() + RPD.Dungeon.depth)
           end
           
-          return damage+math.ceil(RPG.physStr()*0.25)
+          return damage+RPG.smartInt(RPG.physStr()*0.25)
         end
       else
         return damage

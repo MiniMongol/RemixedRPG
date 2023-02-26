@@ -15,7 +15,7 @@ local lvl
 local expMax
 local exp
 local a = "thornsofagony"
-local type ="magic"
+local type ="mag"
 local elmnt
 
 return spell.init{

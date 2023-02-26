@@ -10,7 +10,7 @@ local storage = require "scripts/lib/storage"
 local hero = RPD.Dungeon.hero
 local a = "placetrap"
 local scale = 0
-local type ="phys"
+local type ="true"
 local elmnt ="poison"
 
 local buff = require "scripts/lib/buff"

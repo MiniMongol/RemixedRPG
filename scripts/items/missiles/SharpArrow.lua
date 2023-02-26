@@ -3,7 +3,9 @@ local item = require "scripts/lib/item"
 
 return item.init {
     desc  = function (self, item)
-      item:quantity(math.random(8,25))
+      if item:quantity() < 2 then
+        item:quantity(math.random(8,25))
+      end
         return {
             image = 11,
             imageFile = "items/ammo.png",

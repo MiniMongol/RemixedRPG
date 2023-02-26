@@ -569,7 +569,7 @@
 		"y": 11
 	},
 	{
-		"kind": "Blacksmith_Shopkeeper",
+		"kind": "TownGuardNPC",
 		"x": 17,
 		"y": 21
 	}
