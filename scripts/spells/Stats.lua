@@ -203,7 +203,7 @@ dialog = function(index)
       RPG.vitality = RPG.vitality+1
       hero:ht(hero:ht()+1)
       hero:heal(1,hero)
-      if RPG.vitality%2 == 0 then
+      if RPG.vitality%2.5 == 0 then
         RPG.magDef = RPG.magDef +1
         hero:ht(hero:ht()+1)
         hero:heal(1,hero)
