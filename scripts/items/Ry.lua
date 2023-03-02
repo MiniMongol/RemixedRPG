@@ -14,8 +14,8 @@ local twohandWeapon = require "scripts/lib/twohandWeapon"
 local storage = require "scripts/lib/storage"
 
 local item = require "scripts/lib/item"
-local statsMax = 12
-local quanStats = 5
+local statsMax = 20
+local quanStats = 10
 local stra = 200
 local tier = 10
 local maxDmg = 40

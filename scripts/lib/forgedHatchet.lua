@@ -13,6 +13,8 @@ local dmgFrSt1
 local dmgFrSt2
 local dmgRoll
 local dmg
+local hits = 0
+local prevEnemy = ""
 
 
 forgedWeapon.makeWeapon = function()
@@ -56,7 +58,7 @@ forgedWeapon.makeWeapon = function()
     
     
     getVisualName = function()
-      return "BattleHammer"
+      return "BattleAxe"
     end,
     
     
@@ -71,7 +73,7 @@ forgedWeapon.makeWeapon = function()
     
     
     getAttackAnimationClass = function()
-	    return "HEAVY_ATTACK"
+	    return "HEAVY"
 	  end,
    
    
@@ -108,7 +110,7 @@ forgedWeapon.makeWeapon = function()
 	damageRoll = function(self,item,user)
       local hero = RPD.Dungeon.hero
       maxDmg = self.data.maxDmg +self.data.tier*item:level()
-      minDmg = math.min(self.data.minDmg +self.data.tier*item:level()*1.3,maxDmg)
+      minDmg = math.min((self.data.minDmg +self.data.tier*item:level())*1.3,maxDmg)
       
       dmgRoll = math.random(minDmg,maxDmg)
       local d = self.data
@@ -131,6 +133,35 @@ forgedWeapon.makeWeapon = function()
     
     postAttack = function(self,item,enemy) 
       RPG.weaponOtherDmg(enemy,dmg,self.data.addstats) 
+      local user = RPD.Dungeon.hero
+      local chanceRoll = math.random(1,12)
+      if chanceRoll <= 3 +hits +self.data.rareScale and dmg > 0 then 
+        hits = 0
+        RPD.topEffect(user:getPos(),"dissection_effect")
+    
+      local level = RPD.Dungeon.level
+      local x = level:cellX(user:getPos())
+      local y = level:cellY(user:getPos())
+      local weaponA = user:getBelongings().weapon
+      local weaponB = user:getBelongings().leftHand
+     
+      for i = x-1,x+1 do
+       for j = y-1,y+1 do
+        local pos = level:cell(i,j)
+        local enemyOnWay = RPD.Actor:findChar(pos)
+        if enemyOnWay and enemyOnWay ~= RPD.Dungeon.hero and enemyOnWay ~= enemy then
+          RPG.damage(enemyOnWay,RPG.smartInt(weaponA:damageRoll(hero)*(0.8 +0.1*self.data.rareScale) + weaponB:damageRoll(hero)*0.65 + RPG.physStr()*0.1), "phys",self.data.element)
+        end
+      end
+    end
+        
+      elseif prevEnemy == enemy or hits == 0 then
+        hits = hits +1
+      else 
+        hits = 1
+      end
+      
+      prevEnemy = enemy
     end,
     
     
@@ -142,7 +173,7 @@ forgedWeapon.makeWeapon = function()
     
     attackDelayFactor = function(self,item,user)
       str = math.max(self.data.str -2*item:level(),1)
-      return math.max(self.data.delay*1.25 -RPG.itemStrBonus(str)*0.75,0.25)
+      return math.max(self.data.delay*1.5 -RPG.itemStrBonus(str)*0.75,0.25)
     end,
     
     

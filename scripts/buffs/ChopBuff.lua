@@ -32,13 +32,16 @@ return buff.init{
      Spell.expMax = Spell.expMax+6
      Spell.lvl = Spell.lvl+1
      end
-     
-    local buffs = RPD.affectBuff(enemy,RPG.Buffs.Bleeding,2)
-    buffs:level(math.ceil(RPG.physStr()*0.2))
-    RPD.topEffect(enemy:getPos(),"bleeding_effect")
+    
+    if RPG.noBloodMobs[enemy:name()] ~= "false" then
+      local buffs = RPD.affectBuff(enemy,"FastBleeding",2)
+      buffs:level( RPG.smartInt( RPG.physStr()*0.1) )
+      RPD.topEffect(enemy:getPos(),"bleeding_effect")
+    end
+    
     buff:detach()
     if RPG.physicStr ~= nil then
-    return RPG.damage(enemy,damage+math.ceil(RPG.physStr()*0.2),type,elmnt)
+    return RPG.damage(enemy,damage+RPG.smartInt(RPG.physStr()*0.2),type,elmnt)
     else
     return damage
     end

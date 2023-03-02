@@ -21,6 +21,6 @@ return buff.init{
         }
     end,
     drBonus = function(self,buff)
-     return math.ceil(1+buff:level())
+     return math.ceil(1+buff:level()*2)
     end
 }

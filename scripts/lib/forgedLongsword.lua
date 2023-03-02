@@ -10,7 +10,8 @@ local str
 local minDmg
 local maxDmg
 local dmg
-
+local hits = 0
+local prevEnemy= ""
 
 forgedWeapon.makeWeapon = function()
     return{
@@ -65,16 +66,11 @@ forgedWeapon.makeWeapon = function()
         return false
       end
     end,
-    
-    
-    getAttackAnimationClass = function()
-	    return "HEAVY_ATTACK"
-	  end,
 	  
     
     getAttackAnimationClass = function()
-	return "HEAVY_ATTACKS"
-	end,
+	    return "HEAVY"
+	  end,
    
    
     slot = function(self, item, belongings)
@@ -140,19 +136,34 @@ forgedWeapon.makeWeapon = function()
     end,
     
     postAttack = function(self,item,enemy) 
-      RPG.weaponOtherDmg(enemy,dmg,self.data.addstats) 
+      RPG.weaponOtherDmg(enemy,dmg,self.data.addstats)
+      local chanceRoll = math.random(1,12)
+      if chanceRoll <= 3 +hits +self.data.rareScale and dmg > 0 and RPG.noBloodMobs[enemy:getMobClassName()] ~= "false" then 
+        hits = 0
+        local bleed = RPD.affectBuff(enemy,"FastBleeding",4)
+        bleed:level( math.max(1, RPG.smartInt(2 +dmg*(0.4 +0.1*self.data.rareScale ) /4)) )
+        RPG.flyText(enemy,RPD.textById("bleeding"),"red")
+        RPD.topEffect(enemy:getPos(),"bleeding_effect")
+        
+      elseif prevEnemy == enemy or hits == 0 then
+        hits = hits +1
+      else 
+        hits = 1
+      end
+      
+      prevEnemy = enemy
     end,
     
     
     accuracyFactor = function(self,item,user)
       str = math.max(self.data.str -2*item:level(),1)
-      return self.data.accuracy + RPG.itemStrBonus(str)
+      return self.data.accuracy*0.5 + RPG.itemStrBonus(str)*0.5
     end,
     
     
     attackDelayFactor = function(self,item,user)
       str = math.max(self.data.str -2*item:level(),1)
-      return math.max(self.data.delay -RPG.itemStrBonus(str),0.25)
+      return math.max(self.data.delay*1.5 -RPG.itemStrBonus(str)*0.75,0.25)
     end,
     
     

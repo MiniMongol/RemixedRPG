@@ -11,6 +11,8 @@ local image = "forgedArmor.png"
 local minDmg
 local maxDmg
 local dmg
+local hits = 0
+local prevEnemy = ""
 
 forgedWeapon.makeWeapon = function()
     return{
@@ -128,7 +130,21 @@ forgedWeapon.makeWeapon = function()
     end,
     
     postAttack = function(self,item,enemy) 
-      RPG.weaponOtherDmg(enemy,100,self.data.addstats) 
+      RPG.weaponOtherDmg(enemy,dmg,self.data.addstats) 
+      local chanceRoll = math.random(1,12)
+      if chanceRoll <= 2 +hits +self.data.rareScale  and dmg > 0 then  
+        hits = 0
+        local headache = RPD.affectBuff(enemy,"Headache",4 +self.data.rareScale/2)
+        headache:level(50 +self.data.rareScale*5)
+        enemy:getSprite():emitter():burst( RPD.Sfx.ElmoParticle.FACTORY, 3 )
+        
+      elseif prevEnemy == enemy or hits == 0 then
+        hits = hits +1
+      else 
+        hits = 1
+      end
+      
+      prevEnemy = enemy
     end,
    
     

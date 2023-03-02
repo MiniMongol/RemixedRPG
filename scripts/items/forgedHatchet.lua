@@ -11,7 +11,7 @@ local Add = require "scripts/lib/AdditionalFunctions"
 
 local storage = require "scripts/lib/storage"
 
-local forgedHalberd = require "scripts/lib/forgedHatchet"
+local forgedHatchet = require "scripts/lib/forgedHatchet"
 
 local item = require "scripts/lib/item"
 

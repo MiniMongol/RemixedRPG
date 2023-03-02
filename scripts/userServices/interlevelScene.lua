@@ -51,7 +51,7 @@ interlevelScene.onStep = function(mode, done)
             end
         end
 
-        if RPD.Dungeon.levelId == '1' and RPD.ModdingMode:inMod() then
+        if RPD.Dungeon.levelId == '' and RPD.ModdingMode:inMod() then
             wnd = Add.rpdImage("arts/a.jpeg")
             wnd:setScaleX(0)
             wnd:setScaleY(0)

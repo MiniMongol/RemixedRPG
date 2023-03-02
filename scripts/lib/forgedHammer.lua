@@ -13,6 +13,8 @@ local dmgFrSt1
 local dmgFrSt2
 local dmgRoll
 local dmg
+local hits = 1
+local prevEnemy = ""
 
 
 forgedWeapon.makeWeapon = function()
@@ -56,7 +58,7 @@ forgedWeapon.makeWeapon = function()
     
     
     getVisualName = function()
-      return "BattleHammer"
+      return "WarHammer"
     end,
     
     
@@ -71,7 +73,7 @@ forgedWeapon.makeWeapon = function()
     
     
     getAttackAnimationClass = function()
-	    return "HEAVY_ATTACK"
+	    return "HEAVY"
 	  end,
    
    
@@ -131,6 +133,20 @@ forgedWeapon.makeWeapon = function()
     
     postAttack = function(self,item,enemy) 
       RPG.weaponOtherDmg(enemy,dmg,self.data.addstats) 
+      local chanceRoll = math.random(1,12)
+      if chanceRoll <= 4 +hits +self.data.rareScale and dmg > 0 then  
+        hits = 0
+        local headache = RPD.affectBuff(enemy,"Headache",4 +self.data.rareScale/2)
+        headache:level(60 +self.data.rareScale*5)
+        enemy:getSprite():emitter():burst( RPD.Sfx.ElmoParticle.FACTORY, 3 )
+        
+      elseif prevEnemy == enemy or hits == 0 then
+        hits = hits +1
+      else 
+        hits = 1
+      end
+      
+      prevEnemy = enemy
     end,
     
     
@@ -142,7 +158,7 @@ forgedWeapon.makeWeapon = function()
     
     attackDelayFactor = function(self,item,user)
       str = math.max(self.data.str -2*item:level(),1)
-      return math.max(self.data.delay*1.25 -RPG.itemStrBonus(str)*0.75,0.25)
+      return math.max(self.data.delay*1.5 -RPG.itemStrBonus(str)*0.75,0.25)
     end,
     
     

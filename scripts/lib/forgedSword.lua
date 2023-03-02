@@ -11,6 +11,8 @@ local image = "forgedArmor.png"
 local minDmg
 local maxDmg
 local dmg
+local hits = 0
+local prevEnemy = ""
 
 
 forgedWeapon.makeWeapon = function()
@@ -131,6 +133,21 @@ forgedWeapon.makeWeapon = function()
     
     postAttack = function(self,item,enemy) 
       RPG.weaponOtherDmg(enemy,dmg,self.data.addstats) 
+      local chanceRoll = math.random(1,12)
+      if chanceRoll <= 2 +hits +self.data.rareScale and dmg > 0 and RPG.noBloodMobs[enemy:getMobClassName()] ~= "false" then 
+        hits = 0
+        local bleed = RPD.affectBuff(enemy,"FastBleeding",3)
+        bleed:level( math.max(1, RPG.smartInt(2 +dmg*(0.4 +0.1*self.data.rareScale ) /3)) )
+        RPG.flyText(enemy,RPD.textById("bleeding"),"red")
+        RPD.topEffect(enemy:getPos(),"bleeding_effect")
+        
+      elseif prevEnemy == enemy or hits == 0 then
+        hits = hits +1
+      else 
+        hits = 1
+      end
+      
+      prevEnemy = enemy
     end,
    
     

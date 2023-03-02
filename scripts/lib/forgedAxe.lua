@@ -9,7 +9,12 @@ local forgedWeapon = {}
 local str
 local minDmg
 local maxDmg
-local dmg
+local dmgFrSt1
+local dmgFrSt2
+local dmg = 0
+local hits = 0
+local prevEnemy = ""
+
 
 
 forgedWeapon.makeWeapon = function()
@@ -53,7 +58,7 @@ forgedWeapon.makeWeapon = function()
     
     
     getVisualName = function()
-      return ""
+      return "Gasock"
     end,
     
     
@@ -118,8 +123,8 @@ forgedWeapon.makeWeapon = function()
         stab = 12,
         crush = 13
       }
-      local dmgFrSt1 = d.addstats[id[d.element[1] or d.element]]
-      local dmgFrSt2 = d.addstats[id[d.element[2]]] or {0,dmgFrSt1[2]}
+      dmgFrSt1 = d.addstats[id[d.element[1] or d.element]]
+      dmgFrSt2 = d.addstats[id[d.element[2]]] or {0,dmgFrSt1[2]}
       dmg = RPG.getDamage(user:getEnemy(),dmgRoll *((dmgFrSt1[2]+dmgFrSt2[2])/200 +1) + dmgFrSt1[1] +dmgFrSt2[1],self.data.type,self.data.element)
       
       RPG.dmgText("phys",self.data.element,user:getEnemy())
@@ -129,6 +134,35 @@ forgedWeapon.makeWeapon = function()
     
     postAttack = function(self,item,enemy) 
       RPG.weaponOtherDmg(enemy,dmg,self.data.addstats) 
+      local user = RPD.Dungeon.hero
+      local chanceRoll = math.random(1,12)
+      if chanceRoll <= 3 +hits +self.data.rareScale and dmg > 0 then 
+        hits = 0
+        RPD.topEffect(user:getPos(),"dissection_effect")
+    
+      local level = RPD.Dungeon.level
+      local x = level:cellX(user:getPos())
+      local y = level:cellY(user:getPos())
+      local weaponA = user:getBelongings().weapon
+      local weaponB = user:getBelongings().leftHand
+     
+      for i = x-1,x+1 do
+        for j = y-1,y+1 do
+          local pos = level:cell(i,j)
+          local enemyOnWay = RPD.Actor:findChar(pos)
+          if enemyOnWay and enemyOnWay ~= RPD.Dungeon.hero and enemyOnWay ~= enemy then
+            RPG.damage(enemyOnWay,RPG.smartInt(1+weaponA:damageRoll(hero)*(0.8 + 0.1*self.data.rareScale) + weaponB:damageRoll(hero)*0.65 + RPG.physStr()*0.1), "phys",self.data.element)
+          end
+        end
+      end
+        
+      elseif prevEnemy == enemy or hits == 0 then
+        hits = hits +1
+      else 
+        hits = 1
+      end
+      
+      prevEnemy = enemy
     end,
    
     

@@ -10,6 +10,8 @@ local str
 local minDmg
 local maxDmg
 local dmg
+local hits = 0
+local prevEnemy = ""
 
 forgedWeapon.makeWeapon = function()
     return{
@@ -122,9 +124,26 @@ forgedWeapon.makeWeapon = function()
         stab = 12,
         crush = 13
       }
+      
       local dmgFrSt1 = d.addstats[id[d.element[1] or d.element]]
       local dmgFrSt2 = d.addstats[id[d.element[2]]] or {0,dmgFrSt1[2]}
+      
       dmg = RPG.getDamage(user:getEnemy(),dmgRoll *((dmgFrSt1[2]+dmgFrSt2[2])/200 +1) + dmgFrSt1[1] +dmgFrSt2[1],self.data.type,self.data.element)
+      
+      local chanceRoll = math.random(1,12)
+      if chanceRoll <= 1 +hits +self.data.rareScale and dmg > 0 then
+        hits = 0
+        dmg = RPG.smartInt(math.max(dmg + user:getEnemy():dr()*(0.5 +0.1*self.data.rareScale), user:getEnemy():dr()*(1 +0.1*self.data.rareScale) ) )
+        RPG.flyText(user:getEnemy(),RPD.textById("stabbed"),"red")
+        RPD.topEffect(user:getEnemy():getPos(),"shield_broken")
+        
+      elseif prevEnemy == user:getEnemy() or hits == 0 then
+        hits = hits +1
+      else 
+        hits = 1
+      end
+      
+      prevEnemy = user:getEnemy()
       
       RPG.dmgText("phys",self.data.element,user:getEnemy())
       

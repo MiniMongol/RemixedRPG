@@ -10,6 +10,40 @@ local RPG
  mainMatCount = 16,
  materialsCount = 0,
  
+ noBloodMobs =
+    {
+    BoneGolem_lvl1="false",
+    BoneGolem_lvl2="false",
+    BoneGolem_lvl3="false",
+    Skeleton = "false",
+    DM300 = "false",
+    Goo = "false",
+    EarthElemental = "false",
+    WaterElemental = false,
+    FireElemental = "false",
+    AirElemental = "false",
+    Golem = "false",
+    SpiritOfPain = "false",
+    Statue = "false",
+    Wraith = "false",
+    IceElemental = "false",
+    Crystal = "false",
+    ArmoredStatue = "false",
+    GoldenStatue = "false",
+    Shadow = "false",
+    Undead = "false",
+    ShadowLord = "false",
+    TreacherousSpirit = "false",
+    IceGuardianCore = "false",
+    IceGuardian = "false",
+    EnslavedSoul = "false",
+    ExplodingSkull = "false",
+    JarOfSouls = "false",
+    Lich = "false",
+    RunicSkull = "false"
+    
+    },
+ 
  Objects ={
  Ui={
  WndInfoItem = luajava.bindClass("com.watabou.pixeldungeon.windows.WndInfoItem"),
@@ -410,6 +444,7 @@ local RPG
    local smithData = storage.gameGet("smithing") or {}
    local smithScale = 0.7 + 0.15*smithy.lvl
    local rareName = ""
+   local rareScale = 0
    local exp = 0
    
    local rareRandom = math.random(1,15000)
@@ -417,16 +452,19 @@ local RPG
      smithScale = smithScale +0.666*smithy.lvl
      rareName = "("..RPD.textById("Legendary")..")"
      exp = exp + 12
+     rareScale = 10
      
    elseif rareRandom <= 800 +RPG.AllLuck()*2 then
      smithScale = smithScale +0.3*smithy.lvl
      rareName = "("..RPD.textById("Epic")..")"
      exp = exp +5
+     rareScale = 6
      
    elseif rareRandom <= 3500 +RPG.AllLuck()*2 then
      smithScale = smithScale +0.1*smithy.lvl
      rareName = "("..RPD.textById("Rare")..")"
      exp = exp+2
+     rareScale = 2
      
    end
    
@@ -834,14 +872,14 @@ local RPG
     end
     smithData = storage.gameGet("smithing") or {}
     if smithData.exp >= smithData.expToUp then
-      storage.gamePut("smithing", {lvl = smithData.lvl+1, expToUp = smithData.expToUp +2*((smithData.lvl+1)%2)+smithData.lvl+1, exp = 0 +smithData.exp -smithData.expToUp})
+      storage.gamePut("smithing", {lvl = smithData.lvl+1, expToUp = smithData.expToUp +3*((smithData.lvl+1)%2)+smithData.lvl+2, exp = 0 +smithData.exp -smithData.expToUp})
     end
    
    if smithy.mode == "weapon" or smithy.mode == "magic" then
      
-     return {str = RPG.smartInt(str),info = itemInfo, icon = icon, name = name, visualName = visualName, tier = tier, minDmg = RPG.smartInt(minDmg), maxDmg = RPG.smartInt(maxDmg), delay = delayFactor, accuracy = accuracy, range = range, dstats = stats, addStats = addStatsGroups[mode], type = table.unpack(objectDmgType[smithy.choosenObject],1), element = table.unpack(objectDmgType[smithy.choosenObject],2)}
+     return {str = RPG.smartInt(str),info = itemInfo, icon = icon, name = name, visualName = visualName, tier = tier, minDmg = RPG.smartInt(minDmg), maxDmg = RPG.smartInt(maxDmg), delay = delayFactor, accuracy = accuracy, range = range, dstats = stats, addStats = addStatsGroups[mode], type = table.unpack(objectDmgType[smithy.choosenObject],1), element = table.unpack(objectDmgType[smithy.choosenObject],2), rareScale = rareScale}
    else
-     return {str = RPG.smartInt(str),name = name, visualName = visualName, info = itemInfo, icon = icon, tier = tier, dr = drOrDmg[mode], dstats = RPG.unpackAll({stats,allAdd})}
+     return {str = RPG.smartInt(str),name = name, visualName = visualName, info = itemInfo, icon = icon, tier = tier, dr = drOrDmg[mode], dstats = RPG.unpackAll({stats,allAdd}), rareScale = rareScale}
    end
  end,
  
@@ -984,6 +1022,26 @@ local RPG
  end,
  
  
+  flyText = function(enemy,text,color)
+      
+      if color == "red" then
+          enemy:getSprite():showStatus(0xf00000,text)
+        end
+        
+        if color == "green" then
+          enemy:getSprite():showStatus(0x45db00,text)
+        end
+        
+        if color == "white" then
+          enemy:getSprite():showStatus(0xffffff,text)
+        end
+        
+        if color == "orange" then
+          enemy:getSprite():showStatus(0xf08000,text)
+        end
+  end,
+  
+  
   dmgText = function(type,elmnt,enemy)
   
     color = 0xffffff
@@ -1195,7 +1253,7 @@ local RPG
    local armor = hero:getBelongings().armor
    local a =armor:requiredSTR()-1
    
-   return math.max(0.1, ((0.8 +RPG.AllFast()*0.04) -0.03*RPD.Dungeon.depth -0.025*(math.min(0,armor:requiredSTR()-RPG.physStr())) ))*math.pow(1.3,a)
+   return math.max(0.1, ((0.8 +RPG.AllFast()*0.04) -0.05*RPD.Dungeon.depth -0.025*(math.min(0,armor:requiredSTR()-RPG.physStr())) ))*math.pow(1.3,a)
  end,
  
   plus = function(int)

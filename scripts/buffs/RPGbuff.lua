@@ -57,6 +57,9 @@ return buff.init{
 	  
       Spells.Combat = Que.getMas("spelllist")
       
+      if hero:isStarving() then
+        RPD.removeBuff(hero,"Hunger")
+      end
       
       if hero:buffLevel("Poison") > 0 then 
         RPD.affectBuff(hero,"PoisonBuff",hero:buffLevel("Poison")):level(RPG.smartInt(0.5+depth*0.5))

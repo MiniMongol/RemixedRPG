@@ -118,7 +118,7 @@ local dmgModifs = {
 return buff.init{
     desc  = function ()
         return {
-            icon          = 1,
+            icon          = -1,
             info          = "",
         }
     end,
@@ -150,8 +150,6 @@ attackProc = function(self,buff,enemy,damage)
 	end
   end
   
-  local color = {phys = 0xffff00, mag = 0x33ccff}
-  
   
   RPG.dmgText(type[1],mainElement,enemy)
   return totalDmg
@@ -166,7 +164,7 @@ detach = function(self,buff)
   local pos = buff.target:getPos() 
   local mobModifs = dmgModifs[buff.target:getMobClassName()]
   local level = RPD.Dungeon.level
-  local loot = mobModifs["loot"]
+  local loot = mobModifs["loot"] or ""
   local chance = mobModifs["chance"]
   local countOfLoot
   if loot ~= nil then

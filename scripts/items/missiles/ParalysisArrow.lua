@@ -20,7 +20,7 @@ return item.init {
       return {2,4}
     end,
     buff = function()
-      return {"Paralysis",1 +RPG.smartInt(RPG.AllLuck()*0.02),1}
+      return {"Paralysis",1 +RPG.smartInt(RPG.AllLuck()*0.05),1}
     end,
     isFliesStraight = function() 
       return true
