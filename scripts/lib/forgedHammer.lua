@@ -152,7 +152,7 @@ forgedWeapon.makeWeapon = function()
     
     accuracyFactor = function(self,item,user)
       str = math.max(self.data.str -2*item:level(),1)
-      return self.data.accuracy*0.5 + RPG.itemStrBonus(str)*0.5
+      return self.data.accuracy + RPG.itemStrBonus(str)*0.5
     end,
     
     

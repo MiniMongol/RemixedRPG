@@ -88,11 +88,11 @@ local dmgModifs = {
   
    SpiderServant = {mod = 1, dmg = 2, type = {"phys","mag"}, element = {{"cut","chop"},"poison"},loot ={"materials/SpiderCarapace"}, chance ={30}},
    SpiderGuard = {mod = 1, dmg = 4, type = {"phys","mag"}, element = {{"cut","chop"},"poison"},loot ={"materials/EliteSpiderCarapace"}, chance ={40}},
-   SpiderExploding = {mod = 1, dmg = 4, type={"mag",""} , element = {"earth",""},loot ={}, chance ={}},
+   SpiderExploding = {mod = 1, dmg = 4, type={"phys","mag"} , element = {"chop","earth"},loot ={}, chance ={}},
    SpiderMind = {mod = 0, dmg = 0, type = {"mag",""}, element = {"psy",""},loot ={}, chance ={}},
    SpiderMindAmber= {mod = 0, dmg = 0, type = {"mag",""}, element = {"psy",""},loot ={}, chance ={}},
-   SpiderNest = {mod = 0, dmg = 0, type , element = {"",""},loot ={}, chance ={}},
-   SpiderEgg = {mod = 0, dmg = 0, type  , element = {"",""},loot ={}, chance ={}},
+   SpiderNest = {mod = 0, dmg = 0, type = {} , element = {"",""},loot ={}, chance ={}},
+   SpiderEgg = {mod = 0, dmg = 0, type = {} , element = {"",""},loot ={}, chance ={}},
    f = {mod = 0, dmg = 0, type = {"",""}, element = {"",""}},
    SpiderQueen = {mod = 2, dmg = 6, type = {"phys","mag"}, element = {{"stab","chop"},"poison"},loot ={"materials/SpiderQueenMandible"}, chance ={10}},
    

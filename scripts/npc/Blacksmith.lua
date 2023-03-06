@@ -8,7 +8,6 @@ local RPG = require "scripts/lib/Functions"
 local Add = require "scripts/lib/AdditionalFunctions"
 local smithy = require "scripts/lib/smithing"
 local storage = require "scripts/lib/storage"
-local GameData =luajava.bindClass("com.watabou.pixeldungeon.Statistics")
 local mob = require"scripts/lib/mob"
 local quest = require"scripts/lib/quest"
 
