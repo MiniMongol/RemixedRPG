@@ -126,6 +126,7 @@ return buff.init{
 attackProc = function(self,buff,enemy,damage)
   depth = RPD.Dungeon.depth
   local mobModifs = dmgModifs[buff.target:getMobClassName()]
+  RPD.glog(buff.target:getMobClassName())
   local type = mobModifs["type"]
   local element = mobModifs["element"]
   local totalDmg = damage + RPG.smartInt(-0.8 +0.25*depth +2*(depth%5))
