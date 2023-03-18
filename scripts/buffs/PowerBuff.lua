@@ -125,33 +125,39 @@ return buff.init{
     
 attackProc = function(self,buff,enemy,damage)
   depth = RPD.Dungeon.depth
+  local totalDmg = damage + RPG.smartInt(-0.8 +0.25*depth +2*(depth%5))
+
   local mobModifs = dmgModifs[buff.target:getMobClassName()]
-  RPD.glog(buff.target:getMobClassName())
+
+  --don't crash if no modifier defined
+  if not mobModifs then
+    return totalDmg
+  end
+
   local type = mobModifs["type"]
   local element = mobModifs["element"]
-  local totalDmg = damage + RPG.smartInt(-0.8 +0.25*depth +2*(depth%5))
+
   local mainElement = element[1]
   local addElement = element[2]
   
   if type ~= nil then
-  totalDmg = RPG.getDamage(enemy,damage + RPG.smartInt(-0.8 +0.25*depth +2*(depth%5)),type[1],element[1])
-  if mobModifs["mod"] == 1 then
-    totalDmg = totalDmg-mobModifs["dmg"]
-    RPG.damage(enemy,mobModifs["dmg"],type[2],element[2])
+    totalDmg = RPG.getDamage(enemy,damage + RPG.smartInt(-0.8 +0.25*depth +2*(depth%5)),type[1],element[1])
+    if mobModifs["mod"] == 1 then
+      totalDmg = totalDmg-mobModifs["dmg"]
+      RPG.damage(enemy,mobModifs["dmg"],type[2],element[2])
 	
-  elseif mobModifs["mod"] == 2 then
-    RPG.damage(enemy,mobModifs["dmg"],type[2],element[2])
+    elseif mobModifs["mod"] == 2 then
+      RPG.damage(enemy,mobModifs["dmg"],type[2],element[2])
     
-  elseif mobModifs["mod"] == 3 then
-    totalDmg = totalDmg*(1-mobModifs["dmg"])
-    RPG.damage(enemy,damage*mobModifs["dmg"],type[2],element[2])
+    elseif mobModifs["mod"] == 3 then
+      totalDmg = totalDmg*(1-mobModifs["dmg"])
+      RPG.damage(enemy,damage*mobModifs["dmg"],type[2],element[2])
 	
-	elseif mobModifs["mod"] == 4 then
-	RPG.damage(enemy,damage*mobModifs["dmg"],type[2],element[2])
+    elseif mobModifs["mod"] == 4 then
+	  RPG.damage(enemy,damage*mobModifs["dmg"],type[2],element[2])
 	end
   end
-  
-  
+
   RPG.dmgText(type[1],mainElement,enemy)
   return totalDmg
 end,
