@@ -24,7 +24,7 @@ return mob.init({
     
     hero = RPD.Dungeon.hero
     seller = self
-    data = storage.gameGet("heroSteps")
+    data = storage.gameGet("heroSteps", {steps = 1})
     buyDelay = data.steps 
     
     

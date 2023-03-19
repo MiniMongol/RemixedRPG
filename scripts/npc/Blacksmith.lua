@@ -30,7 +30,7 @@ return mob.init({
   interact = function(self, chr)
     hero = RPD.Dungeon.hero
     seller = self
-    data = storage.gameGet("heroSteps")
+    data = storage.gameGet("heroSteps", {steps = 1})
     buyDelay = data.steps 
     
     
