@@ -13,19 +13,19 @@ local Spells = require "scripts/spells/CustomSpellsList"
 
 local actor = require "scripts/lib/actor"
 
-local dungeonEntrance = {13, 4}
-local shopEntrance    = {18, 16}
+local dungeonEntrance = { 13, 4 }
+local shopEntrance = { 18, 16 }
 
 local lastWarningTime = 0
 local time = 0
 
 return actor.init({
     act = function()
-    local hero = RPD.Dungeon.hero
+        local hero = RPD.Dungeon.hero
 
         time = time + 1
 
-        if hero:getItemFromSlot("WEAPON"):valid() or hero:getItemFromSlot("LEFT_HAND"):valid()  then
+        if hero:getItemFromSlot("WEAPON"):valid() or hero:getItemFromSlot("LEFT_HAND"):valid() then
             RPD.Dungeon.level:setCompassTarget(table.unpack(dungeonEntrance))
         else
             RPD.Dungeon.level:setCompassTarget(table.unpack(shopEntrance))
@@ -33,11 +33,11 @@ return actor.init({
             if time - lastWarningTime > 10 then
                 local heroPos = RPD.getXy(hero)
 
-                local d2 = (dungeonEntrance[1] - heroPos[1])^2 + (dungeonEntrance[2] - heroPos[2])^2
+                local d2 = (dungeonEntrance[1] - heroPos[1]) ^ 2 + (dungeonEntrance[2] - heroPos[2]) ^ 2
                 if d2 < 9 then
                     hero:interrupt()
                     lastWarningTime = time
-                    local wnd = RPD.new(RPD.Objects.Ui.WndQuest,hero,RPD.textById("TownScript_NeedWeapon"))
+                    local wnd = RPD.new(RPD.Objects.Ui.WndQuest, hero, RPD.textById("TownScript_NeedWeapon"))
                     RPD.GameScene:show(wnd)
                 end
             end
@@ -48,21 +48,23 @@ return actor.init({
         return 1
     end,
     activate = function()
-	  	local hero = RPD.Dungeon.hero
-      local Stats = storage.gameGet("") or {}
-      
-      if Stats.str == nil then
-        sMas = {"Stats","MagicBolt","ShadowClone","Chop"}
-        Que.pushMas("spelllist",sMas) 
-        Spells["Combat"] = Que.getMas("spelllist")
-        
-        local ModWnd = RPD.new(RPD.Objects.Ui.WndStory,RPD.textById("ModWnd"))
-		RPD.GameScene:show(ModWnd)
-		
-		if hero:getBelongings():getItem("TomeOfMastery") ~= nil then
-         hero:getBelongings():getItem("TomeOfMastery"):detach(hero:getBelongings().backpack)
-    end
-		
-	  end
+        local hero = RPD.Dungeon.hero
+        local Stats = storage.gameGet("") or {}
+
+        if Stats.str == nil then
+            sMas = { "Stats", "MagicBolt", "ShadowClone", "Chop" }
+            Que.pushMas("spelllist", sMas)
+            Spells["Combat"] = Que.getMas("spelllist")
+
+            local ModWnd = RPD.new(RPD.Objects.Ui.WndStory, RPD.textById("ModWnd"))
+            RPD.GameScene:show(ModWnd)
+
+            if hero:getBelongings():getItem("TomeOfMastery") ~= nil then
+                hero:getBelongings():getItem("TomeOfMastery"):detach(hero:getBelongings().backpack)
+            end
+        end
+
+
+
     end
 })
