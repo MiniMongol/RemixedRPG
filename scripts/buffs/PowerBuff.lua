@@ -141,7 +141,7 @@ attackProc = function(self,buff,enemy,damage)
   local addElement = element[2]
   
   if type ~= nil then
-    totalDmg = RPG.getDamage(enemy,damage + RPG.smartInt(-0.8 +0.25*depth +2*(depth%5)),type[1],element[1])
+    totalDmg = RPG.getDamage(enemy,totalDmg,type[1],element[1])
     if mobModifs["mod"] == 1 then
       totalDmg = totalDmg-mobModifs["dmg"]
       RPG.damage(enemy,mobModifs["dmg"],type[2],element[2])

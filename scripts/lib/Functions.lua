@@ -886,9 +886,9 @@ local RPG
 	conversionStatsToGold = function(stats,addstats,delay,accuracy,range,mode) 
   	local gold = 0
 		local gAddStats= { 15, 500 }
-		local gStats ={ 2,2,2.5,2.5,2.5,3,2,5}
-		local gDelay = 10
-		local gAccuracy = 25
+		local gStats ={ 20,20,30,30,30,40,20,40}
+		local gDelay = 30
+		local gAccuracy = 50
 		local gRange = 200
 		
  		for i = 1, 8 do
@@ -906,12 +906,14 @@ local RPG
     end
     else
   	for j = 1, 28 do
-    	local modeStat = addstats[j]
+  	  if j<10 or j>14 then
+    	  local modeStat = addstats[j]
          
-    	for jj = 1,2 do
-      	gold = gold + modeStat[jj]*gAddStats[jj] 
-    	end
-  	end
+      	for jj = 1,2 do
+        	gold = gold + modeStat[jj]*gAddStats[jj] 
+    	  end
+  	  end
+  	  end
   	end
 		
 		gold = gold +delay*gDelay
@@ -962,7 +964,7 @@ local RPG
      fixed = fixed + elmntCoef[2]
    end
      percent = percent/2
-	 fixed = math.ceil(fixed/2)
+	   fixed = RPD.smartInt(fixed/2)
    end
    return {percent,fixed}
  end,

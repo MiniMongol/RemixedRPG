@@ -20,7 +20,7 @@ return trap.init(
       local enemy = RPD.Actor:findChar(cell)
       if enemy and enemy ~= hero then
       local buff = RPD.affectBuff(enemy,"PoisonBuff",Spell.PT*2+1)
-      buff:level(RPG.AllFast() + 3*Spell.PT)
+      buff:level(RPG.AllFast()*(0.3+0.05*Spell.PT))
       end
     end
 )

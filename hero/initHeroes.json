@@ -4,7 +4,7 @@
 
     "items": [
       {
-        "kind":"Gold",
+        "kind":"TomeOfMastery",
         "quantity": 200
         
       }
@@ -19,7 +19,7 @@
     "items": [
       {
         "kind": "Gold",
-        "quantity":100
+        "quantity":10000
       }
     ]
   },

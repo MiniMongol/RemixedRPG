@@ -19,7 +19,7 @@ return trap.init(
       Spell = storage.gameGet(a) or {}
       local enemy = RPD.Actor:findChar(cell)
       if enemy and enemy ~= hero then
-      RPG.damage(enemy,RPG.physStr()*(0.1*Spell.CT),"phys","stab")
+      RPG.damage(enemy,RPG.physStr()*(0.3+0.5*Spell.CT),"phys","stab")
       local buff = RPD.affectBuff(enemy,RPD.Buffs.Cripple,Spell.CT+1)
       buff:level(Spell.CT)
       end

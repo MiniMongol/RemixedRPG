@@ -18,7 +18,7 @@ local item = require "scripts/lib/item"
 local statsMax = 6
 local quanStats = 3
 local stra = 25
-local tier = 3
+local tier = 4
 local str 
 local stats
 local hero 

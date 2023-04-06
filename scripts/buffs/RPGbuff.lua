@@ -10,7 +10,10 @@ local RPG  = require "scripts/lib/Functions"
 local Que  = require "scripts/lib/Queue"
 
 local storage = require "scripts/lib/storage"
+
 local spellList = require "scripts/spells/CustomSpellsList"
+
+local HeroSubClass = luajava.bindClass("com.watabou.pixeldungeon.actors.hero.HeroSubClass")
 
 local hero
 local depth
@@ -125,9 +128,9 @@ return buff.init{
     end
      
       
-      if tostring(hero:getSubClass()) ~= subClass.none and subClass.actv ~= 1 then 
-        hero:setSubClass(subClass.none)
-        storage.gamePut("subClassNone",{none = "", actv = 1})
+      if hero:getSubClass() ~= subClass.none  then 
+        hero:setSubClass(HeroSubClass.NONE)
+        storage.gamePut("subClassNone",{none = HeroSubClass.NONE, actv = 1})
         RPD.glog(RPD.textById("KydaLezem"))
       end
       
@@ -273,7 +276,7 @@ return buff.init{
         if math.random(10,100+enemy:defenseSkill()) <= RPG.AllLuck()*luckBonus then
         
           if enemy:hp() - ((damage)*2 - enemy:dr()) <= 0 and RPG.subclass == "Bandit" then
-            RPG.createItem("Gold", enemy:getPos(), RPG.AllLuck() + RPD.Dungeon.depth)
+            RPG.createItem("Gold", enemy:getPos(), (RPG.AllLuck() + RPD.Dungeon.depth)*2)
           end
       
           enemy:getSprite():showStatus(0xffff00,RPD.textById("crit"))
@@ -281,7 +284,7 @@ return buff.init{
         else
         
           if enemy:hp() - ((damage+RPG.smartInt(RPG.physStr()*0.25))-enemy:dr()) <= 0 and RPG.subclass == "Bandit" then
-            RPG.createItem("Gold", enemy:getPos(), RPG.AllLuck() + RPD.Dungeon.depth)
+            RPG.createItem("Gold", enemy:getPos(), (RPG.AllLuck() + RPD.Dungeon.depth)*2)
           end
           
           return damage+RPG.smartInt(RPG.physStr()*0.25)

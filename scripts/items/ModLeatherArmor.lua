@@ -18,7 +18,7 @@ local item = require "scripts/lib/item"
 local statsMax = 6
 local quanStats = 2
 local stra = 10
-local tier = 2
+local tier = 3
 local str 
 local stats
 local hero 
@@ -39,7 +39,7 @@ config.desc = function(self, item)
             dstats = stats
             },
             name          = RPD.textById("LeatherArmor_Name")..": "..tostring(math.max(stra-2*item:level(),1)),
-            price         = 20*2^(tier-1)+10*2^(tier-1)*item:level(),
+            price         = 20*2^(tier-2)+10*2^(tier-2)*item:level(),
             stackable     = false,
             upgradable    = true,
             equipable     ="armor"

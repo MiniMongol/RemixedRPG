@@ -17,6 +17,8 @@ local hero = RPD.Dungeon.hero
 
 local spell = require "scripts/lib/spell"
 
+local HeroSubClass = luajava.bindClass("com.watabou.pixeldungeon.actors.hero.HeroSubClass")
+
 local stats = ""
 
 local sList = "spelllist"
@@ -321,7 +323,7 @@ return spell.init{
      storage.gamePut("choosedArrows",{is = "missiles/CommonArrow"})
      storage.gamePut("heroSteps",{steps = 0})
      
-     storage.gamePut("subClassNone",{none = tostring(hero:getSubClass())})
+     storage.gamePut("subClassNone",{none = hero:getSubClass()})
      RPGbuff = RPD.permanentBuff(hero,"RPGbuff")
      
      RPG.sPoints = 32

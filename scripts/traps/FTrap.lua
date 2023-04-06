@@ -23,7 +23,7 @@ return trap.init(
       local enemy = RPD.Actor:findChar(cell)
       if enemy and enemy ~= hero then
       local buff = RPD.affectBuff(enemy,"BurningBuff",Spell.FT)
-      storage.gamePut("burningbuff",{dmg = 2*Spell.FT})
+      storage.gamePut("burningbuff",{dmg = 4*Spell.FT})
       end
     end
 )

@@ -16,9 +16,9 @@ local storage = require "scripts/lib/storage"
 local item = require "scripts/lib/item"
 
 local statsMax = 6
-local quanStats = 2
+local quanStats = 3
 local stra = 5
-local tier = 2
+local tier = 3
 local str 
 local stats
 local hero 
