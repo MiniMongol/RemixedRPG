@@ -162,14 +162,14 @@ forgedWeapon.makeWeapon = function()
     range = function(self)
       return self.data.range +3
     end,
-		
-		price = function(self,item)
-		  local d = self.data
-      mediumDmg = RPG.smartInt( (d.tier*2.5*(6+2*item:level())) )
-      return mediumDmg*4 +2^(self.data.tier-1)-4^math.max(self.data.tier-10,0)+50*(self.data.tier-1)*item:level() +RPG.conversionStatsToGold(self.data.dstats,self.data.addstats,self.data.delay,self.data.accuracy,self.data.range,"weapon")
-    end
     
-     
+    
+    price = function(self,item)
+      local d = self.data
+      mediumDmg = RPG.smartInt( (d.tier*2.5*(6+2*item:level())) )
+      return mediumDmg*(item:level()+1)*self.data.tier + RPG.conversionStatsToGold(self.data.dstats,self.data.addstats,self.data.delay,self.data.accuracy,self.data.range,"weapon")
+    end
+		
 }
 end
 return forgedWeapon

@@ -97,39 +97,6 @@ return spell.init{
      storage.gamePut(a,{exp = exp, expMax = expMax, lvl = lvl, bp = bloodPoison, staks = staks})
     end
     
-    local mobsExeptions =
-    {
-    BoneGolem_lvl1=false,
-    BoneGolem_lvl2=false,
-    BoneGolem_lvl3=false,
-    Skeleton = false,
-    DM300 = false,
-    Goo = false,
-    EarthElemental = false,
-    WaterElemental = false,
-    FireElemental = false,
-    AirElemental = false,
-    Golem = false,
-    SpiritOfPain = false,
-    Statue = false,
-    Wraith = false,
-    IceElemental = false,
-    Crystal = false,
-    ArmoredStatue = false,
-    GoldenStatue = false,
-    Shadow = false,
-    Undead = false,
-    ShadowLord = false,
-    TreacherousSpirit = false,
-    IceGuardianCore = false,
-    IceGuardian = false,
-    EnslavedSoul = false,
-    ExplodingSkull = false,
-    JarOfSouls = false,
-    Lich = false,
-    RunicSkull = false
-    
-    }
     
     local enemy = RPD.Actor:findChar(cell)
     
@@ -160,17 +127,18 @@ return spell.init{
      enemyId_2 = enemyId_1
     if enemy and enemy ~= RPD.Dungeon.hero then
      RPG.damage(enemy,math.ceil(RPG.magStr()*0.2 + hero:ht()*0.25) + lvl, type, element)
-     
-      if mobsExeptions[enemy:name()] ~= false then
+    
         RPD.affectBuff(enemy,"BloodMark", 3)
-        if enemy:hp() <= 0 then
+        if enemy:hp() <= 0 and RPG.haveBlood(enemy:getMobClassName()) then
         hero:heal(RPG.magStr()*0.2 + enemy:ht()*0.15 + 1.5*lvl,hero)
         RPD.Sfx.CellEmitter:get(hero:getPos()):burst(RPD.Sfx.Speck:factory(RPD.Sfx.Speck.HEALING ), 3)
+        
         if tonumber(staks) ~= 5 then
           staks = tonumber(staks) + 1
         end
         bloodPoison = math.ceil(hero:ht()*(0.05 + 0.1*staks))
        hero:ht(hero:ht()-bloodPoison)
+       
        if hero:hp() >= hero:ht() then
          hero:hp(hero:ht())
        end
@@ -180,7 +148,6 @@ return spell.init{
       
       storage.gamePut(a,{exp = exp, expMax = expMax, lvl = lvl, bp = bloodPoison, staks = staks})
      end
-    end
     
   return true
    end

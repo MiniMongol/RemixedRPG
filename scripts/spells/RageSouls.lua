@@ -49,8 +49,8 @@ return spell.init{
     local level = RPD.Dungeon.level
     local hero = RPD.Dungeon.hero
      if RPD.Dungeon.hero:lvl() <= 4 then
-     RPD.glog(RPD.textById("LvlLimit"))
-     return false
+       RPG.polyglot("LvlLimit")
+       return false
     end
       
     Count = storage.gameGet(a) or {}
@@ -87,12 +87,12 @@ return spell.init{
         enName = nil
       end
       if enName == "BoneGolem_lvl1" or enName == "BoneGolem_lvl2" or enName == "BoneGolem_lvl3" then
-        enemy:heal(math.ceil(RPG.magStr()*0.4 + 3*lvl),hero)
+        enemy:heal(math.ceil(RPG.magStr()*0.3 + 5*lvl),hero)
         
         RPD.Sfx.CellEmitter:get(enemy:getPos()):burst(RPD.Sfx.Speck:factory(RPD.Sfx.Speck.HEALING ), 3)
       else
         if enemy and enemy ~= hero then
-          RPG.damage(enemy,math.ceil(RPG.magStr()*0.3 + 2*lvl),type,elmnt)
+          RPG.damage(enemy,math.ceil(RPG.magStr()*0.2 + 3*lvl),type,elmnt)
           RPD.zapEffect(from, enemy:getPos(), "ragesouls_effect")
           break
         end

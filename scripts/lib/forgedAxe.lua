@@ -198,6 +198,7 @@ forgedWeapon.makeWeapon = function()
       return self.data.range
     end,
     
+    
     price = function(self,item)
       mediumDmg = RPG.smartInt( (self.data.minDmg+self.data.maxDmg)/3 )
       return mediumDmg*(item:level()+1)*self.data.tier + RPG.conversionStatsToGold(self.data.dstats,self.data.addstats,self.data.delay,self.data.accuracy,self.data.range,"weapon")

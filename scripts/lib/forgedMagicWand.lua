@@ -11,6 +11,8 @@ local minDmg
 local maxDmg
 local dmg
 local dmgCoef
+local hits = 0
+local prevEnemy = ""
 
 
 forgedWeapon.makeWeapon = function()
@@ -32,8 +34,8 @@ forgedWeapon.makeWeapon = function()
       hero = RPD.Dungeon.hero
       local d = self.data
       str = math.max(d.str -2*item:level(),1)
-      maxDmg = RPG.smartInt((d.tier*1.5+RPG.magStr()*(d.tier*0.07+item:level()*0.055))*1.1)
-      minDmg = RPG.smartInt((d.tier*1.5+RPG.magStr()*(d.tier*0.07+item:level()*0.055))*0.90)
+      maxDmg = RPG.smartInt((d.tier*1.5+RPG.magStr()*(d.tier*0.07+item:level()*0.055))*1.2)
+      minDmg = RPG.smartInt((d.tier*1.5+RPG.magStr()*(d.tier*0.07+item:level()*0.055))*0.8)
       
       local info = d.name.." "..RPD.textById("RangedWeaponInfo0")..d.tier..RPD.textById("WeaponInfo1")..minDmg.." — "..maxDmg..RPD.textById("WeaponInfo2")..str..RPD.textById("WeaponInfo3").."\n\n"..d.info
       if RPG.physStr() >= str then
@@ -101,16 +103,16 @@ forgedWeapon.makeWeapon = function()
 	damageRoll = function(self,item,user)
       local hero = RPD.Dungeon.hero
       local d = self.data
-      maxDmg = (d.tier*1.5 +RPG.magStr()*(d.tier*0.07+item:level()*0.055))*1.1
-      minDmg = (d.tier*1.5 +RPG.magStr()*(d.tier*0.07+item:level()*0.055))*0.9
+      maxDmg = (d.tier*1.5 +RPG.magStr()*(d.tier*0.07+item:level()*0.055))*1.2
+      minDmg = (d.tier*1.5 +RPG.magStr()*(d.tier*0.07+item:level()*0.055))*0.8
       
       local dmgRoll = math.random(minDmg,maxDmg)
       local dmg = RPG.getDamage(user:getEnemy(),dmgRoll,"mag","")
       
       local chanceRoll = math.random(1,12)
-      if chanceRoll <= 2 +hits +self.data.rareScale  and dmg > 0 then
+      if chanceRoll <= 2 +hits +self.data.rareScale and dmg > 0 then
         hits = 0
-        dmg = math.max(dmg + RPG.getDamage(user:getEnemy(),0,"mag","")*(0.5 +0.1*self.data.rareScale), RPG.getDamage(user:getEnemy(),0,"mag","")*(1 +0.1*self.data.rareScale) )
+        dmg = math.max(dmg + RPG.getDamage(user:getEnemy(),0,"mag","")*(0.5 +0.1*self.data.rareScale), RPG.getDamage(user:getEnemy(),0,"magic","")*(1 +0.1*self.data.rareScale) )
         RPG.flyText(user:getEnemy(),RPD.textById("stabbed"),"red")
         RPD.topEffect(user:getEnemy():getPos(),"bleeding_effect")
         
@@ -172,13 +174,13 @@ forgedWeapon.makeWeapon = function()
     range = function(self)
       return self.data.range +3
     end,
-		
+    
+    
 		price = function(self,item)
       local d = self.data
       mediumDmg = RPG.smartInt( (d.tier*1.5*(4+1.5*item:level())) )
-      return mediumDmg*10 +2^(self.data.tier-1)-4^math.max(self.data.tier-10,0)+50*(self.data.tier-1)*item:level() +RPG.conversionStatsToGold(self.data.dstats,self.data.addstats,self.data.delay,self.data.accuracy,self.data.range,"weapon")
+      return mediumDmg*(item:level()+1)*self.data.tier + RPG.conversionStatsToGold(self.data.dstats,self.data.addstats,self.data.delay,self.data.accuracy,self.data.range,"weapon")
     end
-    
      
 }
 end

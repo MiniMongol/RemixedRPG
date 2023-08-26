@@ -4,13 +4,16 @@
 
     "items": [
       {
-        "kind":"TomeOfMastery",
-        "quantity": 200
-        
+        "kind":"Gold",
+        "quantity": 300
+      },
+      {
+        "kind": "ModClothArmor",
+        "quantity":1
       }
     ],
     "str":9,
-    "hp": 10,
+    "hp": 15,
     "magicAffinity": "Common",
     "sp": 1,
     "maxSp": 1
@@ -19,7 +22,7 @@
     "items": [
       {
         "kind": "Gold",
-        "quantity":10000
+        "quantity":100
       }
     ]
   },

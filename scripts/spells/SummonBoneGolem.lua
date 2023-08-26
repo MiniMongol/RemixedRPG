@@ -50,11 +50,11 @@ return spell.init{
     local level = RPD.Dungeon.level
     Count = storage.gameGet(a) or {}
     if hero:lvl() <= 4 then
-     RPD.glog(RPD.textById("LvlLimit"))
+     RPG.polyglot("LvlLimit")
      return false
     end
     if RPG.subclass ~= nil and RPG.subclass ~= "Necromancer" then
-      RPD.glog(RPD.textById("SubclassLimit"))
+      RPG.polyglot("SubclassLimit")
       return false
     end
     if Count.lvl ~= nil then
@@ -64,12 +64,21 @@ return spell.init{
      summon = Count.summon
      summonMax = Count.summonMax
      if level:getTileType(cell) == 4 or level:getTileType(cell) == 12 or RPG.distance(cell) > 2 then
-      RPD.glog(RPD.textById("SummoningBoneGolemLimit"))
+      RPG.polyglot("SummoningBoneGolemLimit")
       return false
      else
-     RPD.playSound("snd_cursed.ogg")
+       charOnCell = RPD.Actor:findChar(cell)
+       if charOnCell == hero then
+         summon = 0
+         storage.gamePut(a,{exp = exp, expMax = expMax, lvl = lvl, summon = summon, summonMax = summonMax,})
+         RPG.polyglot("BoneGolemOff")
+         return false
+      end
+       
+      RPD.playSound("snd_cursed.ogg")
       exp = exp+1
      end
+     
     if exp == expMax then
      exp = 0
      expMax = expMax+15
@@ -86,19 +95,10 @@ return spell.init{
      summonMax = 3
      storage.gamePut(a,{exp = exp, expMax = expMax, lvl = lvl, summon = summon, summonMax = summonMax})
     end
+    
     summon = summon +1
-    
-    local petsCount = hero:countPets()
-    
-    if petsCount == 0 and summon ~= 0 then
-      summon = 0
-    end
-    
-    if petsCount > 4 then
-      summon = summon + petsCount-4
-    end
-    
     storage.gamePut(a,{exp = exp, expMax = expMax, lvl = lvl, summon = summon, summonMax = summonMax})
+    
     local mob = RPD.MobFactory:mobByName(golems[lvl])
     mob:setPos(cell)
     RPD.Dungeon.level:spawnMob(RPD.Mob:makePet(mob,RPD.Dungeon.hero));

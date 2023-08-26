@@ -138,7 +138,7 @@ forgedWeapon.makeWeapon = function()
     postAttack = function(self,item,enemy) 
       RPG.weaponOtherDmg(enemy,dmg,self.data.addstats)
       local chanceRoll = math.random(1,12)
-      if chanceRoll <= 3 +hits +self.data.rareScale and dmg > 0 and RPG.noBloodMobs[enemy:getMobClassName()] ~= "false" then 
+      if chanceRoll <= 3 +hits +self.data.rareScale and dmg > 0 and RPG.haveBlood(enemy:getMobClassName()) then 
         hits = 0
         local bleed = RPD.affectBuff(enemy,"FastBleeding",4)
         bleed:level( math.max(1, RPG.smartInt(2 +dmg*(0.4 +0.1*self.data.rareScale ) /4)) )
@@ -187,9 +187,10 @@ forgedWeapon.makeWeapon = function()
       return self.data.range +1
     end,
 		
+		
 		price = function(self,item)
       mediumDmg = RPG.smartInt( (self.data.minDmg+self.data.maxDmg)/3 )
-      return mediumDmg*(item:level()+1)*self.data.tier*10 +2^(self.data.tier-1)-4^math.max(self.data.tier-10,0)+50*(self.data.tier-1)*item:level() +RPG.conversionStatsToGold(self.data.dstats,self.data.addstats,self.data.delay,self.data.accuracy,self.data.range,"weapon")
+      return mediumDmg*(item:level()+1)*self.data.tier + RPG.conversionStatsToGold(self.data.dstats,self.data.addstats,self.data.delay,self.data.accuracy,self.data.range,"weapon")
     end
     
      

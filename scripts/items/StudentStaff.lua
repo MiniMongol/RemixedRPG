@@ -134,7 +134,7 @@ return item.init{
     
     typicalSTR = function(self,item,user)
       str = math.max(stra-2*item:level(),1)
-      if self.data.level < item:level() then
+      if (self.data.level or 0) < item:level() then
         self.data.level = item:level()
         self.data.dstats[4] = self.data.dstats[4] +magAsLevel
           if self.data.equipped == 1 then

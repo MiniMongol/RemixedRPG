@@ -145,7 +145,7 @@ forgedWeapon.makeWeapon = function()
       
       prevEnemy = user:getEnemy()
       
-      RPG.dmgText("phys",self.data.element,user:getEnemy())
+      RPG.dmgText(RPD.textById("phys"),self.data.element,user:getEnemy())
       
       return dmg,dmg
     end,
@@ -187,11 +187,11 @@ forgedWeapon.makeWeapon = function()
       return self.data.range +1
     end,
 		
+		
 		price = function(self,item)
       mediumDmg = RPG.smartInt( (self.data.minDmg+self.data.maxDmg)/3 )
-      return mediumDmg*(item:level()+1)*self.data.tier*10 +2^(self.data.tier-1)-4^math.max(self.data.tier-10,0)+50*(self.data.tier-1)*item:level() +RPG.conversionStatsToGold(self.data.dstats,self.data.addstats,self.data.delay,self.data.accuracy,self.data.range,"weapon")
+      return mediumDmg*(item:level()+1)*self.data.tier + RPG.conversionStatsToGold(self.data.dstats,self.data.addstats,self.data.delay,self.data.accuracy,self.data.range,"weapon")
     end
-    
      
 }
 end

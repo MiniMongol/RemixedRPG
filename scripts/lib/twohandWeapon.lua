@@ -19,16 +19,11 @@ twohandWeapon.makeWeapon = function(name,mod,stra,minDmg,maxDmg,tier,accuracy,de
       end
     end,
     
-    charAct = function(self,item,user) 
-      hero = RPD.Dungeon.hero
-      if RPG.luck == nil then
-	 		  RPD.glog("act")
-	 		  end
-    end,
     
     getVisualName = function()
       return (visualName or name)
     end,
+    
     
     statsRequirementsSatisfied = function(self,item)
       str = math.max(stra-2*item:level(),1)
@@ -39,21 +34,24 @@ twohandWeapon.makeWeapon = function(name,mod,stra,minDmg,maxDmg,tier,accuracy,de
       end
     end,
     
+    
     getAttackAnimationClass = function()
 			return anim
 		end,
     
+    
     blockSlot = function()
       return "LEFT_HAND"
     end,
+    
     
     activate = function(self,item,user)
       hero = RPD.Dungeon.hero
       if (self.data.activationCount == 0 and user == hero) or (RPG.luck == nil and user == hero) then
       	RPG.addStats(self.data.dstats,"StatsA")
       	RPG.increaseHtSp(self.data.dstats)
+      	self.data.activationCount = 1
       end
-      self.data.activationCount = 1
     end,
     
     deactivate = function(self,item,user)
@@ -65,24 +63,29 @@ twohandWeapon.makeWeapon = function(name,mod,stra,minDmg,maxDmg,tier,accuracy,de
       end
     end,
     
+    
     accuracyFactor = function(self,item,user)
       str = math.max(stra-2*item:level(),1)
       return accuracy + RPG.itemStrBonus(str)
     end,
+    
     
     attackDelayFactor = function(self,item,user)
       str = math.max(stra-2*item:level(),1)
       return delayFactor - RPG.itemStrBonus(str)
     end,
     
+    
     typicalSTR = function(self,item,user)
 	 		str = math.max(stra-2*item:level(),1)
       return str
     end,
     
+    
     requiredSTR = function(self,item,user)
       return str
     end,
+	
 	
 	damageRoll = function(self,item,user)
   	local dmgRoll = math.random(minDmg +tier*item:level(),maxDmg +tier*item:level())
@@ -93,23 +96,29 @@ twohandWeapon.makeWeapon = function(name,mod,stra,minDmg,maxDmg,tier,accuracy,de
     return dmg,dmg
     end,
     
+    
     goodForMelee = function()
       return true
     end,
+    
     
     range = function()
       return range
     end,
     
+    
     onSelect = function(cell,selector)
     end,
+
 
     actions = function(self, item, hero)
       return {}
     end,
 
+
     execute = function(self, item, hero, action)
     end,
+    
     
     isIdentified = function(self)
       return false

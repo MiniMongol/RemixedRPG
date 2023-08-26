@@ -127,10 +127,9 @@ return buff.init{
          hero:collect(RPD.item("ModRatArmor"))
     end
      
-      
-      if hero:getSubClass() ~= subClass.none  then 
+      if tostring(hero:getSubClass()) ~= "NONE" and subClass.actv then 
         hero:setSubClass(HeroSubClass.NONE)
-        storage.gamePut("subClassNone",{none = HeroSubClass.NONE, actv = 1})
+        storage.gamePut("subClassNone",{none = HeroSubClass.NONE, actv = false})
         RPD.glog(RPD.textById("KydaLezem"))
       end
       
@@ -149,22 +148,28 @@ return buff.init{
     {
     BoneGolem_lvl1=false,
     BoneGolem_lvl2=false,
-    BoneGolem_lvl3=false
+    BoneGolem_lvl3=false,
+    Sheep = false
     }
     
       local levelW = RPD.Dungeon.level:getWidth()
-        local levelH = RPD.Dungeon.level:getHeight()
+      local levelH = RPD.Dungeon.level:getHeight()
       if RPD.Dungeon.depth ~= 0 then
         for i = 0, levelW do
           for j = 0, levelH do
             local cell = RPD.Dungeon.level:cell(i,j)
             local enemy = RPD.Actor:findChar(cell)
-            if enemy and enemy ~= RPD.Dungeon.hero and enemy:buffLevel("PowerBuff") == 0 and mobsExeptions[enemy:name()] ~= false then
-              RPD.permanentBuff(enemy,"PowerBuff")
-              local addHp = RPG.smartInt(-5 +1.2*RPD.Dungeon.depth  +4*(RPD.Dungeon.depth%5))
+            if enemy and enemy ~= RPD.Dungeon.hero and enemy:buffLevel("PowerBuff") == 0 and mobsExeptions[enemy:getMobClassName()] ~= false then
+
+           RPD.permanentBuff(enemy,"PowerBuff")
+              local bossLvl = 0
+              if depth == 5 then
+                bossLvl = depth%5
+              end
+              local addHp = RPG.smartInt(-5 +2*depth  +8*(depth%5) + 10*bossLvl)
               if enemy:hp() < enemy:ht() then
-                enemy:ht(enemy:ht() +enemy:ht()*0.02*depth + addHp)
-                enemy:hp(enemy:hp() +enemy:ht()*0.02*depth + addHp)
+                enemy:ht(enemy:ht() + addHp)
+                enemy:hp(enemy:hp() + addHp)
               else
                 enemy:ht(enemy:ht() +enemy:ht()*0.02*depth + addHp)
                 enemy:hp(enemy:ht())

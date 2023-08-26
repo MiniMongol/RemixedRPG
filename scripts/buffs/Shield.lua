@@ -8,24 +8,22 @@ local RPG  = require "scripts/lib/Functions"
 local storage = require "scripts/lib/storage"
 
 local buff = require "scripts/lib/buff"
-local a = "sealofki"
-local Spell = storage.gameGet(a) or {}
 local hero = RPD.Dungeon.hero
 local num = 0
 local shield
 local shield2
 
 return buff.init{
-    desc  = function ()
-      shield = math.ceil(RPG.magStr()*0.35) +10 +4*Spell.lvl
-      shield2 = shield
+    desc  = function(self, buff)
+      shield = buff.level
+      shield2 = buff.level
         return {
             icon          = 57,
-            info          = "SealOfKi_BuffD",
+            info          = "Shield_BuffD",
         }
     end,
 name = function()
-return RPD.textById("SealOfKi_BuffN").." "..tostring(shield).."/"..tostring(shield2)
+return RPD.textById("Shield_BuffN").." "..tostring(shield).."/"..tostring(shield2)
 end,
 
 defenceProc = function(self, buff, enemy, damage)

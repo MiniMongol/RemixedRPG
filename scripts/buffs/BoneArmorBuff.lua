@@ -30,34 +30,31 @@ return buff.init{
     end,
     
     defenceProc = function(self,buff,enemy,damage)
-      acc = acc - math.ceil(damage*0.5)
+      acc = acc - math.ceil(damage*0.1)
       return damage
     end,
     
     drBonus = function(self,buff)
      local Count = storage.gameGet(a) or {}
-     return math.ceil(RPG.magStr()*(0.35 + 0.1*scale) + 2*Count.lvl)
+     return math.ceil(RPG.magStr()*(0.1 + 0.05*scale) + 2*Count.lvl)
     end,
-    
-    speedMultiplier = function(self, buff)
-        return 0.7 + RPG.AllFast()*0.2
-    end,
+  
     
     detach = function(self,buff)
       hero = RPD.Dungeon.hero
       level = RPD.Dungeon.level
       if buff.target == hero then
         if (hero:getSkillPoints() + acc) > hero:getSkillPointsMax() then
-          hero:setSkillPoints(hero:getSkillPointsMax())
           acc = acc - (hero:getSkillPointsMax() - hero:getSkillPoints())
+          hero:setSkillPoints(hero:getSkillPointsMax())
         else
           hero:setSkillPoints(hero:getSkillPoints() + acc)
           acc = 0
         end
       else
         if buff.target:hp() + acc > buff.target:ht() then
-          buff.target:hp(buff.target:ht())
           acc = acc - (buff.target:ht() - buff.target:hp())
+          buff.target:hp(buff.target:ht())
         else
           buff.target:heal(acc,buff.target)
           acc = 0

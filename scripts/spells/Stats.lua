@@ -323,7 +323,7 @@ return spell.init{
      storage.gamePut("choosedArrows",{is = "missiles/CommonArrow"})
      storage.gamePut("heroSteps",{steps = 0})
      
-     storage.gamePut("subClassNone",{none = hero:getSubClass()})
+     storage.gamePut("subClassNone",{none = hero:getSubClass(), actv = true})
      RPGbuff = RPD.permanentBuff(hero,"RPGbuff")
      
      RPG.sPoints = 32

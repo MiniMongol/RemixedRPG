@@ -22,6 +22,7 @@ forgedArmor.makeArmor = function(self)
         }
       end,
     
+    
     info = function(self,item)
       hero = RPD.Dungeon.hero
       
@@ -35,21 +36,26 @@ forgedArmor.makeArmor = function(self)
       end
     end,
     
+    
     image = function(self)
       return self.data.icon
     end,
+    
     
     name = function(self)
       return self.data.name
     end,
     
+ 
     getVisualName = function(self) 
       return self.data.visualName
     end,
+  
     
     hasHelmet = function() 
       return true
     end,
+    
     
     statsRequirementsSatisfied = function(self,item)
       str = math.max(self.data.str-2*item:level(),1)
@@ -60,13 +66,16 @@ forgedArmor.makeArmor = function(self)
       end
     end,
 	
+	
 	effectiveDr = function(self,item)
 	  return self.data.dr + item:level()*self.data.tier
 	end,
+
 	
 	typicalDR = function(self,item)
 	  return self.data.dr
 	end,
+   
    
     activate = function(self,item,user)
       hero = RPD.Dungeon.hero
@@ -77,6 +86,7 @@ forgedArmor.makeArmor = function(self)
           self.data.activationCount = 1
       end
     end,
+   
     
     deactivate = function(self,item,user)
       hero = RPD.Dungeon.hero
@@ -87,28 +97,35 @@ forgedArmor.makeArmor = function(self)
       end
     end,
 
+
     typicalSTR = function(self,item,user)
 	  str = math.max(self.data.str-2*item:level(),1)
       return str
     end,
+
     
     requiredSTR = function(self,item,user)
       return str
     end,
 
+
     onSelect = function(cell,selector)
     end,
+
 
     actions = function(self, item, hero)
       return {}
     end,
 
+
     execute = function(self, item, hero, action)
     end,
-		
-		price = function(self,item)
-      return self.data.dr*(item:level()+1)*self.data.tier*10 +2^(self.data.tier-1)-4^math.max(self.data.tier-10,0)+50*(self.data.tier-1)*item:level() +RPG.conversionStatsToGold(self.data.dstats,self.data.addstats,0,0,1,"armor")
+		 
+		 
+		 price = function(self,item)
+      return math.max(self.data.dr*(item:level()+1)*self.data.tier*2 + RPG.conversionStatsToGold(self.data.dstats,self.data.addstats,0,0,1,"armor"),10)
     end
+
 }
 end
 return forgedArmor

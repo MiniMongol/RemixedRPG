@@ -15,7 +15,10 @@ return mob.init{
         
   die = function(enemy, self, cell, dmg)
     local Spell = storage.gameGet(a) or {}
-          storage.gamePut(a,{exp = Spell.exp, expMax = Spell.expMax, lvl = Spell.lvl, summon = Spell.summon-1, summonMax = Spell.summonMax})
+    
+    if Spell.summon ~= 0 then
+      storage.gamePut(a,{exp = Spell.exp, expMax = Spell.expMax, lvl = Spell.lvl, summon = Spell.summon-1, summonMax = Spell.summonMax})
+      end
     return dmg
   end
 }

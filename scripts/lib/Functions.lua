@@ -12,37 +12,45 @@ local RPG
  
  noBloodMobs =
     {
-    BoneGolem_lvl1="false",
-    BoneGolem_lvl2="false",
-    BoneGolem_lvl3="false",
-    Skeleton = "false",
-    DM300 = "false",
-    Goo = "false",
-    EarthElemental = "false",
-    WaterElemental = false,
-    FireElemental = "false",
-    AirElemental = "false",
-    Golem = "false",
-    SpiritOfPain = "false",
-    Statue = "false",
-    Wraith = "false",
-    IceElemental = "false",
-    Crystal = "false",
-    ArmoredStatue = "false",
-    GoldenStatue = "false",
-    Shadow = "false",
-    Undead = "false",
-    ShadowLord = "false",
-    TreacherousSpirit = "false",
-    IceGuardianCore = "false",
-    IceGuardian = "false",
-    EnslavedSoul = "false",
-    ExplodingSkull = "false",
-    JarOfSouls = "false",
-    Lich = "false",
-    RunicSkull = "false"
+    BoneGolem_lvl1 = 0,
+    BoneGolem_lvl2 = 0,
+    BoneGolem_lvl3 = 0,
+    Skeleton = 0,
+    DM300 = 0,
+    Goo = 0,
+    EarthElemental = 0,
+    WaterElemental = 0,
+    FireElemental = 0,
+    AirElemental = 0,
+    Golem = 0,
+    SpiritOfPain = 0,
+    Statue = 0,
+    Wraith = 0,
+    IceElemental = 0,
+    Crystal = 0,
+    ArmoredStatue = 0,
+    GoldenStatue = 0,
+    Shadow = 0,
+    Undead = 0,
+    ShadowLord = 0,
+    TreacherousSpirit = 0,
+    IceGuardianCore = 0,
+    IceGuardian = 0,
+    EnslavedSoul = 0,
+    ExplodingSkull = 0,
+    JarOfSouls = 0,
+    Lich = 0,
+    RunicSkull = 0
     
     },
+    
+    haveBlood = function(mobName)
+      local bool = RPG.noBloodMobs[mobName]
+      if bool == nil then
+        bool = 1
+      end
+      return bool
+    end,
  
  Objects ={
  Ui={
@@ -487,8 +495,8 @@ local RPG
      Spear = {"phys","stab"},
      Bow = {"phys","stab"},
      Crossbow = {"phys","stab"},
-     MagicStaff = {"mag",""},
-     MagicWand = {"mag",""}
+     MagicStaff = {"magic","mag"},
+     MagicWand = {"magic","mag"}
    }
    
    local objectDrType = {
@@ -897,13 +905,19 @@ local RPG
          
  		end
     if mode == "armor" then
+    
     for j = 9,22 do 
-      local modeStat = stats[j]
+    
+      if j<18 then
+        local modeStat = stats[j]
          
-    	for jj = 1,2 do
-      	gold = gold + modeStat[jj]*gAddStats[jj]
+    	  for jj = 1,2 do
+      	  gold = gold + modeStat[jj]*gAddStats[jj]
+    	  end
     	end
+    	
     end
+    
     else
   	for j = 1, 28 do
   	  if j<10 or j>14 then
@@ -1680,6 +1694,11 @@ local RPG
     y= hy-ey
    end
    return math.max(x,y)-1
+ end,
+ 
+ 
+ polyglot = function(textId)
+   RPD.glog(RPD.textById(textId))
  end,
  
  

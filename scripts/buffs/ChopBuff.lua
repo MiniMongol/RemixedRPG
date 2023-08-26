@@ -33,7 +33,7 @@ return buff.init{
      Spell.lvl = Spell.lvl+1
      end
     
-    if RPG.noBloodMobs[enemy:name()] ~= "false" then
+    if RPG.haveBlood(enemy:getMobClassName()) then
       local buffs = RPD.affectBuff(enemy,"FastBleeding",2)
       buffs:level( RPG.smartInt( RPG.physStr()*0.1) )
       RPD.topEffect(enemy:getPos(),"bleeding_effect")
