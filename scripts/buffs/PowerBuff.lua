@@ -12,6 +12,10 @@ local hero = RPD.Dungeon.hero
 local depth = RPD.Dungeon.depth
 
 local level
+
+
+local dmgModifDefault = { mod = 0, dmg = 0, type = { "", "" }, element = { "", "" }, loot = {}, chance = {} }
+
 local dmgModifs = {
     BoneGolem_lvl1 = { mod = 0, dmg = 0, type = { "phys", "" }, element = { "crush", "" }, loot = {}, chance = {} },
     BoneGolem_lvl2 = { mod = 1, dmg = 5, type = { "phys", "phys" }, element = { "crush", "dark" }, loot = {}, chance = {} },
@@ -127,7 +131,7 @@ return buff.init {
         depth = RPD.Dungeon.depth
         local totalDmg = damage + RPG.smartInt(-0.8 + 0.25 * depth + 2 * (depth % 5))
 
-        local mobModifs = dmgModifs[buff.target:getMobClassName()]
+        local mobModifs = dmgModifs[buff.target:getMobClassName()] or dmgModifDefault
 
         --don't crash if no modifier defined
         if not mobModifs then
@@ -169,7 +173,7 @@ return buff.init {
 
     detach = function(self, buff)
         local pos = buff.target:getPos()
-        local mobModifs = dmgModifs[buff.target:getMobClassName()]
+        local mobModifs = dmgModifs[buff.target:getMobClassName()] or dmgModifDefault
         local level = RPD.Dungeon.level
         local loot = mobModifs["loot"] or ""
         local chance = mobModifs["chance"]
