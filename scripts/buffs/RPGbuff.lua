@@ -41,7 +41,7 @@ return buff.init{
       hero = RPD.Dungeon.hero
       level = RPD.Dungeon.level
       depth = RPD.Dungeon.depth
-      subClass = storage.gameGet("subClassNone")
+      subClass = storage.gameGet("subClassNone", {none = "", actv = 1})
       local Spells = require "scripts/spells/CustomSpellsList"
       local weapon = hero:getBelongings().weapon
       local lefthand = hero:getBelongings().leftHand
