@@ -24,17 +24,20 @@ return trap.init(
           for j = y -1, y +1 do
           level = RPD.Dungeon.level
           local enemy = RPD.Actor:findChar(level:cell(i,j))
-            if enemy and level:cell(i,j) ~= cell then
-            if enemy then
+          if enemy then
+            if enemy == hero then
+              break
+            end
+            if level:cell(i,j) ~= cell then
               RPG.damage(enemy,math.ceil(RPG.physStr()*(0.3+0.5*Spell.BT)),"phys",{"fire","crush"})
-              end
               
               else
-              if enemy then
+            
               RPG.damage(enemy,math.ceil(RPG.physStr()*(0.5+0.6*Spell.BT)),"phys",{"fire","crush"})
-              end
               
+              end
             end
+            
           end
         end
     end

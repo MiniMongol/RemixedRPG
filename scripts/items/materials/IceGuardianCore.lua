@@ -28,10 +28,10 @@ desc  = function(self, item)
               exp = 30,
               stats =
               {20,
-               0,
+               20,
+               15,
                15,
                0,
-               5,
                10,
                0,
                0},
@@ -56,7 +56,7 @@ desc  = function(self, item)
                {-1,-0.02},
                {-4,-0.12},
                {-3,-0.06}},
-              dr = 3,
+              dr = 4,
               
               weapon = 
               {{0,0},
@@ -114,7 +114,7 @@ desc  = function(self, item)
   	
     
     typicalStr = function()
-     return 
+     return str
     end,
     
     

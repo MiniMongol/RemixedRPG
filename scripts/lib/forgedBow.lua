@@ -113,8 +113,8 @@ forgedWeapon.makeWeapon = function()
         hero = RPD.Dungeon.hero
         if self.data.activationCount == 1 then
           RPG.delStats("StatsA")
-          self.data.activationCount = 0
           RPG.decreaseHtSp(self.data.dstats)
+          self.data.activationCount = 0
         end
     end,
     

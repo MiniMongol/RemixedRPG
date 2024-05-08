@@ -69,7 +69,7 @@ desc  = function(self, item)
                {0,0},
                {0,0},
                
-               {0,0},
+               {10,0},
                {0.15,0},
                {0.25,0.01},
                {0.15,0},
@@ -89,8 +89,8 @@ desc  = function(self, item)
                {0,0},
                {0,0}},
               dmg = 
-              {0.55,
-               1.25},
+              {0,
+               0},
               delay = 0,
               accuracy = 0,
               range = 0

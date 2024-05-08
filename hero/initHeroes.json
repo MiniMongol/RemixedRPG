@@ -1,19 +1,34 @@
 {
   "common": {
-      
-
     "items": [
-      {
-        "kind":"Gold",
-        "quantity": 300
-      },
-      {
-        "kind": "ModClothArmor",
-        "quantity":1
-      }
+        {
+            "kind":"materials/SpiderQueenMandible",
+            "quantity":1
+        },
+        {
+          "kind":"materials/leather",
+          "quantity":100
+        },
+        {
+          "kind":"consume/LuckPotion"
+        },
+        {
+          "kind":"materials/SkeletonBone",
+          "quantity":100
+        },
+        {
+            "kind": "Terminal"
+        },
+        {
+          "kind":"materials/IceGuardianCore"
+        },
+                {
+          "kind":"PotionOfExperience",
+          "quantity":100
+        }
     ],
     "str":9,
-    "hp": 15,
+    "hp": 10,
     "magicAffinity": "Common",
     "sp": 1,
     "maxSp": 1

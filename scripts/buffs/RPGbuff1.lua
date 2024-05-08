@@ -314,4 +314,11 @@ return buff.init{
       return damage
      end
     end
+}    else
+      return damage
+      end
+     else
+      return damage
+     end
+    end
 }

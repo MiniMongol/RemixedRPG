@@ -21,7 +21,7 @@ local dmgModifs = {
    Statue = {mod = 0, dmg = 0, type={"phys",""}, element = {"",""}, loot ={}, chance ={}},
    Wraith = {mod = 3, dmg = 0.8, type = {"phys","mag"}, element = {"crush","dark"},loot ={}, chance ={}},
    Piranha = {mod = 0, dmg = 0, type = {"phys",""}, element = { {"cut","chop"} ,""},loot ={}, chance ={}},
-   Mimic = {mod = 0, dmg = 0, type = {"phys",""}, element = { {"cut","chop"},""},loot ={}, chance ={}},
+   Mimic = {mod = 0, dmg = 0, type = {"phys",""}, element = {"chop",""},loot ={}, chance ={}},
    MimicPie = {mod = 0, dmg = 0, type = {"phys",""}, element = { {"cut","chop"},""},loot ={}, chance ={}},
    IceElemental = {mod = 3, dmg = 0.2, type = {"mag","phys"}, element = {"ice","stab"},loot ={"materials/IceElmntCore"}, chance ={20}},
    WaterElemental = {mod = 0, dmg = 0, type = {"mag",""}, element = {"water",""},loot ={"materials/WaterElmntCore"}, chance ={20}},
@@ -54,7 +54,7 @@ local dmgModifs = {
    Shaman = {mod = 0, dmg = 0, type = {"mag",""}, element = {"lightning",""},loot ={"materials/ShamanMask"}, chance ={40}},
    Spinner = {mod = 1, dmg = 6, type = {"phys","mag"}, element = {"cut","poison"},loot ={"materials/SpiderFang"}, chance ={40}},
    Shielded = {mod = 0, dmg = 0, type = {"phys",""}, element = {"crush",""},loot ={"materials/PieceOfShield"}, chance ={50}}, 
-   DM400 = {mod = 2, dmg = 8, type = {"phys","phys"}, element = {"stab","crush"},loot ={"materials/PieceOfDM400"}, chance ={20}},
+   DM300 = {mod = 2, dmg = 8, type = {"phys","phys"}, element = {"stab","crush"},loot ={"materials/PieceOfDM300"}, chance ={20}},
    
    Monk = {mod = 0, dmg = 0, type = {"phys",""}, element = {"crush",""},loot ={"materials/MonkTooth"}, chance ={40}},
    Warlock = {mod = 0, dmg = 0, type = {"mag",""}, element = {"dark",""},loot ={"materials/WispOfBeard"}, chance ={40}},

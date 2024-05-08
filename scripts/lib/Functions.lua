@@ -47,7 +47,7 @@ local RPG
     haveBlood = function(mobName)
       local bool = RPG.noBloodMobs[mobName]
       if bool == nil then
-        bool = 1
+        bool = 0
       end
       return bool
     end,
@@ -1059,13 +1059,6 @@ local RPG
   
   
   dmgText = function(type,elmnt,enemy)
-  
-    color = 0xffffff
-    if type == "phys" then 
-      color = 0xffff00
-    elseif type == "mag" then 
-      color = 0x33ccff
-    end
     
     if #elmnt == 2 then
       
@@ -1109,8 +1102,8 @@ local RPG
    local dr = 0
    local elmnt = element
 
-   if enemy then
-   if enemy:name() == hero:name() or enemy:getMobClassName() == "MirrorImage" then
+   if enemy:invalid() ~= true then
+   if enemy:name() == hero:name() or enemy:name() == "MirrorImage" then
      local coefs = RPG.getElementCoef(elmnt)
      pCoef = coefs[1]
      fCoef = coefs[2]

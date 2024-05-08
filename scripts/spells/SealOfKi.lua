@@ -76,7 +76,7 @@ return spell.init{
     end
     
     if enemy == RPD.Dungeon.hero then
-       RPD.affectBuff(RPD.Dungeon.hero,"SealShield",2+lvl)
+       RPD.affectBuff(RPD.Dungeon.hero,"Shield",2+lvl)
     else
       pos = RPD.Ballistica:cast(RPD.Dungeon.hero:getPos(),cell,true,true,true)
       enemy = RPD.Actor:findChar(pos)

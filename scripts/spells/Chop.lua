@@ -11,8 +11,6 @@ local spell = require "scripts/lib/spell"
 
 local storage = require "scripts/lib/storage"
 
-local event = require "event"
-
 local lvl
 local expMax
 local exp
@@ -43,10 +41,6 @@ return spell.init{
         }
     end,
     
-    function f()
-      RPD.glog("1")
-    end,
-    
     cast = function(self, spell, chr, cell)
     Count = storage.gameGet(a) or {}
     if Count.lvl ~= nil then
@@ -66,7 +60,7 @@ return spell.init{
      expMax = 6
      storage.gamePut(a,{exp = exp, expMax = expMax, lvl = lvl})
     end
-    local t = event.timer(10,f,2)
+    chr:spend(-1)
     RPD.removeBuff(RPD.Dungeon.hero,"ChopBuff")
     RPD.permanentBuff(RPD.Dungeon.hero, "ChopBuff")
  return true

@@ -110,7 +110,7 @@ forgedWeapon.makeWeapon = function()
       local dmg = RPG.getDamage(user:getEnemy(),dmgRoll,"mag","")
       
       local chanceRoll = math.random(1,12)
-      if chanceRoll <= 2 +hits +self.data.rareScale and dmg > 0 then
+      if chanceRoll <= 2 +(hits or 0) + (self.data.rareScale or 0) and dmg > 0 then
         hits = 0
         dmg = math.max(dmg + RPG.getDamage(user:getEnemy(),0,"mag","")*(0.5 +0.1*self.data.rareScale), RPG.getDamage(user:getEnemy(),0,"magic","")*(1 +0.1*self.data.rareScale) )
         RPG.flyText(user:getEnemy(),RPD.textById("stabbed"),"red")

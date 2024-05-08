@@ -19,6 +19,8 @@ local spell = require "scripts/lib/spell"
 
 local HeroSubClass = luajava.bindClass("com.watabou.pixeldungeon.actors.hero.HeroSubClass")
 
+local startPoints = 32
+
 local stats = ""
 
 local sList = "spelllist"
@@ -326,7 +328,7 @@ return spell.init{
      storage.gamePut("subClassNone",{none = hero:getSubClass(), actv = true})
      RPGbuff = RPD.permanentBuff(hero,"RPGbuff")
      
-     RPG.sPoints = 32
+     RPG.sPoints = startPoints
      RPG.spRegen = 1
      RPG.physicStr = 1
      RPG.magicStr = 1

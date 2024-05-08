@@ -207,6 +207,8 @@ chooseMaterials = function(index)
           hero:collect(weapon,1)
         end
         
+        hero:spend(20)
+        
         smithy.finalMaterials={{},{}}
         smithy.goldForBuy = 0
         smithy.thisTwohanded = false
