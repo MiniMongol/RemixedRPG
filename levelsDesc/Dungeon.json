@@ -10,7 +10,7 @@
 	  "library_2":{"kind":"PredesignedLevel", "depth":0, "file":"levelsDesc/Library_2021_03.json","noFogOfWar":"true", "isSafe":true,  "music":"ost_town_1","maxBrightness":1.05},
       "inn_2":{"kind":"PredesignedLevel", "depth":0, "file":"levelsDesc/Inn_2021_03.json","noFogOfWar":"true", "isSafe":true, "music":"ost_town_1","maxBrightness":1.05},
       "shop_town_2":{"kind":"PredesignedLevel", "depth":0, "file":"levelsDesc/Shop_2021_03.json","noFogOfWar":"true", "isSafe":true, "music":"ost_town_1","treasury":"TownShopTreasury.json","maxBrightness":1.05},
-      "blacksmith_shop":{"kind":"PredesignedLevel", "depth":0, "file":"levelsDesc/Blacksmith_Shop.json","noFogOfWar":"true", "isSafe":true, "music":"ost_town_1","maxBrightness":1.05},
+      "Blacksmith_shop":{"kind":"PredesignedLevel", "depth":1, "file":"levelsDesc/Blacksmith_shop.json","noFogOfWar":"true", "isSafe":true, "music":"ost_town_1","maxBrightness":1.05},
       
 
       "portal_room_lvl5":{"kind":"PredesignedLevel" , "depth":5 , "file":"levelsDesc/Portal.json", "isSafe":true, "music":"ost_portal_level"},
@@ -75,8 +75,8 @@
    "Graph":{
     "0":[["town_2"],[]],
 
-    "town_2":[["church_2","cinema_2","1","library_2","shop_town_2","fortune_2","inn_2","blacksmith_shop"],["0"]],
-    "blacksmith_shop":[[],["town_2"]],
+    "town_2":[["church_2","cinema_2","1","library_2","shop_town_2","fortune_2","inn_2","Blacksmith_shop"],["0"]],
+    "Blacksmith_shop":[[],["town_2"]],
     "inn_2":[[],["town_2"]],
 	  "church_2":[[],["town_2"]],
 	  "shop_town_2":[[],["town_2"]],

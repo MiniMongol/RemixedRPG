@@ -44,7 +44,10 @@ return buff.init{
     end,
     
     speedMultiplier = function(self, buff)
-        return RPG.baseSpeed()*0.2
+      local hero = RPD.Dungeon.hero
+      local armor = hero:getBelongings().armor
+   
+      return math.max(0.1, ((0.8 +RPG.AllFast()*0.04) -0.05*RPD.Dungeon.depth -0.025*(math.max(0,armor:requiredSTR()-RPG.physStr())) ))
     end,
     
     attackProc = function(self,buff,enemy,damage)

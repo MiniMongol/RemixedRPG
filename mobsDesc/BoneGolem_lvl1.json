@@ -6,7 +6,7 @@
 "dr":2,
 "dmgMin":1,
 "dmgMax":2,
-"baseSpeed":1.25,
+"baseSpeed":1,
 "attackDelay":1,
 "ht":10,
 "name":"BoneGolem1_Name",

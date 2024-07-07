@@ -1260,9 +1260,9 @@ local RPG
  baseSpeed = function()
    local hero = RPD.Dungeon.hero
    local armor = hero:getBelongings().armor
-   local a =armor:requiredSTR()-1
+   local a = math.max(0,armor:requiredSTR()-1)
    
-   return math.max(0.1, ((0.8 +RPG.AllFast()*0.04) -0.05*RPD.Dungeon.depth -0.025*(math.min(0,armor:requiredSTR()-RPG.physStr())) ))*math.pow(1.3,a)
+   return math.max(0.1, ((0.8 +RPG.AllFast()*0.04) -0.05*RPD.Dungeon.depth -0.025*(math.max(0,armor:requiredSTR()-RPG.physStr())) ))*math.pow(1.3,a)
  end,
  
   plus = function(int)
@@ -1693,6 +1693,14 @@ local RPG
  polyglot = function(textId)
    RPD.glog(RPD.textById(textId))
  end,
+ 
+  chNameOnCell = function(cell)
+    if RPD.Actor:findChar(cell) then
+      return RPD.Actor:findChar(cell):getMobClassName()
+    else
+      return ""
+    end
+  end,
  
  
  spawnMob = function(mob, pos, thisIsAPet)

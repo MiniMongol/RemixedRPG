@@ -19,6 +19,7 @@ local summonMax
 local a = "bonegolem"
 local b = "gsc"
 local golems = {"BoneGolem_lvl1","BoneGolem_lvl2","BoneGolem_lvl3"}
+local golems2 = {BoneGolem_lvl1=1,BoneGolem_lvl2=1,BoneGolem_lvl3=1, null=0}
 
 return spell.init{
     desc  = function ()
@@ -48,6 +49,7 @@ return spell.init{
     castOnCell = function(self, spell, chr, cell)
     local hero = RPD.Dungeon.hero
     local level = RPD.Dungeon.level
+    local charOnCell = RPD.Actor:findChar(cell)
     Count = storage.gameGet(a) or {}
     if hero:lvl() <= 4 then
      RPG.polyglot("LvlLimit")
@@ -67,14 +69,18 @@ return spell.init{
       RPG.polyglot("SummoningBoneGolemLimit")
       return false
      else
-       charOnCell = RPD.Actor:findChar(cell)
        if charOnCell == hero then
          summon = 0
          storage.gamePut(a,{exp = exp, expMax = expMax, lvl = lvl, summon = summon, summonMax = summonMax,})
          RPG.polyglot("BoneGolemOff")
          return false
+      else
+        if golems2[RPG.chNameOnCell(cell)] then
+          charOnCell:die()
+          return false
+        end
       end
-       
+    
       RPD.playSound("snd_cursed.ogg")
       exp = exp+1
      end
