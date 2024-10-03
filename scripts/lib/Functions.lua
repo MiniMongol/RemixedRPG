@@ -1259,10 +1259,10 @@ local RPG
  
  baseSpeed = function()
    local hero = RPD.Dungeon.hero
-   local armor = hero:getBelongings().armor
-   local a = math.max(0,armor:requiredSTR()-1)
+   local armor = hero:getItemFromSlot("ARMOR")
+   local a = math.max(0,armor:typicalSTR()-1)
    
-   return math.max(0.1, ((0.8 +RPG.AllFast()*0.04) -0.05*RPD.Dungeon.depth -0.025*(math.max(0,armor:requiredSTR()-RPG.physStr())) ))*math.pow(1.3,a)
+   return math.max(0.1, ((0.8 +RPG.AllFast()*0.04) -0.05*RPD.Dungeon.depth -0.005*(math.max(0,armor:typicalSTR()-RPG.physStr())) ))*math.pow(1.3,a)
  end,
  
   plus = function(int)

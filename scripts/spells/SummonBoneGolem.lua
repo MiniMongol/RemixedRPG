@@ -60,14 +60,14 @@ return spell.init{
       return false
     end
     if Count.lvl ~= nil then
-     lvl = Count.lvl
-     exp = Count.exp
-     expMax = Count.expMax
-     summon = Count.summon
-     summonMax = Count.summonMax
-     if level:getTileType(cell) == 4 or level:getTileType(cell) == 12 or RPG.distance(cell) > 2 then
-      RPG.polyglot("SummoningBoneGolemLimit")
-      return false
+      lvl = Count.lvl
+      exp = Count.exp
+      expMax = Count.expMax
+      summon = Count.summon
+      summonMax = Count.summonMax
+      if level:getTileType(cell) == 4 or level:getTileType(cell) == 12 or RPG.distance(cell) > 2 then
+        RPG.polyglot("SummoningBoneGolemLimit")
+        return false
      else
        if charOnCell == hero then
          summon = 0

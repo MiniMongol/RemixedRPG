@@ -78,7 +78,7 @@ onehandWeapon.makeWeapon = function(name,mod,stra,minDmg,maxDmg,tier,accuracy,de
     end,
     
     typicalSTR = function(self,item,user)
-	  str = math.max(stra-2*item:level(),1)
+  	  str = math.max(stra-2*item:level(),1)
       return str
     end,
 	
@@ -87,6 +87,7 @@ onehandWeapon.makeWeapon = function(name,mod,stra,minDmg,maxDmg,tier,accuracy,de
 	end,
     
     requiredSTR = function(self,item,user)
+      str = math.max(stra-2*item:level(),1)
       return str
     end,
     

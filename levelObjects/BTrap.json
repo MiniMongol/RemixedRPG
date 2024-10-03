@@ -1,0 +1,17 @@
+{
+  "kind":"CustomObject",
+  "script":"BTrap",
+
+  "appearance": {
+    "desc": {
+      "desc": "object_BTrap_info",
+      "name": "object_BTrap_name"
+    },
+    "sprite":{
+      "textureFile": "levelObjects/bandit_traps.png",
+      "width":16,
+      "height":16,
+      "imageIndex" : 4
+    }
+  }
+}

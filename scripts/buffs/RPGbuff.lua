@@ -39,6 +39,12 @@ return buff.init{
         }
     end,
     
+    
+    speedMultiplier = function(self, buff)
+      return RPG.baseSpeed()
+    end,
+    
+    
     charAct = function(self,buff)
       local Stats = storage.gameGet(stats) or {}
       hero = RPD.Dungeon.hero
@@ -49,7 +55,7 @@ return buff.init{
       local weapon = hero:getBelongings().weapon
       
       local lefthand = hero:getBelongings().leftHand
-	    local armor = hero:getBelongings().armor
+	    local armor = hero:getItemFromSlot("ARMOR")
  	    local artifact = hero:getBelongings().ring1
 	    local leftArtifact = hero:getBelongings().ring2
 	    local StatsA = RPG.StatsA
@@ -57,8 +63,6 @@ return buff.init{
 	    local StatsB = RPG.StatsB
 	    local StatsArt = RPG.StatsArt
 	    local StatsArt2 = RPG.StatsArt2
-	  
-	  
       Spells.Combat = Que.getMas("spelllist")
       
       if hero:isStarving() then
@@ -77,10 +81,6 @@ return buff.init{
         storage.gamePut(stats, {str = RPG.strength, int = RPG.intelligence, dex = RPG.dexterity, vit = RPG.vitality, wis = RPG.wisdom, luc = RPG.luck, lvlT = RPG.lvlToUp, magS = RPG.magicStr, phyS = RPG.physicStr, fast = RPG.fast, sP = RPG.sPoints, spR = RPG.spRegen,magDef = RPG.magDef, class = RPG.class, subclass = RPG.subclass})
         storage.gamePut(tostring(hero:lvl()), {str = RPG.strength, int = RPG.intelligence, dex = RPG.dexterity, vit = RPG.vitality, wis = RPG.wisdom, luc = RPG.luck, lvlT = RPG.lvlToUp, magS = RPG.magicStr, phyS = RPG.physicStr, fast = RPG.fast, sP = RPG.sPoints, spR = RPG.spRegen,magDef = RPG.magDef, class = RPG.class, subclass = RPG.subclass, spells = Que.getMas("spelllist")})	
       end
-      
-      local heroSteps = storage.gameGet("heroSteps", {steps = 1})
-      storage.gamePut("heroSteps",{steps = heroSteps.steps +1})
-      
       
       if RPG.luck == nil then
 
@@ -243,7 +243,8 @@ return buff.init{
         storage.gamePut(stats, {str = RPG.strength, int = RPG.intelligence, dex = RPG.dexterity, vit = RPG.vitality, wis = RPG.wisdom, luc = RPG.luck, lvlT = RPG.lvlToUp, magS = RPG.magicStr, phyS = RPG.physicStr, fast = RPG.fast, sP = RPG.sPoints, spR = RPG.spRegen,magDef = RPG.magDef, class = RPG.class, subclass = RPG.subclass})
 		storage.gamePut(tostring(hero:lvl()), {str = RPG.strength, int = RPG.intelligence, dex = RPG.dexterity, vit = RPG.vitality, wis = RPG.wisdom, luc = RPG.luck, lvlT = RPG.lvlToUp, magS = RPG.magicStr, phyS = RPG.physicStr, fast = RPG.fast, sP = RPG.sPoints, spR = RPG.spRegen,magDef = RPG.magDef, class = RPG.class, subclass = RPG.subclass, spells = Que.getMas("spelllist")})	
       end
-    
+      
+      --Пассивка берсерка--
       if RPG.subclass == "Berserk" then
         RPG.physicStrBerserk = (hero:ht()-hero:hp())*0.4
       end
@@ -254,14 +255,11 @@ return buff.init{
         num = 0
        end
      end,
-    
-    speedMultiplier = function(self, buff)
-        return RPG.baseSpeed()
-    end,
+
     
     regenerationBonus = function(self,buff)
-    
-        return 1 + buff.target:ht()*0.03
+      buff:speedMultiplier()
+      return 1 + buff.target:ht()*0.03
     end,
     
     attackProc = function(self,buff,enemy,damage)
@@ -301,17 +299,17 @@ return buff.init{
     end,
     
     defenceProc = function(self, buff, enemy, damage)
-    hero = RPD.Dungeon.hero
-     if RPG.dexterity ~= nil then
-     if math.random(1,120+enemy:attackSkill()) <= (RPG.AllLuck()*0.5)*luckBonus + RPG.AllFast()*0.25 then
-     hero:getSprite():showStatus(0xffff00,RPD.textById("block"))
-      RPD.glog(RPD.textById("Block0")..math.ceil(RPG.AllFast()*0.1 + hero:ht()*0.1 + RPG.physStr()*0.15)..RPD.textById("Block1"))
-      return damage - math.ceil(RPG.AllFast()*0.1 + RPG.physStr()*0.15 + hero:ht()*0.1)
+      hero = RPD.Dungeon.hero
+      if RPG.dexterity ~= nil then
+        if math.random(1,120+enemy:attackSkill()) <= (RPG.AllLuck()*0.5)*luckBonus + RPG.AllFast()*0.25 then
+          hero:getSprite():showStatus(0xffff00,RPD.textById("block"))
+          RPD.glog(RPD.textById("Block0")..math.ceil(RPG.AllFast()*0.1 + hero:ht()*0.1 + RPG.physStr()*0.15)..RPD.textById("Block1"))
+          return damage - math.ceil(RPG.AllFast()*0.1 + RPG.physStr()*0.15 + hero:ht()*0.1)
         else
-      return damage
+          return damage
+        end
+      else
+        return damage
       end
-     else
-      return damage
-     end
     end
 }

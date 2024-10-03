@@ -33,49 +33,24 @@ UP = 1
 
 local traps ={
 {
-kind = "Trap",
-uses = 1,
-trapKind = "scriptFile",
-script = "scripts/traps/FTrap",
-secret = true,
-activatedByMob = true,
-activatedByItem = true
+kind = "CustomObject",
+object_desc = "FTrap"
 },
 {
-kind = "Trap",
-uses = 1,
-trapKind = "scriptFile",
-script = "scripts/traps/BTrap",
-secret = true,
-activatedByMob = true,
-activatedByItem = true
+kind = "CustomObject",
+object_desc = "BTrap"
 } ,
 {
-kind = "Trap",
-uses = 1,
-trapKind = "scriptFile",
-script = "scripts/traps/CTrap",
-secret = true,
-activatedByMob = true,
-activatedByItem = true
+kind = "CustomObject",
+object_desc = "CTrap"
 } ,
 {
-kind = "Trap",
-uses = 1,
-trapKind = "scriptFile",
-script = "scripts/traps/ITrap",
-secret = true,
-activatedByMob = true,
-activatedByItem = true
+kind = "CustomObject",
+object_desc = "ITrap"
 } ,
 {
-kind = "Trap",
-uses = 1,
-trapKind = "scriptFile",
-script = "scripts/traps/PTrap",
-secret = true,
-activatedByMob = true,
-activatedByItem = true
+kind = "CustomObject",
+object_desc = "PTrap"
 }
 }
 
@@ -129,6 +104,7 @@ return spell.init{
         }
     end,
     castOnCell = function(self, spell, chr,cell)
+    local level = RPD.Dungeon.level
     
     if RPD.Dungeon.hero:lvl() <= 4 then
      RPD.glog(RPD.textById("LvlLimit"))
@@ -138,10 +114,11 @@ return spell.init{
       RPD.glog(RPD.textById("SubclassLimit"))
       return false
     end
-    if RPG.distance(cell) > 1 then
+    if RPG.distance(cell) > 1 and level:getTileType(cell) == 4 or level:getTileType(cell) == 12 then
       RPD.glog(RPD.textById("DistanceLimit"))
       return false
     end
+    
     
     Count = storage.gameGet(a) or {}
     if Count.lvl ~= nil then
