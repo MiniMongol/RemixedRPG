@@ -1,6 +1,6 @@
 {
    "SewerLevel":{
-      "1":{"Rat":1,"Gnoll":0.5,"Albino":0.03,"Void/Voidbug":1},
+      "1":{"Rat":1,"Gnoll":0.5,"Albino":0.03},
       "2":{"Rat":1,"Gnoll":1,"Crab":0.5,"Albino":0.05},
       "3":{"Rat":2,"Gnoll":4,"Crab":2,"Swarm":0.04,"Albino":0.1,"Woodlouise":1},
       "4":{"Rat":1,"Woodlouise":1,"Gnoll":2,"Crab":2,"Swarm":0.02,"Skeleton":0.01,"Thief":0.01,"Albino":0.05}
@@ -47,8 +47,7 @@
       "26":{"SuspiciousRat":1,"ZombieGnoll":2,"Worm":0.3,"Succubus":0.02},
       "27":{"SuspiciousRat":2,"ZombieGnoll":1,"Worm":1,"Eye":1},
       "28":{"SuspiciousRat":1,"ZombieGnoll":1,"Worm":2,"FireElemental":0.02},
-	  "29":{"SuspiciousRat":2,"ZombieGnoll":1,"Worm":2},
-      "30":{"SuspiciousRat":1,"ZombieGnoll":1,"Worm":2}
+	  "29":{"SuspiciousRat":2,"ZombieGnoll":1,"Worm":2}
    },
    "SpiderLevel":{
       "6s":{"SpiderServant":1,"SpiderGuard":0.1},

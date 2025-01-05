@@ -12,6 +12,7 @@ local hero = RPD.Dungeon.hero
 local depth = RPD.Dungeon.depth
 
 local level
+local noModifs = {mod = 0, dmg = 0, type = {"phys",""}, element = {"crush",""}, loot = {}, chance = {} }
 local dmgModifs = {
    BoneGolem_lvl1 = {mod = 0, dmg = 0, type = {"phys",""}, element = {"crush",""}, loot ={}, chance ={}},
    BoneGolem_lvl2 = {mod = 1, dmg = 5, type = {"phys","phys"}, element = {"crush","dark"}, loot ={}, chance ={}},
@@ -34,8 +35,8 @@ local dmgModifs = {
    b= {mod = 0, dmg = 0, type = {"",""}, element = {"",""}},
    c= {mod = 0, dmg = 0, type = {"",""}, element = {"",""}},
    
-   Rat = {mod = 2, dmg = 2, type = {"phys","mag"}, element = {"cut","poison"},loot ={"materials/RatClaw"}, chance ={40}},
-   Gnoll = {mod = 0, dmg = 0, type = {"phys",""}, element = {"crush",""},loot ={"materials/GnollSkin"}, chance ={40}},
+   Rat = {mod = 2, dmg = 2, type = {"phys","mag"}, element = {"cut","poison"},loot ={"materials/RatClaw"}, chance ={100}},
+   Gnoll = {mod = 0, dmg = 0, type = {"phys",""}, element = {"crush",""},loot ={"materials/GnollSkin"}, chance ={100}},
    Crab = {mod = 0, dmg = 0, type = {"phys",""}, element = {"chop",""},loot ={"materials/CrabClaw"}, chance ={30}},
    Albino = {mod = 2, dmg = 2, type = {"phys","mag"}, element = {"cut","poison"},loot ={"materials/AlbinoFang"}, chance ={50}},
    Woodlouise = {mod = 0, dmg = 0, type = {"phys",""}, element = {"crush",""},loot ={"materials/WoodlouiseCarapace"}, chance ={30}},
@@ -125,14 +126,19 @@ return buff.init{
     
 attackProc = function(self,buff,enemy,damage)
   depth = RPD.Dungeon.depth
-  local totalDmg = damage + RPG.smartInt(-0.8 +0.25*depth +2*(depth%5))
+  local bossLvl = 0
+  if depth % 5 == 0 then
+    bossLvl = depth/5
+  end
+  
+  local totalDmg = damage + RPG.smartInt(-1 +0.25*depth +2*bossLvl)
 
-  local mobModifs = dmgModifs[buff.target:getMobClassName()]
+  local mobModifs = dmgModifs[buff.target:getMobClassName()] or noModifs
 
   --don't crash if no modifier defined
-  if not mobModifs then
-    return totalDmg
-  end
+  --if not mobModifs then
+  --  return totalDmg
+  --end
 
   local type = mobModifs["type"]
   local element = mobModifs["element"]

@@ -18,13 +18,13 @@ local a = "bloodygreed"
 
 return spell.init{
     desc  = function ()
-    local Count = storage.gameGet(a) or {}
+    local Spell = storage.gameGet(a) or {}
 
-     if Count.lvl == nil then
+     if Spell.lvl == nil then
   lvl = 1
   else
    if lvl == nil then
-    lvl = Count.lvl
+    lvl = Spell.lvl
    end
   end
         return {
@@ -41,17 +41,17 @@ return spell.init{
         }
     end,
     cast = function(self, spell, chr, cell)
-    Count = storage.gameGet(a) or {}
+    Spell = storage.gameGet(a) or {}
     
     if RPD.Dungeon.hero:lvl() <= 4 then
      RPD.glog(RPD.textById("LvlLimit"))
      return false
     end
     
-    if Count.lvl ~= nil then
-     lvl = Count.lvl
-     exp = Count.exp
-     expMax = Count.expMax
+    if Spell.lvl ~= nil then
+     lvl = Spell.lvl
+     exp = Spell.exp
+     expMax = Spell.expMax
      storage.gamePut(a,{exp = exp, expMax = expMax, lvl = lvl})
     else
      lvl = 1

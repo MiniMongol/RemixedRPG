@@ -23,9 +23,17 @@ return buff.init{
     end,
     
     attackProc = function(self,buff,enemy,damage)
-    local Spell = storage.gameGet(a) or {}
-    
-    buff.target:heal(damage*(0.05+0.12*buff:level()),buff.target)
-    return damage
+      local Spell = storage.gameGet(a) or {}
+      local exp = Spell.exp
+      local expMax = Spell.expMax
+      local lvl = Spell.lvl
+      
+      storage.gamePut(a,{exp = exp + 1, expMax = expMax, lvl = lvl})
+      if Spell.exp == Spell.expMax then
+        storage.gamePut(a,{exp = 0, expMax = expMax+6, lvl = lvl + 1})
+      end
+      
+      buff.target:heal(damage*(0.05+0.12*buff:level()),buff.target)
+      return damage
     end
 }

@@ -29,9 +29,10 @@ local buff = require "scripts/lib/buff"
 
 return buff.init{
     desc  = function ()
-      spellList["Combat"] = Que.getMas("spelllist")
+      
+      
         return {
-            icon          = -1,
+            icon          = 1,
             name          = "",
             info          = "",
             data = {}
@@ -41,6 +42,35 @@ return buff.init{
     
     
     speedMultiplier = function(self, buff)
+      hero = RPD.Dungeon.hero
+      spellList["Common"] = Que.getMas("spelllist")
+      if RPG.lvlToUp - hero:lvl() >= 1 or RPG.strength == nil then
+	    local save = storage.gameGet("") or {}
+	    RPD.glog("h")
+	    RPD.permanentBuff(hero,"RPGbuff")
+	    if hero:lvl() == 1 then
+	      hero:ht(10)
+	      hero:hp(10)
+	      hero:setMaxSkillPoints(1)
+          hero:setSkillPoints(1)
+	    end
+	      RPG.strength = save.str
+        RPG.intelligence = save.int
+        RPG.dexterity = save.dex
+        RPG.vitality = save.vit
+        RPG.wisdom = save.wis
+        RPG.luck = save.luc
+     
+        RPG.sPoints = save.sP
+        RPG.spRegen = save.spR
+        RPG.physicStr = save.phyS
+        RPG.magicStr = save.magS
+        RPG.fast = save.fast
+        RPG.mageDef = save.magDef
+        RPG.lvlToUp = save.lvlT
+        RPG.class = save.class
+        RPG.subclass = save.subclass
+	  end
       return RPG.baseSpeed()
     end,
     
@@ -53,6 +83,8 @@ return buff.init{
       subClass = storage.gameGet("subClassNone")
       local Spells = require "scripts/spells/CustomSpellsList"
       local weapon = hero:getBelongings().weapon
+      local steps = storage.gameGet("heroSteps").steps
+      storage.gamePut("heroSteps",{steps = steps+1})
       
       local lefthand = hero:getBelongings().leftHand
 	    local armor = hero:getItemFromSlot("ARMOR")
@@ -78,7 +110,7 @@ return buff.init{
       if hero:STR() > 1 then
         hero:STR(1)
         RPG.physicStr = RPG.physicStr+5
-        storage.gamePut(stats, {str = RPG.strength, int = RPG.intelligence, dex = RPG.dexterity, vit = RPG.vitality, wis = RPG.wisdom, luc = RPG.luck, lvlT = RPG.lvlToUp, magS = RPG.magicStr, phyS = RPG.physicStr, fast = RPG.fast, sP = RPG.sPoints, spR = RPG.spRegen,magDef = RPG.magDef, class = RPG.class, subclass = RPG.subclass})
+        storage.gamePut(stats, {str = RPG.strength, int = RPG.intelligence, dex = RPG.dexterity, vit = RPG.vitality, wis = RPG.wisdom, luc = RPG.luck, lvlT = RPG.lvlToUp, magS = RPG.magicStr, phyS = RPG.physicStr, fast = RPG.fast, sP = RPG.sPoints, spR = RPG.spRegen,magDef = RPG.magDef, class = RPG.class, subclass = RPG.subclass, spells = Que.getMas("spelllist")})
         storage.gamePut(tostring(hero:lvl()), {str = RPG.strength, int = RPG.intelligence, dex = RPG.dexterity, vit = RPG.vitality, wis = RPG.wisdom, luc = RPG.luck, lvlT = RPG.lvlToUp, magS = RPG.magicStr, phyS = RPG.physicStr, fast = RPG.fast, sP = RPG.sPoints, spR = RPG.spRegen,magDef = RPG.magDef, class = RPG.class, subclass = RPG.subclass, spells = Que.getMas("spelllist")})	
       end
       
@@ -164,15 +196,15 @@ return buff.init{
 
            RPD.permanentBuff(enemy,"PowerBuff")
               local bossLvl = 0
-              if depth == 5 then
-                bossLvl = depth%5
+              if depth % 5 == 0 then
+                bossLvl = depth/5
               end
-              local addHp = RPG.smartInt(-5 +2*depth  +8*(depth%5) + 10*bossLvl)
+              local addHp = RPG.smartInt(-6 +3*depth + 25*bossLvl)
               if enemy:hp() < enemy:ht() then
                 enemy:ht(enemy:ht() + addHp)
                 enemy:hp(enemy:hp() + addHp)
               else
-                enemy:ht(enemy:ht() +enemy:ht()*0.02*depth + addHp)
+                enemy:ht(enemy:ht() +RPG.smartInt(enemy:ht()*0.025*depth) + addHp)
                 enemy:hp(enemy:ht())
               end
             end
@@ -198,8 +230,8 @@ return buff.init{
         RPG.class = Stats.class
         RPG.subclass = Stats.subclass
       end
-	  
-	  if RPG.lvlToUp - hero:lvl() >= 1 then
+      
+	  if RPG.lvlToUp - hero:lvl() >= 1 or RPG.strength == nil then
 	    local save = storage.gameGet(tostring(hero:lvl())) or {}
 	    if hero:lvl() == 1 then
 	      hero:ht(10)
@@ -207,7 +239,7 @@ return buff.init{
 	      hero:setMaxSkillPoints(1)
           hero:setSkillPoints(1)
 	    end
-	    RPG.strength = save.str
+	      RPG.strength = save.str
         RPG.intelligence = save.int
         RPG.dexterity = save.dex
         RPG.vitality = save.vit
@@ -224,7 +256,7 @@ return buff.init{
         RPG.class = save.class
         RPG.subclass = save.subclass
 		Que.pushMas("spelllist", save.spells)
-		storage.gamePut(stats, {str = RPG.strength, int = RPG.intelligence, dex = RPG.dexterity, vit = RPG.vitality, wis = RPG.wisdom, luc = RPG.luck, lvlT = RPG.lvlToUp, magS = RPG.magicStr, phyS = RPG.physicStr, fast = RPG.fast, sP = RPG.sPoints, spR = RPG.spRegen, magDef = RPG.magDef, class = RPG.class, subclass = RPG.subclass})
+		storage.gamePut(stats, {str = RPG.strength, int = RPG.intelligence, dex = RPG.dexterity, vit = RPG.vitality, wis = RPG.wisdom, luc = RPG.luck, lvlT = RPG.lvlToUp, magS = RPG.magicStr, phyS = RPG.physicStr, fast = RPG.fast, sP = RPG.sPoints, spR = RPG.spRegen, magDef = RPG.magDef, class = RPG.class, subclass = RPG.subclass, spells = Que.getMas("spelllist")})
 	  end
      
       if hero:lvl() > RPG.lvlToUp then
@@ -240,7 +272,7 @@ return buff.init{
           RPG.sPoints = RPG.sPoints+3
           RPD.glog(RPD.textById("LvlUpHappy"))
         end   
-        storage.gamePut(stats, {str = RPG.strength, int = RPG.intelligence, dex = RPG.dexterity, vit = RPG.vitality, wis = RPG.wisdom, luc = RPG.luck, lvlT = RPG.lvlToUp, magS = RPG.magicStr, phyS = RPG.physicStr, fast = RPG.fast, sP = RPG.sPoints, spR = RPG.spRegen,magDef = RPG.magDef, class = RPG.class, subclass = RPG.subclass})
+        storage.gamePut(stats, {str = RPG.strength, int = RPG.intelligence, dex = RPG.dexterity, vit = RPG.vitality, wis = RPG.wisdom, luc = RPG.luck, lvlT = RPG.lvlToUp, magS = RPG.magicStr, phyS = RPG.physicStr, fast = RPG.fast, sP = RPG.sPoints, spR = RPG.spRegen,magDef = RPG.magDef, class = RPG.class, subclass = RPG.subclass, spells = Que.getMas("spelllist")})
 		storage.gamePut(tostring(hero:lvl()), {str = RPG.strength, int = RPG.intelligence, dex = RPG.dexterity, vit = RPG.vitality, wis = RPG.wisdom, luc = RPG.luck, lvlT = RPG.lvlToUp, magS = RPG.magicStr, phyS = RPG.physicStr, fast = RPG.fast, sP = RPG.sPoints, spR = RPG.spRegen,magDef = RPG.magDef, class = RPG.class, subclass = RPG.subclass, spells = Que.getMas("spelllist")})	
       end
       
@@ -258,7 +290,6 @@ return buff.init{
 
     
     regenerationBonus = function(self,buff)
-      buff:speedMultiplier()
       return 1 + buff.target:ht()*0.03
     end,
     

@@ -114,7 +114,9 @@ return spell.init{
       RPD.glog(RPD.textById("SubclassLimit"))
       return false
     end
-    if RPG.distance(cell) > 1 and level:getTileType(cell) == 4 or level:getTileType(cell) == 12 then
+    
+    local noPlace = {"4","12","13"}
+    if RPG.distance(cell) > 1 and not noPlace[level:getTileType(cell)] then
       RPD.glog(RPD.textById("DistanceLimit"))
       return false
     end

@@ -24,7 +24,7 @@ return mob.init({
     
     hero = RPD.Dungeon.hero
     seller = self
-    data = storage.gameGet("heroSteps", {steps = 1})
+    data = storage.gameGet("heroSteps")
     buyDelay = data.steps 
     
     
@@ -60,8 +60,8 @@ return mob.init({
     end,
     
     spawn = function(self, chr)
-      data = storage.gameGet("blacksmithAct") or {act = 0}
-      if data.act == 0 then
+      local bData = storage.gameGet("blacksmithAct") or {act = 0}
+      if bData.act == 0 then
         storage.gamePut("blacksmithAct",{ act = 1})
       self:collect(RPD.createItem("materials/iron",{quantity=10}))
       
