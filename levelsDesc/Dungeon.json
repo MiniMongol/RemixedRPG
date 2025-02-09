@@ -74,7 +74,7 @@
    "Graph":{
     "0":[["town_2"],[]],
 
-    "town_2":[["church_2","cinema_2","31","library_2","shop_town_2","fortune_2","inn_2","Blacksmith_shop"],["30"]],
+    "town_2":[["church_2","cinema_2","1","library_2","shop_town_2","fortune_2","inn_2","Blacksmith_shop"],["0"]],
     "Blacksmith_shop":[[],["town_2"]],
     "inn_2":[[],["town_2"]],
 	  "church_2":[[],["town_2"]],

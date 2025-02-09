@@ -44,9 +44,56 @@ return buff.init{
     speedMultiplier = function(self, buff)
       hero = RPD.Dungeon.hero
       spellList["Common"] = Que.getMas("spelllist")
+      local weapon = hero:getBelongings().weapon
+      local lefthand = hero:getBelongings().leftHand
+	    local armor = hero:getItemFromSlot("ARMOR")
+ 	    local artifact = hero:getBelongings().ring1
+	    local leftArtifact = hero:getBelongings().ring2
+	    local StatsA = RPG.StatsA
+	    local StatsA2 = RPG.StatsA2
+	    local StatsB = RPG.StatsB
+	    local StatsArt = RPG.StatsArt
+	    local StatsArt2 = RPG.StatsArt2
+	    
+      if RPG.luck == nil then
+
+        if string.sub(tostring(weapon:getClass()),-10) == "CustomItem" then
+          weapon:deactivate(hero)
+          weapon:activate(hero)
+        end
+      
+        if string.sub(tostring(lefthand:getClass()),-10) == "CustomItem" then
+          lefthand:deactivate(hero)
+          lefthand:activate(hero)
+        end
+      
+        if string.sub(tostring(armor:getClass()),-10) == "CustomItem" then
+          armor:deactivate(hero)
+          armor:activate(hero,true)
+        end
+     
+       if string.sub(tostring(artifact:getClass()),-10) == "CustomItem"  then
+       for i=3,8 do
+            StatsArt[RPG.statsName[i]] = 0
+       end
+       for i=9,21 do
+            StatsArt[RPG.statsName[i]] = {0,0}     end
+        end
+      
+        if string.sub(tostring(leftArtifact:getClass()),-10) == "CustomItem"  then
+        for i=3,8 do
+            StatsArt2[RPG.statsName[i]] = 0
+        end
+        for i=9,21 do
+            StatsArt2[RPG.statsName[i]] = {0,0}
+          end
+        end
+      
+      end
+      
       if RPG.lvlToUp - hero:lvl() >= 1 or RPG.strength == nil then
 	    local save = storage.gameGet("") or {}
-	    RPD.glog("h")
+	    
 	    RPD.permanentBuff(hero,"RPGbuff")
 	    if hero:lvl() == 1 then
 	      hero:ht(10)
@@ -76,25 +123,15 @@ return buff.init{
     
     
     charAct = function(self,buff)
+    
       local Stats = storage.gameGet(stats) or {}
       hero = RPD.Dungeon.hero
       level = RPD.Dungeon.level
       depth = RPD.Dungeon.depth
       subClass = storage.gameGet("subClassNone")
       local Spells = require "scripts/spells/CustomSpellsList"
-      local weapon = hero:getBelongings().weapon
       local steps = storage.gameGet("heroSteps").steps
       storage.gamePut("heroSteps",{steps = steps+1})
-      
-      local lefthand = hero:getBelongings().leftHand
-	    local armor = hero:getItemFromSlot("ARMOR")
- 	    local artifact = hero:getBelongings().ring1
-	    local leftArtifact = hero:getBelongings().ring2
-	    local StatsA = RPG.StatsA
-	    local StatsA2 = RPG.StatsA2
-	    local StatsB = RPG.StatsB
-	    local StatsArt = RPG.StatsArt
-	    local StatsArt2 = RPG.StatsArt2
       Spells.Combat = Que.getMas("spelllist")
       
       if hero:isStarving() then
@@ -106,51 +143,12 @@ return buff.init{
         RPD.removeBuff(hero,"Poison")
       end
       
-      
       if hero:STR() > 1 then
         hero:STR(1)
         RPG.physicStr = RPG.physicStr+5
         storage.gamePut(stats, {str = RPG.strength, int = RPG.intelligence, dex = RPG.dexterity, vit = RPG.vitality, wis = RPG.wisdom, luc = RPG.luck, lvlT = RPG.lvlToUp, magS = RPG.magicStr, phyS = RPG.physicStr, fast = RPG.fast, sP = RPG.sPoints, spR = RPG.spRegen,magDef = RPG.magDef, class = RPG.class, subclass = RPG.subclass, spells = Que.getMas("spelllist")})
         storage.gamePut(tostring(hero:lvl()), {str = RPG.strength, int = RPG.intelligence, dex = RPG.dexterity, vit = RPG.vitality, wis = RPG.wisdom, luc = RPG.luck, lvlT = RPG.lvlToUp, magS = RPG.magicStr, phyS = RPG.physicStr, fast = RPG.fast, sP = RPG.sPoints, spR = RPG.spRegen,magDef = RPG.magDef, class = RPG.class, subclass = RPG.subclass, spells = Que.getMas("spelllist")})	
       end
-      
-      if RPG.luck == nil then
-
-        if string.sub(tostring(weapon:getClass()),-10) == "CustomItem" then
-          weapon:deactivate(hero)
-          weapon:activate(hero)
-        end
-      
-        if string.sub(tostring(lefthand:getClass()),-10) == "CustomItem" then
-          lefthand:deactivate(hero)
-          lefthand:activate(hero)
-        end
-      
-        if string.sub(tostring(armor:getClass()),-10) == "CustomItem" then
-          armor:deactivate(hero)
-          armor:activate(hero)
-        end
-      
-     
-       if string.sub(tostring(artifact:getClass()),-10) == "CustomItem"  then
-       for i=3,8 do
-            StatsArt[RPG.statsName[i]] = 0
-       end
-       for i=9,21 do
-            StatsArt[RPG.statsName[i]] = {0,0}     end
-        end
-      
-        if string.sub(tostring(leftArtifact:getClass()),-10) == "CustomItem"  then
-        for i=3,8 do
-            StatsArt2[RPG.statsName[i]] = 0
-        end
-        for i=9,21 do
-            StatsArt2[RPG.statsName[i]] = {0,0}
-          end
-        end
-      
-      end
-      
       
       if hero:getBelongings():getItem("RatArmor") ~= nil then
          hero:getBelongings():getItem("RatArmor"):detach(hero:getBelongings().backpack)
@@ -166,24 +164,24 @@ return buff.init{
         RPD.glog(RPD.textById("KydaLezem"))
       end
       
-	if hero:getBelongings():getItem("ArmorKit") ~= nil then
-         hero:getBelongings():getItem("ArmorKit"):detach(hero:getBelongings()
+	    if hero:getBelongings():getItem("ArmorKit") ~= nil then
+        hero:getBelongings():getItem("ArmorKit"):detach(hero:getBelongings()
 .backpack)
-    end
+      end
     
-    local golem = storage.gameGet("summonbonegolem") or {}
+      local golem = storage.gameGet("summonbonegolem") or {}
     local petsCount = hero:countPets()
-    if petsCount > 4 and golem.exp ~= nil then
-      storage.gamePut(a,{exp = golem.exp, expMax = golem.expMax, lvl = golem.lvl, summon = golem.summon +petsCount -3, summonMax = golem.summonMax})
-    end
+      if petsCount > 4 and golem.exp ~= nil then
+        storage.gamePut(a,{exp = golem.exp, expMax = golem.expMax, lvl = golem.lvl, summon = golem.summon +petsCount -3, summonMax = golem.summonMax})
+      end
     
-    local mobsExeptions =
-    {
-    BoneGolem_lvl1=false,
-    BoneGolem_lvl2=false,
-    BoneGolem_lvl3=false,
-    Sheep = false
-    }
+      local mobsExeptions =
+      {
+      BoneGolem_lvl1=false,
+      BoneGolem_lvl2=false,
+      BoneGolem_lvl3=false,
+      Sheep = false
+      }
     
       local levelW = RPD.Dungeon.level:getWidth()
       local levelH = RPD.Dungeon.level:getHeight()
@@ -231,14 +229,17 @@ return buff.init{
         RPG.subclass = Stats.subclass
       end
       
-	  if RPG.lvlToUp - hero:lvl() >= 1 or RPG.strength == nil then
-	    local save = storage.gameGet(tostring(hero:lvl())) or {}
-	    if hero:lvl() == 1 then
-	      hero:ht(10)
-	      hero:hp(10)
-	      hero:setMaxSkillPoints(1)
+  	  if RPG.lvlToUp - hero:lvl() >= 1 or RPG.strength == nil then
+  	  
+  	    local save = storage.gameGet(tostring(hero:lvl())) or {}
+  	    
+  	    if hero:lvl() == 1 then
+  	      hero:ht(10)
+  	      hero:hp(10)
+  	      hero:setMaxSkillPoints(1)
           hero:setSkillPoints(1)
-	    end
+  	    end
+  	    
 	      RPG.strength = save.str
         RPG.intelligence = save.int
         RPG.dexterity = save.dex
@@ -255,9 +256,10 @@ return buff.init{
         RPG.lvlToUp = save.lvlT
         RPG.class = save.class
         RPG.subclass = save.subclass
-		Que.pushMas("spelllist", save.spells)
-		storage.gamePut(stats, {str = RPG.strength, int = RPG.intelligence, dex = RPG.dexterity, vit = RPG.vitality, wis = RPG.wisdom, luc = RPG.luck, lvlT = RPG.lvlToUp, magS = RPG.magicStr, phyS = RPG.physicStr, fast = RPG.fast, sP = RPG.sPoints, spR = RPG.spRegen, magDef = RPG.magDef, class = RPG.class, subclass = RPG.subclass, spells = Que.getMas("spelllist")})
-	  end
+        
+    		Que.pushMas("spelllist", save.spells)
+    		storage.gamePut(stats, {str = RPG.strength, int = RPG.intelligence, dex = RPG.dexterity, vit = RPG.vitality, wis = RPG.wisdom, luc = RPG.luck, lvlT = RPG.lvlToUp, magS = RPG.magicStr, phyS = RPG.physicStr, fast = RPG.fast, sP = RPG.sPoints, spR = RPG.spRegen, magDef = RPG.magDef, class = RPG.class, subclass = RPG.subclass, spells = Que.getMas("spelllist")})
+  	  end
      
       if hero:lvl() > RPG.lvlToUp then
         RPG.lvlToUp = hero:lvl()
@@ -273,7 +275,7 @@ return buff.init{
           RPD.glog(RPD.textById("LvlUpHappy"))
         end   
         storage.gamePut(stats, {str = RPG.strength, int = RPG.intelligence, dex = RPG.dexterity, vit = RPG.vitality, wis = RPG.wisdom, luc = RPG.luck, lvlT = RPG.lvlToUp, magS = RPG.magicStr, phyS = RPG.physicStr, fast = RPG.fast, sP = RPG.sPoints, spR = RPG.spRegen,magDef = RPG.magDef, class = RPG.class, subclass = RPG.subclass, spells = Que.getMas("spelllist")})
-		storage.gamePut(tostring(hero:lvl()), {str = RPG.strength, int = RPG.intelligence, dex = RPG.dexterity, vit = RPG.vitality, wis = RPG.wisdom, luc = RPG.luck, lvlT = RPG.lvlToUp, magS = RPG.magicStr, phyS = RPG.physicStr, fast = RPG.fast, sP = RPG.sPoints, spR = RPG.spRegen,magDef = RPG.magDef, class = RPG.class, subclass = RPG.subclass, spells = Que.getMas("spelllist")})	
+		    storage.gamePut(tostring(hero:lvl()), {str = RPG.strength, int = RPG.intelligence, dex = RPG.dexterity, vit = RPG.vitality, wis = RPG.wisdom, luc = RPG.luck, lvlT = RPG.lvlToUp, magS = RPG.magicStr, phyS = RPG.physicStr, fast = RPG.fast, sP = RPG.sPoints, spR = RPG.spRegen,magDef = RPG.magDef, class = RPG.class, subclass = RPG.subclass, spells = Que.getMas("spelllist")})	
       end
       
       --Пассивка берсерка--
@@ -295,10 +297,13 @@ return buff.init{
     
     attackProc = function(self,buff,enemy,damage)
       level = RPD.Dungeon.level
+      
+      --Пассивка Некроманта и Бандита--
       if RPG.subclass == "Bandit" or RPG.subclass == "Necromancer" then
         luckBonus = 1.5
       end
       
+      --Пассивка Ниндзя--
       if RPG.subclass == "Ninja" then
         if enemy:buffLevel("KiMark") == 1 then
           enemy:damage(RPG.magStr()*0.35, buff.target)
@@ -307,6 +312,7 @@ return buff.init{
         end
       end
       
+      --Пассивка Бандита. тут я чёт намудрил--
       if RPG.physicStr ~= nil then
         if math.random(10,100+enemy:defenseSkill()) <= RPG.AllLuck()*luckBonus then
         
@@ -330,7 +336,10 @@ return buff.init{
     end,
     
     defenceProc = function(self, buff, enemy, damage)
+    
       hero = RPD.Dungeon.hero
+      
+      --Механика блока--
       if RPG.dexterity ~= nil then
         if math.random(1,120+enemy:attackSkill()) <= (RPG.AllLuck()*0.5)*luckBonus + RPG.AllFast()*0.25 then
           hero:getSprite():showStatus(0xffff00,RPD.textById("block"))
@@ -342,5 +351,6 @@ return buff.init{
       else
         return damage
       end
+      
     end
 }
