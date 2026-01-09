@@ -13,6 +13,8 @@ local Add = require "scripts/lib/AdditionalFunctions"
 
 local smithing = require "scripts/lib/smithing"
 
+local Que = require "scripts/lib/Queue"
+
 local itemLib = require "scripts/lib/item"
 
 
@@ -100,14 +102,19 @@ return itemLib.init{
         RPD.glog("execute owner: %s", tostring(owner))
 
         if action == "action1" then
-         hero:damage(math.random(5.5457,10.29494),hero)
+          local mas = {"a","b","c"}
+          Que.new("Alp")
+          Que.pushMas("Alp",mas)
+          mas = Que.getMas("Alp")
+          
+          RPD.glog(mas[1])
         end
 
         if action == "action2" then
-          local r
-          if r ~= "true" then
-            RPD.glog("nil")
-          end
+          local mas1 = {"d","e"}
+          Que.addMas("Alp",mas1)
+          local mas = Que.getMas("Alp")
+          RPD.glog(mas[3])
         end
 
         if action == "action3" then

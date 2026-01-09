@@ -133,6 +133,11 @@ classDialog = function(index)
     Que.pushMas(sList,sMas)
     RPG.class = "Mage"
  end
+ if index == 3 then
+    sMas = {"Guillotine"}
+    Que.addMas(sList,sMas)
+    RPG.class = "Mage"
+ end
 
  storage.gamePut(stats, {str = RPG.strength, int = RPG.intelligence, dex = RPG.dexterity, vit = RPG.vitality, wis = RPG.wisdom, luc = RPG.luck, lvlT = RPG.lvlToUp, magS = RPG.magicStr, phyS = RPG.physicStr, fast = RPG.fast, sP = RPG.sPoints, spR = RPG.spRegen,magDef = RPG.magDef, class = RPG.class,subclass = RPG.subclass, spells = Que.getMas("spelllist")})
 end

@@ -58,7 +58,7 @@ desc  = function(self, item)
               dr = 0.7,
               
               weapon = 
-              {{4,0},
+              {{0,0},
                {0,0},
                {0,0},
                {0,0},

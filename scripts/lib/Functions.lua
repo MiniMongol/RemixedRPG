@@ -207,6 +207,8 @@ local RPG
  
  
  defence = {
+  Voidbeast = {magDef=6, fire=0.6, water, ice, earth, wind, lightning=0.8, poison=1.5, light=0.6, dark=1.1, cut=0.9, chop=0.8, stab=0.8, crush},
+ 
    BoneGolem_lvl1 = {magDef = 2, fire =1.2, water=0.9, ice, earth=0.9, wind=0.9, lightning=1.5, poison=5, light=0.5, dark=1.5, cut=1.5,  chop=0.7, stab=0.8,  crush=0.6},
    BoneGolem_lvl2 = {magDef = 5, fire =1.2, water=0.9, ice, earth=0.9, wind=0.9, lightning=1.5, poison=5, light=0.5, dark=1.5, cut=1.5,  chop=0.7, stab=0.8,  crush=0.6},
    BoneGolem_lvl3 = {magDef = 8, fire =1.2, water=0.9, ice, earth=0.9, wind=0.9, lightning=1.5, poison=5, light=0.5, dark=1.5, cut=1.5,  chop=0.7, stab=0.8,  crush=0.6},

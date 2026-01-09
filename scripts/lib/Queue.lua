@@ -9,13 +9,24 @@ local Que = {
  
  pushMas = function(name,mas)
   local Que = storage.gameGet(name) or {}
-  storage.gamePut(name,{mas = mas,size = #mas+1})
+  storage.gamePut(name,{mas = mas,size = #mas})
+ end,
+ 
+ addMas = function(name,mas)
+  local Que = storage.gameGet(name) or {}
+  local oldmas = Que.mas
+  local size = Que.size
+  for i = size+1, #mas+size do
+    oldmas[i] = mas[i-size]
+  end
+  
+  storage.gamePut(name,{mas = oldmas,size = size + #mas})
  end,
  
  push = function(name,count)
   local Que = storage.gameGet(name) or {}
   local mas = Que.mas
-  mas[Que.size] = count
+  mas[Que.size+1] = count
   storage.gamePut(name,{mas = mas,size = Que.size+1})
  end,
  
@@ -43,7 +54,7 @@ local Que = {
   else
    mas[0] = 0
   end
-  if Que.size ~= 0 then
+  if size ~= 1 then
    size = size-1
   end
   storage.gamePut(name,{mas = mas,size = size})

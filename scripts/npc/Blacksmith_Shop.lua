@@ -18,7 +18,9 @@ local lvl = 2
 local seller
 local data
 
-return mob.init({ 
+return mob.init({
+  
+  
     
   interact = function(self, chr)
     
@@ -51,7 +53,7 @@ return mob.init({
         end
         
       if RPG.luck ~= nil then
-        RPD.showTradeWindow(seller,hero)
+        RPD.showBuyWindow(seller,hero)
       end
     end,
     

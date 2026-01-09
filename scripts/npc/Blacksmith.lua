@@ -18,7 +18,7 @@ local seller
 local data
 
 blacksmithInteract = function(index) 
-      smithy.lvl = 2
+      smithy.lvl = 3
       smithy.exp = "-"
       smithy.expToUp = "-"
       smithy.myself = false

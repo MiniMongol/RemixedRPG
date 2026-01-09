@@ -10,10 +10,6 @@
       {
         "kind": "ModClothArmor",
         "quantity":1
-      },
-      {
-          "kind":"consume/LuckPotion",
-          "quantity":2
       }
     ],
     "str":9,

@@ -208,7 +208,8 @@ local Add = {
                 "ClassPickD",
                 "warrior",
                 "rogue",
-                "mage"
+                "mage",
+                "twohanded"
         )
  end,
  
